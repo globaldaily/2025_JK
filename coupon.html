@@ -321,9 +321,13 @@
       }
 
       .header {
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
       
       .lang-switcher {
         order: 3;
@@ -335,6 +339,52 @@
         flex-grow: 1;
       }
     }
+.lang-toggle {
+  position: relative;
+}
+
+#langBtn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  z-index: 999;
+}
+
+.lang-menu button {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text);
+  transition: background 0.2s;
+}
+
+.lang-menu button:hover {
+  background: var(--gray-100);
+}
+
+.lang-menu.hidden {
+  display: none;
+}
+
+
   </style>
 </head>
 <body>
@@ -348,24 +398,23 @@
       </div>
       
       <!-- 다국어 선택기 -->
-      <div class="lang-switcher">
-        <button data-lang="ja" class="active">日本語</button>
-        <button data-lang="ko">한국어</button>
-        <button data-lang="en">English</button>
-        <button data-lang="th">🇹🇭</button>
-      </div>
+      <!-- 기존 lang-switcher 제거하고 -->
+<div class="lang-toggle">
+  <button id="langBtn" aria-label="言語切替">🌐</button>
+  <div id="langMenu" class="lang-menu hidden">
+    <button data-lang="ja">🇯🇵 日本語</button>
+    <button data-lang="ko">🇰🇷 한국어</button>
+    <button data-lang="en">🇺🇸 English</button>
+    <button data-lang="th">🇹🇭 ภาษาไทย</button>
+  </div>
+</div>
+
 
       <div class="flex-center">
         <button class="btn btn-primary" id="locateBtn" aria-label="現在地の近くを表示">近くを表示</button>
         <button class="toggle-theme" id="themeToggle" aria-label="テーマ切替">🌓</button>
       </div>
     </header>
-    
-    <section class="hero-section">
-      <h1>旅の思い出に、お得な特典を。</h1>
-      <p>日本旅行をもっと楽しく、もっとおトクに。人気スポットやグルメが"訪日外国人限定"で割引になります。</p>
-      <a href="#couponGrid" class="cta-button">今すぐクーポンをチェック</a>
-    </section>
     
     <div class="search" aria-label="検索とフィルター">
       <input type="search" id="searchInput" placeholder="店名・エリアで検索..." aria-label="クーポン検索" />
@@ -380,7 +429,11 @@
       <div class="pill" data-filter="transport" role="tab" aria-selected="false" tabindex="0">交通</div>
       <div class="pill" data-filter="nearby" role="tab" aria-selected="false" tabindex="0">近く</div>
     </div>
-
+  <section class="hero-section">
+      <h1>旅の思い出に、お得な特典を。</h1>
+      <p>日本旅行をもっと楽しく、もっとおトクに。人気スポットやグルメが"訪日外国人限定"で割引になります。</p>
+      <a href="#couponGrid" class="cta-button">今すぐクーポンをチェック</a>
+    </section>
     <!-- 위치 에러 표시 -->
     <div class="location-error" id="locationError">
       <strong>現在地を使用できません</strong>
@@ -2159,6 +2212,34 @@
       window.app = app; // 전역 접근용
       await app.init();
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const langBtn = document.getElementById('langBtn');
+  const langMenu = document.getElementById('langMenu');
+
+  if (langBtn && langMenu) {
+    langBtn.addEventListener('click', () => {
+      langMenu.classList.toggle('hidden');
+    });
+
+    // 메뉴 외부 클릭 시 닫기
+    document.addEventListener('click', (e) => {
+      if (!langMenu.contains(e.target) && !langBtn.contains(e.target)) {
+        langMenu.classList.add('hidden');
+      }
+    });
+
+    // 언어 선택 이벤트
+    langMenu.querySelectorAll('button[data-lang]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const lang = btn.dataset.lang;
+        LanguageManager.setLanguage(lang);
+        langMenu.classList.add('hidden');
+      });
+    });
+  }
+});
+
   </script>
 </body>
 </html>
