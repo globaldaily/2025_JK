@@ -1,0 +1,1253 @@
+<!--
+WordPress 연동을 위한 PHP 코드 (functions.php에 추가):
+
+// 1. REST API 엔드포인트 등록
+add_action('rest_api_init', function () {
+    register_rest_route('jkwallet/v1', '/coupons', array(
+        'methods' => 'GET',
+        'callback' => 'get_jkwallet_coupons',
+        'permission_callback' => '__return_true'
+    ));
+});
+
+// 2. 쿠폰 데이터 반환 함수
+function get_jkwallet_coupons() {
+    $coupons = [];
+    
+    // ACF Pro Repeater Field에서 데이터 가져오기
+    if( have_rows('coupons', 'option') ) {
+        while( have_rows('coupons', 'option') ) {
+            the_row();
+            $coupons[] = [
+                'id' => get_sub_field('id'),
+                'store' => get_sub_field('store'),
+                'offer' => get_sub_field('offer'),
+                'description' => get_sub_field('description'),
+                'category' => get_sub_field('category'),
+                'expiry' => get_sub_field('expiry'),
+                'image' => get_sub_field('image'),
+                'code' => get_sub_field('code'),
+                'lat' => floatval(get_sub_field('lat')),
+                'lng' => floatval(get_sub_field('lng')),
+                'rating' => floatval(get_sub_field('rating'))
+            ];
+        }
+    }
+    
+    return rest_ensure_response($coupons);
+}
+
+// 3. JavaScript에 API 경로 전달 (권장)
+function enqueue_jkwallet_scripts() {
+    wp_enqueue_script('jkwallet', get_template_directory_uri() . '/js/jkwallet.js', [], '1.0', true);
+    wp_localize_script('jkwallet', 'wpApiSettings', array(
+        'root' => esc_url_raw(rest_url()),
+        'nonce' => wp_create_nonce('wp_rest')
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
+-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Japankuru クーポンウォレット</title>
+
+  <!-- 최소 핵심 스타일 -->
+  <style>
+    :root {
+      --primary:#2563eb;
+      --bg:#f3f4f6;
+      --card:#ffffff;
+      --radius:.75rem;
+      --shadow:0 4px 12px rgba(0,0,0,0.08);
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#d1d5db;
+      --gray-100:#f3f4f6;
+      --gray-700:#374151;
+    }
+    .dark-mode {
+      --bg:#0f172a;
+      --card:#1e293b;
+      --text:#f1f5f9;
+      --muted:#94a3b8;
+      --border:#334155;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.4;min-height:100vh;padding-bottom:60px;transition:background .3s,color .3s;}
+    .container{max-width:1000px;margin:0 auto;padding:0 1rem;}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;}
+    .logo{font-weight:700;display:flex;align-items:center;gap:.5rem;font-size:1.25rem;color:var(--primary);}
+    .btn{padding:.5rem 1rem;border:none;border-radius:.5rem;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;gap:.25rem;transition:transform .2s;}
+    .btn:hover{transform:scale(1.02);}
+    .btn:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .btn-primary{background:var(--primary);color:#fff;}
+    .search{margin:1rem 0;display:flex;gap:.5rem;flex-wrap:wrap;}
+    .search input{flex:1;min-width:150px;padding:.75rem 1rem;border:1px solid var(--border);border-radius:.5rem;font-size:1rem;outline:none;background:var(--card);color:var(--text);transition:border-color .2s;}
+    .search input:focus{border-color:var(--primary);}
+    .filters{display:flex;gap:.5rem;overflow-x:auto;margin-bottom:1rem;-webkit-overflow-scrolling:touch;}
+    .pill{padding:.5rem .75rem;border-radius:9999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.75rem;display:flex;align-items:center;gap:4px;transition:all .2s;white-space:nowrap;}
+    .pill:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+    .pill:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .pill.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .flex{display:flex;gap:1rem;flex-wrap:wrap;}
+    .coupon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:0;}
+    .card{background:var(--card);border-radius:var(--radius);overflow:visible;box-shadow:var(--shadow);position:relative;height:380px;font-size:.9rem;cursor:pointer;transition:transform .2s,box-shadow .2s;perspective:1000px;}
+    .card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,0.12);}
+    .card:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .card.flipped .card-inner{transform:rotateY(180deg);}
+    .card-inner{position:absolute;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s;}
+    .card-face{position:absolute;width:100%;height:100%;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column;border-radius:var(--radius);overflow:hidden;background:var(--card);}
+    .card-front{background:var(--card);}
+    .card-back{background:var(--card);transform:rotateY(180deg);padding:1.5rem;}
+    .card img{width:100%;height:160px;object-fit:cover;display:block;}
+    .card-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:.5rem;}
+    .title{font-weight:700;font-size:1.1rem;margin-bottom:2px;}
+    .offer{color:#dc2626;font-weight:700;margin:4px 0;}
+    .desc{flex:1;color:var(--muted);font-size:.8rem;margin-bottom:4px;}
+    .footer{display:flex;justify-content:space-between;font-size:.7rem;gap:.5rem;flex-wrap:wrap;}
+    .badge{background:#f59e0b;color:#fff;padding:2px 6px;border-radius:4px;font-size:.6rem;display:inline-block;}
+    .small{font-size:.65rem;color:var(--muted);}
+    .save{position:absolute;top:8px;right:8px;background:#fff;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all .2s;z-index:20;pointer-events:all;font-size:1.25rem;-webkit-tap-highlight-color:transparent;}
+    .save:hover{transform:scale(1.1);}
+    .save:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .save.saved{background:#10b981;color:#fff;}
+    .dark-mode .save{background:var(--card);color:var(--text);}
+    .dark-mode .save.saved{background:#10b981;color:#fff;}
+    .qr-section{text-align:center;margin-bottom:1rem;}
+    .qr-code{font-size:3rem;margin:1rem 0;background:#f0f0f0;padding:1rem;border-radius:0.5rem;display:inline-block;}
+    .coupon-code{font-size:1.5rem;font-weight:700;color:var(--primary);margin-top:.5rem;user-select:all;cursor:pointer;padding:.5rem;border-radius:.25rem;transition:background .2s;}
+    .coupon-code:hover{background:var(--gray-100);}
+    .dark-mode .coupon-code:hover{background:var(--gray-700);}
+    .back-info{flex:1;}
+    .info-item{margin-bottom:.75rem;font-size:.85rem;line-height:1.4;}
+    .info-item strong{display:inline-block;min-width:80px;}
+    .copy-btn{width:100%;padding:.75rem;background:var(--primary);color:#fff;border:none;border-radius:.5rem;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+    .copy-btn:hover{background:#1d4ed8;}
+    .copy-btn:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    #map{width:100%;height:260px;border-radius:12px;margin:1rem 0;overflow:hidden;position:relative;background:var(--card);border:1px solid var(--border);display:none;}
+    #map.show{display:block;}
+    #mapError{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:1000;}
+    .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);opacity:0;pointer-events:none;transition:all .3s;max-width:90vw;z-index:1000;}
+    .toast.show{opacity:1;pointer-events:auto;}
+    .dark-mode .toast{background:#fff;color:#111827;}
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:.5rem 0;border-top:1px solid var(--border);font-size:.65rem;}
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);text-decoration:none;cursor:pointer;padding:4px 8px;border-radius:4px;transition:color .2s;}
+    .nav-item:hover{color:var(--primary);}
+    .nav-item:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .nav-item.active{color:var(--primary);}
+    .nearby-hint{margin-top:.5rem;font-size:.75rem;color:var(--muted);display:none;}
+    .nearby-hint.show{display:block;}
+    .location-error{background:#fee;color:#dc2626;padding:.75rem;border-radius:.5rem;margin:1rem 0;font-size:.8rem;display:none;}
+    .location-error.show{display:block;}
+    .location-error p{margin-top:.25rem;font-size:.75rem;color:#991b1b;}
+    .flex-center{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+    .toggle-theme{background:none;border:none;cursor:pointer;font-size:1rem;padding:4px;transition:transform .2s;}
+    .toggle-theme:hover{transform:scale(1.1);}
+    .toggle-theme:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    .retry-btn{background:#ef4444;color:#fff;padding:.25rem .5rem;border:none;border-radius:.25rem;cursor:pointer;font-size:.75rem;margin-top:.5rem;}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+    .close-detail-btn{background:none;border:none;color:var(--primary);font-size:.9rem;padding:.5rem;cursor:pointer;margin-bottom:.5rem;display:flex;align-items:center;gap:.25rem;transition:opacity .2s;}
+    .close-detail-btn:hover{opacity:0.8;}
+    .close-detail-btn:focus{outline:2px solid var(--primary);outline-offset:2px;}
+    @media (max-width: 800px){
+      .coupon-grid{grid-template-columns:1fr;}
+    }
+    /* スケルトンローダー */
+    .skeleton{background:linear-gradient(90deg,var(--card) 25%,var(--bg) 50%,var(--card) 75%);background-size:200% 100%;animation:loading 1.5s infinite;}
+    @keyframes loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header" aria-label="ヘッダー">
+      <div class="logo" aria-label="JK Wallet">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M22.46,6C21.69,6.18 21.06,6.65 20.64,7.25C20.18,5.53 18.54,4.24 16.64,4.24C15.07,4.24 13.71,5.19 13.12,6.56C12.61,6.34 12.06,6.22 11.5,6.22C9.84,6.22 8.5,7.56 8.5,9.22C8.5,9.64 8.58,10.04 8.73,10.41C7.73,10.41 6.9,11.24 6.9,12.24V19.76C6.9,20.76 7.73,21.59 8.73,21.59H20.27C21.27,21.59 22.1,20.76 22.1,19.76V12.24C22.1,11.24 21.27,10.41 20.27,10.41H20.02C20.46,9.74 20.73,8.96 20.73,8.11C20.73,7.25 20.44,6.46 19.96,5.82C21.31,6.04 22.46,6.79 22.46,6Z"/>
+        </svg>
+        JK Wallet
+      </div>
+      <div class="flex-center">
+        <button class="btn btn-primary" id="locateBtn" aria-label="現在地の近くを表示">近くを表示</button>
+        <button class="toggle-theme" id="themeToggle" aria-label="テーマ切替">🌓</button>
+      </div>
+    </header>
+
+    <div class="search" aria-label="検索とフィルター">
+      <input type="search" id="searchInput" placeholder="店名・エリアで検索..." aria-label="クーポン検索" />
+    </div>
+
+    <div class="filters" role="tablist" aria-label="フィルター">
+      <div class="pill active" data-filter="all" role="tab" aria-selected="true" tabindex="0">すべて</div>
+      <div class="pill" data-filter="saved" role="tab" aria-selected="false" tabindex="0">保存済み</div>
+      <div class="pill" data-filter="electronics" role="tab" aria-selected="false" tabindex="0">家電</div>
+      <div class="pill" data-filter="fashion" role="tab" aria-selected="false" tabindex="0">ファッション</div>
+      <div class="pill" data-filter="dining" role="tab" aria-selected="false" tabindex="0">グルメ</div>
+      <div class="pill" data-filter="transport" role="tab" aria-selected="false" tabindex="0">交通</div>
+      <div class="pill" data-filter="nearby" role="tab" aria-selected="false" tabindex="0">近く</div>
+    </div>
+
+    <!-- 위치 에러 표시 -->
+    <div class="location-error" id="locationError">
+      <strong>現在地を使用できません</strong>
+      <p>位置情報を利用するには、ブラウザの設定で許可してください。</p>
+    </div>
+
+    <!-- 지도 -->
+    <div id="map" aria-label="クーポンマップ">
+      <div id="mapError">
+        <p>地図を読み込めませんでした</p>
+        <button class="retry-btn" onclick="retryMap()">再試行</button>
+      </div>
+    </div>
+    <div class="nearby-hint" id="nearbyHint">「近く」を押すと現在地に基づいてソートします。</div>
+
+    <!-- 쿠폰 리스트 -->
+    <div class="coupon-grid" id="couponGrid" aria-label="利用可能なクーポン"></div>
+  </div>
+
+  <!-- 스크린리더 알림 영역 -->
+  <div id="sr-announcement" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <!-- 토스트 -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- 간단한 하단 내비게이션 -->
+  <nav class="bottom-nav" aria-label="ナビゲーション">
+    <a href="#" class="nav-item active" data-view="home" tabindex="0">ホーム</a>
+    <a href="#" class="nav-item" data-view="saved" tabindex="0">保存済み</a>
+    <a href="#" class="nav-item" data-view="map" tabindex="0">マップ</a>
+    <a href="#" class="nav-item" data-view="settings" tabindex="0">設定</a>
+  </nav>
+
+  <!-- 최소 스크립트 -->
+  <script>
+    // 유틸리티
+    const Utils = {
+      // 디바운스
+      debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+      },
+      
+      // 거리 계산 (km)
+      distance(lat1, lng1, lat2, lng2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLng = (lng2 - lng1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) ** 2 + 
+                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                  Math.sin(dLng/2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+      }
+    };
+
+    // 단순 상태
+    const State = {
+      coupons: [],
+      filtered: [],
+      saved: [],
+      userLocation: null,
+      currentFilter: 'all',
+      currentSearch: '',
+      currentView: 'home', // home, map, saved, settings
+      saveDebounce: null
+    };
+
+    // 토스트
+    const Toast = {
+      el: document.getElementById('toast'),
+      show(msg, duration = 2000) {
+        this.el.textContent = msg;
+        this.el.classList.add('show');
+        setTimeout(() => this.el.classList.remove('show'), duration);
+      }
+    };
+
+    // 쿠폰 데이터 로더
+    const CouponLoader = {
+      async loadFromAPI() {
+        try {
+          // WordPress REST API 엔드포인트 (ACF 데이터)
+          // TODO: WordPress에 엔드포인트 구현 후 활성화
+          
+          // 방법 1: 상대 경로 (서브디렉토리 대응)
+          // const baseUrl = window.location.pathname.split('/').slice(0, -1).join('/');
+          // const response = await fetch(`${baseUrl}/wp-json/jkwallet/v1/coupons`);
+          
+          // 방법 2: 절대 경로
+          // const response = await fetch(`${window.location.origin}/wp-json/jkwallet/v1/coupons`);
+          
+          // 방법 3: WordPress localize_script로 전달된 경로 사용 (권장)
+          // if (window.wpApiSettings) {
+          //   const response = await fetch(`${window.wpApiSettings.root}jkwallet/v1/coupons`);
+          // }
+          
+          // if (!response.ok) throw new Error('API Error');
+          // const data = await response.json();
+          // return data;
+          
+          // 임시: API 구현 전까지 하드코딩 데이터 사용
+          return couponData;
+        } catch (error) {
+          console.warn('API 로드 실패, 로컬 데이터 사용:', error);
+          // 폴백: 로컬 캐시 확인
+          const cached = localStorage.getItem('cachedCoupons');
+          if (cached) {
+            try {
+              return JSON.parse(cached);
+            } catch (e) {
+              console.error('캐시 파싱 실패:', e);
+            }
+          }
+          // 최종 폴백: 하드코딩 데이터
+          return couponData;
+        }
+      },
+      
+      cacheData(data) {
+        try {
+          localStorage.setItem('cachedCoupons', JSON.stringify(data));
+          localStorage.setItem('cacheTime', Date.now().toString());
+        } catch (e) {
+          console.warn('캐시 저장 실패:', e);
+        }
+      }
+    };
+
+    // 쿠폰 데이터 (하드코딩 - API 실패시 폴백용)
+    const couponData = [
+      { id:1, store:'コジマ x ビックカメラ', offer:'最大 17% OFF', description:'免税10% + 追加7%割引！最新の電子製品を安く。', category:'electronics', expiry:'2025-12-31', image:'https://japankuru.com/gld-kanri/data/uploads/2023/11/kojima%E8%8B%B1%E8%AA%9E%E7%89%88%E4%BC%81%E6%A5%AD%E6%9C%89_kojima_EN_B-2.jpg', code:'JK-BIC2025', lat:35.6909, lng:139.7003, rating:4.2 },
+      { id:2, store:'JINS', offer:'10% OFF', description:'免税+割引のメガネ。', category:'fashion', expiry:'2025-07-30', image:'https://japankuru.com/gld-kanri/data/uploads/2024/06/japankuru_1800-1200-1536x1024.jpg', code:'JK-JINS2025', lat:35.6581, lng:139.6986, rating:4.1 },
+      { id:3, store:'BEAMS JAPAN', offer:'5% 追加割引', description:'トレンドを発信するセレクトショップ。', category:'fashion', expiry:'2025-09-30', image:'https://img.japankuru.com/prg_img/img/img2024011517461371466800.jpg', code:'JK-BEAMS25', lat:35.6702, lng:139.7073, rating:4.3 },
+      { id:4, store:'サムライレストラン', offer:'ドリンク1杯無料', description:'華麗なショーと食事。', category:'dining', expiry:'2026-03-31', image:'https://japankuru.com/gld-kanri/data/uploads/2024/06/%E4%BE%8D%E3%82%AF%E3%83%BC%E3%83%9D%E3%83%B3c-2_0_0-1536x864.jpeg', code:'JK-SAMURAI', lat:35.6947, lng:139.7006, rating:4.5 },
+      { id:5, store:'東急線', offer:'1日乗車券', description:'東京旅行の必須アイテム。', category:'transport', expiry:'9999-12-31', image:'https://japankuru.com/gld-kanri/data/uploads/2025/03/tokyu-cover-16-9-1-1536x864.png', code:'JK-TOKYU', lat:35.6580, lng:139.7016, rating:4.0 },
+      { id:6, store:'ヨドバシカメラ', offer:'最大 15% OFF', description:'免税10% + VISAカード決済で5%追加割引！', category:'electronics', expiry:'2025-11-30', image:'https://img.japankuru.com/prg_img/thumbnail1/img2023112417190332724100.png', code:'JK-Yodobashi', lat:35.6938, lng:139.7706, rating:4.4 }
+    ];
+
+    // 로컬스토리지 관리
+    const Storage = {
+      load(key, defaultValue = []) {
+        try {
+          const data = localStorage.getItem(key);
+          return data ? JSON.parse(data) : defaultValue;
+        } catch (e) {
+          console.error(`Failed to load ${key}:`, e);
+          return defaultValue;
+        }
+      },
+      
+      save: Utils.debounce((key, data) => {
+        try {
+          localStorage.setItem(key, JSON.stringify(data));
+        } catch (e) {
+          console.error(`Failed to save ${key}:`, e);
+          Toast.show('保存に失敗しました', 3000);
+        }
+      }, 100)
+    };
+
+    // 테마 관리
+    const Theme = {
+      load() {
+        const isDark = StorageManager.getTheme();
+        if (isDark) document.body.classList.add('dark-mode');
+      },
+      
+      toggle() {
+        const isDark = document.body.classList.toggle('dark-mode');
+        StorageManager.setTheme(isDark);
+        Toast.show(isDark ? t('darkMode') : t('lightMode'), 1000);
+      }
+    };
+
+    // 필터/검색 적용
+    function applyFilters() {
+      let list = [...State.coupons];
+      
+      // 필터 적용
+      if (State.currentFilter === 'saved') {
+        list = list.filter(c => State.saved.includes(c.id));
+      } else if (State.currentFilter === 'nearby' && State.userLocation) {
+        list.sort((a, b) => {
+          const da = Utils.distance(State.userLocation.lat, State.userLocation.lng, a.lat, a.lng);
+          const db = Utils.distance(State.userLocation.lat, State.userLocation.lng, b.lat, b.lng);
+          return da - db;
+        });
+      } else if (['electronics','fashion','dining','transport'].includes(State.currentFilter)) {
+        list = list.filter(c => c.category === State.currentFilter);
+      }
+      
+      // 검색어 적용
+      if (State.currentSearch) {
+        const q = State.currentSearch.toLowerCase();
+        list = list.filter(c => 
+          c.store.toLowerCase().includes(q) ||
+          c.description.toLowerCase().includes(q) ||
+          (c.category && c.category.toLowerCase().includes(q))
+        );
+      }
+      
+      State.filtered = list;
+      renderCoupons();
+    }
+
+    // 저장소 관리 (일관성 개선)
+    const StorageManager = {
+      getSaved() {
+        try {
+          const saved = localStorage.getItem('savedCoupons');
+          return saved ? JSON.parse(saved) : [];
+        } catch (e) {
+          console.error('저장된 쿠폰 로드 실패:', e);
+          return [];
+        }
+      },
+      
+      setSaved(data) {
+        try {
+          localStorage.setItem('savedCoupons', JSON.stringify(data));
+        } catch (e) {
+          console.error('쿠폰 저장 실패:', e);
+          Toast.show(t('saveFailed'), 3000);
+        }
+      },
+      
+      getTheme() {
+        return localStorage.getItem('darkMode') === 'true';
+      },
+      
+      setTheme(isDark) {
+        localStorage.setItem('darkMode', isDark.toString());
+      }
+    };
+
+    // 다국어 텍스트
+    const T = {
+      ja: {
+        detailShow: '詳細を表示',
+        backToList: 'リストに戻る',
+        backButton: '← 戻る',
+        closeDetail: '詳細を閉じる',
+        couponDetail: 'クーポン詳細を表示中',
+        listReturned: 'クーポン一覧に戻りました',
+        copyCode: 'コードをコピー',
+        copied: 'コピーしました',
+        codeCopied: 'クーポンコードをコピーしました！',
+        copyFailed: 'コピーに失敗しました。長押しして手動でコピーしてください。',
+        saveCoupon: 'クーポンを保存',
+        unsaveCoupon: 'クーポンの保存を解除',
+        saved: '保存しました',
+        unsaved: '保存を解除しました',
+        saveFailed: '保存に失敗しました',
+        locationError: '現在地を使用できません',
+        locationErrorDetail: '位置情報を利用するには、ブラウザの設定で許可してください。',
+        mapView: '地図で見る',
+        mapShown: '地図を表示しました',
+        nearbySort: '現在地に基づく並び替え',
+        locationObtained: '現在地を取得しました',
+        locationDenied: '位置情報の取得を拒否されました',
+        mapLoadFailed: '地図の読み込みに失敗しました',
+        noExpiry: '期限なし',
+        store: '店舗',
+        benefit: '特典',
+        expiry: '有効期限',
+        notFound: 'クーポンが見つかりません。検索条件を変えてください。',
+        darkMode: 'ダークモード',
+        lightMode: 'ライトモード',
+        codeSelected: 'コードを選択しました',
+        mapViewTab: 'マップビュー'
+      }
+    };
+    const currentLang = 'ja';
+    const t = (key) => T[currentLang][key] || key;
+
+    // 스크린리더 알림
+    function announceToScreenReader(message) {
+      const announcement = document.getElementById('sr-announcement');
+      if (announcement) {
+        announcement.textContent = message;
+        setTimeout(() => {
+          announcement.textContent = '';
+        }, 1000);
+      }
+    }
+
+    // 쿠폰 카드 생성
+    function createCard(coupon) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('data-id', coupon.id);
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `${coupon.store}のクーポン: ${coupon.offer}`);
+      card.setAttribute('aria-expanded', 'false');
+      
+      // 카드 내부 컨테이너
+      const cardInner = document.createElement('div');
+      cardInner.className = 'card-inner';
+      
+      // 앞면
+      const cardFront = document.createElement('div');
+      cardFront.className = 'card-face card-front';
+      cardFront.setAttribute('aria-hidden', 'false');
+      
+      // 이미지
+      const img = document.createElement('img');
+      img.src = coupon.image;
+      img.alt = coupon.store;
+      img.loading = 'lazy';
+      cardFront.appendChild(img);
+      
+      // body
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = coupon.store;
+      
+      const offer = document.createElement('div');
+      offer.className = 'offer';
+      offer.textContent = coupon.offer;
+      
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = coupon.description;
+      
+      const footer = document.createElement('div');
+      footer.className = 'footer';
+      
+      const expiry = document.createElement('div');
+      expiry.className = 'small';
+      expiry.textContent = coupon.expiry === '9999-12-31' ? t('noExpiry') : coupon.expiry.replace(/-/g,'/');
+      
+      const dist = document.createElement('div');
+      dist.className = 'small';
+      if (State.userLocation) {
+        const d = Utils.distance(State.userLocation.lat, State.userLocation.lng, coupon.lat, coupon.lng);
+        dist.textContent = d < 1 ? `${Math.round(d * 1000)}m` : `${d.toFixed(1)}km`;
+      }
+      
+      footer.appendChild(expiry);
+      if (State.userLocation) footer.appendChild(dist);
+      
+      body.appendChild(title);
+      body.appendChild(offer);
+      body.appendChild(desc);
+      body.appendChild(footer);
+      cardFront.appendChild(body);
+      
+      // 저장 버튼
+      const saveBtn = document.createElement('button');
+      saveBtn.className = 'save';
+      saveBtn.setAttribute('aria-label', State.saved.includes(coupon.id) ? t('unsaveCoupon') : t('saveCoupon'));
+      saveBtn.innerHTML = State.saved.includes(coupon.id) ? '★' : '☆';
+      if (State.saved.includes(coupon.id)) saveBtn.classList.add('saved');
+      
+      saveBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        toggleSave(coupon.id, saveBtn);
+      });
+      
+      cardFront.appendChild(saveBtn);
+      
+      // 뒷면
+      const cardBack = document.createElement('div');
+      cardBack.className = 'card-face card-back';
+      cardBack.setAttribute('aria-hidden', 'true');
+      
+      // 닫기 버튼 추가
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-detail-btn';
+      closeBtn.innerHTML = t('backButton');
+      closeBtn.setAttribute('aria-label', t('closeDetail'));
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card.classList.remove('flipped');
+        card.setAttribute('aria-expanded', 'false');
+        cardFront.setAttribute('aria-hidden', 'false');
+        cardBack.setAttribute('aria-hidden', 'true');
+        Toast.show(t('backToList'), 500);
+        announceToScreenReader(t('listReturned'));
+      });
+      
+      cardBack.appendChild(closeBtn);
+      
+      const qrSection = document.createElement('div');
+      qrSection.className = 'qr-section';
+      
+      // QR 코드 대신 큰 쿠폰 코드 표시
+      const qrCode = document.createElement('div');
+      qrCode.className = 'qr-code';
+      qrCode.style.fontSize = '4rem';
+      qrCode.style.background = '#f0f0f0';
+      qrCode.style.padding = '1rem';
+      qrCode.style.borderRadius = '0.5rem';
+      qrCode.innerHTML = '🎫';
+      
+      const couponCode = document.createElement('div');
+      couponCode.className = 'coupon-code';
+      couponCode.style.fontSize = '1.5rem';
+      couponCode.style.userSelect = 'all';
+      couponCode.textContent = coupon.code;
+      
+      // 코드 클릭시 선택되도록
+      couponCode.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(couponCode);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        Toast.show(t('codeSelected'), 1000);
+      });
+      
+      qrSection.appendChild(qrCode);
+      qrSection.appendChild(couponCode);
+      
+      const backInfo = document.createElement('div');
+      backInfo.className = 'back-info';
+      
+      const storeInfo = document.createElement('div');
+      storeInfo.className = 'info-item';
+      storeInfo.innerHTML = `<strong>${t('store')}:</strong> ${coupon.store}`;
+      
+      const offerInfo = document.createElement('div');
+      offerInfo.className = 'info-item';
+      offerInfo.innerHTML = `<strong>${t('benefit')}:</strong> ${coupon.offer}`;
+      
+      const expiryInfo = document.createElement('div');
+      expiryInfo.className = 'info-item';
+      expiryInfo.innerHTML = `<strong>${t('expiry')}:</strong> ${coupon.expiry === '9999-12-31' ? t('noExpiry') : coupon.expiry}`;
+      
+      // 地図リンク追加
+      const mapLink = document.createElement('div');
+      mapLink.className = 'info-item';
+      mapLink.style.cursor = 'pointer';
+      mapLink.style.color = 'var(--primary)';
+      mapLink.innerHTML = `<strong>📍 ${t('mapView')}</strong>`;
+      mapLink.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        await MapManager.init();
+        MapManager.centerTo({lat: coupon.lat, lng: coupon.lng});
+        card.classList.remove('flipped');
+        Toast.show(t('mapShown'), 1000);
+      });
+      
+      backInfo.appendChild(storeInfo);
+      backInfo.appendChild(offerInfo);
+      backInfo.appendChild(expiryInfo);
+      backInfo.appendChild(mapLink);
+      
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.innerHTML = `📋 ${t('copyCode')}`;
+      copyBtn.setAttribute('aria-label', t('copyCode'));
+      copyBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        try {
+          await navigator.clipboard.writeText(coupon.code);
+          Toast.show(t('codeCopied'), 2000);
+          copyBtn.innerHTML = `✅ ${t('copied')}`;
+          setTimeout(() => {
+            copyBtn.innerHTML = `📋 ${t('copyCode')}`;
+          }, 2000);
+        } catch (err) {
+          // フォールバック
+          const textArea = document.createElement('textarea');
+          textArea.value = coupon.code;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            Toast.show(t('codeCopied'), 2000);
+          } catch {
+            Toast.show(t('copyFailed'), 3000);
+          }
+          document.body.removeChild(textArea);
+        }
+      });
+      
+      cardBack.appendChild(qrSection);
+      cardBack.appendChild(backInfo);
+      cardBack.appendChild(copyBtn);
+      
+      // 카드 조립
+      cardInner.appendChild(cardFront);
+      cardInner.appendChild(cardBack);
+      card.appendChild(cardInner);
+      
+      // 카드 클릭 이벤트 (cardInner에 바인딩)
+      cardInner.addEventListener('click', (e) => {
+        // 복사 버튼이나 지도 링크 클릭은 무시
+        if (e.target.closest('.copy-btn') || e.target.closest('.info-item')) {
+          return;
+        }
+        
+        // 카드 뒤집기
+        card.classList.toggle('flipped');
+        const isFlipped = card.classList.contains('flipped');
+        card.setAttribute('aria-expanded', isFlipped.toString());
+        
+        cardFront.setAttribute('aria-hidden', isFlipped.toString());
+        cardBack.setAttribute('aria-hidden', (!isFlipped).toString());
+        
+        if (isFlipped) {
+          Toast.show(t('detailShow'), 1000);
+          announceToScreenReader(t('couponDetail'));
+        } else {
+          Toast.show(t('backToList'), 1000);
+          announceToScreenReader(t('listReturned'));
+        }
+        
+        // 지도 센터링 (앞면일 때만)
+        if (!isFlipped && coupon.lat && coupon.lng && window.mapInstance) {
+          MapManager.centerTo({lat: coupon.lat, lng: coupon.lng});
+        }
+      });
+      
+      // 키보드 접근성
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          // 포커스가 저장 버튼에 있지 않을 때만 카드 뒤집기
+          if (!e.target.closest('.save')) {
+            cardInner.click();
+          }
+        }
+      });
+      
+      return card;
+    }
+
+    // 저장 토글
+    function toggleSave(id, btn) {
+      if (State.saved.includes(id)) {
+        State.saved = State.saved.filter(x => x !== id);
+        btn.innerHTML = '☆';
+        btn.classList.remove('saved');
+        btn.setAttribute('aria-label', t('saveCoupon'));
+        Toast.show(t('unsaved'));
+        
+        // saved 필터 중이면 바로 재적용
+        if (State.currentFilter === 'saved') {
+          applyFilters();
+        }
+      } else {
+        State.saved.push(id);
+        btn.innerHTML = '★';
+        btn.classList.add('saved');
+        btn.setAttribute('aria-label', t('unsaveCoupon'));
+        Toast.show(t('saved'));
+      }
+      
+      // 로컬스토리지에 저장
+      StorageManager.setSaved(State.saved);
+    }
+
+    // 렌더링 (성능 최적화 준비)
+    const RenderManager = {
+      pageSize: 20,
+      currentPage: 0,
+      isLoading: false,
+      
+      renderPage(coupons, page = 0) {
+        const start = page * this.pageSize;
+        const end = start + this.pageSize;
+        const pageCoupons = coupons.slice(start, end);
+        
+        const grid = document.getElementById('couponGrid');
+        if (page === 0) {
+          grid.innerHTML = '';
+        }
+        
+        const fragment = document.createDocumentFragment();
+        pageCoupons.forEach(c => {
+          fragment.appendChild(createCard(c));
+        });
+        grid.appendChild(fragment);
+        
+        this.currentPage = page;
+        return pageCoupons.length === this.pageSize;
+      }
+    };
+    
+    // 렌더링
+    function renderCoupons() {
+      const grid = document.getElementById('couponGrid');
+      grid.innerHTML = '';
+      
+      if (State.filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);">
+          ${t('notFound')}
+        </div>`;
+        return;
+      }
+      
+      // TODO: 성능 최적화 - 쿠폰이 많을 경우
+      // 1. Virtual Scrolling 구현 (Intersection Observer 활용)
+      // 2. 페이지네이션 (20개씩 로드)
+      // 3. RequestAnimationFrame으로 렌더링 최적화
+      
+      // 현재는 전체 렌더링 (쿠폰이 적을 때는 문제 없음)
+      if (State.filtered.length > 100) {
+        // 많은 경우 첫 페이지만 렌더링
+        RenderManager.renderPage(State.filtered, 0);
+        // TODO: 스크롤 이벤트로 추가 로드
+      } else {
+        // 적은 경우 전체 렌더링
+        State.filtered.forEach(c => {
+          grid.appendChild(createCard(c));
+        });
+      }
+    }
+
+    // 필터 UI 설정
+    function setupFilters() {
+      const pills = document.querySelectorAll('.pill');
+      
+      pills.forEach(p => {
+        p.addEventListener('click', async () => {
+          // 이전 필터 저장 (nearby 실패 시 복원용)
+          const prevFilter = State.currentFilter;
+          const prevActive = document.querySelector('.pill.active');
+          
+          // UI 업데이트
+          pills.forEach(x => { 
+            x.classList.remove('active'); 
+            x.setAttribute('aria-selected', 'false'); 
+          });
+          p.classList.add('active');
+          p.setAttribute('aria-selected', 'true');
+          
+          const filter = p.dataset.filter;
+          State.currentFilter = filter;
+          
+          // nearby 특별 처리
+          if (filter === 'nearby') {
+            if (State.userLocation) {
+              Toast.show(t('nearbySort'));
+              await MapManager.init();
+              MapManager.centerTo(State.userLocation);
+              applyFilters();
+              // nearby hint 표시
+              const hint = document.getElementById('nearbyHint');
+              if (hint) hint.classList.add('show');
+            } else {
+              try {
+                await Location.request();
+                applyFilters();
+                // nearby hint 표시
+                const hint = document.getElementById('nearbyHint');
+                if (hint) hint.classList.add('show');
+              } catch (e) {
+                // 위치 실패 시 이전 필터로 복원
+                State.currentFilter = prevFilter;
+                p.classList.remove('active');
+                p.setAttribute('aria-selected', 'false');
+                if (prevActive) {
+                  prevActive.classList.add('active');
+                  prevActive.setAttribute('aria-selected', 'true');
+                }
+                Location.showError();
+              }
+            }
+          } else {
+            applyFilters();
+            Location.hideError();
+            // nearby가 아닌 경우 hint 숨기기
+            const hint = document.getElementById('nearbyHint');
+            if (hint) hint.classList.remove('show');
+            // home 필터일 때 지도 숨기기
+            if (filter === 'all' || filter === 'saved') {
+              MapManager.hideMap();
+            }
+          }
+        });
+        
+        // 키보드 접근성
+        p.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            p.click();
+          }
+        });
+      });
+    }
+
+    // 검색 처리
+    function setupSearch() {
+      const input = document.getElementById('searchInput');
+      const handleSearch = Utils.debounce((e) => {
+        State.currentSearch = e.target.value.trim();
+        applyFilters();
+      }, 200);
+      
+      input.addEventListener('input', handleSearch);
+    }
+
+    // 위치 관리
+    const Location = {
+      async request() {
+        return new Promise((resolve, reject) => {
+          if (!navigator.geolocation) {
+            Toast.show('位置情報が利用できません', 2000);
+            reject(new Error('Geolocation not supported'));
+            return;
+          }
+          
+          navigator.geolocation.getCurrentPosition(
+            pos => {
+              State.userLocation = { 
+                lat: pos.coords.latitude, 
+                lng: pos.coords.longitude 
+              };
+              Toast.show(t('locationObtained'), 1000);
+              if (window.mapInstance) {
+                MapManager.updateLocation();
+              }
+              resolve(State.userLocation);
+            },
+            err => {
+              Toast.show(t('locationDenied'), 2000);
+              reject(err);
+            },
+            { enableHighAccuracy: true, timeout: 10000 }
+          );
+        });
+      },
+      
+      showError() {
+        const errorEl = document.getElementById('locationError');
+        if (errorEl) {
+          errorEl.innerHTML = `
+            <strong>${t('locationError')}</strong>
+            <p>${t('locationErrorDetail')}</p>
+          `;
+          errorEl.classList.add('show');
+        }
+      },
+      
+      hideError() {
+        document.getElementById('locationError').classList.remove('show');
+      }
+    };
+
+    // 지도 관리
+    const MapManager = {
+      mapInstance: null,
+      markerGroup: null, 
+      leafletLoaded: false,
+      initialized: false,
+      initPromise: null, // 중복 초기화 방지용
+      
+      showMap() {
+        const mapEl = document.getElementById('map');
+        if (mapEl) {
+          mapEl.classList.add('show');
+        }
+      },
+      
+      hideMap() {
+        const mapEl = document.getElementById('map');
+        if (mapEl) {
+          mapEl.classList.remove('show');
+        }
+      },
+      
+      async init() {
+        // 이미 초기화 중이면 기존 Promise 반환
+        if (this.initPromise) {
+          return this.initPromise;
+        }
+        
+        // 이미 초기화되었으면 지도만 표시
+        if (this.initialized) {
+          this.showMap();
+          return Promise.resolve();
+        }
+        
+        // 초기화 시작
+        this.initPromise = this._doInit();
+        return this.initPromise;
+      },
+      
+      async _doInit() {
+        try {
+          // 지도 컨테이너 표시
+          this.showMap();
+          
+          if (!window.L && !this.leafletLoaded) {
+            await this.loadLeaflet();
+          }
+          
+          if (!this.mapInstance) {
+            const center = State.userLocation ? 
+              [State.userLocation.lat, State.userLocation.lng] : 
+              [35.6804, 139.7690];
+            
+            this.mapInstance = window.mapInstance = L.map('map', { 
+              zoomControl: true 
+            }).setView(center, 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; OSM'
+            }).addTo(this.mapInstance);
+            
+            this.hideError();
+            this.initialized = true;
+          }
+          
+          this.renderMarkers();
+        } catch (e) {
+          this.showError();
+          throw e;
+        } finally {
+          this.initPromise = null;
+        }
+      },
+      
+      async loadLeaflet() {
+        return new Promise((resolve, reject) => {
+          // CSS
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+          document.head.appendChild(css);
+          
+          // JS
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+          script.onload = () => {
+            this.leafletLoaded = true;
+            resolve();
+          };
+          script.onerror = () => {
+            Toast.show(t('mapLoadFailed'), 3000);
+            reject(new Error('Failed to load Leaflet'));
+          };
+          document.body.appendChild(script);
+        });
+      },
+      
+      renderMarkers() {
+        if (!this.mapInstance || !this.initialized) return;
+        
+        // 기존 마커 클리어
+        if (this.markerGroup) {
+          this.markerGroup.clearLayers();
+        } else {
+          this.markerGroup = L.layerGroup().addTo(this.mapInstance);
+        }
+        
+        // 사용자 위치 표시
+        if (State.userLocation) {
+          L.circleMarker([State.userLocation.lat, State.userLocation.lng], {
+            radius: 8, 
+            fillColor: '#2563eb', 
+            color: '#fff', 
+            weight: 2, 
+            fillOpacity: 1
+          }).addTo(this.markerGroup).bindPopup('現在地');
+        }
+        
+        // 쿠폰 마커
+        State.coupons.forEach(c => {
+          if (c.lat != null && c.lng != null) {
+            const marker = L.marker([c.lat, c.lng]);
+            let popup = `<strong>${c.store}</strong><br>${c.offer}<br>`;
+            popup += c.expiry === '9999-12-31' ? '期限なし' : c.expiry.replace(/-/g,'/');
+            
+            if (State.userLocation) {
+              const d = Utils.distance(State.userLocation.lat, State.userLocation.lng, c.lat, c.lng);
+              popup += `<br>${d < 1 ? Math.round(d * 1000) + 'm' : d.toFixed(1) + 'km'}`;
+            }
+            
+            marker.bindPopup(popup);
+            marker.on('click', () => {
+              const card = document.querySelector(`[data-id="${c.id}"]`);
+              if (card) { 
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                card.focus(); 
+              }
+            });
+            marker.addTo(this.markerGroup);
+          }
+        });
+      },
+      
+      centerTo(loc) {
+        if (this.mapInstance && loc && loc.lat && loc.lng) {
+          this.mapInstance.setView([loc.lat, loc.lng], 13);
+        }
+      },
+      
+      updateLocation() {
+        this.renderMarkers();
+        if (State.userLocation) this.centerTo(State.userLocation);
+      },
+      
+      showError() {
+        document.getElementById('mapError').style.display = 'block';
+      },
+      
+      hideError() {
+        document.getElementById('mapError').style.display = 'none';
+      }
+    };
+
+    // 지도 재시도
+    window.retryMap = async function() {
+      MapManager.hideError();
+      await MapManager.init();
+    };
+
+    // 이벤트 위임 (대량 카드 대비)
+    function setupEventDelegation() {
+      const grid = document.getElementById('couponGrid');
+      if (!grid) return;
+      
+      // 카드 클릭 이벤트 위임
+      grid.addEventListener('click', (e) => {
+        // 저장 버튼
+        const saveBtn = e.target.closest('.save');
+        if (saveBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const card = saveBtn.closest('.card');
+          const id = parseInt(card.getAttribute('data-id'));
+          toggleSave(id, saveBtn);
+          return;
+        }
+        
+        // 복사 버튼
+        const copyBtn = e.target.closest('.copy-btn');
+        if (copyBtn) {
+          e.stopPropagation();
+          // 복사 로직은 기존 유지 (코드가 버튼에 바인딩됨)
+          return;
+        }
+        
+        // 카드 뒤집기
+        const cardInner = e.target.closest('.card-inner');
+        if (cardInner && !e.target.closest('.info-item')) {
+          const card = cardInner.closest('.card');
+          if (card) {
+            // 기존 뒤집기 로직 실행
+            // TODO: 이벤트 위임으로 완전 전환 시 구현
+          }
+        }
+      });
+    }
+
+    // 이벤트 설정
+    function setupEvents() {
+      // 이벤트 위임 설정 (대량 카드 대비)
+      setupEventDelegation();
+      
+      // 테마 토글
+      document.getElementById('themeToggle').addEventListener('click', Theme.toggle);
+      
+      // 근처 버튼
+      document.getElementById('locateBtn').addEventListener('click', async () => {
+        try {
+          await Location.request();
+          await MapManager.init();
+          // nearby 필터 자동 적용
+          const nearbyPill = document.querySelector('[data-filter="nearby"]');
+          if (nearbyPill) nearbyPill.click();
+          // hint 표시
+          const hint = document.getElementById('nearbyHint');
+          if (hint) hint.classList.add('show');
+        } catch (e) {
+          Location.showError();
+        }
+      });
+      
+      // 네비게이션
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const view = item.dataset.view;
+          
+          // 활성 상태 업데이트
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+          item.classList.add('active');
+          State.currentView = view;
+          
+          // 뷰 처리
+          switch(view) {
+            case 'home':
+              document.querySelector('[data-filter="all"]').click();
+              MapManager.hideMap();
+              break;
+            case 'saved':
+              document.querySelector('[data-filter="saved"]').click();
+              MapManager.hideMap();
+              break;
+            case 'map':
+              await MapManager.init();
+              MapManager.showMap();
+              MapManager.centerTo(State.userLocation || {lat: 35.6804, lng: 139.7690});
+              Toast.show(t('mapViewTab'));
+              // hint 표시
+              const hint = document.getElementById('nearbyHint');
+              if (hint) hint.classList.add('show');
+              break;
+            case 'settings':
+              Toast.show('設定は準備中です');
+              MapManager.hideMap();
+              break;
+          }
+        });
+      });
+    }
+
+    // 초기화
+    async function boot() {
+      // 테마 로드
+      Theme.load();
+      
+      // 저장된 데이터 로드
+      State.saved = StorageManager.getSaved();
+      
+      // 쿠폰 데이터 로드 (API 시도 → 캐시 → 하드코딩 순)
+      State.coupons = await CouponLoader.loadFromAPI();
+      State.filtered = [...State.coupons];
+      
+      // 캐시 업데이트
+      if (State.coupons.length > 0) {
+        CouponLoader.cacheData(State.coupons);
+      }
+      
+      // UI 설정
+      setupFilters();
+      setupSearch();
+      setupEvents();
+      
+      // 초기 렌더링
+      applyFilters();
+    }
+
+    // DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  </script>
+</body>
+</html>
