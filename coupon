@@ -134,11 +134,69 @@ add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
     .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);opacity:0;pointer-events:none;transition:all .3s;max-width:90vw;z-index:1000;}
     .toast.show{opacity:1;pointer-events:auto;}
     .dark-mode .toast{background:#fff;color:#111827;}
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:.5rem 0;border-top:1px solid var(--border);font-size:.65rem;}
-    .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);text-decoration:none;cursor:pointer;padding:4px 8px;border-radius:4px;transition:color .2s;}
-    .nav-item:hover{color:var(--primary);}
-    .nav-item:focus{outline:2px solid var(--primary);outline-offset:2px;}
-    .nav-item.active{color:var(--primary);}
+    /* --- 기존 .bottom-nav, .nav-item 스타일을 아래 코드로 교체 --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--border);
+  /* 그림자 효과 추가로 입체감 부여 */
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
+.dark-mode .bottom-nav {
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px; /* 아이콘과 텍스트 사이 간격 */
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  flex: 1; /* 모든 아이템이 동일한 너비를 갖도록 함 */
+  text-align: center;
+}
+
+.nav-item svg {
+  width: 22px; /* 아이콘 크기 */
+  height: 22px;
+  margin-bottom: 2px;
+}
+
+.nav-item span {
+  font-size: 0.65rem; /* 텍스트 크기 */
+}
+
+.nav-item:hover {
+  color: var(--primary);
+  background-color: rgba(37, 99, 235, 0.05); /* 호버 시 배경색 */
+}
+.dark-mode .nav-item:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.nav-item:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 600; /* 활성 탭 텍스트 굵게 */
+}
+/* --- 여기까지 교체 --- */
+
     .nearby-hint{margin-top:.5rem;font-size:.75rem;color:var(--muted);display:none;}
     .nearby-hint.show{display:block;}
     .location-error{background:#fee;color:#dc2626;padding:.75rem;border-radius:.5rem;margin:1rem 0;font-size:.8rem;display:none;}
@@ -159,6 +217,105 @@ add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
     /* スケルトンローダー */
     .skeleton{background:linear-gradient(90deg,var(--card) 25%,var(--bg) 50%,var(--card) 75%);background-size:200% 100%;animation:loading 1.5s infinite;}
     @keyframes loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  
+/* --- ここから追加するCSS --- */
+
+/* 1. コンパクトなヒーローセクション */
+.hero-section {
+  text-align: center;
+  padding: 2rem 1rem; /* 上下の余白を調整してコンパクトに */
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  color: #ffffff;
+  margin-bottom: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hero-section h1 {
+  font-size: 1.8rem; /* 見出しのフォントサイズ */
+  font-weight: 700;
+  margin: 0 0 0.5rem 0; /* 見出しと説明文の間に少し余白 */
+}
+
+.hero-section p {
+  font-size: 1rem; /* 説明文のフォントサイズ */
+  margin: 0 0 1rem 0; /* 説明文とボタンの間に余白 */
+  opacity: 0.9;
+}
+
+.hero-section .cta-button {
+  background-color: #ffffff;
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px; /* 丸いボタン */
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: inline-block; /* ボタンとして正しく表示 */
+}
+
+.hero-section .cta-button:hover {
+  transform: translateY(-2px) scale(1.05); /* ホバー時に少し浮き上がる動き */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+
+/* 2. 「ご利用方法」セクション */
+.how-to-use {
+  padding: 2rem 1rem;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.how-to-use h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.how-to-use .steps {
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.how-to-use .step {
+  flex: 1;
+}
+
+.how-to-use .step-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.how-to-use .step h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+
+/* 3. モバイル向けの調整 */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 1.5rem; /* モバイルでは少し小さく */
+  }
+
+  .hero-section p {
+    font-size: 0.9rem;
+  }
+
+  .how-to-use .steps {
+    flex-direction: column; /* モバイルでは縦並びにする */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -175,7 +332,11 @@ add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
         <button class="toggle-theme" id="themeToggle" aria-label="テーマ切替">🌓</button>
       </div>
     </header>
-
+    <section class="hero-section">
+        <h1>東京旅行、このウォレット一つで完結！</h1>
+        <p>Japankuruが厳選した、あなただけの東京割引特典</p>
+        <a href="#couponGrid" class="cta-button">今すぐクーポンをチェック</a>
+      </section>
     <div class="search" aria-label="検索とフィルター">
       <input type="search" id="searchInput" placeholder="店名・エリアで検索..." aria-label="クーポン検索" />
     </div>
@@ -216,12 +377,24 @@ add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
   <!-- 간단한 하단 내비게이션 -->
-  <nav class="bottom-nav" aria-label="ナビゲーション">
-    <a href="#" class="nav-item active" data-view="home" tabindex="0">ホーム</a>
-    <a href="#" class="nav-item" data-view="saved" tabindex="0">保存済み</a>
-    <a href="#" class="nav-item" data-view="map" tabindex="0">マップ</a>
-    <a href="#" class="nav-item" data-view="settings" tabindex="0">設定</a>
-  </nav>
+<nav class="bottom-nav" aria-label="ナビゲーション">
+    <a href="#" class="nav-item active" data-view="home" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>ホーム</span>
+    </a>
+    <a href="#" class="nav-item" data-view="saved" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
+      <span>保存済み</span>
+    </a>
+    <a href="#" class="nav-item" data-view="map" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span>マップ</span>
+    </a>
+    <a href="#" class="nav-item" data-view="settings" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      <span>設定</span>
+    </a>
+  </nav>  
 
   <!-- 최소 스크립트 -->
   <script>
@@ -1248,6 +1421,8 @@ add_action('wp_enqueue_scripts', 'enqueue_jkwallet_scripts');
     } else {
       boot();
     }
+
+    
   </script>
 </body>
 </html>
