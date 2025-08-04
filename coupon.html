@@ -372,7 +372,7 @@
     }
     
     /* 복사 버튼 (컴팩트) */
-    .copy-btn {
+    .copy-btn,.share-btn {
       width: 100%;
       padding: 0.5rem;
       background: var(--primary);
@@ -1007,7 +1007,8 @@
         errorLoadingCoupons: 'クーポン情報の取得に失敗しました。しばらくしてから再度お試しください。',
         cacheCleared: 'キャッシュをクリアしました',
         savedCouponsCleared: '保存済みクーポンをすべて削除しました',
-        confirmClearSaved: '本当にすべての保存済みクーポンを削除しますか？'
+        confirmClearSaved: '本当にすべての保存済みクーポンを削除しますか？',
+        shareCoupon: '共有する'
       },
       
       ko: {
@@ -1072,7 +1073,8 @@
         errorLoadingCoupons: '쿠폰 정보를 가져오는데 실패했습니다. 잠시 후 다시 시도해주세요.',
         cacheCleared: '캐시를 삭제했습니다',
         savedCouponsCleared: '저장된 쿠폰을 모두 삭제했습니다',
-        confirmClearSaved: '정말로 모든 저장된 쿠폰을 삭제하시겠습니까?'
+        confirmClearSaved: '정말로 모든 저장된 쿠폰을 삭제하시겠습니까?',
+        shareCoupon: '共有する'
       },
       
       en: {
@@ -1137,7 +1139,8 @@
         errorLoadingCoupons: 'Failed to load coupon information. Please try again later.',
         cacheCleared: 'Cache cleared',
         savedCouponsCleared: 'All saved coupons deleted',
-        confirmClearSaved: 'Are you sure you want to delete all saved coupons?'
+        confirmClearSaved: 'Are you sure you want to delete all saved coupons?',
+        shareCoupon: '共有する'
       },
 
       th: {
@@ -1202,7 +1205,8 @@
         errorLoadingCoupons: 'ไม่สามารถโหลดข้อมูลคูปองได้ กรุณาลองใหม่อีกครั้ง',
         cacheCleared: 'ล้างแคชแล้ว',
         savedCouponsCleared: 'ลบคูปองที่บันทึกไว้ทั้งหมดแล้ว',
-        confirmClearSaved: 'คุณแน่ใจหรือไม่ที่จะลบคูปองที่บันทึกไว้ทั้งหมด?'
+        confirmClearSaved: 'คุณแน่ใจหรือไม่ที่จะลบคูปองที่บันทึกไว้ทั้งหมด?',
+        shareCoupon: '共有する'
       }
     };
 
@@ -2308,8 +2312,9 @@
       cardBack.appendChild(infoGrid);
 
       // 복사 버튼
-      const copyBtn = createCopyButton(coupon.code);
-      cardBack.appendChild(copyBtn);
+      const shareBtn = createShareButton(coupon);
+      cardBack.appendChild(shareBtn);
+      
 
       // 저장 버튼
       const saveBtn = createSaveButton(coupon.id);
@@ -2414,7 +2419,40 @@
       
       return copyBtn;
     }
-
+    function createShareButton(coupon) {
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'share-btn';
+    const lang = LanguageManager.currentLang;
+    
+    const span = document.createElement('span');
+    span.textContent = `📤 ${T[lang].shareCoupon || '공유하기'}`;
+    shareBtn.appendChild(span);
+    
+    shareBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        
+        const shareUrl = `${window.location.origin}${window.location.pathname}?coupon=${coupon.id}&lang=${lang}`;
+        const shareData = {
+        title: getCouponField(coupon, 'store'),
+        text: `${getCouponField(coupon, 'offer')} - ${getCouponField(coupon, 'description')}`,
+        url: shareUrl
+        };
+        
+        try {
+        if (navigator.share && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
+            await navigator.share(shareData);
+            Toast.show('공유되었습니다', 1500);
+        } else {
+            await navigator.clipboard.writeText(shareUrl);
+            Toast.show('링크가 복사되었습니다', 2000);
+        }
+        } catch (err) {
+        Toast.show('공유 실패', 2000);
+        }
+    });
+    
+    return shareBtn;
+    }
     // 카드 플립 애니메이션
     function flipCard(card, show = true) {
       const cardFront = card.querySelector('.card-front');
@@ -2625,7 +2663,19 @@
           const searchInput = DOMCache.get('searchInput');
           if (searchInput) searchInput.value = search;
         }
-      }
+
+        const couponId = Utils.getUrlParam('coupon');
+         if (couponId) {
+             setTimeout(() => {
+              const card = document.querySelector(`[data-id="${couponId}"]`);
+               if (card) {
+               card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             flipCard(card, true);
+             Toast.show('공유된 쿠폰입니다', 2000);
+         }
+          }, 500);
+         }
+        }
 
       async loadCoupons() {
         const loader = new CouponLoader(this.config.api);
