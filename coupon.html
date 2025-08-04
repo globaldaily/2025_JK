@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta name="theme-color" content="#2563eb">
-  <title>JAPABKURU Coupon Wallet</title>
+  <title>JAPANKURU Coupon Wallet</title>
   <style>
     :root {
       --primary:#2563eb;
@@ -30,9 +30,9 @@
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     /* 언어별 폰트 최적화 */
-body.lang-zh { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
-body.lang-zh-TW { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
-body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    body.lang-zh { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    body.lang-zh-TW { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
+    body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.4;min-height:100vh;padding-bottom:80px;transition:background .3s,color .3s;}
     .container{max-width:1000px;margin:0 auto;padding:0 0.75rem;}
     .header{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;background:var(--bg);transition:transform .3s;}
@@ -71,39 +71,37 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     .search-clear.show{display:block;}
 
     /* 필터 개선 */
-    .filters{display:flex;gap:.5rem;overflow-x:auto;margin-bottom:0.5rem;-webkit-overflow-scrolling:touch;}
-    /* .filters 수정 */
-.filters {
-  display: flex;                        /* 유지 */
-  gap: .5rem;                          /* 유지 */
-  overflow-x: auto;                    /* 유지 */
-  margin-bottom: 0.5rem;               /* 유지 */
-  -webkit-overflow-scrolling: touch;   /* 유지 */
-  /* scrollbar-width: none; */        /* 삭제! */
-  padding-bottom: 6px;                 /* 추가 */
-  scrollbar-width: thin;               /* 추가 (Firefox) */
-  scrollbar-color: var(--primary) var(--gray-100); /* 추가 (Firefox) */
-}
+    .filters {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--gray-100);
+    }
 
-/* 기존 숨김 스타일을 커스텀으로 대체 */
-.filters::-webkit-scrollbar {
-  height: 4px;  /* display: none; 대신 */
-}
+    /* 커스텀 스크롤바 */
+    .filters::-webkit-scrollbar {
+      height: 4px;
+    }
 
-.filters::-webkit-scrollbar-track {
-  background: var(--gray-100);
-  border-radius: 2px;
-}
+    .filters::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 2px;
+    }
 
-.filters::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 2px;
-  opacity: 0.6;
-}
+    .filters::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 2px;
+      opacity: 0.6;
+    }
 
-.filters::-webkit-scrollbar-thumb:hover {
-  opacity: 1;
-}
+    .filters::-webkit-scrollbar-thumb:hover {
+      opacity: 1;
+    }
+    
     .pill{padding:.5rem .75rem;border-radius:9999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.75rem;display:flex;align-items:center;gap:4px;transition:all .3s;white-space:nowrap;position:relative;overflow:hidden;flex-shrink: 0;min-width: fit-content;}
     .pill::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%);transition:all .4s;}
     .pill:hover{transform:translateY(-1px);box-shadow:0 2px 4px rgba(0,0,0,.1);}
@@ -149,6 +147,7 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       cursor: pointer;
       transition: transform .2s, box-shadow .2s;
       perspective: 1000px;
+      min-height: 340px;
     }
     
     .card:hover {
@@ -163,26 +162,27 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     
     /* 카드 내부 컨테이너 (3D 플립) */
     .card-inner {
-  position: relative;
-  display: grid; /* flexbox 대신 grid 사용 */
-  transform-style: preserve-3d;
-  transition: transform .6s;
-}
+      position: relative;
+      display: grid;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transition: transform .6s;
+    }
     
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
     
-   /* 카드 면 공통 - 같은 그리드 셀에 겹치기 */
-.card-face {
-  grid-area: 1 / 1 / 2 / 2; /* 같은 위치에 겹침 */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  background: var(--card);
-  border-radius: var(--radius);
-  width: 100%;
-}
-
+    /* 카드 면 공통 - 같은 그리드 셀에 겹치기 */
+    .card-face {
+      grid-area: 1 / 1 / 2 / 2;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: var(--card);
+      border-radius: var(--radius);
+      width: 100%;
+      position: relative;
+    }
     
     /* 앞면 */
     .card-front {
@@ -190,11 +190,12 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       display: flex;
       flex-direction: column;
       height: 100%;
-}
+      min-height: 340px;
+      position: relative;
+    }
     
     /* 뒷면 */
     .card-back {
-    
       transform: rotateY(180deg);
       padding: 1rem;
     }
@@ -226,11 +227,12 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     
     /* 앞면 본문 (컴팩트) */
     .card-body {
-      padding: 0.75rem;
+      padding: 0.6rem;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.3rem;
       flex: 1;
+      min-height: 140px;
     }
     
     .title {
@@ -259,13 +261,13 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     
     /* 상세보기 버튼 */
     .btn-show-detail {
-      width: 100%;
-      padding: 0.3rem 0.8rem;
+      width: auto !important;
+      padding: 0.3rem 0.8rem !important;
       background: transparent;
       border: 1px solid var(--primary);
       color: var(--primary);
       border-radius: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.75rem !important;
       margin-top: auto;
       transition: all .2s;
       align-self: flex-end;
@@ -277,48 +279,40 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     }
 
     /* 이용조건 텍스트 스타일 */
-.terms-text {
-  background: #f8f9fa;
-  border-left: 3px solid var(--primary);
-  padding: 0.4rem 0.6rem;
-  margin: 0.5rem 0;
-  font-size: 0.7rem;
-  line-height: 1.4;
-  color: var(--text);
-  border-radius: 0 0.3rem 0.3rem 0;
-}
+    .terms-text {
+      background: #f8f9fa;
+      border-left: 3px solid var(--primary);
+      padding: 0.4rem 0.6rem;
+      margin: 0.5rem 0;
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: var(--text);
+      border-radius: 0 0.3rem 0.3rem 0;
+    }
 
-.dark-mode .terms-text {
-  background: var(--gray-700);
-}
+    .dark-mode .terms-text {
+      background: var(--gray-700);
+    }
 
-.terms-text ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  list-style: none;
-}
+    .terms-text ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style: none;
+    }
 
-.terms-text li {
-  position: relative;
-  margin-bottom: 0.2rem;
-}
+    .terms-text li {
+      position: relative;
+      margin-bottom: 0.2rem;
+    }
 
-.terms-text li::before {
-  content: "•";
-  color: var(--primary);
-  font-weight: bold;
-  position: absolute;
-  left: -1rem;
-}
+    .terms-text li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+      position: absolute;
+      left: -1rem;
+    }
 
-/* 카드 바디 간격 조정 */
-.card-body {
-  padding: 0.6rem;  /* 0.75rem에서 감소 */
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  flex: 1;
-}
     /* ===== 뒷면 스타일 (컴팩트) ===== */
     
     /* 뒷면 헤더 */
@@ -377,10 +371,10 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     }
     
     .barcode-section img {
-    max-height: 80px;     /* 기존 height: 40px 대신 */
-    width: auto;
-    max-width: 100%;      /* 추가 */
-    object-fit: contain;  /* 추가 */
+      max-height: 80px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
     }
     
     /* 뒷면 정보 (컴팩트) */
@@ -436,27 +430,8 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       overflow: hidden;
     }
     
-    .copy-btn:hover {
+    .copy-btn:hover, .share-btn:hover {
       background: #1d4ed8;
-    }
-    
-    .copy-btn::after {
-      content: '✅ コピーしました！';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      background: var(--success);
-      padding: 6px 12px;
-      border-radius: 4px;
-      transition: all .3s;
-      font-size: 0.8rem;
-    }
-    
-    .copy-btn.success::after {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
     }
     
     .copy-btn.success span {
@@ -464,24 +439,27 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     }
     
     /* 저장 버튼 */
-    .save {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,.2);
-      transition: all .2s;
-      z-index: 30;
-      font-size: 1.2rem;
-    }
+    /* 수정된 코드 */
+.save {
+  position: absolute !important;  /* 공백 추가 */
+  top: 12px !important;          /* 공백 추가 */
+  right: 12px !important;        /* 공백 추가 */
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  transition: all .2s;
+  z-index: 30;
+  font-size: 1.2rem;
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+}
     
     .save:hover {
       transform: scale(1.1);
@@ -503,39 +481,148 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     }
 
     /* 추천 말풍선 (더 컴팩트) */
-    .speech-bubble {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      margin-top: 0.4rem;
-      font-size: 0.75rem;
+    /* 추천 말풍선 - 기존 코드 교체 */
+.recommendation-wrapper {
+  position: relative;
+  z-index: 40;
+  margin-top: 0.25rem;
+}
+
+.recommendation-btn {
+  font-size: 0.7rem;
+  padding: 3px 6px;
+  margin-top: 4px;
+}
+
+.speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  max-width: 280px;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.speech-bubble.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+/* 말풍선 화살표 */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: #f9fafb transparent transparent transparent;
+}
+
+/* 다크모드 */
+.dark-mode .speech-bubble {
+  background: var(--gray-700);
+  border-color: var(--border);
+}
+
+.dark-mode .speech-bubble::after {
+  border-color: var(--gray-700) transparent transparent transparent;
+}
+
+/* 모바일 전용 스타일 */
+@media (max-width: 768px) {
+  .speech-bubble.show {
+    position: fixed;
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    max-width: 320px;
+    z-index: 1001;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  /* 모바일에서는 화살표 숨기기 */
+  .speech-bubble.show::after {
+    display: none;
+  }
+  
+  /* 닫기 버튼 추가 */
+  .speech-bubble.show::before {
+    content: '✕';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+  }
+}
+
+/* 배경 오버레이 */
+.speech-bubble-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+  display: none;
+}
+
+.speech-bubble-overlay.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 버튼 활성 상태 */
+.recommendation-btn:active {
+  transform: scale(0.95);
+}
+
+    /* 버튼과 링크는 오버레이 위에 - z-index 수정 */
+    .card .save,
+    .card .btn,
+    .card a {
       position: relative;
-      color: var(--text);
-      box-shadow: 0 2px 6px rgba(0,0,0,.05);
-      line-height: 1.3;
+      z-index: 25;
     }
-    
-    .dark-mode .speech-bubble {
-      background: var(--gray-700);
-      border-color: var(--border);
+
+    /* 플립된 상태에서는 오버레이 숨김 */
+    .card.flipped .card-flip-overlay {
+      display: none;
     }
-    
-    .speech-bubble::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 20px;
-      border-width: 0 8px 8px 8px;
-      border-style: solid;
-      border-color: transparent transparent #f9fafb transparent;
-    }
-    
-    .dark-mode .speech-bubble::before {
-      border-color: transparent transparent var(--gray-700) transparent;
-    }
-    
-    .hidden {
+
+    /* 카드 플립 시 배지 숨김 처리 */
+    .card.flipped .offer-badge {
       display: none;
     }
 
@@ -613,6 +700,42 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     .lazy{opacity:0;transition:opacity .3s;}
     .lazy.loaded{opacity:1;}
 
+    /* 유틸리티 클래스 추가 */
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .btn-xs {
+      padding: 0.125rem 0.375rem;
+      font-size: 0.7rem;
+    }
+
+    /* 인라인 스타일 대체 */
+    .recommendation-btn {
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      margin-top: 4px;
+    }
+
+    .recommendation-wrapper {
+      margin-top: 0.25rem;
+    }
+
+    .expiry-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 0.3rem 0;
+    }
+
+    .expiry-danger {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
     /* 모바일 최적화 */
     @media (max-width: 800px){
       .coupon-grid{grid-template-columns:1fr;}
@@ -624,266 +747,11 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       .hero-section .cta-button{font-size:0.85rem;padding:0.5rem 1rem;}
     }
     @media (max-width: 480px) {
-  .pill {
-    font-size: .7rem;    /* 살짝 작게 */
-    padding: .4rem .6rem; /* 패딩도 조금 줄임 */
-  }
-}
-/* 카드 플립 시 배지 숨김 처리 */
-.card.flipped .offer-badge {
-  display: none;
-}
-
-/* 또는 더 확실한 방법으로 */
-.card-face {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  background: var(--card); /* 배경색 추가 */
-}
-
-/* 모바일에서 3D 변환 최적화 */
-.card-inner {
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-}
-/* 유틸리티 클래스 추가 */
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-}
-
-.btn-xs {
-  padding: 0.125rem 0.375rem;
-  font-size: 0.7rem;
-}
-
-/* 인라인 스타일 대체 */
-.recommendation-btn {
-  font-size: 0.7rem;
-  padding: 3px 6px;
-  margin-top: 4px;
-}
-
-.recommendation-wrapper {
-  margin-top: 0.25rem;
-}
-
-/* 카드 앞면 개선 스타일 */
-.card-header-line {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.4rem;
-}
-
-.category-icon {
-  font-size: 1.2rem;
-  filter: grayscale(20%);
-}
-
-.card-info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  background: var(--gray-100);
-  border-radius: 0.5rem;
-}
-
-.dark-mode .card-info-grid {
-  background: var(--gray-700);
-}
-
-.info-mini {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
-  color: var(--text);
-}
-
-.info-icon {
-  font-size: 1rem;
-}
-
-.text-danger {
-  color: var(--danger);
-  font-weight: 600;
-}
-
-.tag-section {
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  margin: 0.5rem 0;
-}
-
-.tag {
-  background: #e0e7ff;
-  color: #4338ca;
-  padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.7rem;
-  font-weight: 500;
-}
-
-.dark-mode .tag {
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-}
-
-.action-row {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: auto;
-}
-
-.btn-show-detail {
-  flex: 1;
-}
-
-.btn-quick-copy {
-  width: 2.5rem;
-  padding: 0.4rem;
-  background: var(--gray-100);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all .2s;
-}
-
-.btn-quick-copy:hover {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-.dark-mode .btn-quick-copy {
-  background: var(--gray-700);
-}
-
-/* 기존 스타일에 추가/수정할 CSS */
-
-/* 카드 앞면 이미지 높이 증가 */
-.card-front img {
-  width: 100%;
-  height: 200px;  /* 160px에서 200px로 증가 */
-  object-fit: cover;
-  display: block;
-}
-
-/* 할인 배지 위치 조정 */
-.offer-badge {
-  position: absolute;
-  top: 175px;  /* 이미지가 커졌으므로 조정 */
-  left: 0;
-  background: var(--danger);
-  color: #fff;
-  padding: 6px 14px;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0,0,0,.2);
-  z-index: 10;
-  border-radius: 0 8px 8px 0;
-}
-
-/* 카드 바디 간격 조정 */
-.card-body {
-  padding: 0.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  flex: 1;
-  min-height: 140px;
-}
-
-/* 상세보기 버튼 통일 (중요!) */
-.btn-show-detail {
-  width: auto !important;  /* 기존 100%를 덮어쓰기 */
-  padding: 0.3rem 0.8rem !important;
-  background: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  border-radius: 0.5rem;
-  font-size: 0.75rem !important;
-  margin-top: auto;
-  transition: all .2s;
-  align-self: flex-end;  /* 오른쪽 정렬 */
-}
-
-.btn-show-detail:hover {
-  background: var(--primary);
-  color: #fff;
-}
-
-/* 이용조건 텍스트 스타일 */
-.terms-text {
-  background: #f8f9fa;
-  border-left: 3px solid var(--primary);
-  padding: 0.4rem 0.6rem;
-  margin: 0.5rem 0;
-  font-size: 0.7rem;
-  line-height: 1.4;
-  color: var(--text);
-  border-radius: 0 0.3rem 0.3rem 0;
-}
-
-.dark-mode .terms-text {
-  background: var(--gray-700);
-}
-
-.terms-text ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  list-style: none;
-}
-
-.terms-text li {
-  position: relative;
-  margin-bottom: 0.2rem;
-}
-
-.terms-text li::before {
-  content: "•";
-  color: var(--primary);
-  font-weight: bold;
-  position: absolute;
-  left: -1rem;
-}
-
-/* 저장 버튼 위치 미세 조정 */
-.save {
-  position: absolute;
-  top: 12px;  /* 8px에서 조금 내림 */
-  right: 12px;
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,.2);
-  transition: all .2s;
-  z-index: 30;
-  font-size: 1.2rem;
-}
-
-/* 카드 컨테이너 최소 높이 조정 (이미지가 커졌으므로) */
-.card {
-  min-height: 340px;
-}
-
-.card-front {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 340px;
-}
+      .pill {
+        font-size: .7rem;
+        padding: .4rem .6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1162,17 +1030,17 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       
       // URL 파라미터 업데이트
       updateUrlParam(key, value) {
-  const url = new URL(window.location);
-  
-  // 명시적인 처리
-  if (value === null || value === undefined || value === '') {
-    url.searchParams.delete(key);
-  } else {
-    url.searchParams.set(key, value);
-  }
-  
-  window.history.replaceState({}, '', url);
-},
+        const url = new URL(window.location);
+        
+        // 명시적인 처리
+        if (value === null || value === undefined || value === '') {
+          url.searchParams.delete(key);
+        } else {
+          url.searchParams.set(key, value);
+        }
+        
+        window.history.replaceState({}, '', url);
+      },
       
       // URL 파라미터 가져오기
       getUrlParam(key) {
@@ -1253,139 +1121,193 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
     // 다국어 텍스트
     // ===========================================
     const T = {
-        zh: {
-    pageTitle: 'Japankuru 优惠券钱包',
-    heroTitle: '让您的日本之旅更实惠',
-    heroDesc: '在Bic Camera、BEAMS等热门商店即时获得折扣。无需注册。',
-    ctaButton: '在热门商店获得折扣',
-    searchPlaceholder: '按店名或地区搜索...',
-    all: '全部',
-    saved: '已保存',
-    electronics: '🔌 电器',
-    fashion: '👕 时尚',
-    dining: '🍽️ 美食',
-    transport: '🚇 交通',
-    nearby: '📍 附近',
-    home: '首页',
-    map: '地图',
-    settings: '设置',
-    languageChanged: '语言已更改',
-    detailShow: '查看详情',
-    backToList: '返回列表',
-    backButton: '← 返回',
-    closeDetail: '关闭详情',
-    copyCode: '复制代码',
-    copied: '已复制',
-    codeCopied: '优惠券代码已复制！',
-    copyFailed: '复制失败。请手动复制。',
-    saveCoupon: '保存优惠券',
-    unsaveCoupon: '取消保存',
-    savedCoupon: '已保存',
-    unsavedCoupon: '已取消保存',
-    locationError: '无法获取位置',
-    locationObtained: '已获取位置',
-    locationDenied: '位置访问被拒绝',
-    mapView: '在地图上查看',
-    mapShown: '地图已显示',
-    mapViewTab: '地图视图',
-    nearbySort: '按位置排序',
-    noExpiry: '无期限',
-    store: '商店',
-    benefit: '优惠',
-    expiry: '有效期',
-    notFound: '未找到优惠券',
-    notFoundDesc: '请尝试更改搜索条件',
-    suggestions: ['涩谷', '新宿', '电器店'],
-    codeSelected: '代码已选择',
-    whyThisStore: '💬 为什么推荐这家店？',
-    daysLeft: '剩余{days}天',
-    expiryWarning: '即将到期',
-    darkMode: '深色模式',
-    lightMode: '浅色模式',
-    filterChanged: '筛选条件已更改',
-    cardFlipped: '卡片已翻转',
-    focusRestored: '焦点已恢复',
-    termsLabel: '使用条款',
-    terms: ['不可与其他优惠同时使用', '部分商品除外', '请在结账前出示', '每人限用一次'],
-    openInGoogleMaps: '在Google地图中打开',
-    officialWebsite: '官方网站',
-    viewSite: '查看',
-    relatedArticle: '相关文章',
-    readArticle: '阅读文章',
-    errorLoadingCoupons: '无法加载优惠券信息。请稍后再试。',
-    cacheCleared: '缓存已清除',
-    savedCouponsCleared: '所有保存的优惠券已删除',
-    confirmClearSaved: '您确定要删除所有保存的优惠券吗？',
-    shareCoupon: '分享'
-  },
-  
-  'zh-TW': {
-    pageTitle: 'Japankuru 優惠券錢包',
-    heroTitle: '讓您的日本之旅更實惠',
-    heroDesc: '在Bic Camera、BEAMS等熱門商店即時獲得折扣。無需註冊。',
-    ctaButton: '在熱門商店獲得折扣',
-    searchPlaceholder: '按店名或地區搜尋...',
-    all: '全部',
-    saved: '已保存',
-    electronics: '🔌 電器',
-    fashion: '👕 時尚',
-    dining: '🍽️ 美食',
-    transport: '🚇 交通',
-    nearby: '📍 附近',
-    home: '首頁',
-    map: '地圖',
-    settings: '設定',
-    languageChanged: '語言已更改',
-    detailShow: '查看詳情',
-    backToList: '返回列表',
-    backButton: '← 返回',
-    closeDetail: '關閉詳情',
-    copyCode: '複製代碼',
-    copied: '已複製',
-    codeCopied: '優惠券代碼已複製！',
-    copyFailed: '複製失敗。請手動複製。',
-    saveCoupon: '保存優惠券',
-    unsaveCoupon: '取消保存',
-    savedCoupon: '已保存',
-    unsavedCoupon: '已取消保存',
-    locationError: '無法獲取位置',
-    locationObtained: '已獲取位置',
-    locationDenied: '位置訪問被拒絕',
-    mapView: '在地圖上查看',
-    mapShown: '地圖已顯示',
-    mapViewTab: '地圖視圖',
-    nearbySort: '按位置排序',
-    noExpiry: '無期限',
-    store: '商店',
-    benefit: '優惠',
-    expiry: '有效期',
-    notFound: '未找到優惠券',
-    notFoundDesc: '請嘗試更改搜尋條件',
-    suggestions: ['澀谷', '新宿', '電器店'],
-    codeSelected: '代碼已選擇',
-    whyThisStore: '💬 為什麼推薦這家店？',
-    daysLeft: '剩餘{days}天',
-    expiryWarning: '即將到期',
-    darkMode: '深色模式',
-    lightMode: '淺色模式',
-    filterChanged: '篩選條件已更改',
-    cardFlipped: '卡片已翻轉',
-    focusRestored: '焦點已恢復',
-    termsLabel: '使用條款',
-    terms: ['不可與其他優惠同時使用', '部分商品除外', '請在結帳前出示', '每人限用一次'],
-    openInGoogleMaps: '在Google地圖中開啟',
-    officialWebsite: '官方網站',
-    viewSite: '查看',
-    relatedArticle: '相關文章',
-    readArticle: '閱讀文章',
-    errorLoadingCoupons: '無法載入優惠券資訊。請稍後再試。',
-    cacheCleared: '快取已清除',
-    savedCouponsCleared: '所有保存的優惠券已刪除',
-    confirmClearSaved: '您確定要刪除所有保存的優惠券嗎？',
-    shareCoupon: '分享'
-  },
+      zh: {
+        cardFlipped: '卡片已翻转',
+        cardClosed: '卡片已关闭',
+        flipCard: '翻转卡片',
+        coupon: '优惠券',
+        mapRetrying: '重试中 {current}/{max}...',
+        mapLoadFailed: '地图加载失败',
+        sharedCoupon: '共享的优惠券',
+        filterAll: '全部',
+        filterSaved: '已保存',
+        filterElectronics: '🔌 电器',
+        filterFashion: '👕 时尚',
+        filterDining: '🍽️ 美食',
+        filterTransport: '🚇 交通',
+        filterNearby: '📍 附近',
+        noResults: '没有找到结果',
+        tryAgain: '请重试',
+        loading: '加载中...',
+        error: '发生错误',
+        pageTitle: 'Japankuru 优惠券钱包',
+        heroTitle: '让您的日本之旅更实惠',
+        heroDesc: '在Bic Camera、BEAMS等热门商店即时获得折扣。无需注册。',
+        ctaButton: '在热门商店获得折扣',
+        searchPlaceholder: '按店名或地区搜索...',
+        all: '全部',
+        saved: '已保存',
+        electronics: '🔌 电器',
+        fashion: '👕 时尚',
+        dining: '🍽️ 美食',
+        transport: '🚇 交通',
+        nearby: '📍 附近',
+        home: '首页',
+        map: '地图',
+        settings: '设置',
+        languageChanged: '语言已更改',
+        detailShow: '查看详情',
+        backToList: '返回列表',
+        backButton: '← 返回',
+        closeDetail: '关闭详情',
+        copyCode: '复制代码',
+        copied: '已复制',
+        codeCopied: '优惠券代码已复制！',
+        copyFailed: '复制失败。请手动复制。',
+        saveCoupon: '保存优惠券',
+        unsaveCoupon: '取消保存',
+        savedCoupon: '已保存',
+        unsavedCoupon: '已取消保存',
+        locationError: '无法获取位置',
+        locationObtained: '已获取位置',
+        locationDenied: '位置访问被拒绝',
+        mapView: '在地图上查看',
+        mapShown: '地图已显示',
+        mapViewTab: '地图视图',
+        nearbySort: '按位置排序',
+        noExpiry: '无期限',
+        store: '商店',
+        benefit: '优惠',
+        expiry: '有效期',
+        notFound: '未找到优惠券',
+        notFoundDesc: '请尝试更改搜索条件',
+        suggestions: ['涩谷', '新宿', '电器店'],
+        codeSelected: '代码已选择',
+        whyThisStore: '💬 为什么推荐这家店？',
+        daysLeft: '剩余{days}天',
+        expiryWarning: '即将到期',
+        darkMode: '深色模式',
+        lightMode: '浅色模式',
+        filterChanged: '筛选条件已更改',
+        focusRestored: '焦点已恢复',
+        termsLabel: '使用条款',
+        terms: ['不可与其他优惠同时使用', '部分商品除外', '请在结账前出示', '每人限用一次'],
+        openInGoogleMaps: '在Google地图中打开',
+        officialWebsite: '官方网站',
+        viewSite: '查看',
+        relatedArticle: '相关文章',
+        readArticle: '阅读文章',
+        errorLoadingCoupons: '无法加载优惠券信息。请稍后再试。',
+        cacheCleared: '缓存已清除',
+        savedCouponsCleared: '所有保存的优惠券已删除',
+        confirmClearSaved: '您确定要删除所有保存的优惠券吗？',
+        shareCoupon: '分享',
+        copySuccess: '✅ 已复制！'
+      },
+      
+      'zh-TW': {
+        cardFlipped: '卡片已翻轉',
+        cardClosed: '卡片已關閉',
+        flipCard: '翻轉卡片',
+        coupon: '優惠券',
+        mapRetrying: '重試中 {current}/{max}...',
+        mapLoadFailed: '地圖載入失敗',
+        sharedCoupon: '共享的優惠券',
+        filterAll: '全部',
+        filterSaved: '已保存',
+        filterElectronics: '🔌 電器',
+        filterFashion: '👕 時尚',
+        filterDining: '🍽️ 美食',
+        filterTransport: '🚇 交通',
+        filterNearby: '📍 附近',
+        noResults: '沒有找到結果',
+        tryAgain: '請重試',
+        loading: '載入中...',
+        error: '發生錯誤',
+        pageTitle: 'Japankuru 優惠券錢包',
+        heroTitle: '讓您的日本之旅更實惠',
+        heroDesc: '在Bic Camera、BEAMS等熱門商店即時獲得折扣。無需註冊。',
+        ctaButton: '在熱門商店獲得折扣',
+        searchPlaceholder: '按店名或地區搜尋...',
+        all: '全部',
+        saved: '已保存',
+        electronics: '🔌 電器',
+        fashion: '👕 時尚',
+        dining: '🍽️ 美食',
+        transport: '🚇 交通',
+        nearby: '📍 附近',
+        home: '首頁',
+        map: '地圖',
+        settings: '設定',
+        languageChanged: '語言已更改',
+        detailShow: '查看詳情',
+        backToList: '返回列表',
+        backButton: '← 返回',
+        closeDetail: '關閉詳情',
+        copyCode: '複製代碼',
+        copied: '已複製',
+        codeCopied: '優惠券代碼已複製！',
+        copyFailed: '複製失敗。請手動複製。',
+        saveCoupon: '保存優惠券',
+        unsaveCoupon: '取消保存',
+        savedCoupon: '已保存',
+        unsavedCoupon: '已取消保存',
+        locationError: '無法獲取位置',
+        locationObtained: '已獲取位置',
+        locationDenied: '位置訪問被拒絕',
+        mapView: '在地圖上查看',
+        mapShown: '地圖已顯示',
+        mapViewTab: '地圖視圖',
+        nearbySort: '按位置排序',
+        noExpiry: '無期限',
+        store: '商店',
+        benefit: '優惠',
+        expiry: '有效期',
+        notFound: '未找到優惠券',
+        notFoundDesc: '請嘗試更改搜尋條件',
+        suggestions: ['澀谷', '新宿', '電器店'],
+        codeSelected: '代碼已選擇',
+        whyThisStore: '💬 為什麼推薦這家店？',
+        daysLeft: '剩餘{days}天',
+        expiryWarning: '即將到期',
+        darkMode: '深色模式',
+        lightMode: '淺色模式',
+        filterChanged: '篩選條件已更改',
+        focusRestored: '焦點已恢復',
+        termsLabel: '使用條款',
+        terms: ['不可與其他優惠同時使用', '部分商品除外', '請在結帳前出示', '每人限用一次'],
+        openInGoogleMaps: '在Google地圖中開啟',
+        officialWebsite: '官方網站',
+        viewSite: '查看',
+        relatedArticle: '相關文章',
+        readArticle: '閱讀文章',
+        errorLoadingCoupons: '無法載入優惠券資訊。請稍後再試。',
+        cacheCleared: '快取已清除',
+        savedCouponsCleared: '所有保存的優惠券已刪除',
+        confirmClearSaved: '您確定要刪除所有保存的優惠券嗎？',
+        shareCoupon: '分享',
+        copySuccess: '✅ 已複製！'
+      },
       
       ko: {
+        cardFlipped: '카드가 뒤집혔습니다',
+        cardClosed: '카드가 닫혔습니다', 
+        flipCard: '카드 뒤집기',
+        coupon: '쿠폰',
+        mapRetrying: '재시도 중 {current}/{max}...',
+        mapLoadFailed: '지도 로드 실패',
+        sharedCoupon: '공유된 쿠폰',
+        filterAll: '전체',
+        filterSaved: '저장됨',
+        filterElectronics: '🔌 가전',
+        filterFashion: '👕 패션',
+        filterDining: '🍽️ 맛집',
+        filterTransport: '🚇 교통',
+        filterNearby: '📍 근처',
+        noResults: '결과가 없습니다',
+        tryAgain: '다시 시도해주세요',
+        loading: '로딩 중...',
+        error: '오류가 발생했습니다',
         pageTitle: 'Japankuru 쿠폰 월렛',
         heroTitle: '일본 여행이 더 저렴해집니다',
         heroDesc: 'Bic Camera, BEAMS 등 인기 매장에서 즉시 할인을 받으세요. 회원가입 필요 없음。',
@@ -1435,7 +1357,6 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         darkMode: '다크모드',
         lightMode: '라이트모드',
         filterChanged: '필터를 변경했습니다',
-        cardFlipped: '카드를 뒤집었습니다',
         focusRestored: '포커스를 복원했습니다',
         termsLabel: '이용 조건',
         terms: ['타 할인과 중복 사용 불가', '일부 품목 제외', '계산 전에 제시해주세요', '1인 1회 한정'],
@@ -1448,10 +1369,29 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         cacheCleared: '캐시를 삭제했습니다',
         savedCouponsCleared: '저장된 쿠폰을 모두 삭제했습니다',
         confirmClearSaved: '정말로 모든 저장된 쿠폰을 삭제하시겠습니까?',
-        shareCoupon: '共有する'
+        shareCoupon: '공유하기',
+        copySuccess: '✅ 복사했습니다！'
       },
       
       en: {
+        cardFlipped: 'Card flipped',
+        cardClosed: 'Card closed',
+        flipCard: 'Flip card',
+        coupon: 'coupon',
+        mapRetrying: 'Retrying {current}/{max}...',
+        mapLoadFailed: 'Failed to load map',
+        sharedCoupon: 'Shared coupon',
+        filterAll: 'All',
+        filterSaved: 'Saved',
+        filterElectronics: '🔌 Electronics',
+        filterFashion: '👕 Fashion',
+        filterDining: '🍽️ Dining',
+        filterTransport: '🚇 Transport',
+        filterNearby: '📍 Nearby',
+        noResults: 'No results found',
+        tryAgain: 'Please try again',
+        loading: 'Loading...',
+        error: 'An error occurred',
         pageTitle: 'Japankuru Coupon Wallet',
         heroTitle: 'Make Your Japan Trip More Affordable',
         heroDesc: 'Get instant discounts at popular stores like Bic Camera and BEAMS. No sign-up required.',
@@ -1501,7 +1441,6 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         darkMode: 'Dark Mode',
         lightMode: 'Light Mode',
         filterChanged: 'Filter changed',
-        cardFlipped: 'Card flipped',
         focusRestored: 'Focus restored',
         termsLabel: 'Terms & Conditions',
         terms: ['Cannot be combined with other discounts', 'Some items excluded', 'Please present before payment', 'Limit once per person'],
@@ -1514,10 +1453,25 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         cacheCleared: 'Cache cleared',
         savedCouponsCleared: 'All saved coupons deleted',
         confirmClearSaved: 'Are you sure you want to delete all saved coupons?',
-        shareCoupon: '共有する'
+        shareCoupon: 'Share',
+        copySuccess: '✅ Copied!'
       },
 
       th: {
+        mapRetrying: 'กำลังลองใหม่ {current}/{max}...',
+        mapLoadFailed: 'ไม่สามารถโหลดแผนที่ได้',
+        sharedCoupon: 'คูปองที่แชร์',
+        filterAll: 'ทั้งหมด',
+        filterSaved: 'บันทึกแล้ว',
+        filterElectronics: '🔌 อิเล็กทรอนิกส์',
+        filterFashion: '👕 แฟชั่น',
+        filterDining: '🍽️ อาหาร',
+        filterTransport: '🚇 การเดินทาง',
+        filterNearby: '📍 ใกล้เคียง',
+        noResults: 'ไม่พบผลลัพธ์',
+        tryAgain: 'กรุณาลองใหม่อีกครั้ง',
+        loading: 'กำลังโหลด...',
+        error: 'เกิดข้อผิดพลาด',
         pageTitle: 'Japankuru Coupon Wallet',
         heroTitle: 'ทำให้การเดินทางญี่ปุ่นของคุณประหยัดขึ้น',
         heroDesc: 'รับส่วนลดทันทีที่ร้านค้ายอดนิยมอย่าง Bic Camera และ BEAMS ไม่ต้องสมัครสมาชิก',
@@ -1568,6 +1522,9 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         lightMode: 'โหมดสว่าง',
         filterChanged: 'เปลี่ยนตัวกรองแล้ว',
         cardFlipped: 'พลิกการ์ดแล้ว',
+        cardClosed: 'ปิดการ์ดแล้ว',
+        flipCard: 'พลิกการ์ด',
+        coupon: 'คูปอง',
         focusRestored: 'คืนค่าโฟกัสแล้ว',
         termsLabel: 'เงื่อนไขการใช้งาน',
         terms: ['ไม่สามารถใช้ร่วมกับส่วนลดอื่น', 'ยกเว้นสินค้าบางรายการ', 'กรุณาแสดงก่อนชำระเงิน', 'จำกัด 1 ครั้งต่อคน'],
@@ -1580,9 +1537,22 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         cacheCleared: 'ล้างแคชแล้ว',
         savedCouponsCleared: 'ลบคูปองที่บันทึกไว้ทั้งหมดแล้ว',
         confirmClearSaved: 'คุณแน่ใจหรือไม่ที่จะลบคูปองที่บันทึกไว้ทั้งหมด?',
-        shareCoupon: '共有する'
+        shareCoupon: 'แชร์',
+        copySuccess: '✅ คัดลอกแล้ว！'
       }
     };
+    
+    // 안전한 번역 헬퍼 함수
+    function t(key, vars = {}) {
+      const lang = LanguageManager.currentLang;
+      let str = T[lang]?.[key] || T.en?.[key] || key; // fallback chain
+      
+      Object.entries(vars).forEach(([k, v]) => {
+        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), v);
+      });
+      
+      return str;
+    }
 
     // ===========================================
     // 언어 관리자 (개선)
@@ -1617,8 +1587,8 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         }
 
         if (navigator.language.toLowerCase().includes('zh-tw') || 
-      navigator.language.toLowerCase().includes('zh-hk')) {
-        return 'zh-TW';
+            navigator.language.toLowerCase().includes('zh-hk')) {
+          return 'zh-TW';
         }
 
         return 'en';
@@ -1784,6 +1754,10 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         // HTML lang 속성 업데이트
         document.documentElement.lang = this.currentLang;
         
+        // Body에 언어별 클래스 추가
+        document.body.className = document.body.className.replace(/lang-\w+/g, '');
+        document.body.classList.add(`lang-${this.currentLang}`);
+        
         // 페이지 제목
         document.title = T[this.currentLang].pageTitle || 'Japankuru クーポンウォレット';
         
@@ -1842,17 +1816,17 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
 
     // 쿠폰 필드 다국어 헬퍼 함수
     function getCouponField(coupon, field, fallback = '') {
-  const langField = `${field}_${LanguageManager.currentLang.replace('-', '_')}`;
-  const enField = `${field}_en`;
-  
-  // 각 필드 값을 가져올 때 타입 체크
-  const getValue = (key) => {
-    const val = coupon[key];
-    return (typeof val === 'string' || typeof val === 'number') ? String(val) : null;
-  };
-  
-  return getValue(langField) || getValue(enField) || getValue(field) || fallback;
-}
+      const langField = `${field}_${LanguageManager.currentLang.replace('-', '_')}`;
+      const enField = `${field}_en`;
+      
+      // 각 필드 값을 가져올 때 타입 체크
+      const getValue = (key) => {
+        const val = coupon[key];
+        return (typeof val === 'string' || typeof val === 'number') ? String(val) : null;
+      };
+      
+      return getValue(langField) || getValue(enField) || getValue(field) || fallback;
+    }
 
     // ===========================================
     // 쿠폰 데이터 로더
@@ -2316,63 +2290,61 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       },
       
       async loadLeaflet() {
-  let attempts = 0;
-  
-  while (attempts < this.maxRetries) {
-    try {
-      await this._loadLeafletResources();
-      this.leafletLoaded = true;
-      this.retryCount = 0; // 성공 시 리셋
-      return;
-    } catch (error) {
-      attempts++;
-      this.retryCount = attempts;
-      
-      if (attempts < this.maxRetries) {
-        const delay = Math.pow(2, attempts) * 1000;
-        Toast.show(
-          T[LanguageManager.currentLang].mapRetrying
-            .replace('{current}', attempts)
-            .replace('{max}', this.maxRetries),
-          2000
-        );
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-  }
-  
-  // 모든 재시도 실패
-  Toast.show(T[LanguageManager.currentLang].mapLoadFailed || 'Failed to load map', 3000);
-  throw new Error('Failed to load Leaflet after all retries');
-},
+        let attempts = 0;
+        
+        while (attempts < this.maxRetries) {
+          try {
+            await this._loadLeafletResources();
+            this.leafletLoaded = true;
+            this.retryCount = 0; // 성공 시 리셋
+            return;
+          } catch (error) {
+            attempts++;
+            this.retryCount = attempts;
+            
+            if (attempts < this.maxRetries) {
+              const delay = Math.pow(2, attempts) * 1000;
+              Toast.show(
+                t('mapRetrying', {current: attempts, max: this.maxRetries}),
+                2000
+              );
+              await new Promise(resolve => setTimeout(resolve, delay));
+            }
+          }
+        }
+        
+        // 모든 재시도 실패
+        Toast.show(T[LanguageManager.currentLang].mapLoadFailed || 'Failed to load map', 3000);
+        throw new Error('Failed to load Leaflet after all retries');
+      },
 
-async _loadLeafletResources() {
-  // CSS 로드
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-  
-  const cssLoaded = new Promise((resolve, reject) => {
-    css.onload = resolve;
-    css.onerror = reject;
-  });
-  
-  document.head.appendChild(css);
-  
-  // JS 로드
-  const script = document.createElement('script');
-  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  
-  const scriptLoaded = new Promise((resolve, reject) => {
-    script.onload = resolve;
-    script.onerror = reject;
-  });
-  
-  document.body.appendChild(script);
-  
-  // 두 리소스 모두 로드 대기
-  await Promise.all([cssLoaded, scriptLoaded]);
-},
+      async _loadLeafletResources() {
+        // CSS 로드
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        
+        const cssLoaded = new Promise((resolve, reject) => {
+          css.onload = resolve;
+          css.onerror = reject;
+        });
+        
+        document.head.appendChild(css);
+        
+        // JS 로드
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        
+        const scriptLoaded = new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = reject;
+        });
+        
+        document.body.appendChild(script);
+        
+        // 두 리소스 모두 로드 대기
+        await Promise.all([cssLoaded, scriptLoaded]);
+      },
       
       renderMarkers() {
         if (!this.mapInstance || !this.initialized || !window.app) return;
@@ -2549,7 +2521,6 @@ async _loadLeafletResources() {
       card.className = 'card';
       card.setAttribute('data-id', coupon.id);
       card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
       
       const store = getCouponField(coupon, 'store');
       const offer = getCouponField(coupon, 'offer');
@@ -2559,6 +2530,12 @@ async _loadLeafletResources() {
       
       const cardInner = document.createElement('div');
       cardInner.className = 'card-inner';
+
+      const flipOverlay = document.createElement('div');
+      flipOverlay.className = 'card-flip-overlay';
+      flipOverlay.setAttribute('role', 'button');
+      flipOverlay.setAttribute('aria-label', t('flipCard'));
+      flipOverlay.setAttribute('tabindex', '-1');
       
       // 앞면 생성
       const cardFront = createCardFront(coupon, store, offer);
@@ -2569,117 +2546,121 @@ async _loadLeafletResources() {
       cardInner.appendChild(cardFront);
       cardInner.appendChild(cardBack);
       card.appendChild(cardInner);
+      card.appendChild(flipOverlay);
       
       // 이벤트 리스너
-      setupCardEvents(card);
+      setupCardEvents(card, flipOverlay);
       
       return card;
     }
 
     // 앞면 생성 함수 수정
-function createCardFront(coupon, store, offer) {
-  const cardFront = document.createElement('div');
-  cardFront.className = 'card-face card-front';
-  cardFront.setAttribute('aria-hidden', 'false');
+    function createCardFront(coupon, store, offer) {
+      const cardFront = document.createElement('div');
+      cardFront.className = 'card-face card-front';
+      cardFront.setAttribute('aria-hidden', 'false');
 
-  // 이미지 (높이 증가됨)
-  const img = document.createElement('img');
-  img.dataset.src = coupon.image;
-  img.alt = store;
-  img.loading = 'lazy';
-  img.className = 'lazy';
-  cardFront.appendChild(img);
-  ImageLazyLoader.observe(img);
+      // 이미지 (높이 증가됨)
+      const img = document.createElement('img');
+      img.dataset.src = coupon.image;
+      img.alt = store;
+      img.loading = 'lazy';
+      img.className = 'lazy';
+      cardFront.appendChild(img);
+      ImageLazyLoader.observe(img);
 
-  // 할인 배지
-  const offerBadge = document.createElement('div');
-  offerBadge.className = 'offer-badge';
-  offerBadge.textContent = offer;
-  cardFront.appendChild(offerBadge);
+      // 할인 배지
+      const offerBadge = document.createElement('div');
+      offerBadge.className = 'offer-badge';
+      offerBadge.textContent = offer;
+      cardFront.appendChild(offerBadge);
 
-  // 카드 바디
-  const body = document.createElement('div');
-  body.className = 'card-body';
+      // 카드 바디
+      const body = document.createElement('div');
+      body.className = 'card-body';
 
-  // 매장명 (간단하게)
-  const title = document.createElement('div');
-  title.className = 'title';
-  title.textContent = store;
-  body.appendChild(title);
+      // 매장명 (간단하게)
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = store;
+      body.appendChild(title);
 
-  // 설명 (한 줄로 짧게)
-  const description = getCouponField(coupon, 'description');
-  const desc = document.createElement('div');
-  desc.className = 'desc';
-  desc.style.fontSize = '0.75rem';  // 더 작게
-  desc.textContent = description.length > 50 ? description.substring(0, 50) + '...' : description;
-  body.appendChild(desc);
+      // 설명 (한 줄로 짧게)
+      const description = getCouponField(coupon, 'description');
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.style.fontSize = '0.75rem';  // 더 작게
+      desc.textContent = description.length > 50 ? description.substring(0, 50) + '...' : description;
+      body.appendChild(desc);
 
-  // 유효기한 표시 (컴팩트하게)
-  const expiryLine = document.createElement('div');
-  expiryLine.className = 'expiry-line';
-  expiryLine.style.cssText = 'display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin: 0.3rem 0;';
-  
-  const daysLeft = Utils.daysTillExpiry(coupon.expiry);
-  if (daysLeft === 999) {
-    expiryLine.innerHTML = `<span>📅</span><span>${T[LanguageManager.currentLang].noExpiry}</span>`;
-  } else if (daysLeft <= 7) {
-    expiryLine.innerHTML = `<span>⏰</span><span style="color: var(--danger); font-weight: 600;">${daysLeft}일 남음</span>`;
-  } else {
-    expiryLine.innerHTML = `<span>📅</span><span>${coupon.expiry}</span>`;
-  }
-  body.appendChild(expiryLine);
+      // 유효기한 표시 (컴팩트하게)
+      const expiryLine = document.createElement('div');
+      expiryLine.className = 'expiry-line';
+      
+      const daysLeft = Utils.daysTillExpiry(coupon.expiry);
+      if (daysLeft === 999) {
+        expiryLine.innerHTML = `<span>📅</span><span>${T[LanguageManager.currentLang].noExpiry}</span>`;
+      } else if (daysLeft <= 7) {
+        expiryLine.innerHTML = `<span>⏰</span><span class="expiry-danger">${t('daysLeft', {days: daysLeft})}</span>`;
+      } else {
+        expiryLine.innerHTML = `<span>📅</span><span>${coupon.expiry}</span>`;
+      }
+      body.appendChild(expiryLine);
 
-  // 이용조건 텍스트로 표시 (실제 쿠폰처럼)
-  if (coupon.terms && coupon.terms.length > 0) {
-    const termsText = document.createElement('div');
-    termsText.className = 'terms-text';
-    
-    const termsList = document.createElement('ul');
-    // 최대 3개까지만 표시
-    const displayTerms = coupon.terms.slice(0, 3);
-    displayTerms.forEach(term => {
-      const li = document.createElement('li');
-      li.textContent = term;
-      termsList.appendChild(li);
-    });
-    
-    if (coupon.terms.length > 3) {
-      const li = document.createElement('li');
-      li.textContent = '...';
-      li.style.color = 'var(--muted)';
-      termsList.appendChild(li);
+      // 이용조건 텍스트로 표시 (실제 쿠폰처럼)
+      if (coupon.terms && coupon.terms.length > 0) {
+        const termsText = document.createElement('div');
+        termsText.className = 'terms-text';
+        
+        const termsList = document.createElement('ul');
+        // 최대 3개까지만 표시
+        const displayTerms = coupon.terms.slice(0, 3);
+        displayTerms.forEach(term => {
+          const li = document.createElement('li');
+          li.textContent = term;
+          termsList.appendChild(li);
+        });
+        
+        if (coupon.terms.length > 3) {
+          const li = document.createElement('li');
+          li.textContent = '...';
+          li.style.color = 'var(--muted)';
+          termsList.appendChild(li);
+        }
+        
+        termsText.appendChild(termsList);
+        body.appendChild(termsText);
+      }
+
+      // 추천 문구가 있으면 표시
+      const recommendation = getCouponField(coupon, 'recommendation');
+      if (recommendation) {
+        body.appendChild(createRecommendationSection(recommendation));
+      }
+
+      // 상세보기 버튼 (작게, 오른쪽 정렬)
+      const actionRow = document.createElement('div');
+      actionRow.style.cssText = 'display: flex; justify-content: flex-end; margin-top: auto;';
+      
+      const detailBtn = document.createElement('button');
+      detailBtn.className = 'btn btn-show-detail';
+      detailBtn.textContent = T[LanguageManager.currentLang].detailShow || '상세 >';
+      detailBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = detailBtn.closest('.card');
+        flipCard(card, true);
+      });
+      
+      actionRow.appendChild(detailBtn);
+      body.appendChild(actionRow);
+
+      cardFront.appendChild(body);
+     
+      const saveBtn = createSaveButton(coupon.id);
+      cardFront.appendChild(saveBtn);
+
+      return cardFront;
     }
-    
-    termsText.appendChild(termsList);
-    body.appendChild(termsText);
-  }
-
-  // 상세보기 버튼 (작게, 오른쪽 정렬)
-  const actionRow = document.createElement('div');
-  actionRow.style.cssText = 'display: flex; justify-content: flex-end; margin-top: auto;';
-  
-  const detailBtn = document.createElement('button');
-  detailBtn.className = 'btn btn-show-detail';
-  detailBtn.style.cssText = 'width: auto; padding: 0.3rem 0.8rem; font-size: 0.75rem;'; // 인라인 스타일로 확실하게
-  detailBtn.textContent = T[LanguageManager.currentLang].detailShow || '상세 >';
-  detailBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const card = detailBtn.closest('.card');
-    flipCard(card, true);
-  });
-  
-  actionRow.appendChild(detailBtn);
-  body.appendChild(actionRow);
-
-  cardFront.appendChild(body);
-
-  // 저장 버튼
-  const saveBtn = createSaveButton(coupon.id);
-  cardFront.appendChild(saveBtn);
-
-  return cardFront;
-}
 
     // 뒷면 생성 (컴팩트하게)
     function createCardBack(coupon, store, offer) {
@@ -2763,82 +2744,151 @@ function createCardFront(coupon, store, offer) {
 
       cardBack.appendChild(infoGrid);
 
-      // 복사 버튼
+      
+      // 공유 버튼
       const shareBtn = createShareButton(coupon);
       cardBack.appendChild(shareBtn);
-      
-
-      // 저장 버튼
-      const saveBtn = createSaveButton(coupon.id);
-      cardBack.appendChild(saveBtn);
 
       return cardBack;
     }
 
     // 정보 아이템 생성
     function createInfoItem(label, value) {
-  const item = document.createElement('div');
-  item.className = 'info-item';
-  
-  const labelEl = document.createElement('span');
-  labelEl.className = 'info-label';
-  labelEl.textContent = label;
-  
-  const valueEl = document.createElement('span');
-  valueEl.className = 'info-value';
-  
-  // 안전한 HTML 처리
-  if (typeof value === 'string') {
-    // 신뢰할 수 있는 링크 패턴만 허용
-    if (value.match(/^<a\s+href="https?:\/\/[^"]+"\s*(target="_blank"\s*)?(rel="noopener"\s*)?>[\s\S]+<\/a>$/)) {
-      // 링크만 허용하되, 추가 검증
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = value;
-      const link = tempDiv.querySelector('a');
-      if (link && link.href && link.textContent) {
-        const safeLink = document.createElement('a');
-        safeLink.href = link.href;
-        safeLink.target = '_blank';
-        safeLink.rel = 'noopener';
-        safeLink.textContent = link.textContent;
-        valueEl.appendChild(safeLink);
+      const item = document.createElement('div');
+      item.className = 'info-item';
+      
+      const labelEl = document.createElement('span');
+      labelEl.className = 'info-label';
+      labelEl.textContent = label;
+      
+      const valueEl = document.createElement('span');
+      valueEl.className = 'info-value';
+      
+      // 안전한 HTML 처리
+      if (typeof value === 'string') {
+        // 신뢰할 수 있는 링크 패턴만 허용
+        if (value.match(/^<a\s+href="https?:\/\/[^"]+"\s*(target="_blank"\s*)?(rel="noopener"\s*)?>[\s\S]+<\/a>$/)) {
+          // 링크만 허용하되, 추가 검증
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = value;
+          const link = tempDiv.querySelector('a');
+          if (link && link.href && link.textContent) {
+            const safeLink = document.createElement('a');
+            safeLink.href = link.href;
+            safeLink.target = '_blank';
+            safeLink.rel = 'noopener';
+            safeLink.textContent = link.textContent;
+            valueEl.appendChild(safeLink);
+          } else {
+            valueEl.textContent = value;
+          }
+        } else {
+          valueEl.textContent = value;
+        }
       } else {
-        valueEl.textContent = value;
+        valueEl.textContent = String(value);
       }
-    } else {
-      valueEl.textContent = value;
+      
+      item.appendChild(labelEl);
+      item.appendChild(valueEl);
+      return item;
     }
-  } else {
-    valueEl.textContent = String(value);
-  }
-  
-  item.appendChild(labelEl);
-  item.appendChild(valueEl);
-  return item;
-}
 
-function createRecommendationSection(recommendation) {
+    function createRecommendationSection(recommendation) {
   const recWrapper = document.createElement('div');
-  recWrapper.className = 'recommendation-wrapper';  // 인라인 스타일을 클래스로 대체
+  recWrapper.className = 'recommendation-wrapper';
   
   const recBtn = document.createElement('button');
-  recBtn.className = 'btn btn-sm recommendation-btn';  // 기존 클래스 유지 + 새 클래스 추가
-      recBtn.textContent = T[LanguageManager.currentLang].whyThisStore || '💬 なぜこの店？';
+  recBtn.className = 'btn btn-sm recommendation-btn';
+  recBtn.textContent = T[LanguageManager.currentLang].whyThisStore || '💬 なぜこの店？';
 
-      const bubble = document.createElement('div');
-      bubble.className = 'speech-bubble hidden';
-      bubble.textContent = recommendation;
-
-      recBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        bubble.classList.toggle('hidden');
-      });
-
-      recWrapper.appendChild(recBtn);
-      recWrapper.appendChild(bubble);
+  const bubble = document.createElement('div');
+  bubble.className = 'speech-bubble';
+  bubble.textContent = recommendation;
+  
+  // 오버레이 생성
+  let overlay = null;
+  
+  // 툴팁 표시 함수
+  const showTooltip = () => {
+    bubble.classList.add('show');
+    
+    // 모바일에서만 오버레이 표시
+    if ('ontouchstart' in window || window.innerWidth <= 768) {
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'speech-bubble-overlay';
+        document.body.appendChild(overlay);
+      }
+      overlay.classList.add('show');
       
-      return recWrapper;
+      // 오버레이 클릭시 닫기
+      overlay.addEventListener('click', hideTooltip, { once: true });
     }
+  };
+  
+  // 툴팁 숨기기 함수
+  const hideTooltip = () => {
+    bubble.classList.remove('show');
+    if (overlay) {
+      overlay.classList.remove('show');
+      setTimeout(() => {
+        overlay?.remove();
+        overlay = null;
+      }, 300);
+    }
+  };
+  
+  // PC: 마우스 호버 이벤트
+  recBtn.addEventListener('mouseenter', (e) => {
+    // 터치 디바이스가 아니고 화면이 큰 경우에만
+    if (!('ontouchstart' in window) && window.innerWidth > 768) {
+      showTooltip();
+    }
+  });
+  
+  recBtn.addEventListener('mouseleave', (e) => {
+    // 터치 디바이스가 아니고 화면이 큰 경우에만
+    if (!('ontouchstart' in window) && window.innerWidth > 768) {
+      hideTooltip();
+    }
+  });
+  
+  // 모바일: 클릭 이벤트
+  recBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    // 터치 디바이스이거나 작은 화면에서만
+    if ('ontouchstart' in window || window.innerWidth <= 768) {
+      if (bubble.classList.contains('show')) {
+        hideTooltip();
+      } else {
+        showTooltip();
+      }
+    }
+  });
+  
+  // 말풍선 자체 클릭시 (모바일에서 X 버튼 역할)
+  bubble.addEventListener('click', (e) => {
+    if ('ontouchstart' in window || window.innerWidth <= 768) {
+      // ::before 가상 요소(X 버튼) 영역 클릭 감지
+      const rect = bubble.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // 우상단 24x24 영역 클릭시
+      if (x > rect.width - 40 && y < 40) {
+        e.stopPropagation();
+        hideTooltip();
+      }
+    }
+  });
+
+  recWrapper.appendChild(recBtn);
+  recWrapper.appendChild(bubble);
+  
+  return recWrapper;
+}
 
     function createSaveButton(couponId) {
       const saveBtn = document.createElement('button');
@@ -2860,76 +2910,100 @@ function createRecommendationSection(recommendation) {
     }
 
     function createShareButton(coupon) {
-  const shareBtn = document.createElement('button');
-  shareBtn.className = 'share-btn';
-  const lang = LanguageManager.currentLang;
-  
-  const span = document.createElement('span');
-  span.textContent = `📤 ${T[lang].shareCoupon || '共有する'}`;
-  shareBtn.appendChild(span);
-  
-  shareBtn.addEventListener('click', async (e) => {
-    e.stopPropagation();
-    
-    // 공유 데이터 준비
-    const store = getCouponField(coupon, 'store');
-    const offer = getCouponField(coupon, 'offer');
-    const description = getCouponField(coupon, 'description');
-    
-    // 공유용 URL (특정 쿠폰으로 바로 이동)
-    const shareUrl = `${window.location.origin}${window.location.pathname}?coupon=${coupon.id}&lang=${lang}`;
-    
-    const shareData = {
-      title: `${store} - ${offer}`,
-      text: `${store}で${offer}！\n${description}\n\nクーポンコード: ${coupon.code}`,
-      url: shareUrl
-    };
-    
-    try {
-      // 모바일 체크
-      const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'share-btn';
+      const lang = LanguageManager.currentLang;
       
-      if (navigator.share && isMobile) {
-        await navigator.share(shareData);
-        Toast.show('共有しました', 1500);
-      } else {
-        // PC나 미지원 브라우저는 클립보드에 복사
-        const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
-        await copyToClipboard(shareText);
-        Toast.show('共有リンクをコピーしました', 2000);
-      }
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        console.error('共有エラー:', err);
-        Toast.show('共有に失敗しました', 2000);
-      }
+      const span = document.createElement('span');
+      span.textContent = `📤 ${T[lang].shareCoupon || '共有する'}`;
+      shareBtn.appendChild(span);
+      
+      shareBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        
+        // 공유 데이터 준비
+        const store = getCouponField(coupon, 'store');
+        const offer = getCouponField(coupon, 'offer');
+        const description = getCouponField(coupon, 'description');
+        
+        // 공유용 URL (특정 쿠폰으로 바로 이동)
+        const shareUrl = `${window.location.origin}${window.location.pathname}?coupon=${coupon.id}&lang=${lang}`;
+        
+        const shareData = {
+          title: `${store} - ${offer}`,
+          text: `${store}で${offer}！\n${description}\n\nクーポンコード: ${coupon.code}`,
+          url: shareUrl
+        };
+        
+        try {
+          // 모바일 체크
+          const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+          
+          if (navigator.share && isMobile) {
+            await navigator.share(shareData);
+            Toast.show('共有しました', 1500);
+          } else {
+            // PC나 미지원 브라우저는 클립보드에 복사
+            const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+            await copyToClipboard(shareText);
+            Toast.show('共有リンクをコピーしました', 2000);
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error('共有エラー:', err);
+            Toast.show('共有に失敗しました', 2000);
+          }
+        }
+      });
+      
+      return shareBtn;
     }
-  });
-  
-  return shareBtn;
-}
+
     // 카드 플립 애니메이션
     function flipCard(card, show = true) {
       const cardFront = card.querySelector('.card-front');
       const cardBack = card.querySelector('.card-back');
       
+      if (!cardFront || !cardBack) {
+        console.error('Card elements not found');
+        return;
+      }
+      
+      // 상태를 한 번에 관리
       if (show) {
+        // 열기 상태 - 모든 속성을 한 번에
         card.classList.add('flipped');
         card.setAttribute('aria-expanded', 'true');
         cardFront.setAttribute('aria-hidden', 'true');
         cardBack.setAttribute('aria-hidden', 'false');
         
-        // 포커스를 닫기 버튼으로
+        // 포커스 관리
         setTimeout(() => {
           const closeBtn = cardBack.querySelector('.close-btn');
-          if (closeBtn) closeBtn.focus();
+          if (closeBtn) {
+            closeBtn.focus();
+            announceToScreenReader(t('cardFlipped'));
+          }
         }, 300);
       } else {
+        // 닫기 상태 - 모든 속성을 한 번에
         card.classList.remove('flipped');
         card.setAttribute('aria-expanded', 'false');
         cardFront.setAttribute('aria-hidden', 'false');
         cardBack.setAttribute('aria-hidden', 'true');
+        
         FocusManager.restoreFocus();
+        announceToScreenReader(t('cardClosed'));
+      }
+    }
+
+    function announceToScreenReader(message) {
+      const srAnnouncement = DOMCache.get('srAnnouncement');
+      if (srAnnouncement) {
+        srAnnouncement.textContent = '';
+        setTimeout(() => {
+          srAnnouncement.textContent = message;
+        }, 100);
       }
     }
 
@@ -2953,28 +3027,35 @@ function createRecommendationSection(recommendation) {
       }
     }
 
-    function setupCardEvents(card) {
-      // 카드 클릭 이벤트
-      card.addEventListener('click', (e) => {
-        // 특정 요소 클릭은 무시
-        if (e.target.closest('.save, .copy-btn, .close-btn, .btn-show-detail, .speech-bubble button, a')) {
-          return;
-        }
-        
-        const isFlipped = card.classList.contains('flipped');
-        flipCard(card, !isFlipped);
-      });
-      
-      // 키보드 접근성
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (!e.target.closest('.save, .copy-btn, .close-btn, .btn-show-detail')) {
-            card.click();
-          }
-        }
-      });
+    function setupCardEvents(card, flipOverlay) {
+  // flipOverlay 이벤트 제거하고 card 자체에서 처리
+  
+  card.addEventListener('click', (e) => {
+    // 클릭 가능한 요소들
+    if (e.target.closest('button, a, .save, .share-btn, .copy-btn, .btn-show-detail, .recommendation-btn, .speech-bubble')) {
+      return;
     }
+    
+    // 플립 상태에 따라 토글
+    const isFlipped = card.classList.contains('flipped');
+    flipCard(card, !isFlipped);
+  });
+  
+  // 키보드 이벤트는 그대로
+  card.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target === card) {
+      e.preventDefault();
+      const isFlipped = card.classList.contains('flipped');
+      flipCard(card, !isFlipped);
+    }
+    
+    if (e.key === 'Escape' && card.classList.contains('flipped')) {
+      e.preventDefault();
+      flipCard(card, false);
+    }
+  });
+}
+    
 
     // 저장 토글
     function toggleSave(id, btn) {
@@ -3120,28 +3201,28 @@ function createRecommendationSection(recommendation) {
         }
 
         const couponId = Utils.getUrlParam('coupon');
-if (couponId) {
-  // MutationObserver로 카드 생성 감지
-  const observer = new MutationObserver((mutations, obs) => {
-    const card = document.querySelector(`[data-id="${couponId}"]`);
-    if (card) {
-      obs.disconnect(); // 관찰 중지
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      flipCard(card, true);
-      Toast.show(T[LanguageManager.currentLang].sharedCoupon || 'Shared coupon', 2000);
-    }
-  });
-  
-  // 쿠폰 그리드 관찰 시작
-  const grid = DOMCache.get('couponGrid');
-  if (grid) {
-    observer.observe(grid, { childList: true, subtree: true });
-    
-    // 타임아웃 설정 (5초 후 관찰 중지)
-    setTimeout(() => observer.disconnect(), 5000);
-  }
-}
-}
+        if (couponId) {
+          // MutationObserver로 카드 생성 감지
+          const observer = new MutationObserver((mutations, obs) => {
+            const card = document.querySelector(`[data-id="${couponId}"]`);
+            if (card) {
+              obs.disconnect(); // 관찰 중지
+              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              flipCard(card, true);
+              Toast.show(T[LanguageManager.currentLang].sharedCoupon || 'Shared coupon', 2000);
+            }
+          });
+          
+          // 쿠폰 그리드 관찰 시작
+          const grid = DOMCache.get('couponGrid');
+          if (grid) {
+            observer.observe(grid, { childList: true, subtree: true });
+            
+            // 타임아웃 설정 (5초 후 관찰 중지)
+            setTimeout(() => observer.disconnect(), 5000);
+          }
+        }
+      }
 
       async loadCoupons() {
         const loader = new CouponLoader(this.config.api);
