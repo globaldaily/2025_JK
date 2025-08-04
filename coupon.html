@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta name="theme-color" content="#2563eb">
-  <title>Japankuru クーポンウォレット</title>
+  <title>JAPABKURU Coupon Wallet</title>
   <style>
     :root {
       --primary:#2563eb;
@@ -29,6 +29,10 @@
       --border:#334155;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
+    /* 언어별 폰트 최적화 */
+body.lang-zh { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+body.lang-zh-TW { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
+body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.4;min-height:100vh;padding-bottom:80px;transition:background .3s,color .3s;}
     .container{max-width:1000px;margin:0 auto;padding:0 0.75rem;}
     .header{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;background:var(--bg);transition:transform .3s;}
@@ -613,8 +617,8 @@
       <!-- 개선된 언어 선택기 (접근성 강화) -->
       <div class="lang-toggle">
         <button class="lang-btn" id="langBtn" aria-label="言語選択" aria-haspopup="true" aria-expanded="false">
-          <span class="lang-flag">🇯🇵</span>
-          <span class="lang-name">日本語</span>
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-name">English</span>
           <svg width="12" height="12" viewBox="0 0 12 12">
             <path d="M3 5L6 8L9 5" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
@@ -639,7 +643,7 @@
       <div class="search" aria-label="検索とフィルター">
         <div class="search-wrapper">
           <span class="search-icon">🔍</span>
-          <input type="search" id="searchInput" placeholder="店名・エリアで検索..." aria-label="クーポン検索" autocomplete="off" />
+          <input type="search" id="searchInput" placeholder="Search by store name or area..." aria-label="Search coupons" autocomplete="off" />
           <button class="search-clear" id="searchClear" aria-label="検索をクリア">✕</button>
         </div>
       </div>
@@ -647,26 +651,26 @@
       <!-- 개선된 필터 (이벤트 위임) -->
       <div class="filters" role="tablist" aria-label="フィルター" id="filterContainer">
         <div class="pill" data-filter="all" role="tab" aria-selected="true" tabindex="0">
-          <span>すべて</span>
+          <span>All</span>
         </div>
         <div class="pill" data-filter="saved" role="tab" aria-selected="false" tabindex="0">
-          <span>保存済み</span>
+          <span>Saved</span>
           <span class="saved-count" id="savedCount">0</span>
         </div>
         <div class="pill" data-filter="electronics" role="tab" aria-selected="false" tabindex="0">
-          <span>🔌 家電</span>
+          <span>🔌 Electronics</span>
         </div>
         <div class="pill" data-filter="fashion" role="tab" aria-selected="false" tabindex="0">
-          <span>👕 ファッション</span>
+          <span>👕 Fashion</span>
         </div>
         <div class="pill" data-filter="dining" role="tab" aria-selected="false" tabindex="0">
-          <span>🍽️ グルメ</span>
+          <span>🍽️ Dining</span>
         </div>
         <div class="pill" data-filter="transport" role="tab" aria-selected="false" tabindex="0">
-          <span>🚇 交通</span>
+          <span>🚇 Transport</span>
         </div>
         <div class="pill" data-filter="nearby" role="tab" aria-selected="false" tabindex="0" title="現在地に基づいて並び替え">
-          <span>📍 近く</span>
+          <span>📍 Nearby</span>
         </div>
       </div>
     </div>
@@ -722,15 +726,15 @@
 
     <!-- 히어로 섹션 (개선된 카피) -->
     <section class="hero-section">
-      <h1>일본 여행이 더 저렴해집니다</h1>
-      <p>Bic Camera, BEAMS 등 인기 매장에서 즉시 할인을 받으세요. 회원가입 필요 없음。</p>
-      <a href="#couponGrid" class="cta-button">人気店で割引を受ける</a>
+      <h1>Make Your Japan Trip More Affordable</h1>
+      <p>Get instant discounts at popular stores like Bic Camera and BEAMS. No sign-up required.</p>
+      <a href="#couponGrid" class="cta-button">Get Discounts at Popular Stores</a>
     </section>
 
     <!-- 위치 에러 표시 -->
     <div class="location-error" id="locationError">
-      <strong>現在地を使用できません</strong>
-      <p>位置情報を利用するには、ブラウザの設定で許可してください。</p>
+      <strong>Cannot access location</strong>
+      <p>Please allow location access in your browser settings.</p>
     </div>
 
     <!-- 지도 -->
@@ -785,14 +789,14 @@
         <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7.093v-3.093h-3v-2.093l-7-5.013-7 5.013v2.093h-3v3.093l3 2.143v11.764h14v-11.764l3-2.143zm-12 13.907v-8h4v8h-4z"></path></svg>
       </span>
-      <span class="nav-text">ホーム</span>
+      <span class="nav-text">Home</span>
     </a>
     <a href="#" class="nav-item" data-view="saved" tabindex="0" aria-selected="false" role="tab">
       <span class="nav-icon-wrapper">
         <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
         <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 24l-7-6-7 6v-24h14v24z"></path></svg>
       </span>
-      <span class="nav-text">保存済み</span>
+      <span class="nav-text">Saved</span>
       <span class="nav-badge" id="navBadge">0</span>
     </a>
     <a href="#" class="nav-item" data-view="map" tabindex="0" aria-selected="false" role="tab">
@@ -800,14 +804,14 @@
         <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
         <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path></svg>
       </span>
-      <span class="nav-text">マップ</span>
+      <span class="nav-text">Map</span>
     </a>
     <a href="#" class="nav-item" data-view="settings" tabindex="0" aria-selected="false" role="tab">
       <span class="nav-icon-wrapper">
         <svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
         <svg class="icon-filled" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.438 11.163l-2.438-1.408v-2.755h-3v-2h-4v2h-3v2.755l-2.438 1.408-.562.915 2.438 1.409v2.849l-2.438 1.409.562.915 2.438-1.408v2.755h3v2h4v-2h3v-2.755l2.438-1.408.562-.915-2.438-1.409v-2.849zm-7.438 2.837c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"></path></svg>
       </span>
-      <span class="nav-text">設定</span>
+      <span class="nav-text">Settings</span>
     </a>
   </nav>
 
@@ -1299,7 +1303,7 @@
     // 언어 관리자 (개선)
     // ===========================================
     const LanguageManager = {
-      currentLang: 'ja',
+      currentLang: 'en',
       supportedLangs: ['zh', 'zh-TW', 'ko', 'en', 'th'],
       
       init() {
@@ -1327,7 +1331,12 @@
           return browserLang;
         }
 
-        return 'ja';
+        if (navigator.language.toLowerCase().includes('zh-tw') || 
+      navigator.language.toLowerCase().includes('zh-hk')) {
+        return 'zh-TW';
+        }
+
+        return 'en';
       },
 
       // 통합된 언어 토글 초기화 (키보드 내비게이션 포함)
