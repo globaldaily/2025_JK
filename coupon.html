@@ -620,7 +620,8 @@
           </svg>
         </button>
         <div id="langMenu" class="lang-menu" role="menu" aria-labelledby="langBtn">
-          <button role="menuitem" data-lang="ja" aria-selected="true">🇯🇵 日本語</button>
+          <button role="menuitem" data-lang="zh" aria-selected="false">🇨🇳 简体中文</button>
+          <button role="menuitem" data-lang="zh-TW" aria-selected="false">🇹🇼 繁體中文</button>
           <button role="menuitem" data-lang="ko" aria-selected="false">🇰🇷 한국어</button>
           <button role="menuitem" data-lang="en" aria-selected="false">🇺🇸 English</button>
           <button role="menuitem" data-lang="th" aria-selected="false">🇹🇭 ภาษาไทย</button>
@@ -677,7 +678,8 @@
         <div class="settings-item">
           <span class="settings-label">表示言語</span>
           <select id="settingsLang" class="settings-btn">
-            <option value="ja">日本語</option>
+            <option value="zh">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
             <option value="ko">한국어</option>
             <option value="en">English</option>
             <option value="th">ภาษาไทย</option>
@@ -962,71 +964,137 @@
     // 다국어 텍스트
     // ===========================================
     const T = {
-      ja: {
-        pageTitle: 'Japankuru クーポンウォレット',
-        heroTitle: '일본 여행이 더 저렴해집니다',
-        heroDesc: 'Bic Camera, BEAMS 등 인기 매장에서 즉시 할인을 받으세요. 회원가입 필요 없음。',
-        ctaButton: '人気店で割引を受ける',
-        searchPlaceholder: '店名・エリアで検索...',
-        all: 'すべて',
-        saved: '保存済み',
-        electronics: '🔌 家電',
-        fashion: '👕 ファッション', 
-        dining: '🍽️ グルメ',
-        transport: '🚇 交通',
-        nearby: '📍 近く',
-        home: 'ホーム',
-        map: 'マップ',
-        settings: '設定',
-        languageChanged: '言語を変更しました',
-        detailShow: '詳細を見る',
-        backToList: 'リストに戻る',
-        backButton: '← 戻る',
-        closeDetail: '詳細を閉じる',
-        copyCode: 'コードをコピー',
-        copied: 'コピーしました',
-        codeCopied: 'クーポンコードをコピーしました！',
-        copyFailed: 'コピーに失敗しました。長押しして手動でコピーしてください。',
-        saveCoupon: 'クーポンを保存',
-        unsaveCoupon: 'クーポンの保存を解除',
-        savedCoupon: '保存しました',
-        unsavedCoupon: '保存を解除しました',
-        locationError: '現在地を使用できません',
-        locationObtained: '現在地を取得しました',
-        locationDenied: '位置情報の取得を拒否されました',
-        mapView: '地図で見る',
-        mapShown: '地図を表示しました',
-        mapViewTab: 'マップビュー',
-        nearbySort: '現在地に基づく並び替え',
-        noExpiry: '期限なし',
-        store: '店舗',
-        benefit: '特典',
-        expiry: '有効期限',
-        notFound: 'クーポンが見つかりません',
-        notFoundDesc: '検索条件を変えてください',
-        suggestions: ['渋谷', '新宿', '電気屋'],
-        codeSelected: 'コードを選択しました',
-        whyThisStore: '💬 なぜこの店？',
-        daysLeft: 'あと{days}日',
-        expiryWarning: '期限間近',
-        darkMode: 'ダークモード',
-        lightMode: 'ライトモード',
-        filterChanged: 'フィルターを変更しました',
-        cardFlipped: 'カードを裏返しました',
-        focusRestored: 'フォーカスを復元しました',
-        termsLabel: '利用条件',
-        terms: ['타 할인과 중복 사용 불가', '일부 품목 제외', '계산 전에 제시해주세요', '1인 1회 한정'],
-        openInGoogleMaps: 'Google Mapsで開く',
-        officialWebsite: '公式サイト',
-        viewSite: '見る',
-        relatedArticle: '関連記事',
-        readArticle: '記事を読む',
-        errorLoadingCoupons: 'クーポン情報の取得に失敗しました。しばらくしてから再度お試しください。',
-        cacheCleared: 'キャッシュをクリアしました',
-        savedCouponsCleared: '保存済みクーポンをすべて削除しました',
-        confirmClearSaved: '本当にすべての保存済みクーポンを削除しますか？',
-        shareCoupon: '共有する'
-      },
+        zh: {
+    pageTitle: 'Japankuru 优惠券钱包',
+    heroTitle: '让您的日本之旅更实惠',
+    heroDesc: '在Bic Camera、BEAMS等热门商店即时获得折扣。无需注册。',
+    ctaButton: '在热门商店获得折扣',
+    searchPlaceholder: '按店名或地区搜索...',
+    all: '全部',
+    saved: '已保存',
+    electronics: '🔌 电器',
+    fashion: '👕 时尚',
+    dining: '🍽️ 美食',
+    transport: '🚇 交通',
+    nearby: '📍 附近',
+    home: '首页',
+    map: '地图',
+    settings: '设置',
+    languageChanged: '语言已更改',
+    detailShow: '查看详情',
+    backToList: '返回列表',
+    backButton: '← 返回',
+    closeDetail: '关闭详情',
+    copyCode: '复制代码',
+    copied: '已复制',
+    codeCopied: '优惠券代码已复制！',
+    copyFailed: '复制失败。请手动复制。',
+    saveCoupon: '保存优惠券',
+    unsaveCoupon: '取消保存',
+    savedCoupon: '已保存',
+    unsavedCoupon: '已取消保存',
+    locationError: '无法获取位置',
+    locationObtained: '已获取位置',
+    locationDenied: '位置访问被拒绝',
+    mapView: '在地图上查看',
+    mapShown: '地图已显示',
+    mapViewTab: '地图视图',
+    nearbySort: '按位置排序',
+    noExpiry: '无期限',
+    store: '商店',
+    benefit: '优惠',
+    expiry: '有效期',
+    notFound: '未找到优惠券',
+    notFoundDesc: '请尝试更改搜索条件',
+    suggestions: ['涩谷', '新宿', '电器店'],
+    codeSelected: '代码已选择',
+    whyThisStore: '💬 为什么推荐这家店？',
+    daysLeft: '剩余{days}天',
+    expiryWarning: '即将到期',
+    darkMode: '深色模式',
+    lightMode: '浅色模式',
+    filterChanged: '筛选条件已更改',
+    cardFlipped: '卡片已翻转',
+    focusRestored: '焦点已恢复',
+    termsLabel: '使用条款',
+    terms: ['不可与其他优惠同时使用', '部分商品除外', '请在结账前出示', '每人限用一次'],
+    openInGoogleMaps: '在Google地图中打开',
+    officialWebsite: '官方网站',
+    viewSite: '查看',
+    relatedArticle: '相关文章',
+    readArticle: '阅读文章',
+    errorLoadingCoupons: '无法加载优惠券信息。请稍后再试。',
+    cacheCleared: '缓存已清除',
+    savedCouponsCleared: '所有保存的优惠券已删除',
+    confirmClearSaved: '您确定要删除所有保存的优惠券吗？',
+    shareCoupon: '分享'
+  },
+  
+  'zh-TW': {
+    pageTitle: 'Japankuru 優惠券錢包',
+    heroTitle: '讓您的日本之旅更實惠',
+    heroDesc: '在Bic Camera、BEAMS等熱門商店即時獲得折扣。無需註冊。',
+    ctaButton: '在熱門商店獲得折扣',
+    searchPlaceholder: '按店名或地區搜尋...',
+    all: '全部',
+    saved: '已保存',
+    electronics: '🔌 電器',
+    fashion: '👕 時尚',
+    dining: '🍽️ 美食',
+    transport: '🚇 交通',
+    nearby: '📍 附近',
+    home: '首頁',
+    map: '地圖',
+    settings: '設定',
+    languageChanged: '語言已更改',
+    detailShow: '查看詳情',
+    backToList: '返回列表',
+    backButton: '← 返回',
+    closeDetail: '關閉詳情',
+    copyCode: '複製代碼',
+    copied: '已複製',
+    codeCopied: '優惠券代碼已複製！',
+    copyFailed: '複製失敗。請手動複製。',
+    saveCoupon: '保存優惠券',
+    unsaveCoupon: '取消保存',
+    savedCoupon: '已保存',
+    unsavedCoupon: '已取消保存',
+    locationError: '無法獲取位置',
+    locationObtained: '已獲取位置',
+    locationDenied: '位置訪問被拒絕',
+    mapView: '在地圖上查看',
+    mapShown: '地圖已顯示',
+    mapViewTab: '地圖視圖',
+    nearbySort: '按位置排序',
+    noExpiry: '無期限',
+    store: '商店',
+    benefit: '優惠',
+    expiry: '有效期',
+    notFound: '未找到優惠券',
+    notFoundDesc: '請嘗試更改搜尋條件',
+    suggestions: ['澀谷', '新宿', '電器店'],
+    codeSelected: '代碼已選擇',
+    whyThisStore: '💬 為什麼推薦這家店？',
+    daysLeft: '剩餘{days}天',
+    expiryWarning: '即將到期',
+    darkMode: '深色模式',
+    lightMode: '淺色模式',
+    filterChanged: '篩選條件已更改',
+    cardFlipped: '卡片已翻轉',
+    focusRestored: '焦點已恢復',
+    termsLabel: '使用條款',
+    terms: ['不可與其他優惠同時使用', '部分商品除外', '請在結帳前出示', '每人限用一次'],
+    openInGoogleMaps: '在Google地圖中開啟',
+    officialWebsite: '官方網站',
+    viewSite: '查看',
+    relatedArticle: '相關文章',
+    readArticle: '閱讀文章',
+    errorLoadingCoupons: '無法載入優惠券資訊。請稍後再試。',
+    cacheCleared: '快取已清除',
+    savedCouponsCleared: '所有保存的優惠券已刪除',
+    confirmClearSaved: '您確定要刪除所有保存的優惠券嗎？',
+    shareCoupon: '分享'
+  },
       
       ko: {
         pageTitle: 'Japankuru 쿠폰 월렛',
@@ -1232,7 +1300,7 @@
     // ===========================================
     const LanguageManager = {
       currentLang: 'ja',
-      supportedLangs: ['ja', 'ko', 'en', 'th'],
+      supportedLangs: ['zh', 'zh-TW', 'ko', 'en', 'th'],
       
       init() {
         this.currentLang = this.detectLanguage();
@@ -1411,8 +1479,8 @@
         });
         
         // 버튼 텍스트 업데이트
-        const langNames = {ja:'日本語',ko:'한국어',en:'English',th:'ภาษาไทย'};
-        const langFlags = {ja:'🇯🇵',ko:'🇰🇷',en:'🇺🇸',th:'🇹🇭'};
+        const langNames = {zh:'简体中文','zh-TW':'繁體中文',ko:'한국어',en:'English',th:'ภาษาไทย'};
+        const langFlags = {zh:'🇨🇳','zh-TW':'🇹🇼',ko:'🇰🇷',en:'🇺🇸',th:'🇹🇭'};
         
         langBtn.querySelector('.lang-name').textContent = langNames[this.currentLang];
         langBtn.querySelector('.lang-flag').textContent = langFlags[this.currentLang];
@@ -1480,10 +1548,11 @@
 
     // 쿠폰 필드 다국어 헬퍼 함수
     function getCouponField(coupon, field, fallback = '') {
-      const langField = `${field}_${LanguageManager.currentLang}`;
-      const jaField = `${field}_ja`;
-      
-      return coupon[langField] || coupon[jaField] || coupon[field] || fallback;
+    // 모든 필드에 대해 언어 접미사를 붙임
+    const langField = `${field}_${LanguageManager.currentLang.replace('-', '_')}`; // zh-TW를 zh_TW로 변환
+     const enField = `${field}_en`; // 영어를 기본 폴백으로
+  
+    return coupon[langField] || coupon[enField] || coupon[field] || fallback;
     }
 
     // ===========================================
@@ -1594,7 +1663,8 @@
         return [
           { 
             id: 1, 
-            store_ja: 'コジマ x ビックカメラ', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: '코지마 x 빅카메라',
             store_en: 'Kojima x BicCamera',
             store_th: 'โคจิมะ x บิกคาเมร่า',
@@ -1619,7 +1689,8 @@
           },
           { 
             id: 2, 
-            store_ja: 'JINS', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: '진스',
             store_en: 'JINS',
             store_th: 'จินส์',
@@ -1644,7 +1715,8 @@
           },
           { 
             id: 3, 
-            store_ja: 'BEAMS JAPAN', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: 'BEAMS JAPAN',
             store_en: 'BEAMS JAPAN',
             store_th: 'บีมส์ ญี่ปุ่น',
@@ -1669,7 +1741,8 @@
           },
           { 
             id: 4, 
-            store_ja: 'サムライレストラン', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: '사무라이 레스토랑',
             store_en: 'Samurai Restaurant',
             store_th: 'ร้านอาหารซามูไร',
@@ -1698,7 +1771,8 @@
           },
           { 
             id: 5, 
-            store_ja: '東急線', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: '도큐선',
             store_en: 'Tokyu Line',
             store_th: 'โตเก็ยว ไลน์',
@@ -1722,7 +1796,8 @@
           },
           { 
             id: 6, 
-            store_ja: 'ヨドバシカメラ', 
+            store_zh: '小岛 x Bic Camera',
+            store_zh_TW: '小島 x Bic Camera',
             store_ko: '요도바시카메라',
             store_en: 'Yodobashi Camera',
             store_th: 'โยโดบาชิคาเมร่า',
