@@ -182,6 +182,12 @@
       border-radius: var(--radius);
       width: 100%;
       position: relative;
+      /* 모바일 렌더링 최적화 */
+     -webkit-transform: translateZ(0);
+     transform: translateZ(0);
+     -webkit-perspective: 1000;
+     perspective: 1000;
+
     }
     
     /* 앞면 */
@@ -191,15 +197,47 @@
       flex-direction: column;
       height: 100%;
       min-height: 340px;
-      position: relative;
+      z-index: 2;
     }
     
     /* 뒷면 */
     .card-back {
       transform: rotateY(180deg);
       padding: 1rem;
+      z-index: 1;
     }
-    
+    /* 플립된 상태에서 앞면 요소들 숨기기 (중요!) */
+.card.flipped .card-front {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.card.flipped .card-back {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 모바일 전용 최적화 */
+@media (max-width: 768px) {
+  .card {
+    /* 하드웨어 가속 활성화 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* 플립 시 앞면 완전 숨김 */
+  .card.flipped .recommendation-wrapper,
+  .card.flipped .btn-show-detail,
+  .card.flipped .save {
+    display: none !important;
+  }
+}
+
+/* 추가 안전장치 - 특정 요소들 강제 숨김 */
+.card.flipped .speech-bubble {
+  display: none !important;
+}
+
     /* ===== 앞면 스타일 (간결하게) ===== */
     
     /* 이미지 */
