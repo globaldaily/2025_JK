@@ -602,6 +602,27 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
 }
+/* 유틸리티 클래스 추가 */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.btn-xs {
+  padding: 0.125rem 0.375rem;
+  font-size: 0.7rem;
+}
+
+/* 인라인 스타일 대체 */
+.recommendation-btn {
+  font-size: 0.7rem;
+  padding: 3px 6px;
+  margin-top: 4px;
+}
+
+.recommendation-wrapper {
+  margin-top: 0.25rem;
+}
   </style>
 </head>
 <body>
@@ -880,14 +901,17 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       
       // URL 파라미터 업데이트
       updateUrlParam(key, value) {
-        const url = new URL(window.location);
-        if (value) {
-          url.searchParams.set(key, value);
-        } else {
-          url.searchParams.delete(key);
-        }
-        window.history.replaceState({}, '', url);
-      },
+  const url = new URL(window.location);
+  
+  // 명시적인 처리
+  if (value === null || value === undefined || value === '') {
+    url.searchParams.delete(key);
+  } else {
+    url.searchParams.set(key, value);
+  }
+  
+  window.history.replaceState({}, '', url);
+},
       
       // URL 파라미터 가져오기
       getUrlParam(key) {
@@ -1557,12 +1581,17 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
 
     // 쿠폰 필드 다국어 헬퍼 함수
     function getCouponField(coupon, field, fallback = '') {
-    // 모든 필드에 대해 언어 접미사를 붙임
-    const langField = `${field}_${LanguageManager.currentLang.replace('-', '_')}`; // zh-TW를 zh_TW로 변환
-     const enField = `${field}_en`; // 영어를 기본 폴백으로
+  const langField = `${field}_${LanguageManager.currentLang.replace('-', '_')}`;
+  const enField = `${field}_en`;
   
-    return coupon[langField] || coupon[enField] || coupon[field] || fallback;
-    }
+  // 각 필드 값을 가져올 때 타입 체크
+  const getValue = (key) => {
+    const val = coupon[key];
+    return (typeof val === 'string' || typeof val === 'number') ? String(val) : null;
+  };
+  
+  return getValue(langField) || getValue(enField) || getValue(field) || fallback;
+}
 
     // ===========================================
     // 쿠폰 데이터 로더
@@ -2026,34 +2055,63 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
       },
       
       async loadLeaflet() {
-        return new Promise((resolve, reject) => {
-          const css = document.createElement('link');
-          css.rel = 'stylesheet';
-          css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-          document.head.appendChild(css);
-          
-          const script = document.createElement('script');
-          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-          script.onload = () => {
-            this.leafletLoaded = true;
-            resolve();
-          };
-          script.onerror = async () => {
-            if (this.retryCount < this.maxRetries) {
-              this.retryCount++;
-              Toast.show(`地図の読み込みを再試行中... (${this.retryCount}/${this.maxRetries})`, 2000);
-              
-              // Exponential backoff
-              await new Promise(r => setTimeout(r, Math.pow(2, this.retryCount) * 1000));
-              return this.loadLeaflet();
-            } else {
-              Toast.show('地図の読み込みに失敗しました', 3000);
-              reject(new Error('Failed to load Leaflet'));
-            }
-          };
-          document.body.appendChild(script);
-        });
-      },
+  let attempts = 0;
+  
+  while (attempts < this.maxRetries) {
+    try {
+      await this._loadLeafletResources();
+      this.leafletLoaded = true;
+      this.retryCount = 0; // 성공 시 리셋
+      return;
+    } catch (error) {
+      attempts++;
+      this.retryCount = attempts;
+      
+      if (attempts < this.maxRetries) {
+        const delay = Math.pow(2, attempts) * 1000;
+        Toast.show(
+          T[LanguageManager.currentLang].mapRetrying
+            .replace('{current}', attempts)
+            .replace('{max}', this.maxRetries),
+          2000
+        );
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+  
+  // 모든 재시도 실패
+  Toast.show(T[LanguageManager.currentLang].mapLoadFailed || 'Failed to load map', 3000);
+  throw new Error('Failed to load Leaflet after all retries');
+},
+
+async _loadLeafletResources() {
+  // CSS 로드
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  
+  const cssLoaded = new Promise((resolve, reject) => {
+    css.onload = resolve;
+    css.onerror = reject;
+  });
+  
+  document.head.appendChild(css);
+  
+  // JS 로드
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  
+  const scriptLoaded = new Promise((resolve, reject) => {
+    script.onload = resolve;
+    script.onerror = reject;
+  });
+  
+  document.body.appendChild(script);
+  
+  // 두 리소스 모두 로드 대기
+  await Promise.all([cssLoaded, scriptLoaded]);
+},
       
       renderMarkers() {
         if (!this.mapInstance || !this.initialized || !window.app) return;
@@ -2426,38 +2484,52 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
 
     // 정보 아이템 생성
     function createInfoItem(label, value) {
-      const item = document.createElement('div');
-      item.className = 'info-item';
-      
-      const labelEl = document.createElement('span');
-      labelEl.className = 'info-label';
-      labelEl.textContent = label;
-      
-      const valueEl = document.createElement('span');
-      valueEl.className = 'info-value';
-      
-      // HTML 문자열인 경우 처리
-      if (typeof value === 'string' && value.includes('<')) {
-        valueEl.innerHTML = value;
+  const item = document.createElement('div');
+  item.className = 'info-item';
+  
+  const labelEl = document.createElement('span');
+  labelEl.className = 'info-label';
+  labelEl.textContent = label;
+  
+  const valueEl = document.createElement('span');
+  valueEl.className = 'info-value';
+  
+  // 안전한 HTML 처리
+  if (typeof value === 'string') {
+    // 신뢰할 수 있는 링크 패턴만 허용
+    if (value.match(/^<a\s+href="https?:\/\/[^"]+"\s*(target="_blank"\s*)?(rel="noopener"\s*)?>[\s\S]+<\/a>$/)) {
+      // 링크만 허용하되, 추가 검증
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = value;
+      const link = tempDiv.querySelector('a');
+      if (link && link.href && link.textContent) {
+        const safeLink = document.createElement('a');
+        safeLink.href = link.href;
+        safeLink.target = '_blank';
+        safeLink.rel = 'noopener';
+        safeLink.textContent = link.textContent;
+        valueEl.appendChild(safeLink);
       } else {
         valueEl.textContent = value;
       }
-      
-      item.appendChild(labelEl);
-      item.appendChild(valueEl);
-      
-      return item;
+    } else {
+      valueEl.textContent = value;
     }
+  } else {
+    valueEl.textContent = String(value);
+  }
+  
+  item.appendChild(labelEl);
+  item.appendChild(valueEl);
+  return item;
+}
 
-    function createRecommendationSection(recommendation) {
-      const recWrapper = document.createElement('div');
-      recWrapper.style.marginTop = '0.25rem';
-
-      const recBtn = document.createElement('button');
-      recBtn.className = 'btn btn-sm';
-      recBtn.style.fontSize = '0.7rem';
-      recBtn.style.padding = '3px 6px';
-      recBtn.style.marginTop = '4px';
+function createRecommendationSection(recommendation) {
+  const recWrapper = document.createElement('div');
+  recWrapper.className = 'recommendation-wrapper';  // 인라인 스타일을 클래스로 대체
+  
+  const recBtn = document.createElement('button');
+  recBtn.className = 'btn btn-sm recommendation-btn';  // 기존 클래스 유지 + 새 클래스 추가
       recBtn.textContent = T[LanguageManager.currentLang].whyThisStore || '💬 なぜこの店？';
 
       const bubble = document.createElement('div');
@@ -2755,17 +2827,28 @@ body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic
         }
 
         const couponId = Utils.getUrlParam('coupon');
-         if (couponId) {
-             setTimeout(() => {
-              const card = document.querySelector(`[data-id="${couponId}"]`);
-               if (card) {
-               card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-             flipCard(card, true);
-             Toast.show('공유된 쿠폰입니다', 2000);
-         }
-          }, 500);
-         }
-        }
+if (couponId) {
+  // MutationObserver로 카드 생성 감지
+  const observer = new MutationObserver((mutations, obs) => {
+    const card = document.querySelector(`[data-id="${couponId}"]`);
+    if (card) {
+      obs.disconnect(); // 관찰 중지
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      flipCard(card, true);
+      Toast.show(T[LanguageManager.currentLang].sharedCoupon || 'Shared coupon', 2000);
+    }
+  });
+  
+  // 쿠폰 그리드 관찰 시작
+  const grid = DOMCache.get('couponGrid');
+  if (grid) {
+    observer.observe(grid, { childList: true, subtree: true });
+    
+    // 타임아웃 설정 (5초 후 관찰 중지)
+    setTimeout(() => observer.disconnect(), 5000);
+  }
+}
+}
 
       async loadCoupons() {
         const loader = new CouponLoader(this.config.api);
