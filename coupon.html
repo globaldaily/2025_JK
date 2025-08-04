@@ -38,7 +38,7 @@
     .header{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;background:var(--bg);transition:transform .3s;}
     .header.hidden{transform:translateY(-100%);}
     .search-filter-bar{position:sticky;top:0;background:var(--bg);z-index:1000;padding:0.5rem 1rem 0.75rem 1rem;display:flex;flex-direction:column;gap:0.5rem;border-bottom:1px solid var(--border);}
-    .logo{font-weight:700;display:flex;align-items:center;gap:.5rem;font-size:1.1rem;color:var(--primary);}
+    .logo{font-weight:700;display:flex;align-items:center;gap:.5rem;font-size:1.1rem;color:var(--primary);text-decoration: none;}
     .btn{padding:.5rem 1rem;border:none;border-radius:.5rem;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;gap:.25rem;transition:all .2s;-webkit-tap-highlight-color:transparent;}
     .btn:hover{transform:scale(1.02);}
     .btn:active{transform:scale(0.98);}
@@ -71,36 +71,74 @@
     .search-clear.show{display:block;}
 
     /* 필터 개선 */
-    .filters {
-      display: flex;
-      gap: .5rem;
-      overflow-x: auto;
-      margin-bottom: 0.5rem;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 6px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) var(--gray-100);
-    }
+.filters {
+  display: flex;
+  gap: .5rem;
+  overflow-x: auto;
+  margin-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-100);
+  position: relative;
+  scroll-behavior: smooth;
+  overflow-x: scroll !important;
+}
 
-    /* 커스텀 스크롤바 */
-    .filters::-webkit-scrollbar {
-      height: 4px;
-    }
+/* 커스텀 스크롤바 - PC에서 보임 */
+.filters::-webkit-scrollbar {
+  height: 4px;
+}
 
-    .filters::-webkit-scrollbar-track {
-      background: var(--gray-100);
-      border-radius: 2px;
-    }
+.filters::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: 2px;
+}
 
-    .filters::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 2px;
-      opacity: 0.6;
-    }
+.filters::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
+  opacity: 0.6;
+}
 
-    .filters::-webkit-scrollbar-thumb:hover {
-      opacity: 1;
-    }
+.filters::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+
+/* 좌우 그라데이션 */
+.filters::before,
+.filters::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 6px;
+  width: 20px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.filters::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.filters::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+/* 모바일에서만 스크롤바 숨기기 - 768px 이하에서만 적용 */
+@media (max-width: 768px) {
+  .filters {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+    
     
     .pill{padding:.5rem .75rem;border-radius:9999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.75rem;display:flex;align-items:center;gap:4px;transition:all .3s;white-space:nowrap;position:relative;overflow:hidden;flex-shrink: 0;min-width: fit-content;}
     .pill::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%);transition:all .4s;}
@@ -790,17 +828,49 @@
         padding: .4rem .6rem;
       }
     }
+    /* 로고 이미지 스타일 */
+.logo-img {
+  height: 28px; /* 로고 높이 조절 */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Wallet 텍스트 스타일 */
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-left: 0.25rem;
+}
+
+/* 다크모드에서 로고 배경 (필요한 경우) */
+.dark-mode .logo-img {
+  filter: brightness(0) invert(1); /* 로고가 어두운 색이면 반전 */
+  /* 또는 배경 추가 */
+  /* background: white;
+  padding: 2px 4px;
+  border-radius: 4px; */
+}
+
+/* 모바일 반응형 */
+@media (max-width: 480px) {
+  .logo-img {
+    height: 24px;
+  }
+  
+  .logo-text {
+    font-size: 1rem;
+  }
+}
   </style>
 </head>
 <body>
   <div class="container">
     <header class="header" aria-label="ヘッダー">
-      <div class="logo" aria-label="JK Wallet">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
-        </svg>
-        JK Wallet
-      </div>
+        <a href="https://www.japankuru.com/" class="logo" aria-label="Japankuru Wallet">
+            <img src="https://japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru" class="logo-img">
+            <span class="logo-text">Wallet</span>
+        </a>
       
       <!-- 개선된 언어 선택기 (접근성 강화) -->
       <div class="lang-toggle">
