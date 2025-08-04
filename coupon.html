@@ -581,6 +581,23 @@
     padding: .4rem .6rem; /* 패딩도 조금 줄임 */
   }
 }
+/* 카드 플립 시 배지 숨김 처리 */
+.card.flipped .offer-badge {
+  display: none;
+}
+
+/* 또는 더 확실한 방법으로 */
+.card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--card); /* 배경색 추가 */
+}
+
+/* 모바일에서 3D 변환 최적화 */
+.card-inner {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
   </style>
 </head>
 <body>
@@ -2393,32 +2410,49 @@
       return saveBtn;
     }
 
-    function createCopyButton(code) {
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
-      const lang = LanguageManager.currentLang;
-      
-      const span = document.createElement('span');
-      span.textContent = `📋 ${T[lang].copyCode || 'コードをコピー'}`;
-      copyBtn.appendChild(span);
-      
-      copyBtn.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const success = await copyToClipboard(code);
-        
-        if (success) {
-          Toast.show(T[lang].codeCopied || 'クーポンコードをコピーしました！', 2000);
-          copyBtn.classList.add('success');
-          setTimeout(() => {
-            copyBtn.classList.remove('success');
-          }, 2000);
-        } else {
-          Toast.show(T[lang].copyFailed || 'コピーに失敗しました', 3000);
-        }
-      });
-      
-      return copyBtn;
+    function createShareButton(coupon) {  // 함수명도 변경하고, 파라미터도 coupon 전체로
+  const shareBtn = document.createElement('button');
+  shareBtn.className = 'share-btn';  // 클래스명 변경
+  const lang = LanguageManager.currentLang;
+  
+  const span = document.createElement('span');
+  span.textContent = `📤 共有する`;  // 텍스트 변경
+  shareBtn.appendChild(span);
+  
+  shareBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    
+    // 공유 데이터 준비
+    const store = getCouponField(coupon, 'store');
+    const offer = getCouponField(coupon, 'offer');
+    const description = getCouponField(coupon, 'description');
+    
+    const shareData = {
+      title: `${store} ${offer}`,
+      text: `${store}で${offer}！\n${description}\n\nクーポンコード: ${coupon.code}`,
+      url: window.location.href
+    };
+    
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        Toast.show('共有しました', 2000);
+      } else {
+        // Web Share API 미지원 시
+        const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+        await copyToClipboard(shareText);
+        Toast.show('共有リンクをコピーしました', 2000);
+      }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error('共有エラー:', err);
+        Toast.show('共有に失敗しました', 2000);
+      }
     }
+  });
+  
+  return shareBtn;
+}
     function createShareButton(coupon) {
     const shareBtn = document.createElement('button');
     shareBtn.className = 'share-btn';
