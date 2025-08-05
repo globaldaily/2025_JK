@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Japankuru Indonesia - Panduan Wisata Muslim-Friendly ke Jepang</title>
+    
+    <meta name="description" content="Platform wisata Muslim-friendly terlengkap untuk perjalanan ke Jepang. Temukan restoran halal, tempat ibadah, dan panduan lengkap.">
+    <meta name="keywords" content="wisata jepang, halal food japan, muslim travel japan, japankuru, panduan wisata jepang">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'><rect width='1' height='1' fill='%23f5f5f7'/></svg>" as="image">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        
+        /* Apple-inspired Design System - Optimized */
         :root {
-            /* Autumn Colors */
-            --autumn-red: #B22222;
-            --autumn-orange: #FF8C00;
-            --autumn-yellow: #FFD700;
-            --autumn-brown: #8B4513;
-            --autumn-dark-red: #8B0000;
-            --autumn-cream: #FFF8DC;
-            --autumn-light: #FFF5EE;
-            
-            /* Base Colors */
-            --text-dark: #2C2C2C;
-            --text-light: #666666;
-            --white: #FFFFFF;
-            --shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --tertiary-text: #6e6e73;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --surface-secondary: #fafafa;
+            --accent: #007aff;
+            --accent-hover: #0051d8;
+            --success: #34c759;
+            --warning: #ff9500;
+            --error: #ff3b30;
+            --border: #d2d2d7;
+            --border-light: #e5e5ea;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-heavy: 0 8px 32px rgba(0,0,0,0.12);
+            --radius-small: 8px;
+            --radius-medium: 12px;
+            --radius-large: 16px;
+            --japan-red: #dc143c;
+            --japan-gold: #ffd700;
+            --gradient-primary: linear-gradient(135deg, var(--accent), var(--japan-red));
+        }
+        
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --primary-text: #f5f5f7;
+            --secondary-text: #a1a1a6;
+            --tertiary-text: #8e8e93;
+            --background: #000000;
+            --surface: #1c1c1e;
+            --surface-secondary: #2c2c2e;
+            --border: #38383a;
+            --border-light: #48484a;
         }
         
         * {
@@ -31,134 +57,377 @@
         }
         
         body {
-            font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
-            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, system-ui, sans-serif;
             line-height: 1.6;
-            background: var(--white);
+            color: var(--primary-text);
+            background: var(--background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        /* Language Switch */
-        .lang-switch {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--white);
-            padding: 10px 20px;
-            border-radius: 25px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            cursor: pointer;
-            font-weight: 500;
+        /* Typography */
+        .text-large {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.015em;
         }
         
-        /* Hero Section with Autumn Theme */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, 
-                rgba(178, 34, 34, 0.9) 0%, 
-                rgba(255, 140, 0, 0.8) 25%, 
-                rgba(255, 215, 0, 0.7) 50%, 
-                rgba(255, 140, 0, 0.8) 75%, 
-                rgba(139, 0, 0, 0.9) 100%
-            );
-            overflow: hidden;
-            padding: 20px;
+        .text-heading {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 700;
+            line-height: 1.125;
+            letter-spacing: 0.004em;
         }
         
-        /* Falling Leaves Animation */
-        .autumn-leaves {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        .text-subheading {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 600;
+            line-height: 1.17;
+            letter-spacing: 0.009em;
         }
         
-        .leaf {
-            position: absolute;
-            background: linear-gradient(45deg, var(--autumn-red), var(--autumn-orange));
-            width: 20px;
-            height: 20px;
-            clip-path: ellipse(50% 60% at 50% 40%);
-            animation: fall 10s linear infinite;
+        .text-body {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.47;
+            letter-spacing: -0.022em;
+        }
+        
+        .text-english {
+            font-size: 0.85em;
+            color: var(--secondary-text);
+            font-weight: 400;
             opacity: 0.8;
         }
         
-        .leaf:nth-child(1) { 
-            left: 10%; 
-            background: linear-gradient(45deg, #B22222, #FF6347);
-            animation-delay: 0s; 
-            animation-duration: 12s;
-        }
-        .leaf:nth-child(2) { 
-            left: 25%; 
-            background: linear-gradient(45deg, #FF8C00, #FFD700);
-            animation-delay: 2s; 
-            width: 25px; 
-            height: 25px;
-        }
-        .leaf:nth-child(3) { 
-            left: 40%; 
-            background: linear-gradient(45deg, #8B4513, #D2691E);
-            animation-delay: 4s; 
-            animation-duration: 15s;
-        }
-        .leaf:nth-child(4) { 
-            left: 60%; 
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            animation-delay: 1s; 
-            width: 18px;
-        }
-        .leaf:nth-child(5) { 
-            left: 80%; 
-            background: linear-gradient(45deg, #8B0000, #DC143C);
-            animation-delay: 6s; 
-            animation-duration: 18s;
-        }
-        .leaf:nth-child(6) { 
-            left: 90%; 
-            background: linear-gradient(45deg, #FF6347, #FF8C00);
-            animation-delay: 3s; 
-            width: 22px; 
-            height: 22px;
+        /* Enhanced Loading Screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
         
-        @keyframes fall {
-            0% { 
-                top: -10%; 
-                transform: translateX(0) rotate(0deg) scale(1);
-            }
-            25% {
-                transform: translateX(40px) rotate(90deg) scale(0.9);
-            }
-            50% {
-                transform: translateX(-40px) rotate(180deg) scale(1.1);
-            }
-            75% {
-                transform: translateX(20px) rotate(270deg) scale(0.8);
-            }
-            100% { 
-                top: 110%; 
-                transform: translateX(-20px) rotate(360deg) scale(1);
-            }
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .loading-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--japan-red);
+            animation: loadingPulse 2s infinite;
+        }
+        
+        @keyframes loadingPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .loading-text {
+            color: var(--secondary-text);
+            font-weight: 500;
+        }
+        
+        /* Header with enhanced functionality */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .header {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-light);
+        }
+        
+        [data-theme="dark"] .header.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-link {
+            color: var(--primary-text);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+        
+        /* Enhanced Search and Controls */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .search-box {
+            position: relative;
+            display: none;
+        }
+        
+        .search-box.active {
+            display: block;
+        }
+        
+        .search-input {
+            width: 240px;
+            padding: 8px 16px 8px 40px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--surface);
+            color: var(--primary-text);
+        }
+        
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+            background: var(--background);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-text);
+            font-size: 16px;
+        }
+        
+        .search-toggle {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: var(--primary-text);
+        }
+        
+        .search-toggle:hover,
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .theme-toggle {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: var(--primary-text);
+        }
+        
+        .lang-switch {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            color: var(--primary-text);
+        }
+        
+        .lang-switch:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: var(--surface);
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--primary-text);
+            margin: 4px 0;
+            transition: 0.3s;
+            border-radius: 1px;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 999;
+            transition: width 0.1s ease;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            margin-bottom: 16px;
+            color: var(--primary-text);
+        }
+        
+        .section-subtitle {
+            font-size: 19px;
+            color: var(--secondary-text);
+            font-weight: 400;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="0.5" fill="%23007aff" opacity="0.1"/><circle cx="80" cy="40" r="0.5" fill="%23dc143c" opacity="0.1"/><circle cx="40" cy="80" r="0.5" fill="%23ffd700" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
         }
         
         .hero-container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .hero-content {
-            color: white;
             animation: fadeInUp 1s ease-out;
         }
         
@@ -167,297 +436,523 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            line-height: 1.2;
+        .hero-subtitle-jp {
+            font-size: 16px;
+            color: var(--japan-red);
+            margin-bottom: 16px;
+            font-weight: 500;
         }
         
-        .hero-subtitle-jp {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-bottom: 20px;
-            font-family: 'Noto Sans JP', sans-serif;
+        .hero h1 {
+            margin-bottom: 24px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 20px;
+            color: var(--secondary-text);
             margin-bottom: 40px;
-            opacity: 0.95;
+            font-weight: 400;
         }
         
         .hero-cta {
-            display: inline-block;
-            background: var(--white);
-            color: var(--autumn-red);
-            padding: 18px 45px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: white;
+            padding: 16px 32px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 17px;
+            font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .hero-cta:hover::before {
+            left: 100%;
         }
         
         .hero-cta:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-            background: var(--autumn-cream);
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
         }
         
-        /* Japankuru Info Box */
+        /* Enhanced Info Cards with Animation */
         .japankuru-info {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-large);
             padding: 40px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid var(--border-light);
             animation: fadeInUp 1.2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        [data-theme="dark"] .japankuru-info {
+            background: rgba(28, 28, 30, 0.7);
+        }
+        
+        .japankuru-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
         
         .info-title {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            color: white;
+            font-size: 24px;
+            margin-bottom: 32px;
+            color: var(--primary-text);
+            font-weight: 600;
         }
         
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 24px;
         }
         
         .info-item {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
+            padding: 16px;
+            border-radius: var(--radius-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            background: rgba(0, 122, 255, 0.05);
+            transform: translateY(-2px);
         }
         
         .info-icon {
-            background: rgba(255,255,255,0.2);
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .info-text {
-            flex: 1;
+            font-size: 20px;
+            color: white;
+            box-shadow: var(--shadow-light);
         }
         
         .info-number {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--autumn-yellow);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-text);
+            counter-reset: countUp;
         }
         
         .info-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 14px;
+            color: var(--secondary-text);
         }
         
-        /* Trust Bar - Removed as requested */
-        
-        /* Section Base */
-        .section {
-            padding: 80px 20px;
+        /* Animated Counter */
+        .animated-counter {
+            animation: countUp 2s ease-out forwards;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        @keyframes countUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
+        /* Enhanced Cards */
+        .card-enhanced {
+            background: var(--background);
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            transform: translateY(0);
         }
         
-        .section-title {
-            font-size: 2rem;
-            color: var(--autumn-dark-red);
-            margin-bottom: 15px;
-            font-weight: 900;
+        .card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
         }
         
-        .section-subtitle {
-            color: var(--text-light);
-            font-size: 1.1rem;
+        .card-enhanced:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
         }
         
-        /* Hot Topics */
+        .card-enhanced:hover::before {
+            opacity: 0.05;
+        }
+        
+        /* Hot Topics Enhanced */
         .hot-topics {
-            padding: 80px 20px;
-            background: var(--autumn-light);
+            background: var(--surface);
         }
         
         .topic-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
         }
         
         .topic-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .topic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
         }
         
         .topic-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+            loading: lazy;
+        }
+        
+        .card-enhanced:hover .topic-image {
+            transform: scale(1.05);
         }
         
         .topic-content {
-            padding: 25px;
+            padding: 32px;
+            position: relative;
+            z-index: 2;
         }
         
         .topic-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-light);
         }
         
         .topic-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-dark);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.3;
         }
         
         .topic-desc {
-            color: var(--text-light);
-            line-height: 1.6;
+            color: var(--secondary-text);
+            line-height: 1.5;
+            margin-bottom: 16px;
         }
         
-        /* Interactive Map Section */
+        .read-more {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            gap: 8px;
+        }
+        
+        /* Enhanced Interactive Map */
         .map-section {
-            background: var(--autumn-dark-red);
+            background: var(--primary-text);
             color: white;
-            padding: 80px 20px;
         }
         
         .map-container {
-            background: white;
-            border-radius: 30px;
+            background: var(--background);
+            border-radius: var(--radius-large);
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-heavy);
         }
         
         .map-header {
-            background: linear-gradient(135deg, var(--autumn-red), var(--autumn-orange));
+            background: var(--gradient-primary);
             padding: 40px;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 10s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(50px); }
         }
         
         .map-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
         }
         
         .map-filters {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-top: 32px;
+            position: relative;
+            z-index: 1;
         }
         
         .filter-btn {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             padding: 10px 20px;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 600;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
         }
         
         .filter-btn:hover,
         .filter-btn.active {
             background: white;
-            color: var(--autumn-red);
+            color: var(--accent);
+            box-shadow: var(--shadow-light);
+            transform: translateY(-2px);
         }
         
-        /* Interactive Map - Placeholder for real map */
         .interactive-map {
-            position: relative;
-            height: 500px;
-            background: #F0F0F0;
+            height: 400px;
+            background: var(--surface);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 1.2rem;
+            color: var(--secondary-text);
+            position: relative;
         }
         
-        /* Celebrity Trail */
+        .map-placeholder {
+            text-align: center;
+            padding: 40px;
+            max-width: 500px;
+        }
+        
+        .map-placeholder h3 {
+            color: var(--primary-text);
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+        
+        .map-coming-soon {
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 16px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Follow CTA Section */
+        .follow-cta {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin: 40px 0;
+            border-radius: var(--radius-large);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .follow-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .follow-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .follow-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .follow-subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+        
+        .follow-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--accent);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 17px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .follow-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        /* Enhanced Sections with consistent styling */
+        .killer-content {
+            background: var(--background);
+        }
+        
         .celeb-trail {
-            background: var(--white);
-            border-radius: 30px;
-            padding: 50px;
-            box-shadow: var(--shadow);
-            margin-bottom: 50px;
+            background: var(--surface);
+            border-radius: var(--radius-large);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .celeb-trail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
         
         .celeb-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         .celeb-title {
-            font-size: 1.8rem;
-            color: var(--autumn-red);
-            margin-bottom: 10px;
+            font-size: 28px;
+            color: var(--primary-text);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .celeb-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 24px;
         }
         
         .celeb-card {
             position: relative;
-            border-radius: 20px;
+            border-radius: var(--radius-medium);
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-light);
         }
         
         .celeb-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: scale(1.02) rotateY(2deg);
+            box-shadow: var(--shadow-medium);
         }
         
         .celeb-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+            loading: lazy;
+        }
+        
+        .celeb-card:hover .celeb-image {
+            transform: scale(1.1);
         }
         
         .celeb-info {
@@ -465,59 +960,69 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 24px 20px;
             color: white;
         }
         
         .celeb-name {
-            font-weight: 700;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
         
         .celeb-spot {
-            font-size: 0.9rem;
+            font-size: 14px;
             opacity: 0.9;
         }
         
-        /* Michelin Section */
+        /* Enhanced Michelin Section */
         .michelin-section {
-            padding: 80px 20px;
-            background: var(--white);
+            background: var(--surface);
         }
         
         .michelin-banner {
-            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-red));
+            background: var(--gradient-primary);
             color: white;
-            border-radius: 30px;
-            padding: 60px 40px;
+            border-radius: var(--radius-large);
+            padding: 50px 40px;
             text-align: center;
             margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .michelin-banner::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 12rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 30s linear infinite;
         }
         
         .michelin-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .michelin-stars {
-            color: var(--autumn-yellow);
+            font-size: 32px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
         
         .michelin-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
         
         .michelin-card {
-            background: var(--autumn-light);
-            border-radius: 20px;
-            padding: 30px;
+            background: var(--background);
+            border-radius: var(--radius-medium);
+            padding: 32px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
             position: relative;
             overflow: hidden;
         }
@@ -528,92 +1033,124 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(to right, var(--autumn-orange), var(--autumn-yellow));
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .michelin-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
         }
         
         .michelin-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--autumn-dark-red);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-text);
         }
         
         .michelin-desc {
-            color: var(--text-light);
-            margin-bottom: 15px;
+            color: var(--secondary-text);
+            margin-bottom: 16px;
+            line-height: 1.5;
         }
         
         .michelin-price {
-            font-size: 1.1rem;
-            color: var(--autumn-red);
-            font-weight: 700;
+            font-size: 16px;
+            color: var(--japan-red);
+            font-weight: 600;
+            margin-bottom: 16px;
         }
         
-        /* Beauty Section */
+        .visit-btn {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .visit-btn:hover {
+            gap: 8px;
+        }
+        
+        /* Enhanced Beauty Section */
         .beauty-section {
-            padding: 80px 20px;
-            background: var(--autumn-light);
+            background: var(--background);
         }
         
         .beauty-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 32px;
         }
         
         .beauty-card {
-            background: var(--white);
-            border-radius: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-large);
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
         }
         
         .beauty-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
         }
         
         .beauty-image {
             width: 100%;
-            height: 250px;
+            height: 200px;
             object-fit: cover;
+            transition: transform 0.3s ease;
+            loading: lazy;
+        }
+        
+        .beauty-card:hover .beauty-image {
+            transform: scale(1.05);
         }
         
         .beauty-content {
-            padding: 30px;
+            padding: 32px;
         }
         
         .beauty-badge {
             display: inline-block;
-            background: linear-gradient(135deg, var(--autumn-red), var(--autumn-orange));
+            background: var(--japan-red);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
         
         .beauty-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-dark);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary-text);
         }
         
         .beauty-features {
             list-style: none;
-            padding: 0;
         }
         
         .beauty-features li {
             padding: 8px 0;
-            border-bottom: 1px solid #EEE;
+            border-bottom: 1px solid var(--border-light);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--secondary-text);
+            transition: color 0.3s ease;
+        }
+        
+        .beauty-features li:hover {
+            color: var(--primary-text);
         }
         
         .beauty-features li:last-child {
@@ -621,77 +1158,86 @@
         }
         
         .check-icon {
-            color: var(--autumn-orange);
+            color: var(--success);
             font-weight: bold;
         }
         
-        /* Checklist Section */
+        /* Enhanced Checklist with Local Storage */
         .checklist-section {
-            padding: 80px 20px;
-            background: var(--white);
+            background: var(--surface);
         }
         
         .checklist-container {
             max-width: 900px;
             margin: 0 auto;
+            padding: 0 20px;
         }
         
         .phase-title {
-            font-size: 1.5rem;
-            color: var(--autumn-red);
-            margin: 40px 0 20px;
-            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary-text);
+            margin: 40px 0 24px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
         }
         
         .phase-icon {
-            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
-            width: 40px;
-            height: 40px;
+            background: var(--accent);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
             color: white;
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
         }
         
         .checklist-item {
-            background: var(--autumn-light);
-            border-radius: 15px;
-            margin-bottom: 20px;
+            background: var(--background);
+            border-radius: var(--radius-medium);
+            margin-bottom: 16px;
             overflow: hidden;
+            box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
         }
         
+        .checklist-item:hover {
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .checklist-item.completed {
+            opacity: 0.7;
+        }
+        
         .checklist-header {
-            padding: 20px 25px;
+            padding: 20px 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
         }
         
         .checklist-header:hover {
-            background: rgba(255, 140, 0, 0.1);
+            background: var(--surface);
         }
         
         .checklist-checkbox {
-            width: 25px;
-            height: 25px;
-            border: 3px solid var(--autumn-orange);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
             border-radius: 50%;
             position: relative;
             transition: all 0.3s ease;
         }
         
         .checklist-checkbox.checked {
-            background: var(--autumn-orange);
-            border-color: var(--autumn-orange);
+            background: var(--accent);
         }
         
         .checklist-checkbox.checked::after {
@@ -701,6 +1247,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            font-size: 12px;
             font-weight: bold;
         }
         
@@ -708,59 +1255,102 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease;
-            padding: 0 25px;
+            padding: 0 24px;
         }
         
         .checklist-content.expanded {
-            max-height: 800px;
-            padding: 0 25px 25px;
+            max-height: 600px;
+            padding: 0 24px 24px;
         }
         
         .checklist-tip {
-            background: var(--white);
+            background: var(--surface);
             padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border-left: 4px solid var(--autumn-orange);
+            border-radius: var(--radius-small);
+            margin-top: 16px;
+            border-left: 4px solid var(--accent);
         }
         
         .tip-title {
-            font-weight: 700;
-            color: var(--autumn-red);
-            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary-text);
+            margin-bottom: 8px;
         }
         
-        /* Gallery Section */
+        /* Progress indicator for checklist */
+        .progress-indicator {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: var(--radius-medium);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) 0deg, var(--border-light) 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+        }
+        
+        .progress-circle::before {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--background);
+            position: absolute;
+        }
+        
+        .progress-text {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+        
+        /* Enhanced Gallery with Lightbox Effect */
         .gallery-section {
-            padding: 80px 20px;
-            background: var(--autumn-light);
+            background: var(--background);
         }
         
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            gap: 24px;
+            margin-top: 60px;
         }
         
         .gallery-item {
             position: relative;
-            border-radius: 20px;
+            border-radius: var(--radius-large);
             overflow: hidden;
-            height: 350px;
+            height: 300px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-light);
         }
         
         .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-medium);
         }
         
         .gallery-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+            loading: lazy;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
         }
         
         .gallery-overlay {
@@ -768,31 +1358,30 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 30px 25px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 24px;
             color: white;
         }
         
         .gallery-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
         
         .gallery-desc {
-            font-size: 0.95rem;
+            font-size: 14px;
             opacity: 0.9;
         }
         
-        /* Partner Section */
+        /* Enhanced Partners */
         .partners-section {
-            padding: 80px 20px;
-            background: var(--white);
+            background: var(--surface);
         }
         
         .partner-scroll {
             display: flex;
-            gap: 30px;
+            gap: 24px;
             overflow-x: auto;
             padding: 20px 0;
             scrollbar-width: none;
@@ -803,121 +1392,125 @@
         }
         
         .partner-card {
-            flex: 0 0 350px;
-            background: var(--autumn-light);
-            border-radius: 20px;
-            padding: 30px;
+            flex: 0 0 300px;
+            background: var(--background);
+            border-radius: var(--radius-medium);
+            padding: 32px;
             text-align: center;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
         }
         
         .partner-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
         }
         
         .partner-logo {
-            height: 80px;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
         }
         
         .partner-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--autumn-dark-red);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-text);
         }
         
         .partner-features {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 16px;
         }
         
         .partner-feature {
-            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+            background: var(--accent);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
             font-weight: 500;
         }
         
-        /* Seasons Section */
+        /* Enhanced Seasons */
         .seasons-section {
-            background: linear-gradient(to bottom, var(--white), var(--autumn-light));
-            padding: 80px 20px;
+            background: var(--background);
         }
         
         .seasons-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
         }
         
         .season-card {
-            background: white;
-            border-radius: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-large);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
         }
         
         .season-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
         }
         
         .season-image {
             width: 100%;
-            height: 200px;
+            height: 160px;
             object-fit: cover;
+            transition: transform 0.3s ease;
+            loading: lazy;
+        }
+        
+        .season-card:hover .season-image {
+            transform: scale(1.05);
         }
         
         .season-header {
-            padding: 25px;
+            padding: 24px;
             text-align: center;
         }
         
         .season-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 12px;
         }
         
         .season-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-dark);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-text);
         }
         
         .season-period {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 16px;
         }
         
         .season-highlights {
             list-style: none;
-            padding: 0 25px 25px;
-            font-size: 0.9rem;
+            padding: 0 24px 24px;
         }
         
         .season-highlights li {
-            padding: 8px 0;
-            color: var(--text-light);
+            padding: 6px 0;
+            color: var(--secondary-text);
+            font-size: 14px;
         }
         
-        /* About Japankuru Footer */
+        /* Enhanced About */
         .about-japankuru {
-            background: var(--autumn-dark-red);
+            background: var(--primary-text);
             color: white;
-            padding: 60px 20px;
             text-align: center;
         }
         
@@ -927,16 +1520,16 @@
         }
         
         .about-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            font-weight: 800;
+            font-size: 32px;
+            margin-bottom: 24px;
+            font-weight: 700;
         }
         
         .about-stats {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin: 30px 0;
+            margin: 40px 0;
             flex-wrap: wrap;
         }
         
@@ -945,312 +1538,323 @@
         }
         
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--autumn-yellow);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--japan-gold);
+            margin-bottom: 8px;
         }
         
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 14px;
+            opacity: 0.8;
         }
         
         .about-desc {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.95;
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
         }
         
-        /* Final CTA */
+        /* Enhanced Final CTA */
         .final-cta {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
-            text-align: center;
+            background: var(--gradient-primary);
             color: white;
+            text-align: center;
         }
         
         .cta-content {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
         
         .cta-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
         
         .cta-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.9;
         }
         
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
         
         .btn-primary {
-            background: var(--white);
-            color: var(--autumn-red);
-            padding: 18px 40px;
+            background: white;
+            color: var(--accent);
+            padding: 16px 32px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 16px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-medium);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-            background: var(--autumn-cream);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
         }
         
         .btn-secondary {
             background: transparent;
             color: white;
             border: 2px solid white;
-            padding: 16px 35px;
+            padding: 14px 30px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.05rem;
+            font-weight: 600;
+            font-size: 16px;
             transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
             background: white;
-            color: var(--autumn-red);
+            color: var(--accent);
         }
         
-        /* Floating Navigation */
-        .floating-nav {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            z-index: 999;
-            display: flex;
-            gap: 5px;
-            max-width: 90%;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        
-        .floating-nav::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .nav-item {
-            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+        /* Enhanced Footer */
+        .footer {
+            background: var(--primary-text);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-section h3 {
+            font-size: 20px;
             font-weight: 600;
-            white-space: nowrap;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            margin-bottom: 24px;
         }
         
-        .nav-item:hover,
-        .nav-item.active {
-            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-red));
-            transform: scale(1.1);
+        .footer-links {
+            list-style: none;
         }
         
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--white);
-            width: 50px;
-            height: 50px;
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            z-index: 1001;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: var(--autumn-red);
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-        
-        /* Side Navigation */
-        .side-nav {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 280px;
-            height: 100%;
-            background: white;
-            box-shadow: 5px 0 20px rgba(0,0,0,0.1);
-            z-index: 1000;
-            transition: left 0.3s ease;
-            overflow-y: auto;
-        }
-        
-        .side-nav.open {
-            left: 0;
-        }
-        
-        .side-nav-header {
-            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-orange));
             color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
-        
-        .side-nav-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .side-nav-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        .side-nav-menu {
-            padding: 20px;
-        }
-        
-        .side-nav-item {
-            display: block;
-            padding: 15px;
             text-decoration: none;
-            color: var(--text-dark);
-            border-bottom: 1px solid #EEE;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-size: 18px;
         }
         
-        .side-nav-item:hover {
-            background: var(--autumn-light);
-            padding-left: 25px;
-            color: var(--autumn-red);
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
         }
         
-        .side-nav-item span {
-            margin-right: 10px;
-        }
-        
-        /* Overlay */
-        .nav-overlay {
+        /* Enhanced Utilities */
+        .scroll-top {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
             z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced Notification System */
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-medium);
+            z-index: 10000;
+            max-width: 320px;
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.warning {
+            background: var(--warning);
+        }
+        
+        .notification.error {
+            background: var(--error);
+        }
+        
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-medium);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
             display: none;
         }
         
-        .nav-overlay.show {
+        .search-results.show {
             display: block;
         }
         
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background: white;
-            max-width: 600px;
-            margin: 50px auto;
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-            animation: modalFadeIn 0.3s ease;
-        }
-        
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
+        .search-result-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-light);
             cursor: pointer;
-            color: var(--text-light);
+            transition: background 0.3s ease;
         }
         
-        .modal-close:hover {
-            color: var(--text-dark);
+        .search-result-item:hover {
+            background: var(--surface);
         }
         
-        /* Mobile Optimization */
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-result-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .search-result-desc {
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-controls {
+                gap: 8px;
+            }
+            
+            .search-box {
+                display: none !important;
+            }
+            
             .hero-container {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
             
-            .hero h1 {
-                font-size: 2rem;
+            .text-large {
+                font-size: 32px;
             }
             
-            .hero-subtitle {
-                font-size: 1.1rem;
+            .section {
+                padding: 60px 0;
             }
             
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .topic-cards {
+            .topic-cards,
+            .beauty-grid,
+            .gallery-grid,
+            .seasons-grid {
                 grid-template-columns: 1fr;
             }
             
-            .gallery-grid {
+            .info-grid {
                 grid-template-columns: 1fr;
             }
             
-            .partner-card {
-                flex: 0 0 280px;
+            .celeb-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
             }
             
             .cta-buttons {
@@ -1258,443 +1862,482 @@
                 align-items: center;
             }
             
-            .btn-primary, .btn-secondary {
+            .btn-primary,
+            .btn-secondary {
                 width: 100%;
-                max-width: 300px;
+                max-width: 280px;
                 justify-content: center;
             }
             
-            .interactive-map {
-                height: 400px;
+            .map-filters {
+                gap: 8px;
             }
             
-            .seasons-grid {
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .follow-cta {
+                margin: 20px;
+                padding: 40px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .celeb-grid {
                 grid-template-columns: 1fr;
             }
             
-            .floating-nav {
-                bottom: 10px;
-                padding: 8px;
+            .partner-card {
+                flex: 0 0 280px;
             }
             
-            .nav-item {
-                padding: 6px 12px;
-                font-size: 0.8rem;
+            .hero-container {
+                padding: 0 16px;
             }
             
-            .info-grid {
-                grid-template-columns: 1fr;
+            .japankuru-info,
+            .celeb-trail,
+            .michelin-banner {
+                padding: 32px 24px;
             }
-            
-            .japankuru-info {
-                padding: 30px 20px;
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Menu Toggle Button -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    
-    <!-- Side Navigation -->
-    <nav class="side-nav" id="sideNav">
-        <div class="side-nav-header">
-            <h3 class="side-nav-title">Japankuru Indonesia</h3>
-            <p class="side-nav-subtitle">日本旅行ガイド</p>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="loading-logo">🏯</div>
+            <div class="loading-text">Memuat Japankuru Indonesia...</div>
         </div>
-        <div class="side-nav-menu">
-            <a href="#hot-topics" class="side-nav-item" onclick="navigateAndClose('hot-topics')">
-                <span>🔥</span>月間トレンド
-            </a>
-            <a href="#interactive-map" class="side-nav-item" onclick="navigateAndClose('interactive-map')">
-                <span>🗺️</span>インタラクティブマップ
-            </a>
-            <a href="#killer-content" class="side-nav-item" onclick="navigateAndClose('killer-content')">
-                <span>✨</span>特別コンテンツ
-            </a>
-            <a href="#michelin" class="side-nav-item" onclick="navigateAndClose('michelin')">
-                <span>⭐</span>ハラールミシュラン
-            </a>
-            <a href="#beauty" class="side-nav-item" onclick="navigateAndClose('beauty')">
-                <span>💄</span>美容体験
-            </a>
-            <a href="#checklist" class="side-nav-item" onclick="navigateAndClose('checklist')">
-                <span>✈️</span>旅行準備
-            </a>
-            <a href="#gallery" class="side-nav-item" onclick="navigateAndClose('gallery')">
-                <span>📸</span>ギャラリー
-            </a>
-            <a href="#partners" class="side-nav-item" onclick="navigateAndClose('partners')">
-                <span>🤝</span>パートナー
-            </a>
-            <a href="#seasons" class="side-nav-item" onclick="navigateAndClose('seasons')">
-                <span>🌸</span>四季の魅力
-            </a>
-        </div>
-    </nav>
-    
-    <!-- Navigation Overlay -->
-    <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
-    
-    <!-- Floating Navigation (Mobile) -->
-    <nav class="floating-nav">
-        <a href="#hot-topics" class="nav-item">🔥 トレンド</a>
-        <a href="#interactive-map" class="nav-item">🗺️ マップ</a>
-        <a href="#killer-content" class="nav-item">✨ 特別</a>
-        <a href="#michelin" class="nav-item">⭐ グルメ</a>
-        <a href="#beauty" class="nav-item">💄 美容</a>
-        <a href="#checklist" class="nav-item">✈️ 準備</a>
-        <a href="#gallery" class="nav-item">📸 写真</a>
-    </nav>
-    
-    <!-- Language Switch -->
-    <div class="lang-switch" onclick="alert('インドネシア語版に切り替え')">
-        🌐 日本語 → Bahasa Indonesia
     </div>
-    
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">🏯</div>
+                Japankuru
+            </a>
+            
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Beranda</a>
+                <a href="#hot-topics" class="nav-link">Trending</a>
+                <a href="#interactive-map" class="nav-link">Peta</a>
+                <a href="#destinations" class="nav-link">Destinasi</a>
+                <a href="#guide" class="nav-link">Panduan</a>
+            </nav>
+            
+            <div class="header-controls">
+                <div class="search-box" id="searchBox">
+                    <input type="text" class="search-input" placeholder="Cari destinasi, makanan halal..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <button class="search-toggle" onclick="toggleSearch()" title="Cari">🔍</button>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Ganti tema" id="themeToggle">🌙</button>
+                <div class="lang-switch" onclick="toggleLanguage()">
+                    🇮🇩 ID / EN
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="autumn-leaves">
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-        </div>
+    <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
-                <p class="hero-subtitle-jp">紅葉の日本へ、Japankuruと共に夢の旅を！</p>
-                <h1>Jelajahi Jepang dengan Nyaman & Halal Bersama Japankuru! 🍁</h1>
+                <p class="hero-subtitle-jp">日本旅行の完璧なガイド</p>
+                <h1 class="text-large">Jelajahi Jepang dengan Nyaman & Halal</h1>
                 <p class="hero-subtitle">Platform wisata Muslim-friendly terlengkap untuk perjalanan impianmu ke Jepang</p>
-                <a href="#hot-topics" class="hero-cta">Mulai Perjalananmu →</a>
+                <a href="#hot-topics" class="hero-cta">
+                    Mulai Petualangan
+                    <span>→</span>
+                </a>
             </div>
             
             <div class="japankuru-info">
-                <h2 class="info-title">Japankuru Menunggumu! 🇮🇩</h2>
+                <h2 class="info-title">Mengapa Japankuru? <span class="text-english">Why Japankuru?</span></h2>
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="info-icon">🌏</div>
                         <div class="info-text">
-                            <div class="info-number">14 Tahun</div>
-                            <div class="info-label">Pengalaman dari Tokyo</div>
+                            <div class="info-number animated-counter" data-target="14">0</div>
+                            <div class="info-label">Tahun Pengalaman <span class="text-english">Years Experience</span></div>
                         </div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">👥</div>
                         <div class="info-text">
-                            <div class="info-number">1 Juta+</div>
-                            <div class="info-label">Follower Worldwide</div>
+                            <div class="info-number animated-counter" data-target="1000000">0</div>
+                            <div class="info-label">Follower Global <span class="text-english">Global Followers</span></div>
                         </div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">📝</div>
                         <div class="info-text">
-                            <div class="info-number">4000+</div>
-                            <div class="info-label">Artikel Original</div>
+                            <div class="info-number animated-counter" data-target="4000">0</div>
+                            <div class="info-label">Konten Original <span class="text-english">Original Content</span></div>
                         </div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">🏆</div>
                         <div class="info-text">
-                            <div class="info-number">Best Award</div>
-                            <div class="info-label">Travel Fair Winner</div>
+                            <div class="info-number">Best</div>
+                            <div class="info-label">Award Winner <span class="text-english">Travel Fair Winner</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Hot Topics -->
-    <section class="hot-topics" id="hot-topics">
+    <section class="section hot-topics" id="hot-topics">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">今月のトレンド！ 🔥</h2>
-                <p class="section-subtitle">11月の最新日本情報をお届け</p>
+                <h2 class="text-heading section-title">Trending Bulan Ini <span class="text-english">This Month's Trending</span></h2>
+                <p class="section-subtitle">Informasi dan tren terbaru wisata Jepang untuk November 2024</p>
             </div>
             
             <div class="topic-cards">
-                <a href="#" class="topic-card">
+                <a href="https://japankuru.com/tokyo-halal-ramen-best-5" target="_blank" class="topic-card card-enhanced" rel="noopener">
                     <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Ramen" class="topic-image">
                     <div class="topic-content">
-                        <span class="topic-tag">ハラールフード</span>
-                        <h3 class="topic-title">東京の美味しいハラールラーメン5選！</h3>
-                        <p class="topic-desc">新宿から浅草まで、私たちが実際に試したお店をご紹介。どれが一番お気に入り？</p>
+                        <span class="topic-tag">🍜 Makanan Halal</span>
+                        <h3 class="topic-title">5 Ramen Halal Terbaik di Tokyo</h3>
+                        <p class="topic-desc">Dari Shinjuku hingga Asakusa, kami telah mencoba sendiri restoran terbaik untuk Anda.</p>
+                        <div class="read-more">Selengkapnya →</div>
                     </div>
                 </a>
                 
-                <a href="#" class="topic-card">
+                <a href="https://japankuru.com/autumn-leaves-best-spots" target="_blank" class="topic-card card-enhanced" rel="noopener">
                     <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Autumn Leaves" class="topic-image">
                     <div class="topic-content">
-                        <span class="topic-tag">秋の特集</span>
-                        <h3 class="topic-title">紅葉絶景スポットBEST10</h3>
-                        <p class="topic-desc">インスタ映え確実！京都、日光、箱根の紅葉見頃情報と撮影テクニック。</p>
+                        <span class="topic-tag">🍁 Musim Gugur</span>
+                        <h3 class="topic-title">10 Spot Pemandangan Momiji Terbaik</h3>
+                        <p class="topic-desc">Instagram-worthy! Info waktu terbaik dan tips fotografi di Kyoto, Nikko, dan Hakone.</p>
+                        <div class="read-more">Selengkapnya →</div>
                     </div>
                 </a>
                 
-                <a href="#" class="topic-card">
+                <a href="https://japankuru.com/winter-fashion-sale-2024" target="_blank" class="topic-card card-enhanced" rel="noopener">
                     <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=200&fit=crop" alt="Shopping" class="topic-image">
                     <div class="topic-content">
-                        <span class="topic-tag">ショッピング</span>
-                        <h3 class="topic-title">秋冬ファッションセール情報</h3>
-                        <p class="topic-desc">ユニクロ、GU、無印良品の最新セール！ヒジャブに合うアイテムも。</p>
+                        <span class="topic-tag">🛍️ Belanja</span>
+                        <h3 class="topic-title">Info Sale Fashion Musim Dingin</h3>
+                        <p class="topic-desc">Sale terbaru Uniqlo, GU, Muji! Plus item yang cocok dipadukan dengan hijab.</p>
+                        <div class="read-more">Selengkapnya →</div>
+                    </div>
+                </a>
+                
+                <a href="https://japankuru.com/tokyo-night-view-spots" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=200&fit=crop" alt="Tokyo Tower" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">🌃 Wisata Malam</span>
+                        <h3 class="topic-title">Spot Pemandangan Malam Tokyo</h3>
+                        <p class="topic-desc">Dari Tokyo Tower hingga Skytree, tempat terbaik menikmati gemerlap lampu kota Tokyo.</p>
+                        <div class="read-more">Selengkapnya →</div>
+                    </div>
+                </a>
+                
+                <a href="https://japankuru.com/hijab-friendly-kimono-experience" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Kimono" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">👘 Budaya</span>
+                        <h3 class="topic-title">Pengalaman Kimono Ramah Hijab</h3>
+                        <p class="topic-desc">Studio profesional yang mendukung pengalaman kimono indah dengan tetap mengenakan hijab.</p>
+                        <div class="read-more">Selengkapnya →</div>
+                    </div>
+                </a>
+                
+                <a href="https://japankuru.com/women-only-onsen-guide" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" alt="Onsen" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">♨️ Relaksasi</span>
+                        <h3 class="topic-title">Pemandian Air Panas Khusus Wanita</h3>
+                        <p class="topic-desc">Nikmati pengalaman onsen Jepang yang autentik dalam suasana yang privat dan aman.</p>
+                        <div class="read-more">Selengkapnya →</div>
                     </div>
                 </a>
             </div>
+            
+            <!-- Follow CTA in middle -->
+            <div class="follow-cta">
+                <div class="follow-content">
+                    <h3 class="follow-title">Dapatkan Update Terbaru! <span class="text-english">Get Latest Updates!</span></h3>
+                    <p class="follow-subtitle">Follow Instagram kami untuk tips harian dan info terkini seputar wisata Jepang</p>
+                    <a href="https://instagram.com/japankuru.id" target="_blank" class="follow-btn" rel="noopener">
+                        <span>📱</span>
+                        <span>Follow @japankuru.id</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
-    
+
     <!-- Interactive Map Section -->
-    <section class="map-section" id="interactive-map">
+    <section class="section map-section" id="interactive-map">
         <div class="container">
             <div class="map-container">
                 <div class="map-header">
-                    <h2 class="map-title">🗺️ 日本最大級！インタラクティブマップ</h2>
-                    <p>祈祷室、無料Wi-Fi、ムスリムフレンドリー施設を瞬時に検索</p>
+                    <h2 class="map-title">Peta Interaktif Jepang <span class="text-english">Interactive Japan Map</span></h2>
+                    <p>Temukan restoran halal, musala, WiFi gratis, dan fasilitas ramah Muslim lainnya</p>
                     
                     <div class="map-filters">
-                        <button class="filter-btn active" onclick="filterMap('all')">すべて表示</button>
-                        <button class="filter-btn" onclick="filterMap('prayer')">🕌 祈祷室</button>
-                        <button class="filter-btn" onclick="filterMap('wifi')">📶 無料Wi-Fi</button>
-                        <button class="filter-btn" onclick="filterMap('hotel')">🏨 ホテル</button>
+                        <button class="filter-btn active" onclick="filterMap('all')">Semua</button>
+                        <button class="filter-btn" onclick="filterMap('prayer')">🕌 Musala</button>
+                        <button class="filter-btn" onclick="filterMap('wifi')">📶 WiFi Gratis</button>
+                        <button class="filter-btn" onclick="filterMap('hotel')">🏨 Hotel</button>
+                        <button class="filter-btn" onclick="filterMap('food')">🍽️ Makanan Halal</button>
                     </div>
                 </div>
                 
                 <div class="interactive-map">
-                    <p>インタラクティブマップは現在準備中です。<br>実際の日本地図と施設情報を統合予定。</p>
+                    <div class="map-placeholder">
+                        <h3>Peta Interaktif</h3>
+                        <p>Peta interaktif yang menampilkan seluruh fasilitas ramah Muslim di Jepang sedang dalam pengembangan.</p>
+                        <div class="map-coming-soon">Segera Hadir!</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- Killer Content Section -->
-    <section class="killer-content" id="killer-content">
+
+    <!-- Killer Content -->
+    <section class="section killer-content" id="destinations">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Japankuruだけの特別コンテンツ！✨</h2>
-                <p class="section-subtitle">他では見つからない、インドネシア人のための独占情報</p>
+                <h2 class="text-heading section-title">Konten Eksklusif Japankuru <span class="text-english">Japankuru Exclusive Content</span></h2>
+                <p class="section-subtitle">Informasi khusus yang tidak akan Anda temukan di tempat lain</p>
             </div>
             
-            <!-- Celebrity Trail Feature -->
             <div class="celeb-trail">
                 <div class="celeb-header">
-                    <h3 class="celeb-title">🌟 インドネシアセレブの足跡をたどる旅</h3>
-                    <p>あなたの好きなセレブが訪れた場所を巡ろう！</p>
+                    <h3 class="celeb-title">Jejak Selebriti Indonesia di Jepang <span class="text-english">Indonesian Celebrity Trails in Japan</span></h3>
+                    <p class="section-subtitle">Ikuti jejak selebriti favorit Anda dan rasakan pengalaman yang sama!</p>
                 </div>
                 <div class="celeb-grid">
-                    <div class="celeb-card">
+                    <a href="https://japankuru.com/raisa-tokyo-tower-visit" target="_blank" class="celeb-card" rel="noopener">
                         <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop" alt="Tokyo Tower" class="celeb-image">
                         <div class="celeb-info">
                             <div class="celeb-name">Raisa Andriana</div>
-                            <div class="celeb-spot">東京タワー展望台</div>
+                            <div class="celeb-spot">Observasi Tokyo Tower</div>
                         </div>
-                    </div>
-                    <div class="celeb-card">
+                    </a>
+                    <a href="https://japankuru.com/atta-shibuya-crossing" target="_blank" class="celeb-card" rel="noopener">
                         <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&h=200&fit=crop" alt="Shibuya" class="celeb-image">
                         <div class="celeb-info">
                             <div class="celeb-name">Atta Halilintar</div>
-                            <div class="celeb-spot">渋谷スクランブル交差点</div>
+                            <div class="celeb-spot">Shibuya Crossing</div>
                         </div>
-                    </div>
-                    <div class="celeb-card">
+                    </a>
+                    <a href="https://japankuru.com/natasha-kimono-asakusa" target="_blank" class="celeb-card" rel="noopener">
                         <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=300&h=200&fit=crop" alt="Kimono" class="celeb-image">
                         <div class="celeb-info">
                             <div class="celeb-name">Natasha Wilona</div>
-                            <div class="celeb-spot">浅草着物体験</div>
+                            <div class="celeb-spot">Pengalaman Kimono Asakusa</div>
                         </div>
-                    </div>
-                    <div class="celeb-card">
+                    </a>
+                    <a href="https://japankuru.com/ricis-harajuku-takeshita" target="_blank" class="celeb-card" rel="noopener">
                         <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=300&h=200&fit=crop" alt="Harajuku" class="celeb-image">
                         <div class="celeb-info">
                             <div class="celeb-name">Ria Ricis</div>
-                            <div class="celeb-spot">原宿竹下通り</div>
+                            <div class="celeb-spot">Harajuku Takeshita Street</div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Michelin Section -->
-    <section class="michelin-section" id="michelin">
+    <section class="section michelin-section" id="michelin">
         <div class="container">
             <div class="michelin-banner">
-                <h2 class="michelin-title">
-                    <span class="michelin-stars">⭐⭐⭐</span>
-                    <span>ハラールミシュラン体験</span>
-                    <span class="michelin-stars">⭐⭐⭐</span>
-                </h2>
-                <p>日本の高級レストランでハラール料理を楽しむ、特別な体験</p>
+                <h2 class="michelin-title">Panduan Michelin Halal <span class="text-english">Halal Michelin Guide</span></h2>
+                <p>Pengalaman istimewa menikmati hidangan halal di restoran kelas dunia Jepang</p>
             </div>
             
             <div class="michelin-list">
-                <div class="michelin-card">
-                    <h3 class="michelin-name">懐石料理 花伝</h3>
-                    <p class="michelin-desc">完全ハラール対応の本格懐石料理。事前予約で特別メニューをご用意。</p>
-                    <p class="michelin-price">ランチ: ¥5,000〜 / ディナー: ¥12,000〜</p>
-                </div>
-                <div class="michelin-card">
-                    <h3 class="michelin-name">鉄板焼き 匠</h3>
-                    <p class="michelin-desc">目の前で焼き上げるハラール和牛。シェフのパフォーマンスも必見！</p>
-                    <p class="michelin-price">コース: ¥8,000〜</p>
-                </div>
-                <div class="michelin-card">
-                    <h3 class="michelin-name">すし処 海月</h3>
-                    <p class="michelin-desc">ハラール醤油使用の本格江戸前寿司。ベジタリアンオプションもあり。</p>
-                    <p class="michelin-price">おまかせ: ¥6,000〜</p>
-                </div>
+                <a href="https://japankuru.com/kaiseki-hana-den-halal" target="_blank" class="michelin-card" rel="noopener">
+                    <h3 class="michelin-name">Kaiseki Hana-den</h3>
+                    <p class="michelin-desc">Kaiseki halal otentik dengan pelayanan penuh. Reservasi sebelumnya untuk menu spesial tersedia.</p>
+                    <p class="michelin-price">Makan Siang: ¥5,000~ / Makan Malam: ¥12,000~</p>
+                    <div class="visit-btn">Kunjungi Artikel →</div>
+                </a>
+                <a href="https://japankuru.com/teppanyaki-takumi-halal" target="_blank" class="michelin-card" rel="noopener">
+                    <h3 class="michelin-name">Teppanyaki Takumi</h3>
+                    <p class="michelin-desc">Wagyu halal yang dimasak di depan mata Anda. Pertunjukan chef juga wajib ditonton!</p>
+                    <p class="michelin-price">Set Menu: ¥8,000~</p>
+                    <div class="visit-btn">Kunjungi Artikel →</div>
+                </a>
+                <a href="https://japankuru.com/sushi-kaigetsu-halal" target="_blank" class="michelin-card" rel="noopener">
+                    <h3 class="michelin-name">Sushi-dokoro Kaigetsu</h3>
+                    <p class="michelin-desc">Sushi Edomae otentik dengan kecap halal. Opsi vegetarian juga tersedia.</p>
+                    <p class="michelin-price">Omakase: ¥6,000~</p>
+                    <div class="visit-btn">Kunjungi Artikel →</div>
+                </a>
+                <a href="https://japankuru.com/ramen-yashichi-halal" target="_blank" class="michelin-card" rel="noopener">
+                    <h3 class="michelin-name">Ramen Yashichi</h3>
+                    <p class="michelin-desc">Ramen halal paling terkenal di Tokyo. Dari tonkotsu kental hingga shio yang segar.</p>
+                    <p class="michelin-price">Ramen: ¥1,200~</p>
+                    <div class="visit-btn">Kunjungi Artikel →</div>
+                </a>
             </div>
         </div>
     </section>
-    
+
     <!-- Beauty Section -->
-    <section class="beauty-section" id="beauty">
+    <section class="section beauty-section" id="beauty">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">ヒジャブフレンドリー美容体験 💄</h2>
-                <p class="section-subtitle">日本の美容技術を、ヒジャブを着けたまま体験！</p>
+                <h2 class="text-heading section-title">Pengalaman Kecantikan Ramah Hijab <span class="text-english">Hijab-Friendly Beauty Experience</span></h2>
+                <p class="section-subtitle">Rasakan teknologi kecantikan Jepang dengan tetap mengenakan hijab secara aman</p>
             </div>
             
             <div class="beauty-grid">
-                <div class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=250&fit=crop" alt="Beauty Salon" class="beauty-image">
+                <a href="https://japankuru.com/hijab-friendly-hair-salon" target="_blank" class="beauty-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" alt="Hair Salon" class="beauty-image">
                     <div class="beauty-content">
-                        <span class="beauty-badge">女性専用</span>
-                        <h3 class="beauty-title">ヒジャブ対応ヘアサロン</h3>
+                        <span class="beauty-badge">Khusus Wanita</span>
+                        <h3 class="beauty-title">Salon Rambut Ramah Hijab</h3>
                         <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> プライベートルーム完備</li>
-                            <li><span class="check-icon">✓</span> 女性スタッフのみ</li>
-                            <li><span class="check-icon">✓</span> ヒジャブスタイリング相談</li>
-                            <li><span class="check-icon">✓</span> ハラール対応ヘアケア製品</li>
+                            <li><span class="check-icon">✓</span> Ruang privat tersedia</li>
+                            <li><span class="check-icon">✓</span> Staf wanita saja</li>
+                            <li><span class="check-icon">✓</span> Konsultasi styling hijab</li>
+                            <li><span class="check-icon">✓</span> Produk perawatan rambut halal</li>
                         </ul>
                     </div>
-                </div>
+                </a>
                 
-                <div class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=250&fit=crop" alt="Makeup" class="beauty-image">
+                <a href="https://japankuru.com/japanese-makeup-hijab-friendly" target="_blank" class="beauty-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Makeup" class="beauty-image">
                     <div class="beauty-content">
-                        <span class="beauty-badge">特別体験</span>
-                        <h3 class="beauty-title">日本メイクアップ体験</h3>
+                        <span class="beauty-badge">Pengalaman Khusus</span>
+                        <h3 class="beauty-title">Pengalaman Makeup ala Jepang</h3>
                         <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> ハラール化粧品使用</li>
-                            <li><span class="check-icon">✓</span> 着物撮影オプション</li>
-                            <li><span class="check-icon">✓</span> インドネシア語対応</li>
-                            <li><span class="check-icon">✓</span> 記念写真付き</li>
+                            <li><span class="check-icon">✓</span> Kosmetik halal digunakan</li>
+                            <li><span class="check-icon">✓</span> Opsi pemotretan kimono</li>
+                            <li><span class="check-icon">✓</span> Dukungan bahasa Indonesia</li>
+                            <li><span class="check-icon">✓</span> Foto kenangan disertakan</li>
                         </ul>
                     </div>
-                </div>
+                </a>
                 
-                <div class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=250&fit=crop" alt="Spa" class="beauty-image">
+                <a href="https://japankuru.com/women-only-spa-onsen" target="_blank" class="beauty-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" alt="Spa" class="beauty-image">
                     <div class="beauty-content">
-                        <span class="beauty-badge">リラクゼーション</span>
-                        <h3 class="beauty-title">女性専用スパ＆温泉</h3>
+                        <span class="beauty-badge">Relaksasi</span>
+                        <h3 class="beauty-title">Spa & Onsen Khusus Wanita</h3>
                         <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> 個室温泉あり</li>
-                            <li><span class="check-icon">✓</span> ハラールアメニティ</li>
-                            <li><span class="check-icon">✓</span> 祈祷室完備</li>
-                            <li><span class="check-icon">✓</span> ヒジャブ着用可能エリア</li>
+                            <li><span class="check-icon">✓</span> Fasilitas onsen pribadi</li>
+                            <li><span class="check-icon">✓</span> Amenitas halal</li>
+                            <li><span class="check-icon">✓</span> Musala tersedia</li>
+                            <li><span class="check-icon">✓</span> Area ramah hijab</li>
                         </ul>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
-    
-    <!-- Checklist Section -->
-    <section class="checklist-section" id="checklist">
+
+    <!-- Checklist Section with Local Storage -->
+    <section class="section checklist-section" id="guide">
         <div class="checklist-container">
             <div class="section-header">
-                <h2 class="section-title">旅行準備チェックリスト ✈️</h2>
-                <p class="section-subtitle">初めての日本旅行を完璧に準備しよう</p>
+                <h2 class="text-heading section-title">Checklist Persiapan Wisata <span class="text-english">Travel Preparation Checklist</span></h2>
+                <p class="section-subtitle">Panduan lengkap mempersiapkan perjalanan pertama ke Jepang dengan sempurna</p>
+            </div>
+            
+            <!-- Progress Indicator -->
+            <div class="progress-indicator">
+                <div class="progress-circle" id="progressCircle">
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+                <p>Progress Persiapan Anda</p>
             </div>
             
             <div class="phase-title">
                 <div class="phase-icon">1</div>
-                <span>出発前の必須準備</span>
+                <span>Persiapan Sebelum Berangkat <span class="text-english">Pre-Departure Preparation</span></span>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item" data-id="visa">
                 <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>✈️ ビザと旅行書類</span>
+                    <span>Visa dan Dokumen Perjalanan</span>
                     <div class="checklist-checkbox"></div>
                 </div>
                 <div class="checklist-content">
-                    <p>グッドニュース！インドネシアのパスポート保持者は15日間までビザ不要！</p>
+                    <p>Kabar baik! Pemegang paspor Indonesia dapat masuk tanpa visa selama 90 hari!</p>
                     <div class="checklist-tip">
-                        <div class="tip-title">必要なもの：</div>
+                        <div class="tip-title">Dokumen yang diperlukan:</div>
                         <ul>
-                            <li>有効期限6ヶ月以上のパスポート</li>
-                            <li>往復航空券（必須！）</li>
-                            <li>ホテル予約確認書</li>
-                            <li>Visit Japan Web（出発前にオンラインで記入）</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">Visit Japan Webの書き方：</div>
-                        <ul>
-                            <li>入国手続き「ファストトラック」で時間短縮</li>
-                            <li>税関申告もオンラインで完了</li>
-                            <li>QRコード表示で入国がスムーズ</li>
+                            <li>Paspor dengan masa berlaku minimal 6 bulan</li>
+                            <li>Tiket pesawat pulang-pergi (wajib!)</li>
+                            <li>Konfirmasi reservasi hotel</li>
+                            <li>Visit Japan Web (daftar online sebelum berangkat)</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item" data-id="transport">
                 <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>💴 お金と予算の準備</span>
+                    <span>Tiket Pesawat dan Pass Transportasi</span>
                     <div class="checklist-checkbox"></div>
                 </div>
                 <div class="checklist-content">
-                    <p>日本はまだ現金社会！十分な円を準備しましょう。</p>
+                    <p>Dari reservasi tiket pesawat hingga pass transportasi lokal, persiapan awal dapat menghemat biaya perjalanan yang signifikan.</p>
                     <div class="checklist-tip">
-                        <div class="tip-title">両替のコツ：</div>
+                        <div class="tip-title">Pass transportasi yang direkomendasikan:</div>
                         <ul>
-                            <li>インドネシアの銀行で両替（レートが良い）</li>
-                            <li>成田/羽田空港でも両替可能（レートは高め）</li>
-                            <li>クレジットカードは大型店舗のみ使用可能</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">予算の目安（1日あたり）：</div>
-                        <ul>
-                            <li>食事: ¥2,000-3,000</li>
-                            <li>交通費: ¥1,000-2,000</li>
-                            <li>観光/入場料: ¥1,000-2,000</li>
-                            <li>お土産/その他: ¥2,000-3,000</li>
+                            <li>JR Pass (Nasional): 7 hari ¥29,650 / 14 hari ¥47,250</li>
+                            <li>Tokyo Metro Pass: 24 jam ¥800 / 72 jam ¥1,500</li>
+                            <li>Kansai Thru Pass: 2 hari ¥4,380 / 3 hari ¥5,400</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item" data-id="accommodation">
                 <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>🏨 宿泊先の選び方</span>
+                    <span>Reservasi Akomodasi</span>
                     <div class="checklist-checkbox"></div>
                 </div>
                 <div class="checklist-content">
-                    <p>ムスリムフレンドリーなホテルを選ぶポイント</p>
+                    <p>Akomodasi cepat penuh pada musim ramai wisata Jepang, jadi reservasi awal sangat penting.</p>
                     <div class="checklist-tip">
-                        <div class="tip-title">チェックすべき設備：</div>
+                        <div class="tip-title">Kisaran harga per jenis akomodasi:</div>
                         <ul>
-                            <li>キブラ表示の有無</li>
-                            <li>礼拝用マットの貸出</li>
-                            <li>ハラール朝食オプション</li>
-                            <li>近隣のハラールレストラン情報</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">おすすめエリア：</div>
-                        <ul>
-                            <li><strong>新宿：</strong>交通の要所、ショッピングも便利</li>
-                            <li><strong>浅草：</strong>下町情緒、ハラールレストラン多数</li>
-                            <li><strong>渋谷：</strong>若者文化の中心、トレンドスポット</li>
+                            <li>Guest house: ¥2,000-4,000/malam</li>
+                            <li>Business hotel: ¥6,000-12,000/malam</li>
+                            <li>City hotel: ¥12,000-25,000/malam</li>
+                            <li>Ryokan (penginapan tradisional): ¥15,000-50,000/malam</li>
                         </ul>
                     </div>
                 </div>
@@ -1702,605 +2345,431 @@
             
             <div class="phase-title">
                 <div class="phase-icon">2</div>
-                <span>ムスリム旅行者必須アイテム</span>
+                <span>Persiapan Kehidupan Lokal <span class="text-english">Local Life Preparation</span></span>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item" data-id="internet">
                 <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>🕌 礼拝とハラールフードの準備</span>
+                    <span>Komunikasi dan Internet</span>
                     <div class="checklist-checkbox"></div>
                 </div>
                 <div class="checklist-content">
-                    <p>心配無用！日本はどんどんムスリムフレンドリーになっています！</p>
+                    <p>Koneksi internet sangat penting untuk komunikasi yang lancar di Jepang.</p>
                     <div class="checklist-tip">
-                        <div class="tip-title">必須アプリ（出発前にダウンロード）：</div>
+                        <div class="tip-title">Opsi internet:</div>
                         <ul>
-                            <li><strong>Halal Gourmet Japan</strong> - ハラールレストランデータベース</li>
-                            <li><strong>Muslim Pro</strong> - 礼拝時間とキブラの方向</li>
-                            <li><strong>Google翻訳</strong> - 日本語をオフラインでダウンロード</li>
-                            <li><strong>Japan Travel by NAVITIME</strong> - 乗換案内</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">ハラールサバイバルキット：</div>
-                        <ul>
-                            <li>インスタント麺（緊急用）を2-3個</li>
-                            <li>お気に入りのスナック</li>
-                            <li>ハラール醤油（小瓶）</li>
-                            <li>携帯用礼拝マット</li>
-                            <li>コンパス（キブラ確認用）</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">コンビニで買えるハラール食品：</div>
-                        <ul>
-                            <li>おにぎり（鮭、ツナマヨ - 成分要確認）</li>
-                            <li>サラダ各種</li>
-                            <li>フルーツ、ヨーグルト</li>
-                            <li>お菓子（Kit-Kat、ポッキーなど）</li>
+                            <li>Sewa Pocket Wi-Fi: ¥500-1,000/hari</li>
+                            <li>SIM Card: ¥1,500-3,000 (7-30 hari)</li>
+                            <li>Roaming internasional: bervariasi per operator</li>
+                            <li>Wi-Fi gratis: tersedia di konbini, stasiun, kafe</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <div class="checklist-item">
+            <div class="checklist-item" data-id="religious">
                 <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>🧕 ムスリマ旅行者のためのヒント</span>
+                    <span>Persiapan Makanan Halal dan Ibadah</span>
                     <div class="checklist-checkbox"></div>
                 </div>
                 <div class="checklist-content">
-                    <p>ヒジャブで日本旅行？全く問題ありません！</p>
+                    <p>Persiapan penting untuk wisata Jepang yang ramah Muslim.</p>
                     <div class="checklist-tip">
-                        <div class="tip-title">四季別ヒジャブ準備：</div>
+                        <div class="tip-title">Persiapan yang direkomendasikan:</div>
                         <ul>
-                            <li><strong>春（3-5月）：</strong>軽いシフォン素材、パステルカラー</li>
-                            <li><strong>夏（6-8月）：</strong>クーリング素材、明るい色</li>
-                            <li><strong>秋（9-11月）：</strong>アースカラー、少し厚手</li>
-                            <li><strong>冬（12-2月）：</strong>ニット素材、タートルネックと重ね着</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">便利グッズ：</div>
-                        <ul>
-                            <li>ヒジャブピン（予備も含めて多めに）</li>
-                            <li>インナーヒジャブ（汗対策）</li>
-                            <li>折りたたみ鏡</li>
-                            <li>防水スプレー（雨対策）</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="phase-title">
-                <div class="phase-icon">3</div>
-                <span>日本での移動と観光</span>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>🚃 電車の乗り方マスター</span>
-                    <div class="checklist-checkbox"></div>
-                </div>
-                <div class="checklist-content">
-                    <p>複雑そうに見える日本の電車も、コツを掴めば簡単！</p>
-                    <div class="checklist-tip">
-                        <div class="tip-title">IC カード（Suica/Pasmo）の使い方：</div>
-                        <ul>
-                            <li>空港の駅で購入（デポジット¥500 + チャージ）</li>
-                            <li>改札にタッチして入退場</li>
-                            <li>コンビニでも使用可能</li>
-                            <li>残高不足時は精算機でチャージ</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">電車マナー：</div>
-                        <ul>
-                            <li>優先席は高齢者・妊婦・障害者用</li>
-                            <li>車内では静かに（電話は控える）</li>
-                            <li>飲食は原則禁止（長距離列車除く）</li>
-                            <li>リュックは前に抱える</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>📱 通信手段の確保</span>
-                    <div class="checklist-checkbox"></div>
-                </div>
-                <div class="checklist-content">
-                    <p>日本でも常にオンライン！通信手段を確保しよう</p>
-                    <div class="checklist-tip">
-                        <div class="tip-title">おすすめの通信手段：</div>
-                        <ul>
-                            <li><strong>ポケットWi-Fi：</strong>空港でレンタル、複数人でシェア可能</li>
-                            <li><strong>プリペイドSIM：</strong>自分のスマホに挿入、設定簡単</li>
-                            <li><strong>無料Wi-Fi：</strong>駅、カフェ、コンビニで利用可能</li>
-                        </ul>
-                    </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">緊急連絡先：</div>
-                        <ul>
-                            <li>警察：110</li>
-                            <li>消防・救急：119</li>
-                            <li>インドネシア大使館：03-3441-4201</li>
-                            <li>観光ホットライン：050-3816-2787（24時間、多言語対応）</li>
+                            <li>Download aplikasi Halal Gourmet Japan</li>
+                            <li>Setting alarm waktu sholat</li>
+                            <li>Bawa sajadah portable</li>
+                            <li>Aplikasi kompas kiblat</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Gallery Section -->
-    <section class="gallery-section" id="gallery">
+    <section class="section gallery-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">あなたの旅のインスピレーション 📸</h2>
-                <p class="section-subtitle">クリックして詳細を探索！</p>
+                <h2 class="text-heading section-title">Kisah Nyata Para Traveler <span class="text-english">Real Traveler Stories</span></h2>
+                <p class="section-subtitle">Momen-momen istimewa bersama Japankuru yang tak terlupakan</p>
             </div>
             
             <div class="gallery-grid">
-                <div class="gallery-item" onclick="openModal('food')">
-                    <img src="https://images.unsplash.com/photo-1555031902-5b92c3456a9b?w=400&h=400&fit=crop" alt="Halal Food" class="gallery-image">
+                <a href="https://japankuru.com/tokyo-skytree-night-view" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop" alt="Tokyo Night View" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">🍜 ハラールグルメ旅</h3>
-                        <p class="gallery-desc">ラーメン、和牛、寿司など！</p>
+                        <h3 class="gallery-title">Tokyo Skytree</h3>
+                        <p class="gallery-desc">Pemandangan malam Tokyo yang menakjubkan dari ketinggian 634m</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="gallery-item" onclick="openModal('spots')">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=400&fit=crop" alt="Tourist Spots" class="gallery-image">
+                <a href="https://japankuru.com/kimono-experience-asakusa" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop" alt="Kimono Experience" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">⛩️ 必見スポット</h3>
-                        <p class="gallery-desc">東京タワー、伏見稲荷など</p>
+                        <h3 class="gallery-title">Pengalaman Kimono</h3>
+                        <p class="gallery-desc">Kenangan indah pengalaman kimono ramah hijab yang tak terlupakan</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="gallery-item" onclick="openModal('shopping')">
-                    <img src="https://images.unsplash.com/photo-1519056116346-9d0e1dd6bbde?w=400&h=400&fit=crop" alt="Shopping" class="gallery-image">
+                <a href="https://japankuru.com/kyoto-autumn-momiji" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop" alt="Kyoto Autumn" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">🛍️ ショッピング天国</h3>
-                        <p class="gallery-desc">ドンキホーテから銀座まで</p>
+                        <h3 class="gallery-title">Momiji Kyoto</h3>
+                        <p class="gallery-desc">Wisata healing dengan momiji cantik di musim gugur Kyoto</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="gallery-item" onclick="openModal('culture')">
-                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=400&fit=crop" alt="Culture" class="gallery-image">
+                <a href="https://japankuru.com/hokkaido-winter-wonderland" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Hokkaido Winter" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">🎌 文化体験</h3>
-                        <p class="gallery-desc">着物、茶道など</p>
+                        <h3 class="gallery-title">Musim Dingin Hokkaido</h3>
+                        <p class="gallery-desc">Pengalaman winter wonderland di Hokkaido yang bersalju</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="gallery-item" onclick="openModal('anime')">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop" alt="Anime" class="gallery-image">
+                <a href="https://japankuru.com/halal-food-tokyo-guide" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop" alt="Halal Food" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">🎮 アニメ＆ポップカルチャー</h3>
-                        <p class="gallery-desc">秋葉原、ジブリ美術館など</p>
+                        <h3 class="gallery-title">Kuliner Halal</h3>
+                        <p class="gallery-desc">Cita rasa istimewa masakan halal otentik di Jepang</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="gallery-item" onclick="openModal('onsen')">
-                    <img src="https://images.unsplash.com/photo-1540224485-a3b7c7b4c7b1?w=400&h=400&fit=crop" alt="Onsen" class="gallery-image">
+                <a href="https://japankuru.com/okinawa-emerald-sea" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa Sea" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">♨️ 温泉体験</h3>
-                        <p class="gallery-desc">個室温泉でリラックス</p>
+                        <h3 class="gallery-title">Laut Okinawa</h3>
+                        <p class="gallery-desc">Waktu damai di laut zamrud Okinawa yang mempesona</p>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
-    
-    <!-- Partner Section -->
-    <section class="partners-section" id="partners">
+
+    <!-- Partners Section -->
+    <section class="section partners-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Japankuru信頼のパートナー 🤝</h2>
-                <p class="section-subtitle">検証済みのムスリムフレンドリーなホテル＆施設</p>
+                <h2 class="text-heading section-title">Partner Terpercaya <span class="text-english">Trusted Partners</span></h2>
+                <p class="section-subtitle">Bersama partner terbaik di Jepang untuk memberikan perjalanan yang aman dan nyaman</p>
             </div>
             
             <div class="partner-scroll">
                 <div class="partner-card">
                     <div class="partner-logo">🏨</div>
-                    <h3 class="partner-name">ホテルグランヴィア東京</h3>
-                    <p>JR東京駅直結。初めての日本旅行に最適！</p>
+                    <h3 class="partner-name">JTB Travel</h3>
+                    <p>Kemitraan eksklusif dengan agen perjalanan terbesar Jepang untuk produk spesial.</p>
                     <div class="partner-features">
-                        <span class="partner-feature">礼拝マット</span>
-                        <span class="partner-feature">キブラ表示</span>
-                        <span class="partner-feature">ハラールメニュー</span>
+                        <span class="partner-feature">Hotel Spesial</span>
+                        <span class="partner-feature">Paket Tour</span>
+                        <span class="partner-feature">24/7 Support</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
-                    <div class="partner-logo">🍜</div>
-                    <h3 class="partner-name">成田屋ハラールラーメン</h3>
-                    <p>最も本格的なハラールラーメン！鶏ベースの超クリーミーなとんこつスープ。</p>
+                    <div class="partner-logo">🍱</div>
+                    <h3 class="partner-name">Halal Food Japan</h3>
+                    <p>Jaringan lebih dari 3.000 restoran bersertifikat halal di seluruh Jepang.</p>
                     <div class="partner-features">
-                        <span class="partner-feature">100% ハラール</span>
-                        <span class="partner-feature">礼拝スペース</span>
-                        <span class="partner-feature">浅草</span>
+                        <span class="partner-feature">Sertifikat Halal</span>
+                        <span class="partner-feature">Reservasi Restoran</span>
+                        <span class="partner-feature">Terjemahan Menu</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
-                    <div class="partner-logo">🗼</div>
-                    <h3 class="partner-name">東京スカイツリー</h3>
-                    <p>日本一高いタワー、345階に礼拝室完備！</p>
+                    <div class="partner-logo">🚅</div>
+                    <h3 class="partner-name">JR East Japan</h3>
+                    <p>Partner resmi JR Pass memberikan solusi transportasi terbaik.</p>
                     <div class="partner-features">
-                        <span class="partner-feature">礼拝室</span>
-                        <span class="partner-feature">ハラールカフェ</span>
-                        <span class="partner-feature">絶景</span>
+                        <span class="partner-feature">JR Pass</span>
+                        <span class="partner-feature">Reservasi Kursi</span>
+                        <span class="partner-feature">Panduan Rute</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
-                    <div class="partner-logo">🛍️</div>
-                    <h3 class="partner-name">LAOX新宿店</h3>
-                    <p>観光客向けワンストップショッピング！インドネシア語対応スタッフ在籍！</p>
+                    <div class="partner-logo">🕌</div>
+                    <h3 class="partner-name">Islamic Center Japan</h3>
+                    <p>Informasi fasilitas Islam di Jepang dan dukungan keagamaan.</p>
                     <div class="partner-features">
-                        <span class="partner-feature">免税</span>
-                        <span class="partner-feature">ハラール化粧品</span>
-                        <span class="partner-feature">インドネシア語対応</span>
+                        <span class="partner-feature">Info Musala</span>
+                        <span class="partner-feature">Konsultasi Agama</span>
+                        <span class="partner-feature">Komunitas</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Seasons Section -->
-    <section class="seasons-section" id="seasons">
+    <section class="section seasons-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">日本の四季、365日が特別な理由 🌸❄️</h2>
-                <p class="section-subtitle">あなたの旅に最適な季節を見つけよう</p>
+                <h2 class="text-heading section-title">Keindahan Empat Musim Jepang <span class="text-english">Beauty of Japan's Four Seasons</span></h2>
+                <p class="section-subtitle">Setiap musim memiliki daya tarik berbeda untuk timing terbaik wisata Jepang</p>
             </div>
             
             <div class="seasons-grid">
-                <div class="season-card" onclick="openSeasonModal('spring')">
-                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Spring Sakura" class="season-image">
+                <a href="https://japankuru.com/spring-sakura-guide" target="_blank" class="season-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=160&fit=crop" alt="Spring" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🌸</div>
-                        <h3 class="season-name">春 - Spring</h3>
-                        <p class="season-period">3月～5月</p>
+                        <h3 class="season-name">Musim Semi (Mar~Mei)</h3>
+                        <p class="season-period">Sakura Season</p>
                     </div>
                     <ul class="season-highlights">
-                        <li>桜の花見体験</li>
-                        <li>春限定いちごスイーツ</li>
-                        <li>過ごしやすい気候</li>
+                        <li>Festival sakura dan hanami</li>
+                        <li>Cuaca yang sejuk</li>
+                        <li>Musim strawberry</li>
+                        <li>Suasana tahun ajaran baru</li>
                     </ul>
-                </div>
+                </a>
                 
-                <div class="season-card" onclick="openSeasonModal('summer')">
-                    <img src="https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?w=400&h=200&fit=crop" alt="Summer Festival" class="season-image">
+                <a href="https://japankuru.com/summer-festival-guide" target="_blank" class="season-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=160&fit=crop" alt="Summer" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🎆</div>
-                        <h3 class="season-name">夏 - Summer</h3>
-                        <p class="season-period">6月～8月</p>
+                        <h3 class="season-name">Musim Panas (Jun~Agt)</h3>
+                        <p class="season-period">Festival Season</p>
                     </div>
                     <ul class="season-highlights">
-                        <li>花火大会＆夏祭り</li>
-                        <li>浴衣体験</li>
-                        <li>かき氷＆夏グルメ</li>
+                        <li>Festival kembang api spektakuler</li>
+                        <li>Pengalaman yukata</li>
+                        <li>Resort pantai</li>
+                        <li>Festival musim panas</li>
                     </ul>
-                </div>
+                </a>
                 
-                <div class="season-card" onclick="openSeasonModal('autumn')">
-                    <img src="https://images.unsplash.com/photo-1540206351-c7fe88c3a8b1?w=400&h=200&fit=crop" alt="Autumn Leaves" class="season-image">
+                <a href="https://japankuru.com/autumn-momiji-spots" target="_blank" class="season-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=160&fit=crop" alt="Autumn" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🍁</div>
-                        <h3 class="season-name">秋 - Autumn</h3>
-                        <p class="season-period">9月～11月</p>
+                        <h3 class="season-name">Musim Gugur (Sep~Nov)</h3>
+                        <p class="season-period">Momiji Season</p>
                     </div>
                     <ul class="season-highlights">
-                        <li>紅葉狩り絶景スポット</li>
-                        <li>秋の味覚（栗・さつまいも）</li>
-                        <li>快適な気温</li>
+                        <li>Momiji yang fantastis</li>
+                        <li>Cuaca yang nyaman</li>
+                        <li>Panen yang melimpah</li>
+                        <li>Festival seni</li>
+                    </ul>
+                </a>
+                
+                <a href="https://japankuru.com/winter-illumination-guide" target="_blank" class="season-card" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop" alt="Winter" class="season-image">
+                    <div class="season-header">
+                        <div class="season-icon">❄️</div>
+                        <h3 class="season-name">Musim Dingin (Des~Feb)</h3>
+                        <p class="season-period">Snow Season</p>
+                    </div>
+                    <ul class="season-highlights">
+                        <li>Iluminasi yang fantastis</li>
+                        <li>Ski & onsen</li>
+                        <li>Festival tahun baru</li>
+                        <li>Makanan khusus musim dingin</li>
+                    </ul>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Japankuru -->
+    <section class="section about-japankuru">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="about-title">Japankuru Indonesia</h2>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="stat-number animated-counter" data-target="14">0</div>
+                        <div class="stat-label">Tahun Pengalaman</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="stat-number animated-counter" data-target="1000000">0</div>
+                        <div class="stat-label">Follower</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="stat-number animated-counter" data-target="5000">0</div>
+                        <div class="stat-label">Restoran Halal</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="stat-number animated-counter" data-target="200">0</div>
+                        <div class="stat-label">Info Musala</div>
+                    </div>
+                </div>
+                <p class="about-desc">
+                    Dimulai sejak 2010, Japankuru adalah panduan wisata Jepang terbaik untuk traveler Muslim Indonesia. 
+                    Tim lokal kami di Tokyo mengumpulkan informasi dengan riset langsung, menjamin perjalanan yang aman dan nyaman.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section final-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Siap untuk Petualangan di Jepang? <span class="text-english">Ready for Japan Adventure?</span></h2>
+                <p class="cta-subtitle">Bergabunglah dengan ribuan traveler Indonesia yang telah mewujudkan impian mereka!</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://instagram.com/japankuru.id" target="_blank" class="btn-primary" rel="noopener">
+                        <span>📸</span>
+                        <span>Follow @japankuru.id</span>
+                    </a>
+                    <a href="https://japankuru.com/id" target="_blank" class="btn-secondary" rel="noopener">
+                        Kunjungi Website
+                    </a>
+                </div>
+                
+                <p style="margin-top: 32px; font-size: 16px; opacity: 0.9;">
+                    🎁 Follow sekarang dan dapatkan e-book "Tokyo Halal Map" GRATIS!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Japankuru Indonesia</h3>
+                    <p>Panduan wisata Jepang ramah Muslim terbaik dengan pengalaman 14 tahun. Kami menjamin perjalanan yang aman dan nyaman untuk Anda.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener">f</a>
+                        <a href="https://instagram.com/japankuru.id" target="_blank" class="social-link" rel="noopener">📷</a>
+                        <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener">🐦</a>
+                        <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener">📺</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Layanan Wisata</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://japankuru.com/custom-travel-plan">Perencanaan Wisata Custom</a></li>
+                        <li><a href="https://japankuru.com/halal-restaurant-guide">Panduan Restoran Halal</a></li>
+                        <li><a href="https://japankuru.com/accommodation-booking">Reservasi Akomodasi</a></li>
+                        <li><a href="https://japankuru.com/transport-pass">Pass Transportasi</a></li>
+                        <li><a href="https://japankuru.com/cultural-tours">Tour Pengalaman Budaya</a></li>
+                        <li><a href="https://japankuru.com/local-guide">Layanan Guide Lokal</a></li>
                     </ul>
                 </div>
                 
-                <div class="season-card" onclick="openSeasonModal('winter')">
-                    <img src="https://images.unsplash.com/photo-1548266652-99cf27701ced?w=400&h=200&fit=crop" alt="Winter Illumination" class="season-image">
-                    <div class="season-header">
-                        <div class="season-icon">❄️</div>
-                        <h3 class="season-name">冬 - Winter</h3>
-                        <p class="season-period">12月～2月</p>
-                    </div>
-                    <ul class="season-highlights">
-                        <li>イルミネーション</li>
-                        <li>雪景色＆スキー体験</li>
-                        <li>温泉（個室風呂）</li>
+                <div class="footer-section">
+                    <h3>Informasi Wisata</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://japankuru.com/weather-info">Info Cuaca</a></li>
+                        <li><a href="https://japankuru.com/exchange-rate">Info Nilai Tukar</a></li>
+                        <li><a href="https://japankuru.com/transportation">Info Transportasi</a></li>
+                        <li><a href="https://japankuru.com/visa-info">Info Visa</a></li>
+                        <li><a href="https://japankuru.com/language-guide">Panduan Bahasa</a></li>
+                        <li><a href="https://japankuru.com/emergency-contacts">Kontak Darurat</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Dukungan Pelanggan</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://japankuru.com/customer-service">Customer Service 24 Jam</a></li>
+                        <li><a href="https://japankuru.com/faq">Pertanyaan Umum</a></li>
+                        <li><a href="https://japankuru.com/reviews">Review Perjalanan</a></li>
+                        <li><a href="https://japankuru.com/cancellation-policy">Kebijakan Pembatalan/Pengembalian</a></li>
+                        <li><a href="https://japankuru.com/privacy-policy">Kebijakan Privasi</a></li>
+                        <li><a href="https://japankuru.com/terms">Syarat dan Ketentuan</a></li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- About Japankuru Footer -->
-    <section class="about-japankuru">
-        <div class="about-content">
-            <h2 class="about-title">Japankuru</h2>
-            <div class="about-stats">
-                <div class="about-stat">
-                    <div class="stat-number">14年</div>
-                    <div class="stat-label">Since 2011</div>
-                </div>
-                <div class="about-stat">
-                    <div class="stat-number">100万+</div>
-                    <div class="stat-label">Global Followers</div>
-                </div>
-                <div class="about-stat">
-                    <div class="stat-number">8言語</div>
-                    <div class="stat-label">Multi Language</div>
-                </div>
-            </div>
-            <p class="about-desc">
-                東京を拠点に、世界中の旅行者へ日本の魅力を発信。<br>
-                4000以上の記事と30000点を超える写真・動画で、<br>
-                あなたの日本旅行を完全サポート。
-            </p>
-        </div>
-    </section>
-    
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="cta-content">
-            <h2 class="cta-title">Siap untuk Petualangan di Jepang? 🇯🇵</h2>
-            <p class="cta-subtitle">Join ribuan traveler Indonesia yang sudah mewujudkan mimpi mereka!</p>
             
-            <div class="cta-buttons">
-                <a href="https://instagram.com/japankuru.id" target="_blank" class="btn-primary">
-                    <span>📸</span>
-                    <span>Follow @japankuru.id</span>
-                </a>
-                <a href="https://japankuru.com/id" target="_blank" class="btn-secondary">
-                    🌐 Visit Website
-                </a>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Japankuru Indonesia. All rights reserved. | Platform wisata Muslim-friendly terdepan untuk Jepang</p>
             </div>
-            
-            <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.9;">
-                🎁 Special di Travel Fair: Follow sekarang & dapatkan e-guide "Tokyo Halal Map" GRATIS!
-            </p>
         </div>
-    </section>
-    
-    <!-- Modals -->
-    <div id="modal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-    
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+    <!-- Notification Container -->
+    <div class="notification" id="notification"></div>
+
     <script>
-        // Navigation Functions
-        function toggleMenu() {
-            const sideNav = document.getElementById('sideNav');
-            const overlay = document.getElementById('navOverlay');
-            sideNav.classList.toggle('open');
-            overlay.classList.toggle('show');
-        }
+        // Enhanced JavaScript with all optimizations
         
-        function closeMenu() {
-            const sideNav = document.getElementById('sideNav');
-            const overlay = document.getElementById('navOverlay');
-            sideNav.classList.remove('open');
-            overlay.classList.remove('show');
-        }
-        
-        function navigateAndClose(sectionId) {
-            closeMenu();
+        // Loading animation
+        window.addEventListener('load', function() {
             setTimeout(() => {
-                document.getElementById(sectionId).scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 300);
-        }
-        
-        // Highlight active section in floating nav
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navItems = document.querySelectorAll('.nav-item');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href').includes(current)) {
-                    item.classList.add('active');
-                }
-            });
+                document.getElementById('loading').classList.add('hidden');
+                
+                // Initialize counter animations
+                setTimeout(() => {
+                    animateCounters();
+                }, 500);
+                
+                // Initialize checklist from localStorage
+                initializeChecklist();
+            }, 1200);
         });
-        
-        // Checklist functionality
-        function toggleChecklist(header) {
-            const content = header.nextElementSibling;
-            const checkbox = header.querySelector('.checklist-checkbox');
+
+        // Enhanced scroll functionality
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.getElementById('scrollTop');
+            const header = document.getElementById('header');
+            const progressBar = document.getElementById('progressBar');
             
-            content.classList.toggle('expanded');
-            checkbox.classList.toggle('checked');
-        }
-        
-        // Season Modal Content
-        const seasonModalContent = {
-            spring: {
-                title: "🌸 春の日本 - 桜と共に過ごす夢の季節",
-                content: `
-                    <h3>春がおすすめの理由（3月～5月）</h3>
-                    
-                    <h4>🌸 桜の花見体験</h4>
-                    <ul>
-                        <li><strong>ベストスポット：</strong>上野公園、新宿御苑、千鳥ヶ淵</li>
-                        <li><strong>ヒジャブフォト：</strong>パステルピンクのヒジャブが桜と最高にマッチ！</li>
-                        <li><strong>花見ピクニック：</strong>ハラール弁当を持参して楽しもう</li>
-                    </ul>
-                    
-                    <h4>🍓 春限定グルメ</h4>
-                    <ul>
-                        <li>いちご狩り体験（ハラール対応農園あり）</li>
-                        <li>桜餅、桜ラテなど季節限定スイーツ</li>
-                        <li>春野菜の天ぷら（ベジタリアン対応）</li>
-                    </ul>
-                    
-                    <h4>👗 春のヒジャブコーデ</h4>
-                    <ul>
-                        <li>軽やかなシフォン素材</li>
-                        <li>フローラルプリント</li>
-                        <li>カーディガンでレイヤリング</li>
-                    </ul>
-                    
-                    <p><strong>気温：</strong>10-20°C - 過ごしやすい気候！</p>
-                `
-            },
-            summer: {
-                title: "🎆 夏の日本 - 祭りと花火の熱い季節",
-                content: `
-                    <h3>夏の魅力（6月～8月）</h3>
-                    
-                    <h4>🎆 花火大会＆夏祭り</h4>
-                    <ul>
-                        <li><strong>隅田川花火大会：</strong>7月最終土曜日</li>
-                        <li><strong>浴衣体験：</strong>ヒジャブ対応の着付けサービス</li>
-                        <li><strong>屋台グルメ：</strong>ハラール焼き鳥、かき氷</li>
-                    </ul>
-                    
-                    <h4>🏖️ 夏のアクティビティ</h4>
-                    <ul>
-                        <li>鎌倉・江の島ビーチ（女性専用エリアあり）</li>
-                        <li>富士山登山（7-8月のみ）</li>
-                        <li>ひまわり畑フォトツアー</li>
-                    </ul>
-                    
-                    <h4>☀️ 暑さ対策</h4>
-                    <ul>
-                        <li>クーリング素材のヒジャブ</li>
-                        <li>日傘＆扇子は必須アイテム</li>
-                        <li>エアコン完備の屋内施設も充実</li>
-                    </ul>
-                    
-                    <p><strong>気温：</strong>25-35°C - 湿度高め、水分補給を忘れずに！</p>
-                `
-            },
-            autumn: {
-                title: "🍁 秋の日本 - 紅葉に染まるロマンチックな季節",
-                content: `
-                    <h3>秋が最高の理由（9月～11月）</h3>
-                    
-                    <h4>🍁 紅葉の絶景</h4>
-                    <ul>
-                        <li><strong>京都・嵐山：</strong>竹林と紅葉のコントラスト</li>
-                        <li><strong>日光：</strong>滝と紅葉の共演</li>
-                        <li><strong>箱根：</strong>富士山と紅葉を一緒に</li>
-                    </ul>
-                    
-                    <h4>🌰 秋の味覚</h4>
-                    <ul>
-                        <li>栗きんとん、焼き芋</li>
-                        <li>きのこ料理（ベジタリアン天国）</li>
-                        <li>新米のおにぎり</li>
-                    </ul>
-                    
-                    <h4>📸 インスタ映えスポット</h4>
-                    <ul>
-                        <li>紅葉ライトアップ（清水寺、東福寺）</li>
-                        <li>秋バラ園</li>
-                        <li>コスモス畑</li>
-                    </ul>
-                    
-                    <p><strong>気温：</strong>15-25°C - 観光に最適な気候！</p>
-                `
-            },
-            winter: {
-                title: "❄️ 冬の日本 - 雪とイルミネーションの幻想的な季節",
-                content: `
-                    <h3>冬の特別な体験（12月～2月）</h3>
-                    
-                    <h4>✨ イルミネーション</h4>
-                    <ul>
-                        <li><strong>東京ミッドタウン：</strong>都内最大級</li>
-                        <li><strong>なばなの里：</strong>日本一のイルミ</li>
-                        <li><strong>神戸ルミナリエ：</strong>感動的な光の芸術</li>
-                    </ul>
-                    
-                    <h4>⛷️ 雪の体験</h4>
-                    <ul>
-                        <li>スキー・スノボ（ヒジャブ対応ウェアレンタル）</li>
-                        <li>雪だるま作り＆雪合戦</li>
-                        <li>温泉（個室露天風呂）</li>
-                    </ul>
-                    
-                    <h4>🛍️ 冬のお得情報</h4>
-                    <ul>
-                        <li>初売りセール（1月1-3日）</li>
-                        <li>福袋でサプライズショッピング</li>
-                        <li>冬物最大70%オフ（2月）</li>
-                    </ul>
-                    
-                    <p><strong>気温：</strong>0-10°C - ヒートテック必須！でも室内は暖かい</p>
-                `
+            // Scroll progress
+            const scrollPercent = (window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * 100;
+            progressBar.style.width = scrollPercent + '%';
+            
+            // Header scrolled state
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-        };
-        
-        function openSeasonModal(season) {
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
             
-            modalBody.innerHTML = `
-                <div style="text-align: center;">
-                    ${seasonModalContent[season].content}
-                </div>
-            `;
-            
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Regular modal content
-        const modalContent = {
-            food: {
-                title: "🍜 ハラールグルメ旅",
-                content: `
-                    <h2>日本のハラールフードパラダイス！</h2>
-                    <p>日本でハラールフードを見つけるのは難しいと誰が言った？これをチェック！</p>
-                    
-                    <h3>🍜 ベストハラールラーメン：</h3>
-                    <ul>
-                        <li><strong>成田屋（浅草）</strong> - 最もクリーミーな鶏ラーメン！</li>
-                        <li><strong>ラーメン桜花（新宿）</strong> - インドネシアの辛さレベルあり！</li>
-                        <li><strong>あやむ屋（渋谷）</strong> - ラーメン＋唐揚げコンボ</li>
-                    </ul>
-                `
+            // Scroll to top button
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
             }
-            // ... other modal content
-        };
-        
-        function openModal(type) {
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
             
-            modalBody.innerHTML = modalContent[type].content;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            // Update active nav link
+            updateActiveNavLink();
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        
-        function closeModal(event) {
-            if (event && event.target !== event.currentTarget) return;
+
+        // Enhanced navigation
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
             
-            const modal = document.getElementById('modal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(currentSection) && currentSection !== '') {
+                    link.classList.add('active');
+                }
+            });
         }
-        
-        // Smooth scroll
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2313,29 +2782,560 @@
                 }
             });
         });
-        
-        // Intersection Observer for animations
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.animated-counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target >= 1000000 ? '1 Juta+' : target.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        }
+
+        // Enhanced Search Functionality
+        const searchData = [
+            { title: "5 Ramen Halal Terbaik di Tokyo", desc: "Panduan lengkap ramen halal", url: "https://japankuru.com/tokyo-halal-ramen-best-5" },
+            { title: "Spot Pemandangan Momiji", desc: "10 lokasi terbaik melihat daun gugur", url: "https://japankuru.com/autumn-leaves-best-spots" },
+            { title: "Pengalaman Kimono Ramah Hijab", desc: "Studio kimono yang mendukung hijab", url: "https://japankuru.com/hijab-friendly-kimono-experience" },
+            { title: "Panduan Onsen Khusus Wanita", desc: "Pemandian air panas yang aman", url: "https://japankuru.com/women-only-onsen-guide" },
+            { title: "Info Sale Fashion Musim Dingin", desc: "Belanja hemat di Jepang", url: "https://japankuru.com/winter-fashion-sale-2024" }
+        ];
+
+        function toggleSearch() {
+            const searchBox = document.getElementById('searchBox');
+            const searchInput = document.getElementById('searchInput');
+            
+            if (searchBox.classList.contains('active')) {
+                searchBox.classList.remove('active');
+            } else {
+                searchBox.classList.add('active');
+                setTimeout(() => searchInput.focus(), 100);
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (query.length < 2) {
+                resultsContainer.classList.remove('show');
+                return;
+            }
+            
+            const filtered = searchData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+            
+            if (filtered.length > 0) {
+                resultsContainer.innerHTML = filtered.map(item => `
+                    <div class="search-result-item" onclick="window.open('${item.url}', '_blank')">
+                        <div class="search-result-title">${item.title}</div>
+                        <div class="search-result-desc">${item.desc}</div>
+                    </div>
+                `).join('');
+                resultsContainer.classList.add('show');
+            } else {
+                resultsContainer.innerHTML = '<div class="search-result-item">Tidak ada hasil ditemukan</div>';
+                resultsContainer.classList.add('show');
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            const searchBox = document.getElementById('searchBox');
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (!searchBox.contains(e.target)) {
+                resultsContainer.classList.remove('show');
+            }
+        });
+
+        // Enhanced Map filter functionality
+        function filterMap(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            
+            const filterNames = {
+                'all': 'Semua fasilitas',
+                'prayer': 'Musala',
+                'wifi': 'WiFi Gratis',
+                'hotel': 'Akomodasi',
+                'food': 'Restoran Halal'
+            };
+            
+            showNotification(`Filter ${filterNames[type]} diterapkan`, 'success');
+        }
+
+        // Enhanced Checklist with Local Storage
+        function initializeChecklist() {
+            const checklistItems = document.querySelectorAll('.checklist-item');
+            let completedCount = 0;
+            
+            checklistItems.forEach(item => {
+                const itemId = item.getAttribute('data-id');
+                const isCompleted = localStorage.getItem(`checklist-${itemId}`) === 'true';
+                
+                if (isCompleted) {
+                    const checkbox = item.querySelector('.checklist-checkbox');
+                    const content = item.querySelector('.checklist-content');
+                    
+                    checkbox.classList.add('checked');
+                    content.classList.add('expanded');
+                    item.classList.add('completed');
+                    completedCount++;
+                }
+            });
+            
+            updateProgress(completedCount, checklistItems.length);
+        }
+
+        function toggleChecklist(header) {
+            const item = header.parentElement;
+            const content = header.nextElementSibling;
+            const checkbox = header.querySelector('.checklist-checkbox');
+            const itemId = item.getAttribute('data-id');
+            const isExpanded = content.classList.contains('expanded');
+            
+            if (isExpanded) {
+                content.classList.remove('expanded');
+                checkbox.classList.remove('checked');
+                item.classList.remove('completed');
+                localStorage.setItem(`checklist-${itemId}`, 'false');
+            } else {
+                content.classList.add('expanded');
+                checkbox.classList.add('checked');
+                item.classList.add('completed');
+                localStorage.setItem(`checklist-${itemId}`, 'true');
+            }
+            
+            // Update progress
+            const checklistItems = document.querySelectorAll('.checklist-item');
+            const completedItems = document.querySelectorAll('.checklist-item.completed');
+            updateProgress(completedItems.length, checklistItems.length);
+        }
+
+        function updateProgress(completed, total) {
+            const percentage = Math.round((completed / total) * 100);
+            const progressCircle = document.getElementById('progressCircle');
+            const progressText = document.getElementById('progressText');
+            
+            // Update text
+            progressText.textContent = percentage + '%';
+            
+            // Update circle (conic-gradient)
+            const degree = (percentage / 100) * 360;
+            progressCircle.style.background = `conic-gradient(var(--accent) ${degree}deg, var(--border-light) ${degree}deg)`;
+        }
+
+        // Enhanced theme toggle with system preference
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+                showNotification('Tema terang diaktifkan', 'success');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+                showNotification('Tema gelap diaktifkan', 'success');
+            }
+        }
+
+        // Initialize theme from localStorage or system preference
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            } else if (systemDarkMode) {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        }
+
+        // Language toggle
+        function toggleLanguage() {
+            showNotification('Fitur pergantian bahasa sedang dikembangkan', 'warning');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            showNotification('Menu mobile sedang dikembangkan', 'warning');
+        }
+
+        // Enhanced notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Enhanced intersection observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    
+                    // Staggered animation for grids
+                    if (entry.target.parentElement && 
+                        (entry.target.parentElement.classList.contains('topic-cards') ||
+                         entry.target.parentElement.classList.contains('beauty-grid') ||
+                         entry.target.parentElement.classList.contains('gallery-grid'))) {
+                        const siblings = Array.from(entry.target.parentElement.children);
+                        const index = siblings.indexOf(entry.target);
+                        entry.target.style.transitionDelay = `${index * 0.1}s`;
+                    }
                 }
             });
         }, observerOptions);
-        
-        // Observe elements
-        document.querySelectorAll('.topic-card, .checklist-item, .gallery-item, .partner-card, .celeb-card, .beauty-card, .michelin-card, .season-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll(
+                '.topic-card, .celeb-card, .michelin-card, .beauty-card, ' +
+                '.gallery-item, .partner-card, .season-card, .checklist-item'
+            );
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                observer.observe(el);
+            });
+            
+            // Initialize theme and scroll tracking
+            initializeTheme();
+            updateActiveNavLink();
         });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Quick search with '/' key
+            if (e.key === '/' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                toggleSearch();
+            }
+            
+            // Scroll to top with 'Home' key
+            if (e.key === 'Home' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                scrollToTop();
+            }
+            
+            // Close search with 'Escape' key
+            if (e.key === 'Escape') {
+                const searchBox = document.getElementById('searchBox');
+                const resultsContainer = document.getElementById('searchResults');
+                searchBox.classList.remove('active');
+                resultsContainer.classList.remove('show');
+            }
+        });
+
+        // Analytics tracking (placeholder)
+        function trackEvent(eventName, eventData) {
+            console.log('Event tracked:', eventName, eventData);
+            // Integration with Google Analytics or similar
+        }
+
+        // Track user engagement
+        let maxScroll = 0;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            if (scrollPercent > maxScroll) {
+                maxScroll = scrollPercent;
+                if (maxScroll % 25 === 0) {
+                    trackEvent('scroll_depth', { percent: maxScroll });
+                }
+            }
+        });
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+            showNotification('Terjadi kesalahan teknis. Halaman akan dimuat ulang.', 'error');
+        });
+
+        // Welcome message
+        setTimeout(() => {
+            if (!sessionStorage.getItem('welcomed')) {
+                showNotification('Selamat datang di Japankuru Indonesia! Mari mulai petualangan Jepang Anda! 🏯', 'success');
+                sessionStorage.setItem('welcomed', 'true');
+            }
+        }, 3000);
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = performance.now();
+            if (loadTime > 3000) {
+                console.warn('Page load time is slow:', loadTime + 'ms');
+            }
+            trackEvent('page_load_time', { duration: loadTime });
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                const themeToggle = document.getElementById('themeToggle');
+                if (e.matches) {
+                    document.body.setAttribute('data-theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    document.body.setAttribute('data-theme', 'light');
+                    themeToggle.textContent = '🌙';
+                }
+            }
+        });
+
+        // Lazy loading for images
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        // Observe all images with loading="lazy"
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Service Worker for PWA features (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Uncomment to enable service worker
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
+
+        // Enhanced click tracking for external links
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function() {
+                const url = this.href;
+                const text = this.textContent.trim();
+                trackEvent('external_link_click', { url, text });
+            });
+        });
+
+        // Track form interactions (if any forms are added later)
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            if (form.tagName === 'FORM') {
+                trackEvent('form_submit', { form_id: form.id || 'unknown' });
+            }
+        });
+
+        // Detect mobile device for enhanced touch interactions
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Add mobile-specific enhancements
+        if (isMobileDevice()) {
+            document.body.classList.add('mobile-device');
+            
+            // Enhance touch interactions
+            document.querySelectorAll('.card-enhanced').forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        // Memory usage optimization
+        function optimizeMemory() {
+            // Clear cached data if memory usage is high
+            if (performance.memory && performance.memory.usedJSHeapSize > 50 * 1024 * 1024) {
+                console.warn('High memory usage detected, clearing caches');
+                // Clear any large cached objects
+                if (window.searchData) {
+                    window.searchData = null;
+                }
+            }
+        }
+
+        // Run memory optimization every 5 minutes
+        setInterval(optimizeMemory, 5 * 60 * 1000);
+
+        // Enhanced error reporting
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            trackEvent('unhandled_promise_rejection', { 
+                reason: e.reason?.message || 'Unknown',
+                stack: e.reason?.stack || 'No stack trace'
+            });
+        });
+
+        // Connection status handling
+        window.addEventListener('online', function() {
+            showNotification('Koneksi internet tersambung kembali', 'success');
+        });
+
+        window.addEventListener('offline', function() {
+            showNotification('Koneksi internet terputus. Beberapa fitur mungkin tidak tersedia.', 'warning');
+        });
+
+        // Prevent right-click on images (optional protection)
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showNotification('Gambar dilindungi hak cipta', 'warning');
+            });
+        });
+
+        // Print optimization
+        window.addEventListener('beforeprint', function() {
+            document.body.classList.add('printing');
+        });
+
+        window.addEventListener('afterprint', function() {
+            document.body.classList.remove('printing');
+        });
+
+        // Focus management for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Custom cursor for interactive elements
+        document.querySelectorAll('.card-enhanced, .celeb-card, .gallery-item').forEach(el => {
+            el.style.cursor = 'pointer';
+        });
+
+        // Smooth scroll polyfill for older browsers
+        if (!('scrollBehavior' in document.documentElement.style)) {
+            const smoothScrollPolyfill = function(element) {
+                const start = window.pageYOffset;
+                const target = element.offsetTop - 80; // Account for header
+                const distance = target - start;
+                const duration = 500;
+                let startTime = null;
+
+                function ease(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
+
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const run = ease(timeElapsed, start, distance, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animation);
+                }
+
+                requestAnimationFrame(animation);
+            };
+
+            // Override smooth scroll for older browsers
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        smoothScrollPolyfill(target);
+                    }
+                });
+            });
+        }
+
+        // Final initialization
+        console.log('🏯 Japankuru Indonesia website loaded successfully!');
+        console.log('📊 Performance metrics:', {
+            loadTime: performance.now() + 'ms',
+            userAgent: navigator.userAgent,
+            screenSize: screen.width + 'x' + screen.height,
+            language: navigator.language
+        });
+    </script>
+
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Japankuru Indonesia",
+        "description": "Platform wisata Muslim-friendly terlengkap untuk perjalanan ke Jepang",
+        "url": "https://japankuru.com/id",
+        "logo": "https://japankuru.com/logo.png",
+        "sameAs": [
+            "https://instagram.com/japankuru.id",
+            "https://facebook.com/japankuru.id",
+            "https://twitter.com/japankuru_id",
+            "https://youtube.com/japankuru"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "JP",
+            "addressLocality": "Tokyo"
+        },
+        "serviceArea": {
+            "@type": "Country",
+            "name": "Japan"
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "TouristTrip",
+                    "name": "Panduan Wisata Muslim-Friendly Jepang"
+                }
+            }
+        ]
+    }
     </script>
 </body>
 </html>
