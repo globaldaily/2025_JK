@@ -8,15 +8,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
         
         :root {
-            --sakura-pink: #FFB7C5;
-            --deep-pink: #FF69B4;
-            --navy: #1a237e;
-            --gold: #FFD700;
+            /* Autumn Colors */
+            --autumn-red: #B22222;
+            --autumn-orange: #FF8C00;
+            --autumn-yellow: #FFD700;
+            --autumn-brown: #8B4513;
+            --autumn-dark-red: #8B0000;
+            --autumn-cream: #FFF8DC;
+            --autumn-light: #FFF5EE;
+            
+            /* Base Colors */
+            --text-dark: #2C2C2C;
+            --text-light: #666666;
             --white: #FFFFFF;
-            --light-gray: #F8F9FA;
-            --text-dark: #2C3E50;
-            --text-light: #7F8C8D;
-            --success: #4CAF50;
+            --shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
         }
         
         * {
@@ -40,48 +45,104 @@
             background: var(--white);
             padding: 10px 20px;
             border-radius: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             z-index: 1000;
             cursor: pointer;
             font-weight: 500;
         }
         
-        /* Hero Section */
+        /* Hero Section with Autumn Theme */
         .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(255,183,197,0.9), rgba(255,105,180,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)"/><circle cx="300" cy="300" r="120" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="200" r="90" fill="rgba(255,255,255,0.08)"/><circle cx="800" cy="600" r="150" fill="rgba(255,255,255,0.03)"/></svg>');
-            background-size: cover;
+            background: linear-gradient(135deg, 
+                rgba(178, 34, 34, 0.9) 0%, 
+                rgba(255, 140, 0, 0.8) 25%, 
+                rgba(255, 215, 0, 0.7) 50%, 
+                rgba(255, 140, 0, 0.8) 75%, 
+                rgba(139, 0, 0, 0.9) 100%
+            );
             overflow: hidden;
         }
         
-        .sakura-petals {
+        /* Falling Leaves Animation */
+        .autumn-leaves {
             position: absolute;
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
         
-        .petal {
+        .leaf {
             position: absolute;
-            background: white;
-            border-radius: 150% 0 150% 0;
+            background: linear-gradient(45deg, var(--autumn-red), var(--autumn-orange));
+            width: 20px;
+            height: 20px;
+            clip-path: ellipse(50% 60% at 50% 40%);
             animation: fall 10s linear infinite;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         
-        .petal:nth-child(1) { left: 10%; width: 15px; height: 12px; animation-delay: 0s; }
-        .petal:nth-child(2) { left: 30%; width: 20px; height: 16px; animation-delay: 2s; }
-        .petal:nth-child(3) { left: 50%; width: 18px; height: 14px; animation-delay: 4s; }
-        .petal:nth-child(4) { left: 70%; width: 15px; height: 12px; animation-delay: 6s; }
-        .petal:nth-child(5) { left: 90%; width: 22px; height: 18px; animation-delay: 8s; }
+        .leaf:nth-child(1) { 
+            left: 10%; 
+            background: linear-gradient(45deg, #B22222, #FF6347);
+            animation-delay: 0s; 
+            animation-duration: 12s;
+        }
+        .leaf:nth-child(2) { 
+            left: 25%; 
+            background: linear-gradient(45deg, #FF8C00, #FFD700);
+            animation-delay: 2s; 
+            width: 25px; 
+            height: 25px;
+        }
+        .leaf:nth-child(3) { 
+            left: 40%; 
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            animation-delay: 4s; 
+            animation-duration: 15s;
+        }
+        .leaf:nth-child(4) { 
+            left: 60%; 
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            animation-delay: 1s; 
+            width: 18px;
+        }
+        .leaf:nth-child(5) { 
+            left: 80%; 
+            background: linear-gradient(45deg, #8B0000, #DC143C);
+            animation-delay: 6s; 
+            animation-duration: 18s;
+        }
+        .leaf:nth-child(6) { 
+            left: 90%; 
+            background: linear-gradient(45deg, #FF6347, #FF8C00);
+            animation-delay: 3s; 
+            width: 22px; 
+            height: 22px;
+        }
         
         @keyframes fall {
-            0% { top: -10%; transform: translateX(0) rotate(0deg); }
-            100% { top: 110%; transform: translateX(100px) rotate(360deg); }
+            0% { 
+                top: -10%; 
+                transform: translateX(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateX(40px) rotate(90deg) scale(0.9);
+            }
+            50% {
+                transform: translateX(-40px) rotate(180deg) scale(1.1);
+            }
+            75% {
+                transform: translateX(20px) rotate(270deg) scale(0.8);
+            }
+            100% { 
+                top: 110%; 
+                transform: translateX(-20px) rotate(360deg) scale(1);
+            }
         }
         
         .hero-content {
@@ -103,7 +164,7 @@
             font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .hero-subtitle {
@@ -115,7 +176,7 @@
         .hero-cta {
             display: inline-block;
             background: var(--white);
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             padding: 15px 40px;
             border-radius: 50px;
             text-decoration: none;
@@ -128,11 +189,12 @@
         .hero-cta:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            background: var(--autumn-cream);
         }
         
         /* Trust Bar */
         .trust-bar {
-            background: var(--white);
+            background: var(--autumn-light);
             padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
@@ -157,6 +219,7 @@
         .trust-icon {
             font-size: 2rem;
             margin-bottom: 10px;
+            color: var(--autumn-orange);
         }
         
         .trust-text {
@@ -164,10 +227,9 @@
             color: var(--text-light);
         }
         
-        /* Killer Content Section */
-        .killer-content {
+        /* Section Base */
+        .section {
             padding: 80px 20px;
-            background: linear-gradient(to bottom, var(--white), var(--light-gray));
         }
         
         .container {
@@ -182,7 +244,7 @@
         
         .section-title {
             font-size: 2rem;
-            color: var(--navy);
+            color: var(--autumn-dark-red);
             margin-bottom: 15px;
             font-weight: 900;
         }
@@ -192,12 +254,207 @@
             font-size: 1.1rem;
         }
         
-        /* Celebrity Trail Feature */
+        /* Seasons Section */
+        .seasons-section {
+            background: linear-gradient(to bottom, var(--white), var(--autumn-light));
+            padding: 80px 20px;
+        }
+        
+        .seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .season-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .season-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .season-card.spring { background: linear-gradient(to bottom, #FFB6C1, #FFF); }
+        .season-card.summer { background: linear-gradient(to bottom, #87CEEB, #FFF); }
+        .season-card.autumn { background: linear-gradient(to bottom, var(--autumn-orange), #FFF); }
+        .season-card.winter { background: linear-gradient(to bottom, #B0E0E6, #FFF); }
+        
+        .season-header {
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .season-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .season-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .season-period {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .season-content {
+            padding: 30px;
+            background: white;
+        }
+        
+        .season-highlights {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .season-highlights li {
+            padding: 10px 0;
+            border-bottom: 1px solid #EEE;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .season-highlights li:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight-icon {
+            color: var(--autumn-orange);
+            font-weight: bold;
+        }
+        
+        /* Interactive Map Section */
+        .map-section {
+            background: var(--autumn-dark-red);
+            color: white;
+            padding: 80px 20px;
+        }
+        
+        .map-container {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .map-header {
+            background: linear-gradient(135deg, var(--autumn-red), var(--autumn-orange));
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .map-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .map-filters {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: white;
+            color: var(--autumn-red);
+        }
+        
+        /* Interactive Map */
+        .interactive-map {
+            position: relative;
+            height: 500px;
+            background: #F0F0F0;
+            overflow: hidden;
+        }
+        
+        .map-area {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .map-point {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--autumn-red);
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .map-point:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        
+        .map-point.prayer { background: var(--autumn-orange); }
+        .map-point.wifi { background: var(--autumn-yellow); }
+        .map-point.hotel { background: var(--autumn-brown); }
+        
+        .map-popup {
+            position: absolute;
+            background: white;
+            color: var(--text-dark);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 100;
+            max-width: 200px;
+        }
+        
+        .map-popup.show {
+            display: block;
+        }
+        
+        .popup-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--autumn-red);
+        }
+        
+        .popup-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Celebrity Trail */
         .celeb-trail {
             background: var(--white);
             border-radius: 30px;
             padding: 50px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
             margin-bottom: 50px;
         }
         
@@ -208,7 +465,7 @@
         
         .celeb-title {
             font-size: 1.8rem;
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             margin-bottom: 10px;
         }
         
@@ -224,11 +481,12 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .celeb-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
         
         .celeb-image {
@@ -257,49 +515,10 @@
             opacity: 0.9;
         }
         
-        /* Interactive Map Feature */
-        .prayer-map {
-            background: var(--navy);
-            color: white;
-            border-radius: 30px;
-            padding: 50px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-        
-        .map-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-        
-        .map-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .map-stat {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
         /* Hot Topics */
         .hot-topics {
             padding: 60px 20px;
-            background: var(--light-gray);
+            background: var(--autumn-light);
         }
         
         .topic-cards {
@@ -336,8 +555,8 @@
         
         .topic-tag {
             display: inline-block;
-            background: var(--sakura-pink);
-            color: var(--navy);
+            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+            color: white;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -357,14 +576,14 @@
             line-height: 1.6;
         }
         
-        /* Halal Michelin Section */
+        /* Michelin Section */
         .michelin-section {
             padding: 80px 20px;
             background: var(--white);
         }
         
         .michelin-banner {
-            background: linear-gradient(135deg, var(--navy), var(--deep-pink));
+            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-red));
             color: white;
             border-radius: 30px;
             padding: 60px 40px;
@@ -382,7 +601,7 @@
         }
         
         .michelin-stars {
-            color: var(--gold);
+            color: var(--autumn-yellow);
         }
         
         .michelin-list {
@@ -392,7 +611,7 @@
         }
         
         .michelin-card {
-            background: var(--light-gray);
+            background: var(--autumn-light);
             border-radius: 20px;
             padding: 30px;
             position: relative;
@@ -406,14 +625,14 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: var(--gold);
+            background: linear-gradient(to right, var(--autumn-orange), var(--autumn-yellow));
         }
         
         .michelin-name {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 10px;
-            color: var(--navy);
+            color: var(--autumn-dark-red);
         }
         
         .michelin-desc {
@@ -423,14 +642,14 @@
         
         .michelin-price {
             font-size: 1.1rem;
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             font-weight: 700;
         }
         
-        /* Beauty Experience Section */
+        /* Beauty Section */
         .beauty-section {
             padding: 80px 20px;
-            background: var(--light-gray);
+            background: var(--autumn-light);
         }
         
         .beauty-grid {
@@ -464,7 +683,7 @@
         
         .beauty-badge {
             display: inline-block;
-            background: var(--success);
+            background: linear-gradient(135deg, var(--autumn-red), var(--autumn-orange));
             color: white;
             padding: 5px 15px;
             border-radius: 20px;
@@ -498,7 +717,7 @@
         }
         
         .check-icon {
-            color: var(--success);
+            color: var(--autumn-orange);
             font-weight: bold;
         }
         
@@ -515,7 +734,7 @@
         
         .phase-title {
             font-size: 1.5rem;
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             margin: 40px 0 20px;
             font-weight: 700;
             display: flex;
@@ -524,7 +743,7 @@
         }
         
         .phase-icon {
-            background: var(--sakura-pink);
+            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -532,10 +751,11 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            color: white;
         }
         
         .checklist-item {
-            background: var(--light-gray);
+            background: var(--autumn-light);
             border-radius: 15px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -553,21 +773,21 @@
         }
         
         .checklist-header:hover {
-            background: rgba(255,183,197,0.2);
+            background: rgba(255, 140, 0, 0.1);
         }
         
         .checklist-checkbox {
             width: 25px;
             height: 25px;
-            border: 3px solid var(--sakura-pink);
+            border: 3px solid var(--autumn-orange);
             border-radius: 50%;
             position: relative;
             transition: all 0.3s ease;
         }
         
         .checklist-checkbox.checked {
-            background: var(--deep-pink);
-            border-color: var(--deep-pink);
+            background: var(--autumn-orange);
+            border-color: var(--autumn-orange);
         }
         
         .checklist-checkbox.checked::after {
@@ -597,19 +817,19 @@
             padding: 20px;
             border-radius: 10px;
             margin-top: 15px;
-            border-left: 4px solid var(--deep-pink);
+            border-left: 4px solid var(--autumn-orange);
         }
         
         .tip-title {
             font-weight: 700;
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             margin-bottom: 10px;
         }
         
         /* Gallery Section */
         .gallery-section {
             padding: 80px 20px;
-            background: var(--light-gray);
+            background: var(--autumn-light);
         }
         
         .gallery-grid {
@@ -680,7 +900,7 @@
         
         .partner-card {
             flex: 0 0 350px;
-            background: var(--light-gray);
+            background: var(--autumn-light);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
@@ -701,7 +921,7 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 15px;
-            color: var(--navy);
+            color: var(--autumn-dark-red);
         }
         
         .partner-features {
@@ -713,8 +933,8 @@
         }
         
         .partner-feature {
-            background: var(--sakura-pink);
-            color: var(--navy);
+            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+            color: white;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -724,7 +944,7 @@
         /* Final CTA */
         .final-cta {
             padding: 100px 20px;
-            background: linear-gradient(135deg, var(--deep-pink), var(--sakura-pink));
+            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-orange));
             text-align: center;
             color: white;
         }
@@ -755,7 +975,7 @@
         
         .btn-primary {
             background: var(--white);
-            color: var(--deep-pink);
+            color: var(--autumn-red);
             padding: 18px 40px;
             border-radius: 50px;
             text-decoration: none;
@@ -771,6 +991,7 @@
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            background: var(--autumn-cream);
         }
         
         .btn-secondary {
@@ -787,7 +1008,7 @@
         
         .btn-secondary:hover {
             background: white;
-            color: var(--deep-pink);
+            color: var(--autumn-red);
         }
         
         /* Modal */
@@ -832,6 +1053,155 @@
             color: var(--text-dark);
         }
         
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 999;
+            display: flex;
+            gap: 5px;
+            max-width: 90%;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .floating-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-item {
+            background: linear-gradient(135deg, var(--autumn-orange), var(--autumn-yellow));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-red));
+            transform: scale(1.1);
+        }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            z-index: 1001;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--autumn-red);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .side-nav.open {
+            left: 0;
+        }
+        
+        .side-nav-header {
+            background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-orange));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .side-nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .side-nav-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .side-nav-menu {
+            padding: 20px;
+        }
+        
+        .side-nav-item {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border-bottom: 1px solid #EEE;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .side-nav-item:hover {
+            background: var(--autumn-light);
+            padding-left: 25px;
+            color: var(--autumn-red);
+        }
+        
+        .side-nav-item span {
+            margin-right: 10px;
+        }
+        
+        /* Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .nav-overlay.show {
+            display: block;
+        }
+        
         /* Mobile Optimization */
         @media (max-width: 768px) {
             .hero h1 {
@@ -869,25 +1239,86 @@
                 justify-content: center;
             }
             
-            .celeb-trail {
-                padding: 30px 20px;
+            .interactive-map {
+                height: 400px;
             }
             
-            .prayer-map {
-                padding: 30px 20px;
+            .seasons-grid {
+                grid-template-columns: 1fr;
             }
             
-            .michelin-banner {
-                padding: 40px 20px;
+            .floating-nav {
+                bottom: 10px;
+                padding: 8px;
             }
             
-            .michelin-title {
-                font-size: 1.8rem;
+            .nav-item {
+                padding: 6px 12px;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Menu Toggle Button -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="side-nav-header">
+            <h3 class="side-nav-title">Japankuru Indonesia</h3>
+            <p class="side-nav-subtitle">日本旅行ガイド</p>
+        </div>
+        <div class="side-nav-menu">
+            <a href="#start" class="side-nav-item" onclick="navigateAndClose('start')">
+                <span>🌸</span>四季の魅力
+            </a>
+            <a href="#interactive-map" class="side-nav-item" onclick="navigateAndClose('interactive-map')">
+                <span>🗺️</span>インタラクティブマップ
+            </a>
+            <a href="#killer-content" class="side-nav-item" onclick="navigateAndClose('killer-content')">
+                <span>✨</span>特別コンテンツ
+            </a>
+            <a href="#hot-topics" class="side-nav-item" onclick="navigateAndClose('hot-topics')">
+                <span>🔥</span>今週のトレンド
+            </a>
+            <a href="#michelin" class="side-nav-item" onclick="navigateAndClose('michelin')">
+                <span>⭐</span>ハラールミシュラン
+            </a>
+            <a href="#beauty" class="side-nav-item" onclick="navigateAndClose('beauty')">
+                <span>💄</span>美容体験
+            </a>
+            <a href="#checklist" class="side-nav-item" onclick="navigateAndClose('checklist')">
+                <span>✈️</span>旅行準備
+            </a>
+            <a href="#gallery" class="side-nav-item" onclick="navigateAndClose('gallery')">
+                <span>📸</span>ギャラリー
+            </a>
+            <a href="#partners" class="side-nav-item" onclick="navigateAndClose('partners')">
+                <span>🤝</span>パートナー
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+    
+    <!-- Floating Navigation (Mobile) -->
+    <nav class="floating-nav">
+        <a href="#start" class="nav-item">🌸 四季</a>
+        <a href="#interactive-map" class="nav-item">🗺️ マップ</a>
+        <a href="#killer-content" class="nav-item">✨ 特別</a>
+        <a href="#hot-topics" class="nav-item">🔥 トレンド</a>
+        <a href="#michelin" class="nav-item">⭐ グルメ</a>
+        <a href="#beauty" class="nav-item">💄 美容</a>
+        <a href="#checklist" class="nav-item">✈️ 準備</a>
+        <a href="#gallery" class="nav-item">📸 写真</a>
+    </nav>
+    
     <!-- Language Switch -->
     <div class="lang-switch" onclick="alert('インドネシア語版に切り替え')">
         🌐 日本語 → Bahasa Indonesia
@@ -895,15 +1326,16 @@
     
     <!-- Hero Section -->
     <section class="hero">
-        <div class="sakura-petals">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
+        <div class="autumn-leaves">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
         </div>
         <div class="hero-content">
-            <h1>インドネシアから日本へ、<br>夢の旅をJapankuruと！🌸</h1>
+            <h1>紅葉の日本へ、<br>Japankuruと共に夢の旅を！🍁</h1>
             <p class="hero-subtitle">ムスリムフレンドリーな日本旅行の完全ガイド</p>
             <a href="#start" class="hero-cta">旅の準備を始める →</a>
         </div>
@@ -913,30 +1345,219 @@
     <div class="trust-bar">
         <div class="trust-container">
             <div class="trust-item">
-                <div class="trust-icon">🕌</div>
-                <div class="trust-text">100% ムスリムフレンドリー</div>
+                <div class="trust-icon">🌏</div>
+                <div class="trust-text">世界100万人フォロワー</div>
             </div>
             <div class="trust-item">
-                <div class="trust-icon">🤝</div>
-                <div class="trust-text">JNTO公式パートナー</div>
+                <div class="trust-icon">🏆</div>
+                <div class="trust-text">旅行博最優秀賞受賞</div>
             </div>
             <div class="trust-item">
-                <div class="trust-icon">💬</div>
-                <div class="trust-text">インドネシア語対応</div>
+                <div class="trust-icon">📰</div>
+                <div class="trust-text">4000記事以上</div>
             </div>
             <div class="trust-item">
-                <div class="trust-icon">📱</div>
-                <div class="trust-text">リアルタイム更新</div>
+                <div class="trust-icon">🗾</div>
+                <div class="trust-text">東京から8言語発信</div>
             </div>
         </div>
     </div>
     
+    <!-- Seasons Section -->
+    <section class="seasons-section" id="start">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">日本の四季、365日が特別な理由 🌸❄️</h2>
+                <p class="section-subtitle">あなたの旅に最適な季節を見つけよう</p>
+            </div>
+            
+            <div class="seasons-grid">
+                <div class="season-card spring" onclick="openSeasonModal('spring')">
+                    <div class="season-header">
+                        <div class="season-icon">🌸</div>
+                        <h3 class="season-name">春 - Spring</h3>
+                        <p class="season-period">3月～5月</p>
+                    </div>
+                    <div class="season-content">
+                        <ul class="season-highlights">
+                            <li><span class="highlight-icon">✓</span> 桜の花見体験</li>
+                            <li><span class="highlight-icon">✓</span> 春限定いちごスイーツ</li>
+                            <li><span class="highlight-icon">✓</span> 過ごしやすい気候</li>
+                            <li><span class="highlight-icon">✓</span> ヒジャブ春コーデ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="season-card summer" onclick="openSeasonModal('summer')">
+                    <div class="season-header">
+                        <div class="season-icon">🎆</div>
+                        <h3 class="season-name">夏 - Summer</h3>
+                        <p class="season-period">6月～8月</p>
+                    </div>
+                    <div class="season-content">
+                        <ul class="season-highlights">
+                            <li><span class="highlight-icon">✓</span> 花火大会＆夏祭り</li>
+                            <li><span class="highlight-icon">✓</span> 浴衣体験（ヒジャブ対応）</li>
+                            <li><span class="highlight-icon">✓</span> かき氷＆夏グルメ</li>
+                            <li><span class="highlight-icon">✓</span> ビーチリゾート</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="season-card autumn" onclick="openSeasonModal('autumn')">
+                    <div class="season-header">
+                        <div class="season-icon">🍁</div>
+                        <h3 class="season-name">秋 - Autumn</h3>
+                        <p class="season-period">9月～11月</p>
+                    </div>
+                    <div class="season-content">
+                        <ul class="season-highlights">
+                            <li><span class="highlight-icon">✓</span> 紅葉狩り絶景スポット</li>
+                            <li><span class="highlight-icon">✓</span> 秋の味覚（栗・さつまいも）</li>
+                            <li><span class="highlight-icon">✓</span> 快適な気温</li>
+                            <li><span class="highlight-icon">✓</span> 紅葉ライトアップ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="season-card winter" onclick="openSeasonModal('winter')">
+                    <div class="season-header">
+                        <div class="season-icon">❄️</div>
+                        <h3 class="season-name">冬 - Winter</h3>
+                        <p class="season-period">12月～2月</p>
+                    </div>
+                    <div class="season-content">
+                        <ul class="season-highlights">
+                            <li><span class="highlight-icon">✓</span> イルミネーション</li>
+                            <li><span class="highlight-icon">✓</span> 雪景色＆スキー体験</li>
+                            <li><span class="highlight-icon">✓</span> 温泉（個室風呂）</li>
+                            <li><span class="highlight-icon">✓</span> 冬のセール</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Interactive Map Section -->
+    <section class="map-section" id="interactive-map">
+        <div class="container">
+            <div class="map-container">
+                <div class="map-header">
+                    <h2 class="map-title">🗺️ 日本最大級！インタラクティブマップ</h2>
+                    <p>祈祷室、無料Wi-Fi、ムスリムフレンドリー施設を瞬時に検索</p>
+                    
+                    <div class="map-filters">
+                        <button class="filter-btn active" onclick="filterMap('all')">すべて表示</button>
+                        <button class="filter-btn" onclick="filterMap('prayer')">🕌 祈祷室</button>
+                        <button class="filter-btn" onclick="filterMap('wifi')">📶 無料Wi-Fi</button>
+                        <button class="filter-btn" onclick="filterMap('hotel')">🏨 ホテル</button>
+                    </div>
+                </div>
+                
+                <div class="interactive-map">
+                    <div class="map-area" id="mapArea">
+                        <svg viewBox="0 0 800 600" style="width: 100%; height: 100%;">
+                            <!-- Background -->
+                            <rect fill="#CDDEFF" width="800" height="600"/>
+                            
+                            <!-- Japan Map Simplified -->
+                            <g fill="#F5F5F5" stroke="#999" stroke-width="1.5">
+                                <!-- Hokkaido -->
+                                <path d="M600,80 Q620,70 640,80 L660,100 Q670,120 660,140 L640,160 Q620,170 600,160 L580,140 Q570,120 580,100 Z"/>
+                                
+                                <!-- Honshu (Main Island) -->
+                                <path d="M580,180 Q590,170 600,175 L620,190 L630,210 L640,230 L630,250 L620,270 L610,290 L600,310 L590,330 L580,350 L570,370 L560,390 L550,410 L540,430 L530,450 Q520,460 510,455 L500,440 L490,420 L480,400 L470,380 L460,360 L450,340 L440,320 L430,300 L420,280 L410,260 Q400,240 410,230 L420,220 L430,210 L440,200 L450,190 L460,185 L470,180 L480,175 L490,170 L500,165 L510,162 L520,160 L530,162 L540,165 L550,170 L560,175 L570,180 Z"/>
+                                
+                                <!-- Shikoku -->
+                                <path d="M480,440 Q490,435 500,440 L515,450 Q520,460 515,470 L500,475 Q490,480 480,475 L470,465 Q465,455 470,445 Z"/>
+                                
+                                <!-- Kyushu -->
+                                <path d="M420,480 Q430,470 440,475 L460,490 L470,510 Q475,525 470,535 L455,545 L440,550 L425,545 L410,535 L400,520 L395,505 Q390,490 400,485 Z"/>
+                                
+                                <!-- Okinawa -->
+                                <circle cx="350" cy="550" r="15"/>
+                            </g>
+                            
+                            <!-- City Labels -->
+                            <g font-family="Arial, sans-serif" fill="#333">
+                                <text x="520" y="320" text-anchor="middle" font-size="18" font-weight="bold">東京</text>
+                                <text x="470" y="390" text-anchor="middle" font-size="16">大阪</text>
+                                <text x="490" y="360" text-anchor="middle" font-size="16">京都</text>
+                                <text x="620" y="120" text-anchor="middle" font-size="14">札幌</text>
+                                <text x="430" y="250" text-anchor="middle" font-size="14">名古屋</text>
+                                <text x="450" y="520" text-anchor="middle" font-size="14">福岡</text>
+                                <text x="380" y="280" text-anchor="middle" font-size="14">広島</text>
+                                <text x="350" y="570" text-anchor="middle" font-size="12">沖縄</text>
+                            </g>
+                        </svg>
+                        
+                        <!-- Map Points (positioned over the SVG) -->
+                        <!-- Tokyo Area -->
+                        <div class="map-point prayer" style="top: 53%; left: 65%;" onclick="showPopup(event, 'prayer', '東京駅祈祷室', 'JR東京駅構内、清潔で広々とした祈祷室')"></div>
+                        <div class="map-point wifi" style="top: 51%; left: 63%;" onclick="showPopup(event, 'wifi', '渋谷フリーWi-Fi', '渋谷駅周辺、高速接続')"></div>
+                        <div class="map-point hotel" style="top: 55%; left: 67%;" onclick="showPopup(event, 'hotel', 'ホテルグランヴィア東京', 'ムスリムフレンドリー、ハラール朝食')"></div>
+                        
+                        <!-- Osaka Area -->
+                        <div class="map-point prayer" style="top: 65%; left: 58%;" onclick="showPopup(event, 'prayer', '大阪駅祈祷室', '大阪駅ビル内、24時間利用可能')"></div>
+                        <div class="map-point wifi" style="top: 67%; left: 60%;" onclick="showPopup(event, 'wifi', '道頓堀Wi-Fi', '無料高速インターネット')"></div>
+                        <div class="map-point hotel" style="top: 63%; left: 56%;" onclick="showPopup(event, 'hotel', '大阪ハラールホテル', 'ムスリムフレンドリー設備完備')"></div>
+                        
+                        <!-- Kyoto Area -->
+                        <div class="map-point prayer" style="top: 60%; left: 61%;" onclick="showPopup(event, 'prayer', '京都駅祈祷室', '京都駅ビル内、静かな環境')"></div>
+                        <div class="map-point hotel" style="top: 58%; left: 63%;" onclick="showPopup(event, 'hotel', '京都ハラールホテル', '和室あり、ハラール対応')"></div>
+                        
+                        <!-- Hokkaido -->
+                        <div class="map-point wifi" style="top: 20%; left: 78%;" onclick="showPopup(event, 'wifi', '新千歳空港Wi-Fi', '空港全域で利用可能')"></div>
+                        <div class="map-point hotel" style="top: 18%; left: 76%;" onclick="showPopup(event, 'hotel', '札幌ムスリムホテル', '礼拝室、ハラール朝食')"></div>
+                        
+                        <!-- Fukuoka -->
+                        <div class="map-point prayer" style="top: 85%; left: 55%;" onclick="showPopup(event, 'prayer', '福岡空港祈祷室', '国際線ターミナル内')"></div>
+                        <div class="map-point wifi" style="top: 87%; left: 57%;" onclick="showPopup(event, 'wifi', '博多駅Wi-Fi', '駅周辺無料接続')"></div>
+                        
+                        <!-- Hiroshima -->
+                        <div class="map-point prayer" style="top: 47%; left: 47%;" onclick="showPopup(event, 'prayer', '広島平和記念館祈祷室', '観光地内の祈祷施設')"></div>
+                    </div>
+                    
+                    <div class="map-popup" id="mapPopup">
+                        <div class="popup-title" id="popupTitle"></div>
+                        <div class="popup-desc" id="popupDesc"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Killer Content Section -->
-    <section class="killer-content" id="start">
+    <section class="killer-content" id="killer-content">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Japankuruだけの特別コンテンツ！✨</h2>
                 <p class="section-subtitle">他では見つからない、インドネシア人のための独占情報</p>
+            </div>
+            
+            <!-- About Japankuru Credibility -->
+            <div style="background: linear-gradient(135deg, var(--autumn-dark-red), var(--autumn-orange)); color: white; border-radius: 30px; padding: 50px; margin-bottom: 50px; text-align: center;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 30px;">なぜJapankuruが選ばれるのか？</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 20px;">
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--autumn-yellow);">14年</div>
+                        <div>2011年から東京発信</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--autumn-yellow);">100万+</div>
+                        <div>世界中のフォロワー</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--autumn-yellow);">4000+</div>
+                        <div>オリジナル記事</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--autumn-yellow);">30000+</div>
+                        <div>写真・動画コンテンツ</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.1rem; opacity: 0.95;">東京から8言語で発信 | 海外旅行博覧会最優秀賞多数受賞</p>
             </div>
             
             <!-- Celebrity Trail Feature -->
@@ -976,35 +1597,50 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    
+    <!-- Hot Topics -->
+    <section class="hot-topics" id="hot-topics">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">今週のトレンド！ 🔥</h2>
+                <p class="section-subtitle">最新の日本情報をお届け</p>
+            </div>
             
-            <!-- Prayer Room Map Feature -->
-            <div class="prayer-map">
-                <h3 class="map-title">🗺️ 日本最大級！祈祷室＆無料Wi-Fi完全マップ</h3>
-                <div class="map-stats">
-                    <div class="map-stat">
-                        <div class="stat-number">300+</div>
-                        <div class="stat-label">祈祷室</div>
+            <div class="topic-cards">
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Ramen" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">ハラールフード</span>
+                        <h3 class="topic-title">東京の美味しいハラールラーメン5選！</h3>
+                        <p class="topic-desc">新宿から浅草まで、私たちが実際に試したお店をご紹介。どれが一番お気に入り？</p>
                     </div>
-                    <div class="map-stat">
-                        <div class="stat-number">1000+</div>
-                        <div class="stat-label">無料Wi-Fiスポット</div>
+                </a>
+                
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Autumn Leaves" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">秋の特集</span>
+                        <h3 class="topic-title">紅葉絶景スポットBEST10</h3>
+                        <p class="topic-desc">インスタ映え確実！京都、日光、箱根の紅葉見頃情報と撮影テクニック。</p>
                     </div>
-                    <div class="map-stat">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">ムスリムフレンドリーホテル</div>
+                </a>
+                
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=200&fit=crop" alt="Shopping" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">ショッピング</span>
+                        <h3 class="topic-title">秋冬ファッションセール情報</h3>
+                        <p class="topic-desc">ユニクロ、GU、無印良品の最新セール！ヒジャブに合うアイテムも。</p>
                     </div>
-                    <div class="map-stat">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">リアルタイム更新</div>
-                    </div>
-                </div>
-                <a href="#" class="hero-cta" style="margin-top: 20px;">インタラクティブマップを見る →</a>
+                </a>
             </div>
         </div>
     </section>
     
-    <!-- Halal Michelin Section -->
-    <section class="michelin-section">
+    <!-- Michelin Section -->
+    <section class="michelin-section" id="michelin">
         <div class="container">
             <div class="michelin-banner">
                 <h2 class="michelin-title">
@@ -1035,8 +1671,8 @@
         </div>
     </section>
     
-    <!-- Beauty Experience Section -->
-    <section class="beauty-section">
+    <!-- Beauty Section -->
+    <section class="beauty-section" id="beauty">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">ヒジャブフレンドリー美容体験 💄</h2>
@@ -1089,47 +1725,8 @@
         </div>
     </section>
     
-    <!-- Hot Topics -->
-    <section class="hot-topics">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">今週のトレンド！ 🔥</h2>
-                <p class="section-subtitle">最新の日本情報をお届け</p>
-            </div>
-            
-            <div class="topic-cards">
-                <a href="#" class="topic-card">
-                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Ramen" class="topic-image">
-                    <div class="topic-content">
-                        <span class="topic-tag">ハラールフード</span>
-                        <h3 class="topic-title">東京の美味しいハラールラーメン5選！</h3>
-                        <p class="topic-desc">新宿から浅草まで、私たちが実際に試したお店をご紹介。どれが一番お気に入り？</p>
-                    </div>
-                </a>
-                
-                <a href="#" class="topic-card">
-                    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=200&fit=crop" alt="Summer Festival" class="topic-image">
-                    <div class="topic-content">
-                        <span class="topic-tag" style="background: var(--gold); color: var(--navy);">夏のイベント</span>
-                        <h3 class="topic-title">8月の花火大会スケジュール</h3>
-                        <p class="topic-desc">東京とその周辺の花火大会の完全スケジュール。見逃さないで！</p>
-                    </div>
-                </a>
-                
-                <a href="#" class="topic-card">
-                    <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=200&fit=crop" alt="Shopping" class="topic-image">
-                    <div class="topic-content">
-                        <span class="topic-tag" style="background: #E1BEE7; color: var(--navy);">ショッピングガイド</span>
-                        <h3 class="topic-title">夏のセール2025情報！</h3>
-                        <p class="topic-desc">最大70％オフ！デパートのセール情報とタックスフリーのコツ。</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-    
     <!-- Checklist Section -->
-    <section class="checklist-section">
+    <section class="checklist-section" id="checklist">
         <div class="checklist-container">
             <div class="section-header">
                 <h2 class="section-title">旅行準備チェックリスト ✈️</h2>
@@ -1137,7 +1734,7 @@
             </div>
             
             <div class="phase-title">
-                <div class="phase-icon">1️⃣</div>
+                <div class="phase-icon">1</div>
                 <span>出発前の準備</span>
             </div>
             
@@ -1180,7 +1777,7 @@
             </div>
             
             <div class="phase-title">
-                <div class="phase-icon">2️⃣</div>
+                <div class="phase-icon">2</div>
                 <span>ムスリム旅行者必須アイテム</span>
             </div>
             
@@ -1199,40 +1796,13 @@
                             <li><strong>Google翻訳</strong> - 日本語をオフラインでダウンロード</li>
                         </ul>
                     </div>
-                    <div class="checklist-tip">
-                        <div class="tip-title">ハラールサバイバルキット：</div>
-                        <ul>
-                            <li>緊急用にインドネシアからスナックやインスタント麺を持参</li>
-                            <li>ドンキホーテでハラールロゴ付き商品を探す</li>
-                            <li>コンビニ：サーモン/ツナおにぎり（成分要確認！）</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="checklist-item">
-                <div class="checklist-header" onclick="toggleChecklist(this)">
-                    <span>🧕 ムスリマ旅行者のためのヒント</span>
-                    <div class="checklist-checkbox"></div>
-                </div>
-                <div class="checklist-content">
-                    <p>ヒジャブで日本旅行？全く問題ありません！</p>
-                    <div class="checklist-tip">
-                        <div class="tip-title">四季のファッションアドバイス：</div>
-                        <ul>
-                            <li><strong>夏：</strong>軽くて通気性の良いヒジャブ素材</li>
-                            <li><strong>冬：</strong>ヒジャブの下にタートルネックでレイヤー</li>
-                            <li><strong>写真スポット：</strong>明るい色のヒジャブは桜や紅葉の背景に映える</li>
-                            <li><strong>温泉：</strong>ヒジャブ着用者用のプライベート温泉あり！</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- Gallery Section -->
-    <section class="gallery-section">
+    <section class="gallery-section" id="gallery">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">あなたの旅のインスピレーション 📸</h2>
@@ -1280,11 +1850,11 @@
                     </div>
                 </div>
                 
-                <div class="gallery-item" onclick="openModal('season')">
-                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=400&fit=crop" alt="Seasons" class="gallery-image">
+                <div class="gallery-item" onclick="openModal('onsen')">
+                    <img src="https://images.unsplash.com/photo-1540224485-a3b7c7b4c7b1?w=400&h=400&fit=crop" alt="Onsen" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">🌸 ベストシーズン</h3>
-                        <p class="gallery-desc">桜、紅葉など</p>
+                        <h3 class="gallery-title">♨️ 温泉体験</h3>
+                        <p class="gallery-desc">個室温泉でリラックス</p>
                     </div>
                 </div>
             </div>
@@ -1292,7 +1862,7 @@
     </section>
     
     <!-- Partner Section -->
-    <section class="partners-section">
+    <section class="partners-section" id="partners">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Japankuru信頼のパートナー 🤝</h2>
@@ -1378,6 +1948,53 @@
     </div>
     
     <script>
+        // Navigation Functions
+        function toggleMenu() {
+            const sideNav = document.getElementById('sideNav');
+            const overlay = document.getElementById('navOverlay');
+            sideNav.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+        
+        function closeMenu() {
+            const sideNav = document.getElementById('sideNav');
+            const overlay = document.getElementById('navOverlay');
+            sideNav.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+        
+        function navigateAndClose(sectionId) {
+            closeMenu();
+            setTimeout(() => {
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+        }
+        
+        // Highlight active section in floating nav
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
         // Checklist functionality
         function toggleChecklist(header) {
             const content = header.nextElementSibling;
@@ -1387,7 +2004,190 @@
             checkbox.classList.toggle('checked');
         }
         
-        // Modal content (same as before, just in Japanese)
+        // Interactive Map Functions
+        let currentFilter = 'all';
+        
+        function filterMap(type) {
+            currentFilter = type;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const points = document.querySelectorAll('.map-point');
+            points.forEach(point => {
+                if (type === 'all' || point.classList.contains(type)) {
+                    point.style.display = 'block';
+                } else {
+                    point.style.display = 'none';
+                }
+            });
+        }
+        
+        function showPopup(event, type, title, desc) {
+            event.stopPropagation();
+            const popup = document.getElementById('mapPopup');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupDesc = document.getElementById('popupDesc');
+            
+            popupTitle.textContent = title;
+            popupDesc.textContent = desc;
+            
+            // Position popup near the clicked point
+            const rect = event.target.getBoundingClientRect();
+            const mapRect = document.getElementById('mapArea').getBoundingClientRect();
+            
+            popup.style.left = (rect.left - mapRect.left + 40) + 'px';
+            popup.style.top = (rect.top - mapRect.top) + 'px';
+            popup.classList.add('show');
+        }
+        
+        // Hide popup when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapArea = document.getElementById('mapArea');
+            if (mapArea) {
+                mapArea.addEventListener('click', function(e) {
+                    if (e.target === this || e.target.tagName === 'svg' || e.target.tagName === 'rect') {
+                        document.getElementById('mapPopup').classList.remove('show');
+                    }
+                });
+            }
+        });
+        
+        // Season Modal Content
+        const seasonModalContent = {
+            spring: {
+                title: "🌸 春の日本 - 桜と共に過ごす夢の季節",
+                content: `
+                    <h3>春がおすすめの理由（3月～5月）</h3>
+                    
+                    <h4>🌸 桜の花見体験</h4>
+                    <ul>
+                        <li><strong>ベストスポット：</strong>上野公園、新宿御苑、千鳥ヶ淵</li>
+                        <li><strong>ヒジャブフォト：</strong>パステルピンクのヒジャブが桜と最高にマッチ！</li>
+                        <li><strong>花見ピクニック：</strong>ハラール弁当を持参して楽しもう</li>
+                    </ul>
+                    
+                    <h4>🍓 春限定グルメ</h4>
+                    <ul>
+                        <li>いちご狩り体験（ハラール対応農園あり）</li>
+                        <li>桜餅、桜ラテなど季節限定スイーツ</li>
+                        <li>春野菜の天ぷら（ベジタリアン対応）</li>
+                    </ul>
+                    
+                    <h4>👗 春のヒジャブコーデ</h4>
+                    <ul>
+                        <li>軽やかなシフォン素材</li>
+                        <li>フローラルプリント</li>
+                        <li>カーディガンでレイヤリング</li>
+                    </ul>
+                    
+                    <p><strong>気温：</strong>10-20°C - 過ごしやすい気候！</p>
+                `
+            },
+            summer: {
+                title: "🎆 夏の日本 - 祭りと花火の熱い季節",
+                content: `
+                    <h3>夏の魅力（6月～8月）</h3>
+                    
+                    <h4>🎆 花火大会＆夏祭り</h4>
+                    <ul>
+                        <li><strong>隅田川花火大会：</strong>7月最終土曜日</li>
+                        <li><strong>浴衣体験：</strong>ヒジャブ対応の着付けサービス</li>
+                        <li><strong>屋台グルメ：</strong>ハラール焼き鳥、かき氷</li>
+                    </ul>
+                    
+                    <h4>🏖️ 夏のアクティビティ</h4>
+                    <ul>
+                        <li>鎌倉・江の島ビーチ（女性専用エリアあり）</li>
+                        <li>富士山登山（7-8月のみ）</li>
+                        <li>ひまわり畑フォトツアー</li>
+                    </ul>
+                    
+                    <h4>☀️ 暑さ対策</h4>
+                    <ul>
+                        <li>クーリング素材のヒジャブ</li>
+                        <li>日傘＆扇子は必須アイテム</li>
+                        <li>エアコン完備の屋内施設も充実</li>
+                    </ul>
+                    
+                    <p><strong>気温：</strong>25-35°C - 湿度高め、水分補給を忘れずに！</p>
+                `
+            },
+            autumn: {
+                title: "🍁 秋の日本 - 紅葉に染まるロマンチックな季節",
+                content: `
+                    <h3>秋が最高の理由（9月～11月）</h3>
+                    
+                    <h4>🍁 紅葉の絶景</h4>
+                    <ul>
+                        <li><strong>京都・嵐山：</strong>竹林と紅葉のコントラスト</li>
+                        <li><strong>日光：</strong>滝と紅葉の共演</li>
+                        <li><strong>箱根：</strong>富士山と紅葉を一緒に</li>
+                    </ul>
+                    
+                    <h4>🌰 秋の味覚</h4>
+                    <ul>
+                        <li>栗きんとん、焼き芋</li>
+                        <li>きのこ料理（ベジタリアン天国）</li>
+                        <li>新米のおにぎり</li>
+                    </ul>
+                    
+                    <h4>📸 インスタ映えスポット</h4>
+                    <ul>
+                        <li>紅葉ライトアップ（清水寺、東福寺）</li>
+                        <li>秋バラ園</li>
+                        <li>コスモス畑</li>
+                    </ul>
+                    
+                    <p><strong>気温：</strong>15-25°C - 観光に最適な気候！</p>
+                `
+            },
+            winter: {
+                title: "❄️ 冬の日本 - 雪とイルミネーションの幻想的な季節",
+                content: `
+                    <h3>冬の特別な体験（12月～2月）</h3>
+                    
+                    <h4>✨ イルミネーション</h4>
+                    <ul>
+                        <li><strong>東京ミッドタウン：</strong>都内最大級</li>
+                        <li><strong>なばなの里：</strong>日本一のイルミ</li>
+                        <li><strong>神戸ルミナリエ：</strong>感動的な光の芸術</li>
+                    </ul>
+                    
+                    <h4>⛷️ 雪の体験</h4>
+                    <ul>
+                        <li>スキー・スノボ（ヒジャブ対応ウェアレンタル）</li>
+                        <li>雪だるま作り＆雪合戦</li>
+                        <li>温泉（個室露天風呂）</li>
+                    </ul>
+                    
+                    <h4>🛍️ 冬のお得情報</h4>
+                    <ul>
+                        <li>初売りセール（1月1-3日）</li>
+                        <li>福袋でサプライズショッピング</li>
+                        <li>冬物最大70%オフ（2月）</li>
+                    </ul>
+                    
+                    <p><strong>気温：</strong>0-10°C - ヒートテック必須！でも室内は暖かい</p>
+                `
+            }
+        };
+        
+        function openSeasonModal(season) {
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            
+            modalBody.innerHTML = `
+                <div style="text-align: center;">
+                    ${seasonModalContent[season].content}
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Regular modal content
         const modalContent = {
             food: {
                 title: "🍜 ハラールグルメ旅",
@@ -1401,22 +2201,9 @@
                         <li><strong>ラーメン桜花（新宿）</strong> - インドネシアの辛さレベルあり！</li>
                         <li><strong>あやむ屋（渋谷）</strong> - ラーメン＋唐揚げコンボ</li>
                     </ul>
-                    
-                    <h3>🥩 ハラール和牛体験：</h3>
-                    <ul>
-                        <li><strong>炭焼き屋（六本木）</strong> - 食べ放題！</li>
-                        <li><strong>牛門（渋谷）</strong> - プレミアムA5和牛</li>
-                    </ul>
-                    
-                    <h3>🍱 コンビニハック：</h3>
-                    <ul>
-                        <li>サーモン/ツナおにぎり（成分確認！）</li>
-                        <li>サラダ＆カットフルーツ</li>
-                        <li>ドンキホーテで「ハラール」ロゴを探す！</li>
-                    </ul>
                 `
-            },
-            // ... 他のモーダルコンテンツも日本語に
+            }
+            // ... other modal content
         };
         
         function openModal(type) {
@@ -1466,7 +2253,7 @@
         }, observerOptions);
         
         // Observe elements
-        document.querySelectorAll('.topic-card, .checklist-item, .gallery-item, .partner-card, .celeb-card, .beauty-card, .michelin-card').forEach(el => {
+        document.querySelectorAll('.topic-card, .checklist-item, .gallery-item, .partner-card, .celeb-card, .beauty-card, .michelin-card, .season-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease-out';
