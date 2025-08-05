@@ -862,6 +862,41 @@
     font-size: 1rem;
   }
 }
+/* 필터 열기 버튼 영역 */
+.filter-controls {
+  padding: 0.25rem 0;
+}
+/* filter-controls 수정 */
+.filter-controls {
+  padding: 0.5rem 0;
+}
+
+/* 정렬 셀렉트 박스 스타일 */
+.sort-select {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: auto;
+  min-width: 150px;
+}
+
+.sort-select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 다크모드 지원 */
+.dark-mode .sort-select {
+  background: var(--card);
+  color: var(--text);
+}
+
+
   </style>
 </head>
 <body>
@@ -906,33 +941,41 @@
         </div>
       </div>
 
-      <!-- 개선된 필터 (이벤트 위임) -->
-      <div class="filters" role="tablist" aria-label="フィルター" id="filterContainer">
-        <div class="pill" data-filter="all" role="tab" aria-selected="true" tabindex="0">
-          <span>All</span>
+     <div class="filter-controls">
+        <div class="filters" id="filterContainer">
+            <button class="pill" data-filter="all" aria-selected="true">
+              <span>All</span>
+            </button>
+            <button class="pill" data-filter="saved">
+              <span>⭐ Saved</span>
+              <span class="saved-count" id="savedCount">0</span>
+            </button>
+            <button class="pill" data-filter="electronics">
+              <span>🔌 Electronics</span>
+            </button>
+            <button class="pill" data-filter="fashion">
+              <span>👕 Fashion</span>
+            </button>
+            <button class="pill" data-filter="dining">
+              <span>🍽️ Dining</span>
+            </button>
+            <button class="pill" data-filter="transport">
+              <span>🚇 Transport</span>
+            </button>
+            <button class="pill" data-filter="nearby">
+              <span>📍 Nearby</span>
+            </button>
+          </div>
+          
+          <!-- 정렬만 드롭다운으로 -->
+          <select class="sort-select" id="sortSelect">
+            <option value="latest">✨ Latest</option>
+            <option value="high_discount">💰 High Discount</option>
+            <option value="by_area">🗺️ By Area</option>
+          </select>
         </div>
-        <div class="pill" data-filter="saved" role="tab" aria-selected="false" tabindex="0">
-          <span>Saved</span>
-          <span class="saved-count" id="savedCount">0</span>
-        </div>
-        <div class="pill" data-filter="electronics" role="tab" aria-selected="false" tabindex="0">
-          <span>🔌 Electronics</span>
-        </div>
-        <div class="pill" data-filter="fashion" role="tab" aria-selected="false" tabindex="0">
-          <span>👕 Fashion</span>
-        </div>
-        <div class="pill" data-filter="dining" role="tab" aria-selected="false" tabindex="0">
-          <span>🍽️ Dining</span>
-        </div>
-        <div class="pill" data-filter="transport" role="tab" aria-selected="false" tabindex="0">
-          <span>🚇 Transport</span>
-        </div>
-        <div class="pill" data-filter="nearby" role="tab" aria-selected="false" tabindex="0" title="現在地に基づいて並び替え">
-          <span>📍 Nearby</span>
-        </div>
-      </div>
-    </div>
-    
+
+
     <!-- Settings 뷰 -->
     <div class="settings-view" id="settingsView">
       <div class="settings-section">
@@ -970,14 +1013,14 @@
       </div>
       
       <div class="settings-section">
-        <h3>アプリ情報</h3>
+        <h3>サービス インフォメーション</h3>
         <div class="settings-item">
           <span class="settings-label">バージョン</span>
           <span class="settings-value">1.0.0</span>
         </div>
         <div class="settings-item">
           <span class="settings-label">お問い合わせ</span>
-          <a href="mailto:support@japankuru.com" class="settings-value" style="color:var(--primary);">support@japankuru.com</a>
+          <a href="mailto:support@japankuru.com" class="settings-value" style="color:var(--primary);">info@japankuru.com</a>
         </div>
       </div>
     </div>
@@ -1170,7 +1213,6 @@
           langMenu: document.getElementById('langMenu'),
           searchInput: document.getElementById('searchInput'),
           searchClear: document.getElementById('searchClear'),
-          filterContainer: document.getElementById('filterContainer'),
           navContainer: document.getElementById('navContainer'),
           couponGrid: document.getElementById('couponGrid'),
           locationError: document.getElementById('locationError'),
@@ -1186,8 +1228,11 @@
           settingsLang: document.getElementById('settingsLang'),
           settingsTheme: document.getElementById('settingsTheme'),
           clearCache: document.getElementById('clearCache'),
-          clearSaved: document.getElementById('clearSaved')
-        };
+          clearSaved: document.getElementById('clearSaved'),
+          filterContainer: document.getElementById('filterContainer'),
+            sortSelect: document.getElementById('sortSelect'),
+            savedCount: document.getElementById('savedCount')
+         };
       },
       
       get(key) {
@@ -1310,7 +1355,15 @@
         savedCouponsCleared: '所有保存的优惠券已删除',
         confirmClearSaved: '您确定要删除所有保存的优惠券吗？',
         shareCoupon: '分享',
-        copySuccess: '✅ 已复制！'
+        copySuccess: '✅ 已复制！',
+        termsSummary: '{term}等 <b>(详情请见背面)</b>',
+        sortChanged: '排序已更改',
+        sortBy: '排序',
+        category: '分类',
+        latest: '最新',
+        highDiscount: '折扣最高',
+        byArea: '按地区',
+        sortFilter: '排序·筛选'
       },
       
       'zh-TW': {
@@ -1394,7 +1447,15 @@
         savedCouponsCleared: '所有保存的優惠券已刪除',
         confirmClearSaved: '您確定要刪除所有保存的優惠券嗎？',
         shareCoupon: '分享',
-        copySuccess: '✅ 已複製！'
+        copySuccess: '✅ 已複製！',
+        termsSummary: '{term}等 <b>(詳情請見背面)</b>',
+        sortChanged: '排序已更改',
+        sortBy: '排序',
+        category: '分類',
+        latest: '最新',
+        highDiscount: '折扣最高',
+        byArea: '按地區',
+        sortFilter: '排序·篩選'
       },
       
       ko: {
@@ -1457,7 +1518,7 @@
         expiry: '유효기한',
         notFound: '쿠폰을 찾을 수 없습니다',
         notFoundDesc: '검색 조건을 변경해보세요',
-        suggestions: ['시부야', '신주쿠', '전자상가'],
+        suggestions: ['시부야', '신주쿠', '가전'],
         codeSelected: '코드를 선택했습니다',
         whyThisStore: '💬 왜 이 매장일까?',
         daysLeft: '{days}일 남음',
@@ -1478,7 +1539,15 @@
         savedCouponsCleared: '저장된 쿠폰을 모두 삭제했습니다',
         confirmClearSaved: '정말로 모든 저장된 쿠폰을 삭제하시겠습니까?',
         shareCoupon: '공유하기',
-        copySuccess: '✅ 복사했습니다！'
+        copySuccess: '✅ 복사했습니다！',
+        termsSummary: '{term} 등 <b>(뒷면에서 전체 확인)</b>',
+        sortChanged: '정렬이 변경되었습니다',
+        sortBy: '정렬',
+        category: '카테고리',
+        latest: '최신 순',
+        highDiscount: '할인율 순',
+        byArea: '지역별',
+        sortFilter: '정렬·필터'
       },
       
       en: {
@@ -1562,7 +1631,15 @@
         savedCouponsCleared: 'All saved coupons deleted',
         confirmClearSaved: 'Are you sure you want to delete all saved coupons?',
         shareCoupon: 'Share',
-        copySuccess: '✅ Copied!'
+        copySuccess: '✅ Copied!',
+        termsSummary: '{term}, etc. <b>(See back for full details)</b>',
+        sortChanged: 'Sort order changed',
+        sortBy: 'Sort by',
+        category: 'Category',
+        latest: 'Latest',
+        highDiscount: 'Highest Discount',
+        byArea: 'By Area',
+        sortFilter: 'Sort·Filter'
       },
 
       th: {
@@ -1646,7 +1723,15 @@
         savedCouponsCleared: 'ลบคูปองที่บันทึกไว้ทั้งหมดแล้ว',
         confirmClearSaved: 'คุณแน่ใจหรือไม่ที่จะลบคูปองที่บันทึกไว้ทั้งหมด?',
         shareCoupon: 'แชร์',
-        copySuccess: '✅ คัดลอกแล้ว！'
+        copySuccess: '✅ คัดลอกแล้ว！',
+        termsSummary: '{term} เป็นต้น <b>(ดูรายละเอียดทั้งหมดที่ด้านหลัง)</b>',
+        sortChanged: 'เปลี่ยนการเรียงลำดับแล้ว',
+        sortBy: 'เรียงตาม',
+        category: 'หมวดหมู่',
+        latest: 'ล่าสุด',
+        highDiscount: 'ส่วนลดสูงสุด',
+        byArea: 'ตามพื้นที่',
+        sortFilter: 'เรียง·กรอง'
       }
     };
     
@@ -1872,9 +1957,6 @@
         // 네비게이션 텍스트 업데이트
         this.updateNavigation();
         
-        // 필터 텍스트 업데이트  
-        this.updateFilters();
-        
         // 기타 UI 텍스트 업데이트
         this.updateStaticTexts();
       },
@@ -1887,19 +1969,6 @@
           const textEl = item.querySelector('.nav-text');
           if (textEl && navLabels[index]) {
             textEl.textContent = T[this.currentLang][navLabels[index]] || '';
-          }
-        });
-      },
-
-      updateFilters() {
-        const filterContainer = DOMCache.get('filterContainer');
-        const filters = filterContainer.querySelectorAll('.pill');
-        
-        filters.forEach(pill => {
-          const filter = pill.dataset.filter;
-          const span = pill.querySelector('span:first-child');
-          if (span && filter && T[this.currentLang][filter]) {
-            span.textContent = T[this.currentLang][filter];
           }
         });
       },
@@ -2066,7 +2135,12 @@
             rating: 4.2,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
             official_url: 'https://www.biccamera.com/',
-            article_url: 'https://www.japankuru.com/jp/e1878.html'
+            article_url: 'https://www.japankuru.com/jp/e1878.html',
+            area_ko: '아키하바라',
+            area_en: 'Akihabara',
+            area_zh: '秋叶原',
+            area_zh_TW: '秋葉原',
+            area_th: 'อากิฮาบาระ'
           },
           { 
             id: 2, 
@@ -2092,7 +2166,12 @@
             rating: 4.1,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
             official_url: 'https://www.jins.com/jp/',
-            article_url: 'https://www.japankuru.com/en/e2290.html'
+            article_url: 'https://www.japankuru.com/en/e2290.html',
+            area_ko: '시부야',
+            area_en: 'Shibuya',
+            area_zh: '涩谷',
+            area_zh_TW: '澀谷',
+            area_th: 'ชิบูย่า'
           },
           { 
             id: 3, 
@@ -2118,7 +2197,12 @@
             rating: 4.3,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
             official_url: 'https://www.beams.co.jp/beamsjapan/',
-            article_url: 'https://www.japankuru.com/jp/e2303.html'
+            article_url: 'https://www.japankuru.com/jp/e2303.html',
+            area_ko: '신주쿠',
+            area_en: 'Shinjuku',
+            area_zh: '新宿',
+            area_zh_TW: '新宿',
+            area_th: 'ชินจูกุ'
           },
           { 
             id: 4, 
@@ -2148,7 +2232,12 @@
             rating: 4.5,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
             official_url: 'https://www.samurai-restaurant.com/',
-            article_url: 'https://www.japankuru.com/jp/e2290.html'
+            article_url: 'https://www.japankuru.com/jp/e2290.html',
+            area_ko: '신주쿠',
+            area_en: 'Shinjuku',
+            area_zh: '新宿',
+            area_zh_TW: '新宿',
+            area_th: 'ชินจูกุ'
           },
           { 
             id: 5, 
@@ -2173,12 +2262,17 @@
             lng: 139.7016, 
             rating: 4.0,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
-            official_url: 'https://www.tokyu.co.jp/'
+            official_url: 'https://www.tokyu.co.jp/',
+            area_ko: '시부야',
+            area_en: 'Shibuya',
+            area_zh: '涩谷',
+            area_zh_TW: '澀谷',
+            area_th: 'ชิบูย่า'
           },
           { 
             id: 6, 
-            store_zh: '小岛 x Bic Camera',
-            store_zh_TW: '小島 x Bic Camera',
+            store_zh: '优衣库',
+            store_zh_TW: '優衣庫',
             store_ko: '요도바시카메라',
             store_en: 'Yodobashi Camera',
             store_th: 'โยโดบาชิคาเมร่า',
@@ -2198,7 +2292,12 @@
             lng: 139.7706, 
             rating: 4.4,
             terms: ['他の割引との併用不可', '一部商品を除く', 'お会計前にご提示ください', 'お一人様1回限り'],
-            official_url: 'https://www.yodobashi.com/'
+            official_url: 'https://www.yodobashi.com/',
+            area_ko: '아키하바라',
+            area_en: 'Akihabara',
+            area_zh: '秋叶原',
+            area_zh_TW: '秋葉原',
+            area_th: 'อากิฮาบาระ'
           }
         ];
       }
@@ -2716,29 +2815,21 @@
       body.appendChild(expiryLine);
 
       // 이용조건 텍스트로 표시 (실제 쿠폰처럼)
-      if (coupon.terms && coupon.terms.length > 0) {
-        const termsText = document.createElement('div');
-        termsText.className = 'terms-text';
-        
-        const termsList = document.createElement('ul');
-        // 최대 3개까지만 표시
-        const displayTerms = coupon.terms.slice(0, 3);
-        displayTerms.forEach(term => {
-          const li = document.createElement('li');
-          li.textContent = term;
-          termsList.appendChild(li);
-        });
-        
-        if (coupon.terms.length > 3) {
-          const li = document.createElement('li');
-          li.textContent = '...';
-          li.style.color = 'var(--muted)';
-          termsList.appendChild(li);
+      const localizedTerms = T[LanguageManager.currentLang]?.terms;
+      if (Array.isArray(localizedTerms) && localizedTerms.length > 0) {
+        const termsSummary = document.createElement('div');
+        termsSummary.className = 'terms-text'; // 기존 클래스 재활용 가능
+        termsSummary.style.padding = '0.4rem 0.6rem'; // 패딩 조정
+        termsSummary.style.fontSize = '0.7rem'; // 폰트 크기 조정
+        termsSummary.style.border = 'none'; // 테두리 제거
+
+        const firstTerm = localizedTerms[0]; // 1. 첫 번째 이용조건을 가져옵니다.
+        const summaryText = t('termsSummary').replace('{term}', firstTerm); // 2. 다국어 텍스트를 불러와 {term}을 교체합니다.
+        termsSummary.innerHTML = `ⓘ ${summaryText}`; // 3. 최종 텍스트를 화면에 표시합니다.
+    
+
+        body.appendChild(termsSummary);
         }
-        
-        termsText.appendChild(termsList);
-        body.appendChild(termsText);
-      }
 
       // 추천 문구가 있으면 표시
       const recommendation = getCouponField(coupon, 'recommendation');
@@ -2812,26 +2903,48 @@
       const infoGrid = document.createElement('div');
       infoGrid.className = 'info-grid';
 
-      // 혜택
-      infoGrid.appendChild(createInfoItem(T[lang].benefit || '特典', offer));
+      // 이용조건
+      // [추가할 코드] 전체 이용조건 목록을 생성합니다.
+const localizedTerms = T[LanguageManager.currentLang]?.terms;
+if (Array.isArray(localizedTerms) && localizedTerms.length > 0) {
+    const item = document.createElement('div');
+    item.className = 'info-item';
 
-      // 유효기한
-      const expiryText = coupon.expiry === '9999-12-31' ? 
-        T[lang].noExpiry || '期限なし' : 
-        Utils.formatDate(coupon.expiry);
-      infoGrid.appendChild(createInfoItem(T[lang].expiry || '有効期限', expiryText));
+    const labelEl = document.createElement('span');
+    labelEl.className = 'info-label';
+    labelEl.textContent = t('termsLabel'); // "이용 조건"
 
-      // 설명
-      const description = getCouponField(coupon, 'description');
-      infoGrid.appendChild(createInfoItem('説明', description));
+    const valueEl = document.createElement('span');
+    valueEl.className = 'info-value';
 
-      // 이용조건 (첫번째만)
-      if (coupon.terms && coupon.terms.length > 0) {
-        const localizedTerm = T[lang].terms && T[lang].terms[0] ? T[lang].terms[0] : coupon.terms[0];
-        infoGrid.appendChild(createInfoItem(T[lang].termsLabel || '利用条件', localizedTerm));
-      }
+    const ul = document.createElement('ul');
+    ul.style.paddingLeft = '1rem';
+    ul.style.margin = '0';
+
+    localizedTerms.forEach(term => {
+        const li = document.createElement('li');
+        li.style.listStyleType = '"• "';
+        li.style.paddingLeft = '0.25rem';
+        li.textContent = term;
+        ul.appendChild(li);
+    });
+
+    valueEl.appendChild(ul);
+    item.appendChild(labelEl);
+    item.appendChild(valueEl);
+    infoGrid.appendChild(item);
+}
 
       // 링크들
+      // [추가할 코드] 관련 기사 링크를 생성합니다.
+if (coupon.article_url) {
+    const articleLink = document.createElement('a');
+    articleLink.href = coupon.article_url;
+    articleLink.target = '_blank';
+    articleLink.rel = 'noopener';
+    articleLink.textContent = t('readArticle'); // "기사 읽기"
+    infoGrid.appendChild(createInfoItem(t('relatedArticle'), articleLink.outerHTML));
+}
       if (coupon.lat != null && coupon.lng != null) {
         const mapLink = document.createElement('a');
         mapLink.href = `https://www.google.com/maps/search/?api=1&query=${coupon.lat},${coupon.lng}`;
@@ -3213,17 +3326,24 @@
     // 메인 애플리케이션 클래스 (최적화)
     // ===========================================
     class JKWalletApp {
+        parseDiscount(offerText) {
+    if (!offerText) return 0;
+    const match = offerText.match(/(\d+)%/);
+    return match ? parseInt(match[1], 10) : 0;
+} 
+        
       constructor() {
         this.state = {
-          coupons: [],
-          filtered: [],
-          saved: [],
-          userLocation: null,
-          currentFilter: 'all',
-          currentSearch: '',
-          currentView: 'home',
-          isLoading: true,
-          hasError: false
+            coupons: [],
+            filtered: [],
+            saved: [],
+            userLocation: null,
+            currentFilter: 'all',     // 카테고리 필터 상태 (기본값 'all')
+            currentSort: 'latest',    // 정렬 상태 (기본값 'latest')
+            currentSearch: '',
+            currentView: 'home',
+            isLoading: true,
+            hasError: false
         };
         
         this.config = {
@@ -3347,9 +3467,6 @@
       }
 
       setupUI() {
-        // 필터 버튼 설정 (이벤트 위임)
-        this.setupFilters();
-        
         // 네비게이션 설정 (이벤트 위임)
         this.setupNavigation();
         
@@ -3358,6 +3475,8 @@
         
         // 추천 검색어 이벤트 위임
         this.setupSuggestions();
+
+        this.setupFilterAndSortControls();
       }
 
       setupEventListeners() {
@@ -3412,27 +3531,36 @@
         window.addEventListener('resize', this.handleResize);
       }
 
-      setupFilters() {
-        const filterContainer = DOMCache.get('filterContainer');
-        
-        // 이벤트 위임
-        filterContainer.addEventListener('click', async (e) => {
-          const pill = e.target.closest('.pill');
-          if (pill) {
-            const filter = pill.dataset.filter;
-            await this.setFilter(filter);
-          }
+      setupFilterAndSortControls() {
+    const filterContainer = DOMCache.get('filterContainer'); // 이제 Pill 버튼 컨테이너
+    const sortSelect = DOMCache.get('sortSelect');           // 새로운 정렬 드롭다운
+
+    // 카테고리 필터(Pill) 클릭 이벤트
+    if (filterContainer) {
+        filterContainer.addEventListener('click', (e) => {
+            const pill = e.target.closest('.pill');
+            if (!pill) return;
+
+            // UI 업데이트
+            filterContainer.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-selected', 'false'));
+            pill.setAttribute('aria-selected', 'true');
+
+            // 상태 업데이트 및 재-렌더링
+            this.state.currentFilter = pill.dataset.filter;
+            this.applyFilters();
         });
-        
-        // 키보드 접근성
-        filterContainer.addEventListener('keydown', (e) => {
-          const pill = e.target.closest('.pill');
-          if (pill && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault();
-            pill.click();
-          }
+    }
+
+    // 정렬(Select) 변경 이벤트
+    if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+            // 상태 업데이트 및 재-렌더링
+            this.state.currentSort = e.target.value;
+            this.applyFilters();
+            Toast.show(t('sortChanged') || '정렬이 변경되었습니다');
         });
-      }
+    }
+}
 
       setupNavigation() {
         const navContainer = DOMCache.get('navContainer');
@@ -3473,7 +3601,10 @@
             if (suggestion) {
               const searchInput = DOMCache.get('searchInput');
               searchInput.value = suggestion;
-              this.handleSearch({target: searchInput});
+
+              console.log('1. 추천어 클릭됨:', suggestion); // <--- 이 줄 추가!
+
+              searchInput.dispatchEvent(new Event('input', { bubbles: true }));
             }
           }
         });
@@ -3481,19 +3612,6 @@
 
       async setFilter(filter) {
         if (this.state.isLoading) return;
-        
-        // UI 업데이트
-        const filterContainer = DOMCache.get('filterContainer');
-        filterContainer.querySelectorAll('.pill').forEach(p => {
-          const isActive = p.dataset.filter === filter;
-          if (isActive) {
-            p.classList.add('active');
-            p.setAttribute('aria-selected', 'true');
-          } else {
-            p.classList.remove('active');
-            p.setAttribute('aria-selected', 'false');
-          }
-        });
         
         const prevFilter = this.state.currentFilter;
         this.state.currentFilter = filter;
@@ -3518,21 +3636,10 @@
           }
           
           this.applyFilters();
-          Toast.show(T[LanguageManager.currentLang].filterChanged || 'フィルターを変更しました');
           
         } catch (error) {
           // 실패시 이전 필터로 복원
           this.state.currentFilter = prevFilter;
-          filterContainer.querySelectorAll('.pill').forEach(p => {
-            const isActive = p.dataset.filter === prevFilter;
-            if (isActive) {
-              p.classList.add('active');
-              p.setAttribute('aria-selected', 'true');
-            } else {
-              p.classList.remove('active');
-              p.setAttribute('aria-selected', 'false');
-            }
-          });
           
           if (filter === 'nearby') {
             Location.showError();
@@ -3589,6 +3696,8 @@
       }
 
       handleSearch(e) {
+        console.log('2. handleSearch 실행됨!', e.target.value); // <--- 이 줄 추가!
+
         this.state.currentSearch = e.target.value.trim();
         
         // 검색 클리어 버튼 표시
@@ -3604,50 +3713,66 @@
       }
 
       applyFilters() {
-        if (this.state.isLoading) return;
-        
-        let filtered = [...this.state.coupons];
-        
-        // 필터 적용
-        switch(this.state.currentFilter) {
-          case 'saved':
-            filtered = filtered.filter(c => this.state.saved.includes(c.id));
-            break;
-            
-          case 'nearby':
-            if (this.state.userLocation) {
-              filtered.sort((a, b) => {
-                const distA = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, a.lat, a.lng);
-                const distB = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, b.lat, b.lng);
-                return distA - distB;
-              });
-            }
-            break;
-            
-          case 'electronics':
-          case 'fashion':
-          case 'dining':
-          case 'transport':
-            filtered = filtered.filter(c => c.category === this.state.currentFilter);
-            break;
+    if (this.state.isLoading) return;
+
+    let processedCoupons = [...this.state.coupons];
+
+    // --- 1단계: 카테고리 필터링 ---
+    if (this.state.currentFilter !== 'all') {
+        if (this.state.currentFilter === 'saved') {
+            processedCoupons = processedCoupons.filter(c => this.state.saved.includes(c.id));
+        } else if (this.state.currentFilter === 'nearby') {
+            // '근처'는 정렬에서 처리하므로 여기서는 필터링하지 않음
+        } else {
+            // 일반 카테고리 필터
+            processedCoupons = processedCoupons.filter(c => c.category === this.state.currentFilter);
         }
-        
-        // 검색어 적용
-        if (this.state.currentSearch) {
-          const query = this.state.currentSearch.toLowerCase();
-          filtered = filtered.filter(c => {
+    }
+
+    // --- 2단계: 검색어 필터링 ---
+    if (this.state.currentSearch) {
+        const query = this.state.currentSearch.toLowerCase();
+        processedCoupons = processedCoupons.filter(c => {
             const store = getCouponField(c, 'store').toLowerCase();
             const description = getCouponField(c, 'description').toLowerCase();
-            const category = c.category?.toLowerCase() || '';
-            
-            return store.includes(query) || 
-                   description.includes(query) || 
-                   category.includes(query);
-          });
-        }
-        
-        this.state.filtered = filtered;
-        this.render();
+            const area = getCouponField(c, 'area', '').toLowerCase();
+            return store.includes(query) || description.includes(query) || area.includes(query);
+        });
+    }
+
+    // --- 3단계: 정렬 적용 ---
+    switch (this.state.currentSort) {
+        case 'high_discount':
+            processedCoupons.sort((a, b) => (b.discount_rate || 0) - (a.discount_rate || 0));
+            break;
+        case 'latest':
+            processedCoupons.sort((a, b) => (b.id || 0) - (a.id || 0)); // ID가 높을수록 최신이라고 가정
+            break;
+        case 'by_area':
+            processedCoupons.sort((a, b) => {
+                const areaA = getCouponField(a, 'area', '');
+                const areaB = getCouponField(b, 'area', '');
+                return areaA.localeCompare(areaB, 'ko');
+            });
+            break;
+    }
+    
+    // --- '근처' 필터는 항상 마지막에 특별 정렬 ---
+    if (this.state.currentFilter === 'nearby' && this.state.userLocation) {
+        processedCoupons.sort((a, b) => {
+            const distA = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, a.lat, a.lng);
+            const distB = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, b.lat, b.lng);
+            return distA - distB;
+        });
+    }
+
+    this.state.filtered = processedCoupons;
+    this.render();
+}
+      // 할인율 파싱 헬퍼 함수 추가
+      parseDiscount(offerText) {
+        const match = offerText.match(/(\d+)%/);
+        return match ? parseInt(match[1]) : 0;
       }
 
       render() {
@@ -3726,13 +3851,6 @@
 
       updateSavedCount() {
         const count = this.state.saved.length;
-        
-        // 필터 뱃지
-        const savedCount = DOMCache.get('savedCount');
-        if (savedCount) {
-          savedCount.textContent = count;
-          savedCount.classList.toggle('show', count > 0);
-        }
         
         // 네비게이션 뱃지
         const navBadge = DOMCache.get('navBadge');
