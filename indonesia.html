@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japankuru インドネシア - ムスリムフレンドリーな日本旅行ガイド</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --sakura-pink: #FFB7C5;
+            --deep-pink: #FF69B4;
+            --navy: #1a237e;
+            --gold: #FFD700;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--white);
+        }
+        
+        /* Language Switch */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255,183,197,0.9), rgba(255,105,180,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)"/><circle cx="300" cy="300" r="120" fill="rgba(255,255,255,0.05)"/><circle cx="900" cy="200" r="90" fill="rgba(255,255,255,0.08)"/><circle cx="800" cy="600" r="150" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: cover;
+            overflow: hidden;
+        }
+        
+        .sakura-petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            background: white;
+            border-radius: 150% 0 150% 0;
+            animation: fall 10s linear infinite;
+            opacity: 0.7;
+        }
+        
+        .petal:nth-child(1) { left: 10%; width: 15px; height: 12px; animation-delay: 0s; }
+        .petal:nth-child(2) { left: 30%; width: 20px; height: 16px; animation-delay: 2s; }
+        .petal:nth-child(3) { left: 50%; width: 18px; height: 14px; animation-delay: 4s; }
+        .petal:nth-child(4) { left: 70%; width: 15px; height: 12px; animation-delay: 6s; }
+        .petal:nth-child(5) { left: 90%; width: 22px; height: 18px; animation-delay: 8s; }
+        
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); }
+            100% { top: 110%; transform: translateX(100px) rotate(360deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--white);
+            color: var(--deep-pink);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* Trust Bar */
+        .trust-bar {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .trust-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .trust-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .trust-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Killer Content Section */
+        .killer-content {
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, var(--white), var(--light-gray));
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+        
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        /* Celebrity Trail Feature */
+        .celeb-trail {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+        }
+        
+        .celeb-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .celeb-title {
+            font-size: 1.8rem;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+        }
+        
+        .celeb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .celeb-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .celeb-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .celeb-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .celeb-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .celeb-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .celeb-spot {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Interactive Map Feature */
+        .prayer-map {
+            background: var(--navy);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .map-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .map-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .map-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Hot Topics */
+        .hot-topics {
+            padding: 60px 20px;
+            background: var(--light-gray);
+        }
+        
+        .topic-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .topic-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .topic-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .topic-content {
+            padding: 25px;
+        }
+        
+        .topic-tag {
+            display: inline-block;
+            background: var(--sakura-pink);
+            color: var(--navy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .topic-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .topic-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Halal Michelin Section */
+        .michelin-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+        
+        .michelin-banner {
+            background: linear-gradient(135deg, var(--navy), var(--deep-pink));
+            color: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .michelin-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .michelin-stars {
+            color: var(--gold);
+        }
+        
+        .michelin-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .michelin-card {
+            background: var(--light-gray);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .michelin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold);
+        }
+        
+        .michelin-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+        
+        .michelin-desc {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .michelin-price {
+            font-size: 1.1rem;
+            color: var(--deep-pink);
+            font-weight: 700;
+        }
+        
+        /* Beauty Experience Section */
+        .beauty-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+        
+        .beauty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .beauty-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .beauty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .beauty-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .beauty-content {
+            padding: 30px;
+        }
+        
+        .beauty-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .beauty-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .beauty-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .beauty-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #EEE;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .beauty-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .check-icon {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Checklist Section */
+        .checklist-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+        
+        .checklist-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .phase-title {
+            font-size: 1.5rem;
+            color: var(--deep-pink);
+            margin: 40px 0 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .phase-icon {
+            background: var(--sakura-pink);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .checklist-item {
+            background: var(--light-gray);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .checklist-header:hover {
+            background: rgba(255,183,197,0.2);
+        }
+        
+        .checklist-checkbox {
+            width: 25px;
+            height: 25px;
+            border: 3px solid var(--sakura-pink);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-checkbox.checked {
+            background: var(--deep-pink);
+            border-color: var(--deep-pink);
+        }
+        
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        
+        .checklist-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 25px;
+        }
+        
+        .checklist-content.expanded {
+            max-height: 500px;
+            padding: 0 25px 25px;
+        }
+        
+        .checklist-tip {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid var(--deep-pink);
+        }
+        
+        .tip-title {
+            font-weight: 700;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 350px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 30px 25px;
+            color: white;
+        }
+        
+        .gallery-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .gallery-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Partner Section */
+        .partners-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+        
+        .partner-scroll {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+        
+        .partner-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .partner-card {
+            flex: 0 0 350px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .partner-logo {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .partner-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--navy);
+        }
+        
+        .partner-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .partner-feature {
+            background: var(--sakura-pink);
+            color: var(--navy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--deep-pink), var(--sakura-pink));
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: var(--white);
+            color: var(--deep-pink);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--deep-pink);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .modal-close:hover {
+            color: var(--text-dark);
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .topic-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .partner-card {
+                flex: 0 0 280px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .celeb-trail {
+                padding: 30px 20px;
+            }
+            
+            .prayer-map {
+                padding: 30px 20px;
+            }
+            
+            .michelin-banner {
+                padding: 40px 20px;
+            }
+            
+            .michelin-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switch -->
+    <div class="lang-switch" onclick="alert('インドネシア語版に切り替え')">
+        🌐 日本語 → Bahasa Indonesia
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="sakura-petals">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="hero-content">
+            <h1>インドネシアから日本へ、<br>夢の旅をJapankuruと！🌸</h1>
+            <p class="hero-subtitle">ムスリムフレンドリーな日本旅行の完全ガイド</p>
+            <a href="#start" class="hero-cta">旅の準備を始める →</a>
+        </div>
+    </section>
+    
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">🕌</div>
+                <div class="trust-text">100% ムスリムフレンドリー</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🤝</div>
+                <div class="trust-text">JNTO公式パートナー</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">💬</div>
+                <div class="trust-text">インドネシア語対応</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📱</div>
+                <div class="trust-text">リアルタイム更新</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Killer Content Section -->
+    <section class="killer-content" id="start">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Japankuruだけの特別コンテンツ！✨</h2>
+                <p class="section-subtitle">他では見つからない、インドネシア人のための独占情報</p>
+            </div>
+            
+            <!-- Celebrity Trail Feature -->
+            <div class="celeb-trail">
+                <div class="celeb-header">
+                    <h3 class="celeb-title">🌟 インドネシアセレブの足跡をたどる旅</h3>
+                    <p>あなたの好きなセレブが訪れた場所を巡ろう！</p>
+                </div>
+                <div class="celeb-grid">
+                    <div class="celeb-card">
+                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop" alt="Tokyo Tower" class="celeb-image">
+                        <div class="celeb-info">
+                            <div class="celeb-name">Raisa Andriana</div>
+                            <div class="celeb-spot">東京タワー展望台</div>
+                        </div>
+                    </div>
+                    <div class="celeb-card">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&h=200&fit=crop" alt="Shibuya" class="celeb-image">
+                        <div class="celeb-info">
+                            <div class="celeb-name">Atta Halilintar</div>
+                            <div class="celeb-spot">渋谷スクランブル交差点</div>
+                        </div>
+                    </div>
+                    <div class="celeb-card">
+                        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=300&h=200&fit=crop" alt="Kimono" class="celeb-image">
+                        <div class="celeb-info">
+                            <div class="celeb-name">Natasha Wilona</div>
+                            <div class="celeb-spot">浅草着物体験</div>
+                        </div>
+                    </div>
+                    <div class="celeb-card">
+                        <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=300&h=200&fit=crop" alt="Harajuku" class="celeb-image">
+                        <div class="celeb-info">
+                            <div class="celeb-name">Ria Ricis</div>
+                            <div class="celeb-spot">原宿竹下通り</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prayer Room Map Feature -->
+            <div class="prayer-map">
+                <h3 class="map-title">🗺️ 日本最大級！祈祷室＆無料Wi-Fi完全マップ</h3>
+                <div class="map-stats">
+                    <div class="map-stat">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">祈祷室</div>
+                    </div>
+                    <div class="map-stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">無料Wi-Fiスポット</div>
+                    </div>
+                    <div class="map-stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">ムスリムフレンドリーホテル</div>
+                    </div>
+                    <div class="map-stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">リアルタイム更新</div>
+                    </div>
+                </div>
+                <a href="#" class="hero-cta" style="margin-top: 20px;">インタラクティブマップを見る →</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Halal Michelin Section -->
+    <section class="michelin-section">
+        <div class="container">
+            <div class="michelin-banner">
+                <h2 class="michelin-title">
+                    <span class="michelin-stars">⭐⭐⭐</span>
+                    <span>ハラールミシュラン体験</span>
+                    <span class="michelin-stars">⭐⭐⭐</span>
+                </h2>
+                <p>日本の高級レストランでハラール料理を楽しむ、特別な体験</p>
+            </div>
+            
+            <div class="michelin-list">
+                <div class="michelin-card">
+                    <h3 class="michelin-name">懐石料理 花伝</h3>
+                    <p class="michelin-desc">完全ハラール対応の本格懐石料理。事前予約で特別メニューをご用意。</p>
+                    <p class="michelin-price">ランチ: ¥5,000〜 / ディナー: ¥12,000〜</p>
+                </div>
+                <div class="michelin-card">
+                    <h3 class="michelin-name">鉄板焼き 匠</h3>
+                    <p class="michelin-desc">目の前で焼き上げるハラール和牛。シェフのパフォーマンスも必見！</p>
+                    <p class="michelin-price">コース: ¥8,000〜</p>
+                </div>
+                <div class="michelin-card">
+                    <h3 class="michelin-name">すし処 海月</h3>
+                    <p class="michelin-desc">ハラール醤油使用の本格江戸前寿司。ベジタリアンオプションもあり。</p>
+                    <p class="michelin-price">おまかせ: ¥6,000〜</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Beauty Experience Section -->
+    <section class="beauty-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ヒジャブフレンドリー美容体験 💄</h2>
+                <p class="section-subtitle">日本の美容技術を、ヒジャブを着けたまま体験！</p>
+            </div>
+            
+            <div class="beauty-grid">
+                <div class="beauty-card">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=250&fit=crop" alt="Beauty Salon" class="beauty-image">
+                    <div class="beauty-content">
+                        <span class="beauty-badge">女性専用</span>
+                        <h3 class="beauty-title">ヒジャブ対応ヘアサロン</h3>
+                        <ul class="beauty-features">
+                            <li><span class="check-icon">✓</span> プライベートルーム完備</li>
+                            <li><span class="check-icon">✓</span> 女性スタッフのみ</li>
+                            <li><span class="check-icon">✓</span> ヒジャブスタイリング相談</li>
+                            <li><span class="check-icon">✓</span> ハラール対応ヘアケア製品</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="beauty-card">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=250&fit=crop" alt="Makeup" class="beauty-image">
+                    <div class="beauty-content">
+                        <span class="beauty-badge">特別体験</span>
+                        <h3 class="beauty-title">日本メイクアップ体験</h3>
+                        <ul class="beauty-features">
+                            <li><span class="check-icon">✓</span> ハラール化粧品使用</li>
+                            <li><span class="check-icon">✓</span> 着物撮影オプション</li>
+                            <li><span class="check-icon">✓</span> インドネシア語対応</li>
+                            <li><span class="check-icon">✓</span> 記念写真付き</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="beauty-card">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=250&fit=crop" alt="Spa" class="beauty-image">
+                    <div class="beauty-content">
+                        <span class="beauty-badge">リラクゼーション</span>
+                        <h3 class="beauty-title">女性専用スパ＆温泉</h3>
+                        <ul class="beauty-features">
+                            <li><span class="check-icon">✓</span> 個室温泉あり</li>
+                            <li><span class="check-icon">✓</span> ハラールアメニティ</li>
+                            <li><span class="check-icon">✓</span> 祈祷室完備</li>
+                            <li><span class="check-icon">✓</span> ヒジャブ着用可能エリア</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Hot Topics -->
+    <section class="hot-topics">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">今週のトレンド！ 🔥</h2>
+                <p class="section-subtitle">最新の日本情報をお届け</p>
+            </div>
+            
+            <div class="topic-cards">
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Ramen" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">ハラールフード</span>
+                        <h3 class="topic-title">東京の美味しいハラールラーメン5選！</h3>
+                        <p class="topic-desc">新宿から浅草まで、私たちが実際に試したお店をご紹介。どれが一番お気に入り？</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=200&fit=crop" alt="Summer Festival" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag" style="background: var(--gold); color: var(--navy);">夏のイベント</span>
+                        <h3 class="topic-title">8月の花火大会スケジュール</h3>
+                        <p class="topic-desc">東京とその周辺の花火大会の完全スケジュール。見逃さないで！</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="topic-card">
+                    <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=200&fit=crop" alt="Shopping" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag" style="background: #E1BEE7; color: var(--navy);">ショッピングガイド</span>
+                        <h3 class="topic-title">夏のセール2025情報！</h3>
+                        <p class="topic-desc">最大70％オフ！デパートのセール情報とタックスフリーのコツ。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Checklist Section -->
+    <section class="checklist-section">
+        <div class="checklist-container">
+            <div class="section-header">
+                <h2 class="section-title">旅行準備チェックリスト ✈️</h2>
+                <p class="section-subtitle">初めての日本旅行を完璧に準備しよう</p>
+            </div>
+            
+            <div class="phase-title">
+                <div class="phase-icon">1️⃣</div>
+                <span>出発前の準備</span>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>✈️ ビザと旅行書類</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p>グッドニュース！インドネシアのパスポート保持者は15日間までビザ不要！</p>
+                    <div class="checklist-tip">
+                        <div class="tip-title">必要なもの：</div>
+                        <ul>
+                            <li>有効期限6ヶ月以上のパスポート</li>
+                            <li>往復航空券（必須！）</li>
+                            <li>ホテル予約確認書</li>
+                            <li>Visit Japan Web（出発前にオンラインで記入）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>💴 お金と予算の準備</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p>日本はまだ現金社会！十分な円を準備しましょう。</p>
+                    <div class="checklist-tip">
+                        <div class="tip-title">Japankuruのアドバイス：</div>
+                        <ul>
+                            <li>インドネシアで両替（レートが良い）</li>
+                            <li>1日あたり¥8,000-10,000の予算（ホテル除く）</li>
+                            <li>セブンイレブンATMでインドネシアのデビットカード使用可能</li>
+                            <li>交通系キャッシュレス決済用「Suica」アプリをダウンロード</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase-title">
+                <div class="phase-icon">2️⃣</div>
+                <span>ムスリム旅行者必須アイテム</span>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>🕌 礼拝とハラールフードの準備</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p>心配無用！日本はどんどんムスリムフレンドリーになっています！</p>
+                    <div class="checklist-tip">
+                        <div class="tip-title">必須アプリ：</div>
+                        <ul>
+                            <li><strong>Halal Gourmet Japan</strong> - ハラールレストランデータベース</li>
+                            <li><strong>Muslim Pro</strong> - 礼拝時間とキブラの方向</li>
+                            <li><strong>Google翻訳</strong> - 日本語をオフラインでダウンロード</li>
+                        </ul>
+                    </div>
+                    <div class="checklist-tip">
+                        <div class="tip-title">ハラールサバイバルキット：</div>
+                        <ul>
+                            <li>緊急用にインドネシアからスナックやインスタント麺を持参</li>
+                            <li>ドンキホーテでハラールロゴ付き商品を探す</li>
+                            <li>コンビニ：サーモン/ツナおにぎり（成分要確認！）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>🧕 ムスリマ旅行者のためのヒント</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p>ヒジャブで日本旅行？全く問題ありません！</p>
+                    <div class="checklist-tip">
+                        <div class="tip-title">四季のファッションアドバイス：</div>
+                        <ul>
+                            <li><strong>夏：</strong>軽くて通気性の良いヒジャブ素材</li>
+                            <li><strong>冬：</strong>ヒジャブの下にタートルネックでレイヤー</li>
+                            <li><strong>写真スポット：</strong>明るい色のヒジャブは桜や紅葉の背景に映える</li>
+                            <li><strong>温泉：</strong>ヒジャブ着用者用のプライベート温泉あり！</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">あなたの旅のインスピレーション 📸</h2>
+                <p class="section-subtitle">クリックして詳細を探索！</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal('food')">
+                    <img src="https://images.unsplash.com/photo-1555031902-5b92c3456a9b?w=400&h=400&fit=crop" alt="Halal Food" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">🍜 ハラールグルメ旅</h3>
+                        <p class="gallery-desc">ラーメン、和牛、寿司など！</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('spots')">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=400&fit=crop" alt="Tourist Spots" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">⛩️ 必見スポット</h3>
+                        <p class="gallery-desc">東京タワー、伏見稲荷など</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('shopping')">
+                    <img src="https://images.unsplash.com/photo-1519056116346-9d0e1dd6bbde?w=400&h=400&fit=crop" alt="Shopping" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">🛍️ ショッピング天国</h3>
+                        <p class="gallery-desc">ドンキホーテから銀座まで</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('culture')">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=400&fit=crop" alt="Culture" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">🎌 文化体験</h3>
+                        <p class="gallery-desc">着物、茶道など</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('anime')">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop" alt="Anime" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">🎮 アニメ＆ポップカルチャー</h3>
+                        <p class="gallery-desc">秋葉原、ジブリ美術館など</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('season')">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=400&fit=crop" alt="Seasons" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">🌸 ベストシーズン</h3>
+                        <p class="gallery-desc">桜、紅葉など</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Partner Section -->
+    <section class="partners-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Japankuru信頼のパートナー 🤝</h2>
+                <p class="section-subtitle">検証済みのムスリムフレンドリーなホテル＆施設</p>
+            </div>
+            
+            <div class="partner-scroll">
+                <div class="partner-card">
+                    <div class="partner-logo">🏨</div>
+                    <h3 class="partner-name">ホテルグランヴィア東京</h3>
+                    <p>JR東京駅直結。初めての日本旅行に最適！</p>
+                    <div class="partner-features">
+                        <span class="partner-feature">礼拝マット</span>
+                        <span class="partner-feature">キブラ表示</span>
+                        <span class="partner-feature">ハラールメニュー</span>
+                    </div>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">🍜</div>
+                    <h3 class="partner-name">成田屋ハラールラーメン</h3>
+                    <p>最も本格的なハラールラーメン！鶏ベースの超クリーミーなとんこつスープ。</p>
+                    <div class="partner-features">
+                        <span class="partner-feature">100% ハラール</span>
+                        <span class="partner-feature">礼拝スペース</span>
+                        <span class="partner-feature">浅草</span>
+                    </div>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">🗼</div>
+                    <h3 class="partner-name">東京スカイツリー</h3>
+                    <p>日本一高いタワー、345階に礼拝室完備！</p>
+                    <div class="partner-features">
+                        <span class="partner-feature">礼拝室</span>
+                        <span class="partner-feature">ハラールカフェ</span>
+                        <span class="partner-feature">絶景</span>
+                    </div>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">🛍️</div>
+                    <h3 class="partner-name">LAOX新宿店</h3>
+                    <p>観光客向けワンストップショッピング！インドネシア語対応スタッフ在籍！</p>
+                    <div class="partner-features">
+                        <span class="partner-feature">免税</span>
+                        <span class="partner-feature">ハラール化粧品</span>
+                        <span class="partner-feature">インドネシア語対応</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="cta-content">
+            <h2 class="cta-title">日本での冒険の準備はできましたか？ 🇯🇵</h2>
+            <p class="cta-subtitle">夢を実現した何千人ものインドネシア人旅行者に加わろう！</p>
+            
+            <div class="cta-buttons">
+                <a href="https://instagram.com/japankuru.id" target="_blank" class="btn-primary">
+                    <span>📸</span>
+                    <span>@japankuru.idをフォロー</span>
+                </a>
+                <a href="https://japankuru.com/id" target="_blank" class="btn-secondary">
+                    🌐 ウェブサイトを見る
+                </a>
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.9;">
+                🎁 トラベルフェア特別企画：今フォローして「東京ハラールマップ」電子ガイドを無料でゲット！
+            </p>
+        </div>
+    </section>
+    
+    <!-- Modals -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Checklist functionality
+        function toggleChecklist(header) {
+            const content = header.nextElementSibling;
+            const checkbox = header.querySelector('.checklist-checkbox');
+            
+            content.classList.toggle('expanded');
+            checkbox.classList.toggle('checked');
+        }
+        
+        // Modal content (same as before, just in Japanese)
+        const modalContent = {
+            food: {
+                title: "🍜 ハラールグルメ旅",
+                content: `
+                    <h2>日本のハラールフードパラダイス！</h2>
+                    <p>日本でハラールフードを見つけるのは難しいと誰が言った？これをチェック！</p>
+                    
+                    <h3>🍜 ベストハラールラーメン：</h3>
+                    <ul>
+                        <li><strong>成田屋（浅草）</strong> - 最もクリーミーな鶏ラーメン！</li>
+                        <li><strong>ラーメン桜花（新宿）</strong> - インドネシアの辛さレベルあり！</li>
+                        <li><strong>あやむ屋（渋谷）</strong> - ラーメン＋唐揚げコンボ</li>
+                    </ul>
+                    
+                    <h3>🥩 ハラール和牛体験：</h3>
+                    <ul>
+                        <li><strong>炭焼き屋（六本木）</strong> - 食べ放題！</li>
+                        <li><strong>牛門（渋谷）</strong> - プレミアムA5和牛</li>
+                    </ul>
+                    
+                    <h3>🍱 コンビニハック：</h3>
+                    <ul>
+                        <li>サーモン/ツナおにぎり（成分確認！）</li>
+                        <li>サラダ＆カットフルーツ</li>
+                        <li>ドンキホーテで「ハラール」ロゴを探す！</li>
+                    </ul>
+                `
+            },
+            // ... 他のモーダルコンテンツも日本語に
+        };
+        
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            
+            modalBody.innerHTML = modalContent[type].content;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements
+        document.querySelectorAll('.topic-card, .checklist-item, .gallery-item, .partner-card, .celeb-card, .beauty-card, .michelin-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
