@@ -29,14 +29,357 @@
       --border:#334155;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
+    
     /* 언어별 폰트 최적화 */
     body.lang-zh { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
     body.lang-zh-TW { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif; }
     body.lang-ko { font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.4;min-height:100vh;padding-bottom:80px;transition:background .3s,color .3s;}
+    
     .container{max-width:1000px;margin:0 auto;padding:0 0.75rem;}
+    
+    /* 헤더 */
     .header{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;background:var(--bg);transition:transform .3s;}
     .header.hidden{transform:translateY(-100%);}
+    
+    /* ===== 새로운 모바일 필터 상태바 (클릭 가능) ===== */
+    .filter-status-bar {
+      display: none;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    @media (max-width: 768px) {
+      .filter-status-bar {
+        display: flex;
+      }
+      
+      /* 모바일에서 기존 search-filter-bar 숨김 */
+      .search-filter-bar {
+        display: none !important;
+      }
+    }
+    
+    .filter-current {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      flex: 1;
+    }
+    
+    .filter-chip {
+      background: var(--gray-100);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .filter-chip:hover {
+      transform: scale(1.02);
+    }
+    
+    .filter-chip.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .filter-edit-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .filter-edit-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .dark-mode .filter-edit-btn {
+      background: var(--primary);
+    }
+    
+    /* ===== 필터 패널 (바텀시트) ===== */
+    .filter-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+      padding: 20px 20px calc(env(safe-area-inset-bottom) + 20px);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 300;
+      max-height: 75vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .filter-panel.show {
+      transform: translateY(0);
+    }
+    
+    .panel-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 0 auto 16px;
+    }
+    
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .panel-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--gray-100);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    
+    .dark-mode .panel-close {
+      background: var(--gray-700);
+    }
+    
+    .panel-section {
+      margin-bottom: 24px;
+    }
+    
+    .panel-section h4 {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .filter-option {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .filter-option:hover {
+      border-color: var(--primary);
+    }
+    
+    .filter-option.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .filter-count {
+      background: rgba(0,0,0,0.1);
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+    
+    .filter-option.selected .filter-count {
+      background: rgba(255,255,255,0.3);
+    }
+    
+    /* ===== 상세정보 시트 ===== */
+    .detail-sheet {
+      position: fixed;
+      background: var(--card);
+      z-index: 400;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+    }
+    
+    /* 모바일: 바텀시트 */
+    @media (max-width: 768px) {
+      .detail-sheet {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 24px 24px 0 0;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+        max-height: 85vh;
+        transform: translateY(100%);
+      }
+      
+      .detail-sheet.show {
+        transform: translateY(0);
+      }
+    }
+    
+    /* PC: 모달 */
+    @media (min-width: 769px) {
+      .detail-sheet {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        opacity: 0;
+      }
+      
+      .detail-sheet.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .detail-content {
+      padding: 20px;
+    }
+    
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .detail-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .action-btn {
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .action-btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .action-btn.secondary {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+    
+    .dark-mode .action-btn.secondary {
+      background: var(--gray-700);
+    }
+    
+    /* ===== 플로팅 추천 (스마트 개선) ===== */
+    @media (max-width: 768px) {
+      .float-suggest {
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--card);
+        padding: 10px 16px;
+        border-radius: 24px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        display: none; /* 기본적으로 숨김 */
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        z-index: 90;
+        max-width: 280px;
+        border: 1px solid var(--border);
+      }
+      
+      .float-suggest.show {
+        display: flex;
+      }
+      
+      .float-suggest:active {
+        transform: translateX(-50%) scale(0.95);
+      }
+      
+      .suggest-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      
+      .suggest-text {
+        font-size: 13px;
+        font-weight: 500;
+        flex: 1;
+        text-align: center;
+      }
+      
+      .suggest-count {
+        background: var(--primary);
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        min-width: 20px;
+        text-align: center;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .float-suggest {
+        display: none;
+      }
+    }
+    
+    /* ===== 기존 스타일 모두 유지 ===== */
     .search-filter-bar{position:sticky;top:0;background:var(--bg);z-index:1000;padding:0.5rem 1rem 0.75rem 1rem;display:flex;flex-direction:column;gap:0.5rem;border-bottom:1px solid var(--border);}
     .logo{font-weight:700;display:flex;align-items:center;gap:.5rem;font-size:1.1rem;color:var(--primary);text-decoration: none;}
     .btn{padding:.5rem 1rem;border:none;border-radius:.5rem;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;gap:.25rem;transition:all .2s;-webkit-tap-highlight-color:transparent;}
@@ -70,75 +413,114 @@
     .search-clear:hover{color:var(--text);}
     .search-clear.show{display:block;}
 
-    /* 필터 개선 */
-.filters {
-  display: flex;
-  gap: .5rem;
-  overflow-x: auto;
-  margin-bottom: 0.5rem;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--gray-100);
-  position: relative;
-  scroll-behavior: smooth;
-  overflow-x: scroll !important;
-}
+    /* PC용 지역 필터 (상단) */
+    .region-filters {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--gray-100);
+      position: relative;
+      scroll-behavior: smooth;
+    }
 
-/* 커스텀 스크롤바 - PC에서 보임 */
-.filters::-webkit-scrollbar {
-  height: 4px;
-}
+    .region-filters::-webkit-scrollbar {
+      height: 4px;
+    }
 
-.filters::-webkit-scrollbar-track {
-  background: var(--gray-100);
-  border-radius: 2px;
-}
+    .region-filters::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 2px;
+    }
 
-.filters::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 2px;
-  opacity: 0.6;
-}
+    .region-filters::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 2px;
+      opacity: 0.6;
+    }
 
-.filters::-webkit-scrollbar-thumb:hover {
-  opacity: 1;
-}
+    .region-filters::-webkit-scrollbar-thumb:hover {
+      opacity: 1;
+    }
 
-/* 좌우 그라데이션 */
-.filters::before,
-.filters::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 6px;
-  width: 20px;
-  pointer-events: none;
-  z-index: 10;
-}
+    /* 모바일에서 지역 필터 숨기기 */
+    @media (max-width: 768px) {
+      .region-filters {
+        display: none;
+      }
+    }
 
-.filters::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
+    /* 필터 개선 (카테고리용) */
+    .filters {
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      margin-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--gray-100);
+      position: relative;
+      scroll-behavior: smooth;
+      overflow-x: scroll !important;
+    }
 
-.filters::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
-}
+    /* 커스텀 스크롤바 - PC에서 보임 */
+    .filters::-webkit-scrollbar {
+      height: 4px;
+    }
 
-/* 모바일에서만 스크롤바 숨기기 - 768px 이하에서만 적용 */
-@media (max-width: 768px) {
-  .filters {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .filters::-webkit-scrollbar {
-    display: none;
-  }
-}
-    
+    .filters::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 2px;
+    }
+
+    .filters::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+
+    .filters::-webkit-scrollbar-thumb:hover {
+      opacity: 1;
+    }
+
+    /* 좌우 그라데이션 */
+    .filters::before,
+    .filters::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 6px;
+      width: 20px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .filters::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+
+    .filters::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+
+    /* 모바일에서만 스크롤바 숨기기 - 768px 이하에서만 적용 */
+    @media (max-width: 768px) {
+      .filters {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      
+      .filters::-webkit-scrollbar {
+        display: none;
+      }
+    }
     
     .pill{padding:.5rem .75rem;border-radius:9999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.75rem;display:flex;align-items:center;gap:4px;transition:all .3s;white-space:nowrap;position:relative;overflow:hidden;flex-shrink: 0;min-width: fit-content;}
     .pill::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:var(--primary);border-radius:50%;transform:translate(-50%,-50%);transition:all .4s;}
@@ -225,7 +607,6 @@
      transform: translateZ(0);
      -webkit-perspective: 1000;
      perspective: 1000;
-
     }
     
     /* 앞면 */
@@ -244,37 +625,38 @@
       padding: 1rem;
       z-index: 1;
     }
+    
     /* 플립된 상태에서 앞면 요소들 숨기기 (중요!) */
-.card.flipped .card-front {
-  visibility: hidden;
-  pointer-events: none;
-}
+    .card.flipped .card-front {
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-.card.flipped .card-back {
-  visibility: visible;
-  pointer-events: auto;
-}
+    .card.flipped .card-back {
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-/* 모바일 전용 최적화 */
-@media (max-width: 768px) {
-  .card {
-    /* 하드웨어 가속 활성화 */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-  
-  /* 플립 시 앞면 완전 숨김 */
-  .card.flipped .recommendation-wrapper,
-  .card.flipped .btn-show-detail,
-  .card.flipped .save {
-    display: none !important;
-  }
-}
+    /* 모바일 전용 최적화 */
+    @media (max-width: 768px) {
+      .card {
+        /* 하드웨어 가속 활성화 */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      /* 플립 시 앞면 완전 숨김 */
+      .card.flipped .recommendation-wrapper,
+      .card.flipped .btn-show-detail,
+      .card.flipped .save {
+        display: none !important;
+      }
+    }
 
-/* 추가 안전장치 - 특정 요소들 강제 숨김 */
-.card.flipped .speech-bubble {
-  display: none !important;
-}
+    /* 추가 안전장치 - 특정 요소들 강제 숨김 */
+    .card.flipped .speech-bubble {
+      display: none !important;
+    }
 
     /* ===== 앞면 스타일 (간결하게) ===== */
     
@@ -333,6 +715,26 @@
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+    
+    /* 지역 태그 */
+    .area-tags {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+
+    .area-tag {
+      font-size: 0.65rem;
+      background: var(--gray-100);
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .dark-mode .area-tag {
+      background: var(--gray-700);
     }
     
     /* 상세보기 버튼 */
@@ -515,27 +917,26 @@
     }
     
     /* 저장 버튼 */
-    /* 수정된 코드 */
-.save {
-  position: absolute !important;  /* 공백 추가 */
-  top: 12px !important;          /* 공백 추가 */
-  right: 12px !important;        /* 공백 추가 */
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,.2);
-  transition: all .2s;
-  z-index: 30;
-  font-size: 1.2rem;
-  backface-visibility: visible !important;
-  -webkit-backface-visibility: visible !important;
-}
+    .save {
+      position: absolute !important;
+      top: 12px !important;
+      right: 12px !important;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+      transition: all .2s;
+      z-index: 30;
+      font-size: 1.2rem;
+      backface-visibility: visible !important;
+      -webkit-backface-visibility: visible !important;
+    }
     
     .save:hover {
       transform: scale(1.1);
@@ -556,133 +957,132 @@
       color: #fff;
     }
 
-    /* 추천 말풍선 (더 컴팩트) */
-    /* 추천 말풍선 - 기존 코드 교체 */
-.recommendation-wrapper {
-  position: relative;
-  z-index: 40;
-  margin-top: 0.25rem;
-}
+    /* 추천 말풍선 */
+    .recommendation-wrapper {
+      position: relative;
+      z-index: 40;
+      margin-top: 0.25rem;
+    }
 
-.recommendation-btn {
-  font-size: 0.7rem;
-  padding: 3px 6px;
-  margin-top: 4px;
-}
+    .recommendation-btn {
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      margin-top: 4px;
+    }
 
-.speech-bubble {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  color: var(--text);
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
-  max-width: 280px;
-  min-width: 200px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 1001;
-}
+    .speech-bubble {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--text);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      max-width: 280px;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
 
-.speech-bubble.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(-12px);
-}
+    .speech-bubble.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-12px);
+    }
 
-/* 말풍선 화살표 */
-.speech-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px 8px 0 8px;
-  border-style: solid;
-  border-color: #f9fafb transparent transparent transparent;
-}
+    /* 말풍선 화살표 */
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 8px 0 8px;
+      border-style: solid;
+      border-color: #f9fafb transparent transparent transparent;
+    }
 
-/* 다크모드 */
-.dark-mode .speech-bubble {
-  background: var(--gray-700);
-  border-color: var(--border);
-}
+    /* 다크모드 */
+    .dark-mode .speech-bubble {
+      background: var(--gray-700);
+      border-color: var(--border);
+    }
 
-.dark-mode .speech-bubble::after {
-  border-color: var(--gray-700) transparent transparent transparent;
-}
+    .dark-mode .speech-bubble::after {
+      border-color: var(--gray-700) transparent transparent transparent;
+    }
 
-/* 모바일 전용 스타일 */
-@media (max-width: 768px) {
-  .speech-bubble.show {
-    position: fixed;
-    bottom: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85vw;
-    max-width: 320px;
-    z-index: 1001;
-    padding: 1rem;
-    font-size: 0.85rem;
-  }
-  
-  /* 모바일에서는 화살표 숨기기 */
-  .speech-bubble.show::after {
-    display: none;
-  }
-  
-  /* 닫기 버튼 추가 */
-  .speech-bubble.show::before {
-    content: '✕';
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.1);
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--muted);
-  }
-}
+    /* 모바일 전용 스타일 */
+    @media (max-width: 768px) {
+      .speech-bubble.show {
+        position: fixed;
+        bottom: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85vw;
+        max-width: 320px;
+        z-index: 1001;
+        padding: 1rem;
+        font-size: 0.85rem;
+      }
+      
+      /* 모바일에서는 화살표 숨기기 */
+      .speech-bubble.show::after {
+        display: none;
+      }
+      
+      /* 닫기 버튼 추가 */
+      .speech-bubble.show::before {
+        content: '✕';
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.1);
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--muted);
+      }
+    }
 
-/* 배경 오버레이 */
-.speech-bubble-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 1000;
-  animation: fadeIn 0.3s;
-  display: none;
-}
+    /* 배경 오버레이 */
+    .speech-bubble-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1000;
+      animation: fadeIn 0.3s;
+      display: none;
+    }
 
-.speech-bubble-overlay.show {
-  display: block;
-}
+    .speech-bubble-overlay.show {
+      display: block;
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-/* 버튼 활성 상태 */
-.recommendation-btn:active {
-  transform: scale(0.95);
-}
+    /* 버튼 활성 상태 */
+    .recommendation-btn:active {
+      transform: scale(0.95);
+    }
 
     /* 버튼과 링크는 오버레이 위에 - z-index 수정 */
     .card .save,
@@ -812,6 +1212,83 @@
       font-weight: 600;
     }
 
+    /* 오버레이 */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 250;
+    }
+    
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 정렬 셀렉트 박스 스타일 */
+    .sort-select {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      width: auto;
+      min-width: 150px;
+    }
+
+    .sort-select:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* 다크모드 지원 */
+    .dark-mode .sort-select {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    /* 로고 이미지 스타일 */
+    .logo-img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Wallet 텍스트 스타일 */
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-left: 0.25rem;
+    }
+
+    /* 다크모드에서 로고 배경 (필요한 경우) */
+    .dark-mode .logo-img {
+      filter: brightness(0) invert(1);
+    }
+
+    /* 모바일 반응형 */
+    @media (max-width: 480px) {
+      .logo-img {
+        height: 24px;
+      }
+      
+      .logo-text {
+        font-size: 1rem;
+      }
+      
+      .pill {
+        font-size: .7rem;
+        padding: .4rem .6rem;
+      }
+    }
+
     /* 모바일 최적화 */
     @media (max-width: 800px){
       .coupon-grid{grid-template-columns:1fr;}
@@ -822,85 +1299,16 @@
       .hero-section p{font-size:.85rem;}
       .hero-section .cta-button{font-size:0.85rem;padding:0.5rem 1rem;}
     }
-    @media (max-width: 480px) {
-      .pill {
-        font-size: .7rem;
-        padding: .4rem .6rem;
-      }
+
+    /* 필터 열기 버튼 영역 */
+    .filter-controls {
+      padding: 0.5rem 0;
     }
-    /* 로고 이미지 스타일 */
-.logo-img {
-  height: 28px; /* 로고 높이 조절 */
-  width: auto;
-  object-fit: contain;
-}
-
-/* Wallet 텍스트 스타일 */
-.logo-text {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-left: 0.25rem;
-}
-
-/* 다크모드에서 로고 배경 (필요한 경우) */
-.dark-mode .logo-img {
-  filter: brightness(0) invert(1); /* 로고가 어두운 색이면 반전 */
-  /* 또는 배경 추가 */
-  /* background: white;
-  padding: 2px 4px;
-  border-radius: 4px; */
-}
-
-/* 모바일 반응형 */
-@media (max-width: 480px) {
-  .logo-img {
-    height: 24px;
-  }
-  
-  .logo-text {
-    font-size: 1rem;
-  }
-}
-/* 필터 열기 버튼 영역 */
-.filter-controls {
-  padding: 0.25rem 0;
-}
-/* filter-controls 수정 */
-.filter-controls {
-  padding: 0.5rem 0;
-}
-
-/* 정렬 셀렉트 박스 스타일 */
-.sort-select {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  background: var(--card);
-  color: var(--text);
-  font-size: 0.85rem;
-  cursor: pointer;
-  width: auto;
-  min-width: 150px;
-}
-
-.sort-select:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-/* 다크모드 지원 */
-.dark-mode .sort-select {
-  background: var(--card);
-  color: var(--text);
-}
-
-
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- 헤더 (기존 유지) -->
     <header class="header" aria-label="ヘッダー">
         <a href="https://www.japankuru.com/" class="logo" aria-label="Japankuru Wallet">
             <img src="https://japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru" class="logo-img">
@@ -930,18 +1338,54 @@
       </div>
     </header>
     
-    <!-- 검색+필터 고정 바 -->
+    <!-- 모바일 필터 상태바 (클릭 가능하도록 개선) -->
+    <div class="filter-status-bar">
+      <div class="filter-current" id="filterCurrentArea">
+        <span class="filter-chip active" id="mobileRegionChip">📍 All</span>
+        <span>•</span>
+        <span class="filter-chip" id="mobileCategoryChip">🏷️ All</span>
+      </div>
+      <button class="filter-edit-btn" id="filterEditBtn" title="필터 설정">⚙️</button>
+    </div>
+    
+    <!-- PC 검색+필터 고정 바 (구조 개선) -->
     <div class="search-filter-bar">
       <!-- 개선된 검색 -->
-      <div class="search" aria-label="検索とフィルター">
+      <div class="search" aria-label="검색과 필터">
         <div class="search-wrapper">
           <span class="search-icon">🔍</span>
           <input type="search" id="searchInput" placeholder="Search by store name or area..." aria-label="Search coupons" autocomplete="off" />
-          <button class="search-clear" id="searchClear" aria-label="検索をクリア">✕</button>
+          <button class="search-clear" id="searchClear" aria-label="검색 지우기">✕</button>
         </div>
       </div>
 
-     <div class="filter-controls">
+      <div class="filter-controls">
+        <!-- 지역 필터 (PC 상단) -->
+        <div class="region-filters" id="regionContainer">
+          <button class="pill" data-filter="all" data-type="region" aria-selected="true">
+            <span>📍 All Regions</span>
+          </button>
+          <button class="pill" data-filter="tokyo" data-type="region">
+            <span>🗼 Tokyo</span>
+          </button>
+          <button class="pill" data-filter="osaka" data-type="region">
+            <span>🏯 Osaka</span>
+          </button>
+          <button class="pill" data-filter="fukuoka" data-type="region">
+            <span>🌊 Fukuoka</span>
+          </button>
+          <button class="pill" data-filter="sapporo" data-type="region">
+            <span>❄️ Sapporo</span>
+          </button>
+          <button class="pill" data-filter="okinawa" data-type="region">
+            <span>🏝️ Okinawa</span>
+          </button>
+          <button class="pill" data-filter="others" data-type="region">
+            <span>📌 Others</span>
+          </button>
+        </div>
+        
+        <!-- 카테고리 필터 (PC 하단) -->
         <div class="filters" id="filterContainer">
             <button class="pill" data-filter="all" aria-selected="true">
               <span>All</span>
@@ -974,9 +1418,9 @@
             <option value="by_area">🗺️ By Area</option>
           </select>
         </div>
+    </div>
 
-
-    <!-- Settings 뷰 -->
+    <!-- Settings 뷰 (기존 유지) -->
     <div class="settings-view" id="settingsView">
       <div class="settings-section">
         <h3>言語設定</h3>
@@ -1016,7 +1460,7 @@
         <h3>サービス インフォメーション</h3>
         <div class="settings-item">
           <span class="settings-label">バージョン</span>
-          <span class="settings-value">1.0.0</span>
+          <span class="settings-value">2.0.0</span>
         </div>
         <div class="settings-item">
           <span class="settings-label">お問い合わせ</span>
@@ -1025,7 +1469,7 @@
       </div>
     </div>
 
-    <!-- 히어로 섹션 (개선된 카피) -->
+    <!-- 히어로 섹션 (기존 유지) -->
     <section class="hero-section">
       <h1>Make Your Japan Trip More Affordable</h1>
       <p>Get instant discounts at popular stores like Bic Camera and BEAMS. No sign-up required.</p>
@@ -1073,6 +1517,87 @@
           <div class="skeleton skeleton-line desc"></div>
           <div class="skeleton skeleton-line short"></div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 모바일 스마트 추천 (개선된 버전) -->
+  <div class="float-suggest" id="floatSuggest">
+    <span class="suggest-icon">💡</span>
+    <span class="suggest-text" id="suggestText">검색해보세요</span>
+    <span class="suggest-count" id="suggestCount">6</span>
+  </div>
+
+  <!-- 필터 패널 (모바일 바텀시트) -->
+  <div class="overlay" id="filterOverlay"></div>
+  <div class="filter-panel" id="filterPanel">
+    <div class="panel-handle"></div>
+    <div class="panel-header">
+      <h3 id="filterPanelTitle">Filter Options</h3>
+      <button class="panel-close" id="filterPanelClose">×</button>
+    </div>
+    
+    <div class="panel-section">
+      <h4 data-i18n="region">Region</h4>
+      <div class="filter-options" id="regionOptions">
+        <button class="filter-option selected" data-region="all">All<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="tokyo">🗼 Tokyo<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="osaka">🏯 Osaka<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="fukuoka">🌊 Fukuoka<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="sapporo">❄️ Sapporo<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="okinawa">🏝️ Okinawa<span class="filter-count">0</span></button>
+        <button class="filter-option" data-region="others">📌 Others<span class="filter-count">0</span></button>
+      </div>
+    </div>
+    
+    <div class="panel-section">
+      <h4 data-i18n="category">Category</h4>
+      <div class="filter-options" id="categoryOptions">
+        <button class="filter-option selected" data-category="all">All</button>
+        <button class="filter-option" data-category="electronics">🔌 Electronics</button>
+        <button class="filter-option" data-category="fashion">👕 Fashion</button>
+        <button class="filter-option" data-category="dining">🍽️ Dining</button>
+        <button class="filter-option" data-category="transport">🚇 Transport</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 상세정보 시트 -->
+  <div class="overlay" id="detailOverlay"></div>
+  <div class="detail-sheet" id="detailSheet">
+    <div class="panel-handle"></div>
+    <div class="detail-content">
+      <div class="detail-header">
+        <div>
+          <h2 id="detailTitle">Store Name</h2>
+          <div id="detailOffer" style="color:var(--danger);font-size:24px;font-weight:700;">Offer</div>
+        </div>
+        <button class="panel-close" id="detailClose">×</button>
+      </div>
+      
+      <div class="barcode-section">
+        <img id="detailBarcode" class="barcode-img" src="" alt="Barcode">
+        <div class="coupon-code" id="detailCode">CODE</div>
+      </div>
+      
+      <div class="detail-actions">
+        <button class="action-btn primary" id="detailCopy">
+          <span>📋</span>
+          <span data-i18n="copyCode">Copy Code</span>
+        </button>
+        <button class="action-btn secondary" id="detailShare">
+          <span>📤</span>
+          <span data-i18n="share">Share</span>
+        </button>
+      </div>
+      
+      <div id="detailTerms">
+        <h4 style="margin-bottom:12px;" data-i18n="termsLabel">Terms & Conditions</h4>
+        <ul style="color:var(--muted);font-size:14px;line-height:1.6;" id="detailTermsList">
+        </ul>
+      </div>
+      
+      <div id="detailLinks" style="margin-top:20px;">
       </div>
     </div>
   </div>
@@ -1230,9 +1755,24 @@
           clearCache: document.getElementById('clearCache'),
           clearSaved: document.getElementById('clearSaved'),
           filterContainer: document.getElementById('filterContainer'),
-            sortSelect: document.getElementById('sortSelect'),
-            savedCount: document.getElementById('savedCount')
-         };
+          regionContainer: document.getElementById('regionContainer'),
+          sortSelect: document.getElementById('sortSelect'),
+          // 새로 추가된 요소들
+          filterStatusBar: document.querySelector('.filter-status-bar'),
+          filterCurrentArea: document.getElementById('filterCurrentArea'),
+          filterEditBtn: document.getElementById('filterEditBtn'),
+          filterPanel: document.getElementById('filterPanel'),
+          filterOverlay: document.getElementById('filterOverlay'),
+          filterPanelClose: document.getElementById('filterPanelClose'),
+          detailSheet: document.getElementById('detailSheet'),
+          detailOverlay: document.getElementById('detailOverlay'),
+          detailClose: document.getElementById('detailClose'),
+          floatSuggest: document.getElementById('floatSuggest'),
+          suggestText: document.getElementById('suggestText'),
+          suggestCount: document.getElementById('suggestCount'),
+          mobileRegionChip: document.getElementById('mobileRegionChip'),
+          mobileCategoryChip: document.getElementById('mobileCategoryChip')
+        };
       },
       
       get(key) {
@@ -1363,7 +1903,17 @@
         latest: '最新',
         highDiscount: '折扣最高',
         byArea: '按地区',
-        sortFilter: '排序·筛选'
+        sortFilter: '排序·筛选',
+        region: '地区',
+        filterOptions: '筛选选项',
+        popularRecommend: '热门：{filter}',
+        // 지역 이름
+        tokyo: '东京',
+        osaka: '大阪',
+        fukuoka: '福冈',
+        sapporo: '札幌',
+        okinawa: '冲绳',
+        others: '其他'
       },
       
       'zh-TW': {
@@ -1455,7 +2005,17 @@
         latest: '最新',
         highDiscount: '折扣最高',
         byArea: '按地區',
-        sortFilter: '排序·篩選'
+        sortFilter: '排序·篩選',
+        region: '地區',
+        filterOptions: '篩選選項',
+        popularRecommend: '熱門：{filter}',
+        // 지역 이름
+        tokyo: '東京',
+        osaka: '大阪',
+        fukuoka: '福岡',
+        sapporo: '札幌',
+        okinawa: '沖繩',
+        others: '其他'
       },
       
       ko: {
@@ -1547,7 +2107,17 @@
         latest: '최신 순',
         highDiscount: '할인율 순',
         byArea: '지역별',
-        sortFilter: '정렬·필터'
+        sortFilter: '정렬·필터',
+        region: '지역',
+        filterOptions: '필터 옵션',
+        popularRecommend: '인기: {filter}',
+        // 지역 이름
+        tokyo: '도쿄',
+        osaka: '오사카',
+        fukuoka: '후쿠오카',
+        sapporo: '삿포로',
+        okinawa: '오키나와',
+        others: '기타'
       },
       
       en: {
@@ -1639,7 +2209,17 @@
         latest: 'Latest',
         highDiscount: 'Highest Discount',
         byArea: 'By Area',
-        sortFilter: 'Sort·Filter'
+        sortFilter: 'Sort·Filter',
+        region: 'Region',
+        filterOptions: 'Filter Options',
+        popularRecommend: 'Popular: {filter}',
+        // Region names
+        tokyo: 'Tokyo',
+        osaka: 'Osaka',
+        fukuoka: 'Fukuoka',
+        sapporo: 'Sapporo',
+        okinawa: 'Okinawa',
+        others: 'Others'
       },
 
       th: {
@@ -1731,7 +2311,17 @@
         latest: 'ล่าสุด',
         highDiscount: 'ส่วนลดสูงสุด',
         byArea: 'ตามพื้นที่',
-        sortFilter: 'เรียง·กรอง'
+        sortFilter: 'เรียง·กรอง',
+        region: 'พื้นที่',
+        filterOptions: 'ตัวเลือกการกรอง',
+        popularRecommend: 'ยอดนิยม: {filter}',
+        // ชื่อพื้นที่
+        tokyo: 'โตเกียว',
+        osaka: 'โอซาก้า',
+        fukuoka: 'ฟุกุโอกะ',
+        sapporo: 'ซัปโปโร',
+        okinawa: 'โอกินาว่า',
+        others: 'อื่นๆ'
       }
     };
     
@@ -1920,6 +2510,7 @@
         // 쿠폰 리스트 재렌더링
         if (window.app) {
           window.app.render();
+          window.app.updateFilterTexts(); // 필터 텍스트 업데이트
         }
         
         Toast.show(T[lang].languageChanged || '언어가 변경되었습니다');
@@ -1988,6 +2579,20 @@
         if (heroTitle) heroTitle.textContent = T[this.currentLang].heroTitle;
         if (heroDesc) heroDesc.textContent = T[this.currentLang].heroDesc;
         if (ctaBtn) ctaBtn.textContent = T[this.currentLang].ctaButton;
+        
+        // 필터 패널 텍스트 업데이트
+        const filterPanelTitle = document.getElementById('filterPanelTitle');
+        if (filterPanelTitle) {
+          filterPanelTitle.textContent = T[this.currentLang].filterOptions || 'Filter Options';
+        }
+        
+        // 모든 data-i18n 요소 업데이트
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (T[this.currentLang][key]) {
+            el.textContent = T[this.currentLang][key];
+          }
+        });
       }
     };
 
@@ -2113,6 +2718,7 @@
         return [
           { 
             id: 1, 
+            region: ['tokyo'], // 지역 필드 추가
             store_zh: '小岛 x Bic Camera',
             store_zh_TW: '小島 x Bic Camera',
             store_ko: '코지마 x 빅카메라',
@@ -2144,8 +2750,9 @@
           },
           { 
             id: 2, 
-            store_zh: '小岛 x Bic Camera',
-            store_zh_TW: '小島 x Bic Camera',
+            region: ['tokyo', 'osaka'], // 복수 지역
+            store_zh: 'JINS',
+            store_zh_TW: 'JINS',
             store_ko: '진스',
             store_en: 'JINS',
             store_th: 'จินส์',
@@ -2175,8 +2782,9 @@
           },
           { 
             id: 3, 
-            store_zh: '小岛 x Bic Camera',
-            store_zh_TW: '小島 x Bic Camera',
+            region: ['tokyo'],
+            store_zh: 'BEAMS JAPAN',
+            store_zh_TW: 'BEAMS JAPAN',
             store_ko: 'BEAMS JAPAN',
             store_en: 'BEAMS JAPAN',
             store_th: 'บีมส์ ญี่ปุ่น',
@@ -2206,8 +2814,9 @@
           },
           { 
             id: 4, 
-            store_zh: '小岛 x Bic Camera',
-            store_zh_TW: '小島 x Bic Camera',
+            region: ['tokyo'],
+            store_zh: '武士餐厅',
+            store_zh_TW: '武士餐廳',
             store_ko: '사무라이 레스토랑',
             store_en: 'Samurai Restaurant',
             store_th: 'ร้านอาหารซามูไร',
@@ -2241,8 +2850,9 @@
           },
           { 
             id: 5, 
-            store_zh: '小岛 x Bic Camera',
-            store_zh_TW: '小島 x Bic Camera',
+            region: ['tokyo'],
+            store_zh: '东急线',
+            store_zh_TW: '東急線',
             store_ko: '도큐선',
             store_en: 'Tokyu Line',
             store_th: 'โตเก็ยว ไลน์',
@@ -2271,8 +2881,9 @@
           },
           { 
             id: 6, 
-            store_zh: '优衣库',
-            store_zh_TW: '優衣庫',
+            region: ['osaka', 'fukuoka'],
+            store_zh: '友都八喜',
+            store_zh_TW: '友都八喜',
             store_ko: '요도바시카메라',
             store_en: 'Yodobashi Camera',
             store_th: 'โยโดบาชิคาเมร่า',
@@ -2721,7 +3332,499 @@
     };
 
     // ===========================================
-    // 카드 생성 및 관련 함수들 (간결하게 정리)
+    // 모바일 UI 관리자 (스마트 개선)
+    // ===========================================
+    const MobileUIManager = {
+      isMobile: window.innerWidth <= 768,
+      
+      init() {
+        this.setupFilterPanel();
+        this.setupDetailSheet();
+        this.setupFloatingSuggestion();
+        this.handleResize();
+        
+        window.addEventListener('resize', Utils.debounce(() => {
+          this.handleResize();
+        }, 250));
+      },
+      
+      handleResize() {
+        const wasMobile = this.isMobile;
+        this.isMobile = window.innerWidth <= 768;
+        
+        if (wasMobile !== this.isMobile) {
+          this.updateUI();
+        }
+      },
+      
+      updateUI() {
+        const floatSuggest = DOMCache.get('floatSuggest');
+        if (floatSuggest) {
+          if (this.isMobile) {
+            this.updateSmartSuggestion();
+          } else {
+            floatSuggest.classList.remove('show');
+          }
+        }
+      },
+      
+      setupFilterPanel() {
+        const filterEditBtn = DOMCache.get('filterEditBtn');
+        const filterCurrentArea = DOMCache.get('filterCurrentArea');
+        const filterPanelClose = DOMCache.get('filterPanelClose');
+        const filterOverlay = DOMCache.get('filterOverlay');
+        
+        // 필터 편집 버튼
+        if (filterEditBtn) {
+          filterEditBtn.addEventListener('click', () => this.showFilterPanel());
+        }
+        
+        // 상태바 클릭으로도 필터 패널 열기
+        if (filterCurrentArea) {
+          filterCurrentArea.addEventListener('click', () => this.showFilterPanel());
+        }
+        
+        if (filterPanelClose) {
+          filterPanelClose.addEventListener('click', () => this.hideFilterPanel());
+        }
+        
+        if (filterOverlay) {
+          filterOverlay.addEventListener('click', () => this.hideFilterPanel());
+        }
+        
+        // 필터 옵션 클릭 이벤트
+        document.getElementById('regionOptions')?.addEventListener('click', (e) => {
+          const option = e.target.closest('.filter-option');
+          if (option) {
+            this.selectFilterOption(option, 'region');
+          }
+        });
+        
+        document.getElementById('categoryOptions')?.addEventListener('click', (e) => {
+          const option = e.target.closest('.filter-option');
+          if (option) {
+            this.selectFilterOption(option, 'category');
+          }
+        });
+        
+        // 스와이프 제스처
+        this.setupSwipeGesture(DOMCache.get('filterPanel'));
+      },
+      
+      setupDetailSheet() {
+        const detailClose = DOMCache.get('detailClose');
+        const detailOverlay = DOMCache.get('detailOverlay');
+        const detailCopy = document.getElementById('detailCopy');
+        const detailShare = document.getElementById('detailShare');
+        
+        if (detailClose) {
+          detailClose.addEventListener('click', () => this.hideDetailSheet());
+        }
+        
+        if (detailOverlay) {
+          detailOverlay.addEventListener('click', () => this.hideDetailSheet());
+        }
+        
+        if (detailCopy) {
+          detailCopy.addEventListener('click', () => this.copyCode());
+        }
+        
+        if (detailShare) {
+          detailShare.addEventListener('click', () => this.shareCode());
+        }
+        
+        // 스와이프 제스처
+        this.setupSwipeGesture(DOMCache.get('detailSheet'));
+      },
+      
+      setupFloatingSuggestion() {
+        const floatSuggest = DOMCache.get('floatSuggest');
+        if (floatSuggest) {
+          floatSuggest.addEventListener('click', () => {
+            this.applySmartRecommendation();
+          });
+        }
+      },
+      
+      setupSwipeGesture(element) {
+        if (!element) return;
+        
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        element.addEventListener('touchstart', (e) => {
+          touchStartY = e.changedTouches[0].screenY;
+        });
+        
+        element.addEventListener('touchend', (e) => {
+          touchEndY = e.changedTouches[0].screenY;
+          if (touchEndY - touchStartY > 50) {
+            // 아래로 스와이프
+            if (element.id === 'filterPanel') {
+              this.hideFilterPanel();
+            } else if (element.id === 'detailSheet') {
+              this.hideDetailSheet();
+            }
+          }
+        });
+      },
+      
+      showFilterPanel() {
+        const filterPanel = DOMCache.get('filterPanel');
+        const filterOverlay = DOMCache.get('filterOverlay');
+        const floatSuggest = DOMCache.get('floatSuggest');
+        
+        if (filterPanel) filterPanel.classList.add('show');
+        if (filterOverlay) filterOverlay.classList.add('show');
+        if (floatSuggest) floatSuggest.classList.remove('show');
+        
+        FocusManager.saveFocus();
+      },
+      
+      hideFilterPanel() {
+        const filterPanel = DOMCache.get('filterPanel');
+        const filterOverlay = DOMCache.get('filterOverlay');
+        
+        if (filterPanel) filterPanel.classList.remove('show');
+        if (filterOverlay) filterOverlay.classList.remove('show');
+        
+        // 스마트 제안 다시 표시
+        if (this.isMobile) {
+          setTimeout(() => this.updateSmartSuggestion(), 300);
+        }
+        
+        FocusManager.restoreFocus();
+      },
+      
+      showDetailSheet(couponId) {
+        const detailSheet = DOMCache.get('detailSheet');
+        const detailOverlay = DOMCache.get('detailOverlay');
+        const floatSuggest = DOMCache.get('floatSuggest');
+        
+        if (!detailSheet || !window.app) return;
+        
+        const coupon = window.app.state.coupons.find(c => c.id === couponId);
+        if (!coupon) return;
+        
+        // 상세정보 업데이트
+        this.updateDetailContent(coupon);
+        
+        // 표시
+        detailSheet.classList.add('show');
+        if (detailOverlay) detailOverlay.classList.add('show');
+        if (floatSuggest) floatSuggest.classList.remove('show');
+        
+        FocusManager.saveFocus();
+      },
+      
+      hideDetailSheet() {
+        const detailSheet = DOMCache.get('detailSheet');
+        const detailOverlay = DOMCache.get('detailOverlay');
+        
+        if (detailSheet) detailSheet.classList.remove('show');
+        if (detailOverlay) detailOverlay.classList.remove('show');
+        
+        // 스마트 제안 다시 표시
+        if (this.isMobile) {
+          setTimeout(() => this.updateSmartSuggestion(), 300);
+        }
+        
+        FocusManager.restoreFocus();
+      },
+      
+      updateDetailContent(coupon) {
+        const store = getCouponField(coupon, 'store');
+        const offer = getCouponField(coupon, 'offer');
+        
+        // 제목과 할인율
+        const titleEl = document.getElementById('detailTitle');
+        const offerEl = document.getElementById('detailOffer');
+        if (titleEl) titleEl.textContent = store;
+        if (offerEl) offerEl.textContent = offer;
+        
+        // 바코드
+        const barcodeEl = document.getElementById('detailBarcode');
+        const codeEl = document.getElementById('detailCode');
+        if (barcodeEl) {
+          barcodeEl.src = `https://barcode.tec-it.com/barcode.ashx?data=${encodeURIComponent(coupon.code)}&code=Code128&dpi=96`;
+          barcodeEl.alt = `Barcode for ${coupon.code}`;
+        }
+        if (codeEl) codeEl.textContent = coupon.code;
+        
+        // 이용조건
+        const termsList = document.getElementById('detailTermsList');
+        if (termsList) {
+          termsList.innerHTML = '';
+          const localizedTerms = T[LanguageManager.currentLang]?.terms || coupon.terms;
+          localizedTerms.forEach(term => {
+            const li = document.createElement('li');
+            li.textContent = `• ${term}`;
+            termsList.appendChild(li);
+          });
+        }
+        
+        // 링크들
+        const linksEl = document.getElementById('detailLinks');
+        if (linksEl) {
+          linksEl.innerHTML = '';
+          
+          if (coupon.lat && coupon.lng) {
+            const mapLink = document.createElement('a');
+            mapLink.href = `https://www.google.com/maps/search/?api=1&query=${coupon.lat},${coupon.lng}`;
+            mapLink.target = '_blank';
+            mapLink.rel = 'noopener';
+            mapLink.className = 'action-btn secondary';
+            mapLink.style.marginBottom = '8px';
+            mapLink.innerHTML = `<span>📍</span><span>${t('openInGoogleMaps')}</span>`;
+            linksEl.appendChild(mapLink);
+          }
+          
+          if (coupon.official_url) {
+            const siteLink = document.createElement('a');
+            siteLink.href = coupon.official_url;
+            siteLink.target = '_blank';
+            siteLink.rel = 'noopener';
+            siteLink.className = 'action-btn secondary';
+            siteLink.style.marginBottom = '8px';
+            siteLink.innerHTML = `<span>🌐</span><span>${t('officialWebsite')}</span>`;
+            linksEl.appendChild(siteLink);
+          }
+        }
+        
+        // 현재 쿠폰 데이터 저장
+        const detailSheet = DOMCache.get('detailSheet');
+        detailSheet.dataset.couponId = coupon.id;
+        detailSheet.dataset.couponCode = coupon.code;
+        detailSheet.dataset.couponName = store;
+      },
+      
+      selectFilterOption(option, type) {
+        // 같은 타입의 다른 옵션들 선택 해제
+        option.parentElement.querySelectorAll('.filter-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        option.classList.add('selected');
+        
+        // 상태 업데이트
+        if (type === 'region') {
+          const region = option.dataset.region || 'all';
+          window.app.state.currentRegion = region;
+          
+          // 모바일 상태바 업데이트
+          const chip = DOMCache.get('mobileRegionChip');
+          if (chip) {
+            chip.textContent = `📍 ${option.textContent.replace(/\d+$/, '').trim()}`;
+          }
+        } else if (type === 'category') {
+          const category = option.dataset.category || 'all';
+          window.app.state.currentFilter = category;
+          
+          // 모바일 상태바 업데이트
+          const chip = DOMCache.get('mobileCategoryChip');
+          if (chip) {
+            chip.textContent = `🏷️ ${option.textContent.trim()}`;
+          }
+        }
+        
+        // 필터 적용
+        if (window.app) {
+          window.app.applyFilters();
+        }
+        
+        // 패널 닫기
+        setTimeout(() => this.hideFilterPanel(), 300);
+      },
+      
+      async copyCode() {
+        const detailSheet = DOMCache.get('detailSheet');
+        const code = detailSheet?.dataset.couponCode;
+        
+        if (!code) return;
+        
+        try {
+          await navigator.clipboard.writeText(code);
+          
+          // 버튼 애니메이션
+          const btn = document.getElementById('detailCopy');
+          if (btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span>✅</span><span>' + t('copied') + '</span>';
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+            }, 1500);
+          }
+          
+          Toast.show(t('codeCopied'));
+        } catch (err) {
+          Toast.show(t('copyFailed'), 3000);
+        }
+      },
+      
+      async shareCode() {
+        const detailSheet = DOMCache.get('detailSheet');
+        const code = detailSheet?.dataset.couponCode;
+        const name = detailSheet?.dataset.couponName;
+        
+        if (!code || !name) return;
+        
+        const shareData = {
+          title: name,
+          text: `${name} - ${t('coupon')}: ${code}`,
+          url: window.location.href
+        };
+        
+        try {
+          if (navigator.share && this.isMobile) {
+            await navigator.share(shareData);
+          } else {
+            // PC에서는 링크 복사
+            const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+            await navigator.clipboard.writeText(shareText);
+            Toast.show(t('copySuccess'));
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error('Share error:', err);
+          }
+        }
+      },
+      
+      // 스마트 제안 시스템 (개선)
+      updateSmartSuggestion() {
+        if (!this.isMobile || !window.app) return;
+        
+        const floatSuggest = DOMCache.get('floatSuggest');
+        const suggestText = DOMCache.get('suggestText');
+        const suggestCount = DOMCache.get('suggestCount');
+        
+        if (!floatSuggest || !suggestText || !suggestCount) return;
+        
+        const { currentFilter, currentRegion, saved, filtered } = window.app.state;
+        
+        // 상황별 스마트 제안 로직
+        let suggestion = null;
+        
+        // 1. 저장된 쿠폰이 있는 경우
+        if (saved.length > 0 && currentFilter !== 'saved') {
+          suggestion = {
+            icon: '⭐',
+            text: `저장된 쿠폰 ${saved.length}개 확인`,
+            count: saved.length,
+            action: 'saved'
+          };
+        }
+        // 2. 전체 보기에서 인기 조합 추천
+        else if (currentFilter === 'all' && currentRegion === 'all') {
+          suggestion = {
+            icon: '🔥',
+            text: '도쿄 전자제품 쿠폰',
+            count: this.getCombinationCount('tokyo', 'electronics'),
+            action: 'tokyo-electronics'
+          };
+        }
+        // 3. 지역 선택 시 인기 카테고리 추천
+        else if (currentRegion !== 'all' && currentFilter === 'all') {
+          const popularCategory = this.getPopularCategoryForRegion(currentRegion);
+          if (popularCategory) {
+            suggestion = {
+              icon: '💡',
+              text: `${t(currentRegion)} ${popularCategory.name}`,
+              count: popularCategory.count,
+              action: `${currentRegion}-${popularCategory.category}`
+            };
+          }
+        }
+        // 4. 검색 중인 경우
+        else if (window.app.state.currentSearch) {
+          const searchCount = filtered.length;
+          if (searchCount > 0) {
+            suggestion = {
+              icon: '🔍',
+              text: `"${window.app.state.currentSearch}" 검색결과`,
+              count: searchCount,
+              action: 'clear-search'
+            };
+          }
+        }
+        
+        // 제안이 있으면 표시
+        if (suggestion) {
+          suggestText.textContent = suggestion.text;
+          suggestCount.textContent = suggestion.count;
+          floatSuggest.dataset.action = suggestion.action;
+          floatSuggest.classList.add('show');
+        } else {
+          floatSuggest.classList.remove('show');
+        }
+      },
+      
+      getCombinationCount(region, category) {
+        if (!window.app) return 0;
+        return window.app.state.coupons.filter(c => 
+          (c.region?.includes(region) || region === 'all') &&
+          (c.category === category || category === 'all')
+        ).length;
+      },
+      
+      getPopularCategoryForRegion(region) {
+        if (!window.app) return null;
+        
+        const categories = ['electronics', 'fashion', 'dining', 'transport'];
+        const counts = categories.map(cat => ({
+          category: cat,
+          name: t(cat).replace(/🔌|👕|🍽️|🚇/, '').trim(),
+          count: this.getCombinationCount(region, cat)
+        }));
+        
+        // 가장 많은 카테고리 반환
+        return counts.reduce((max, current) => 
+          current.count > max.count ? current : max
+        );
+      },
+      
+      applySmartRecommendation() {
+        const floatSuggest = DOMCache.get('floatSuggest');
+        const action = floatSuggest?.dataset.action;
+        
+        if (!action || !window.app) return;
+        
+        // 액션별 처리
+        if (action === 'saved') {
+          window.app.state.currentFilter = 'saved';
+          window.app.applyFilters();
+          Toast.show('저장된 쿠폰을 표시합니다');
+        } else if (action === 'tokyo-electronics') {
+          window.app.state.currentRegion = 'tokyo';
+          window.app.state.currentFilter = 'electronics';
+          window.app.applyFilters();
+          window.app.updateFilterTexts();
+          Toast.show('도쿄 전자제품 쿠폰을 표시합니다');
+        } else if (action === 'clear-search') {
+          const searchInput = DOMCache.get('searchInput');
+          if (searchInput) {
+            searchInput.value = '';
+            window.app.state.currentSearch = '';
+            window.app.applyFilters();
+          }
+        } else if (action.includes('-')) {
+          const [region, category] = action.split('-');
+          window.app.state.currentRegion = region;
+          window.app.state.currentFilter = category;
+          window.app.applyFilters();
+          window.app.updateFilterTexts();
+          Toast.show(`${t(region)} ${t(category)} 쿠폰을 표시합니다`);
+        }
+        
+        // 제안 숨기기
+        floatSuggest.classList.remove('show');
+        
+        // 일정 시간 후 새로운 제안 업데이트
+        setTimeout(() => this.updateSmartSuggestion(), 2000);
+      }
+    };
+
+    // ===========================================
+    // 카드 생성 및 관련 함수들 (하이브리드 버전)
     // ===========================================
     function createCard(coupon) {
       const card = document.createElement('div');
@@ -2747,7 +3850,7 @@
       // 앞면 생성
       const cardFront = createCardFront(coupon, store, offer);
       
-      // 뒷면 생성  
+      // 뒷면 생성 (PC용)
       const cardBack = createCardBack(coupon, store, offer);
       
       cardInner.appendChild(cardFront);
@@ -2755,19 +3858,19 @@
       card.appendChild(cardInner);
       card.appendChild(flipOverlay);
       
-      // 이벤트 리스너
-      setupCardEvents(card, flipOverlay);
+      // 이벤트 리스너 (하이브리드)
+      setupCardEvents(card, flipOverlay, coupon.id);
       
       return card;
     }
 
-    // 앞면 생성 함수 수정
+    // 앞면 생성 함수 (지역 표시 추가)
     function createCardFront(coupon, store, offer) {
       const cardFront = document.createElement('div');
       cardFront.className = 'card-face card-front';
       cardFront.setAttribute('aria-hidden', 'false');
 
-      // 이미지 (높이 증가됨)
+      // 이미지
       const img = document.createElement('img');
       img.dataset.src = coupon.image;
       img.alt = store;
@@ -2786,21 +3889,20 @@
       const body = document.createElement('div');
       body.className = 'card-body';
 
-      // 매장명 (간단하게)
+      // 매장명
       const title = document.createElement('div');
       title.className = 'title';
       title.textContent = store;
       body.appendChild(title);
 
-      // 설명 (한 줄로 짧게)
+      // 설명
       const description = getCouponField(coupon, 'description');
       const desc = document.createElement('div');
       desc.className = 'desc';
-      desc.style.fontSize = '0.75rem';  // 더 작게
       desc.textContent = description.length > 50 ? description.substring(0, 50) + '...' : description;
       body.appendChild(desc);
 
-      // 유효기한 표시 (컴팩트하게)
+      // 유효기한 표시
       const expiryLine = document.createElement('div');
       expiryLine.className = 'expiry-line';
       
@@ -2813,23 +3915,37 @@
         expiryLine.innerHTML = `<span>📅</span><span>${coupon.expiry}</span>`;
       }
       body.appendChild(expiryLine);
+      
+      // 지역 표시 (새로 추가)
+      if (coupon.region && coupon.region.length > 0) {
+        const areaTags = document.createElement('div');
+        areaTags.className = 'area-tags';
+        
+        coupon.region.forEach(region => {
+          const tag = document.createElement('span');
+          tag.className = 'area-tag';
+          tag.textContent = t(region) || region;
+          areaTags.appendChild(tag);
+        });
+        
+        body.appendChild(areaTags);
+      }
 
-      // 이용조건 텍스트로 표시 (실제 쿠폰처럼)
+      // 이용조건 텍스트
       const localizedTerms = T[LanguageManager.currentLang]?.terms;
       if (Array.isArray(localizedTerms) && localizedTerms.length > 0) {
         const termsSummary = document.createElement('div');
-        termsSummary.className = 'terms-text'; // 기존 클래스 재활용 가능
-        termsSummary.style.padding = '0.4rem 0.6rem'; // 패딩 조정
-        termsSummary.style.fontSize = '0.7rem'; // 폰트 크기 조정
-        termsSummary.style.border = 'none'; // 테두리 제거
+        termsSummary.className = 'terms-text';
+        termsSummary.style.padding = '0.4rem 0.6rem';
+        termsSummary.style.fontSize = '0.7rem';
+        termsSummary.style.border = 'none';
 
-        const firstTerm = localizedTerms[0]; // 1. 첫 번째 이용조건을 가져옵니다.
-        const summaryText = t('termsSummary').replace('{term}', firstTerm); // 2. 다국어 텍스트를 불러와 {term}을 교체합니다.
-        termsSummary.innerHTML = `ⓘ ${summaryText}`; // 3. 최종 텍스트를 화면에 표시합니다.
-    
+        const firstTerm = localizedTerms[0];
+        const summaryText = t('termsSummary').replace('{term}', firstTerm);
+        termsSummary.innerHTML = `ⓘ ${summaryText}`;
 
         body.appendChild(termsSummary);
-        }
+      }
 
       // 추천 문구가 있으면 표시
       const recommendation = getCouponField(coupon, 'recommendation');
@@ -2837,7 +3953,7 @@
         body.appendChild(createRecommendationSection(recommendation));
       }
 
-      // 상세보기 버튼 (작게, 오른쪽 정렬)
+      // 상세보기 버튼
       const actionRow = document.createElement('div');
       actionRow.style.cssText = 'display: flex; justify-content: flex-end; margin-top: auto;';
       
@@ -2847,7 +3963,7 @@
       detailBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const card = detailBtn.closest('.card');
-        flipCard(card, true);
+        showCardDetail(card);
       });
       
       actionRow.appendChild(detailBtn);
@@ -2861,7 +3977,20 @@
       return cardFront;
     }
 
-    // 뒷면 생성 (컴팩트하게)
+    // showCardDetail 함수 추가 (하이브리드 동작)
+    function showCardDetail(card) {
+      const couponId = parseInt(card.dataset.id);
+      
+      if (MobileUIManager.isMobile) {
+        // 모바일: 바텀시트
+        MobileUIManager.showDetailSheet(couponId);
+      } else {
+        // PC: 기존 플립
+        flipCard(card, true);
+      }
+    }
+
+    // 뒷면 생성 (PC용)
     function createCardBack(coupon, store, offer) {
       const cardBack = document.createElement('div');
       cardBack.className = 'card-face card-back';
@@ -2904,47 +4033,46 @@
       infoGrid.className = 'info-grid';
 
       // 이용조건
-      // [추가할 코드] 전체 이용조건 목록을 생성합니다.
-const localizedTerms = T[LanguageManager.currentLang]?.terms;
-if (Array.isArray(localizedTerms) && localizedTerms.length > 0) {
-    const item = document.createElement('div');
-    item.className = 'info-item';
+      const localizedTerms = T[LanguageManager.currentLang]?.terms;
+      if (Array.isArray(localizedTerms) && localizedTerms.length > 0) {
+          const item = document.createElement('div');
+          item.className = 'info-item';
 
-    const labelEl = document.createElement('span');
-    labelEl.className = 'info-label';
-    labelEl.textContent = t('termsLabel'); // "이용 조건"
+          const labelEl = document.createElement('span');
+          labelEl.className = 'info-label';
+          labelEl.textContent = t('termsLabel');
 
-    const valueEl = document.createElement('span');
-    valueEl.className = 'info-value';
+          const valueEl = document.createElement('span');
+          valueEl.className = 'info-value';
 
-    const ul = document.createElement('ul');
-    ul.style.paddingLeft = '1rem';
-    ul.style.margin = '0';
+          const ul = document.createElement('ul');
+          ul.style.paddingLeft = '1rem';
+          ul.style.margin = '0';
 
-    localizedTerms.forEach(term => {
-        const li = document.createElement('li');
-        li.style.listStyleType = '"• "';
-        li.style.paddingLeft = '0.25rem';
-        li.textContent = term;
-        ul.appendChild(li);
-    });
+          localizedTerms.forEach(term => {
+              const li = document.createElement('li');
+              li.style.listStyleType = '"• "';
+              li.style.paddingLeft = '0.25rem';
+              li.textContent = term;
+              ul.appendChild(li);
+          });
 
-    valueEl.appendChild(ul);
-    item.appendChild(labelEl);
-    item.appendChild(valueEl);
-    infoGrid.appendChild(item);
-}
+          valueEl.appendChild(ul);
+          item.appendChild(labelEl);
+          item.appendChild(valueEl);
+          infoGrid.appendChild(item);
+      }
 
       // 링크들
-      // [추가할 코드] 관련 기사 링크를 생성합니다.
-if (coupon.article_url) {
-    const articleLink = document.createElement('a');
-    articleLink.href = coupon.article_url;
-    articleLink.target = '_blank';
-    articleLink.rel = 'noopener';
-    articleLink.textContent = t('readArticle'); // "기사 읽기"
-    infoGrid.appendChild(createInfoItem(t('relatedArticle'), articleLink.outerHTML));
-}
+      if (coupon.article_url) {
+          const articleLink = document.createElement('a');
+          articleLink.href = coupon.article_url;
+          articleLink.target = '_blank';
+          articleLink.rel = 'noopener';
+          articleLink.textContent = t('readArticle');
+          infoGrid.appendChild(createInfoItem(t('relatedArticle'), articleLink.outerHTML));
+      }
+      
       if (coupon.lat != null && coupon.lng != null) {
         const mapLink = document.createElement('a');
         mapLink.href = `https://www.google.com/maps/search/?api=1&query=${coupon.lat},${coupon.lng}`;
@@ -2965,7 +4093,6 @@ if (coupon.article_url) {
 
       cardBack.appendChild(infoGrid);
 
-      
       // 공유 버튼
       const shareBtn = createShareButton(coupon);
       cardBack.appendChild(shareBtn);
@@ -3016,100 +4143,100 @@ if (coupon.article_url) {
     }
 
     function createRecommendationSection(recommendation) {
-  const recWrapper = document.createElement('div');
-  recWrapper.className = 'recommendation-wrapper';
-  
-  const recBtn = document.createElement('button');
-  recBtn.className = 'btn btn-sm recommendation-btn';
-  recBtn.textContent = T[LanguageManager.currentLang].whyThisStore || '💬 なぜこの店？';
+      const recWrapper = document.createElement('div');
+      recWrapper.className = 'recommendation-wrapper';
+      
+      const recBtn = document.createElement('button');
+      recBtn.className = 'btn btn-sm recommendation-btn';
+      recBtn.textContent = T[LanguageManager.currentLang].whyThisStore || '💬 なぜこの店？';
 
-  const bubble = document.createElement('div');
-  bubble.className = 'speech-bubble';
-  bubble.textContent = recommendation;
-  
-  // 오버레이 생성
-  let overlay = null;
-  
-  // 툴팁 표시 함수
-  const showTooltip = () => {
-    bubble.classList.add('show');
-    
-    // 모바일에서만 오버레이 표시
-    if ('ontouchstart' in window || window.innerWidth <= 768) {
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'speech-bubble-overlay';
-        document.body.appendChild(overlay);
-      }
-      overlay.classList.add('show');
+      const bubble = document.createElement('div');
+      bubble.className = 'speech-bubble';
+      bubble.textContent = recommendation;
       
-      // 오버레이 클릭시 닫기
-      overlay.addEventListener('click', hideTooltip, { once: true });
-    }
-  };
-  
-  // 툴팁 숨기기 함수
-  const hideTooltip = () => {
-    bubble.classList.remove('show');
-    if (overlay) {
-      overlay.classList.remove('show');
-      setTimeout(() => {
-        overlay?.remove();
-        overlay = null;
-      }, 300);
-    }
-  };
-  
-  // PC: 마우스 호버 이벤트
-  recBtn.addEventListener('mouseenter', (e) => {
-    // 터치 디바이스가 아니고 화면이 큰 경우에만
-    if (!('ontouchstart' in window) && window.innerWidth > 768) {
-      showTooltip();
-    }
-  });
-  
-  recBtn.addEventListener('mouseleave', (e) => {
-    // 터치 디바이스가 아니고 화면이 큰 경우에만
-    if (!('ontouchstart' in window) && window.innerWidth > 768) {
-      hideTooltip();
-    }
-  });
-  
-  // 모바일: 클릭 이벤트
-  recBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    
-    // 터치 디바이스이거나 작은 화면에서만
-    if ('ontouchstart' in window || window.innerWidth <= 768) {
-      if (bubble.classList.contains('show')) {
-        hideTooltip();
-      } else {
-        showTooltip();
-      }
-    }
-  });
-  
-  // 말풍선 자체 클릭시 (모바일에서 X 버튼 역할)
-  bubble.addEventListener('click', (e) => {
-    if ('ontouchstart' in window || window.innerWidth <= 768) {
-      // ::before 가상 요소(X 버튼) 영역 클릭 감지
-      const rect = bubble.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      // 오버레이 생성
+      let overlay = null;
       
-      // 우상단 24x24 영역 클릭시
-      if (x > rect.width - 40 && y < 40) {
+      // 툴팁 표시 함수
+      const showTooltip = () => {
+        bubble.classList.add('show');
+        
+        // 모바일에서만 오버레이 표시
+        if ('ontouchstart' in window || window.innerWidth <= 768) {
+          if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'speech-bubble-overlay';
+            document.body.appendChild(overlay);
+          }
+          overlay.classList.add('show');
+          
+          // 오버레이 클릭시 닫기
+          overlay.addEventListener('click', hideTooltip, { once: true });
+        }
+      };
+      
+      // 툴팁 숨기기 함수
+      const hideTooltip = () => {
+        bubble.classList.remove('show');
+        if (overlay) {
+          overlay.classList.remove('show');
+          setTimeout(() => {
+            overlay?.remove();
+            overlay = null;
+          }, 300);
+        }
+      };
+      
+      // PC: 마우스 호버 이벤트
+      recBtn.addEventListener('mouseenter', (e) => {
+        // 터치 디바이스가 아니고 화면이 큰 경우에만
+        if (!('ontouchstart' in window) && window.innerWidth > 768) {
+          showTooltip();
+        }
+      });
+      
+      recBtn.addEventListener('mouseleave', (e) => {
+        // 터치 디바이스가 아니고 화면이 큰 경우에만
+        if (!('ontouchstart' in window) && window.innerWidth > 768) {
+          hideTooltip();
+        }
+      });
+      
+      // 모바일: 클릭 이벤트
+      recBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        hideTooltip();
-      }
-    }
-  });
+        
+        // 터치 디바이스이거나 작은 화면에서만
+        if ('ontouchstart' in window || window.innerWidth <= 768) {
+          if (bubble.classList.contains('show')) {
+            hideTooltip();
+          } else {
+            showTooltip();
+          }
+        }
+      });
+      
+      // 말풍선 자체 클릭시 (모바일에서 X 버튼 역할)
+      bubble.addEventListener('click', (e) => {
+        if ('ontouchstart' in window || window.innerWidth <= 768) {
+          // ::before 가상 요소(X 버튼) 영역 클릭 감지
+          const rect = bubble.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // 우상단 24x24 영역 클릭시
+          if (x > rect.width - 40 && y < 40) {
+            e.stopPropagation();
+            hideTooltip();
+          }
+        }
+      });
 
-  recWrapper.appendChild(recBtn);
-  recWrapper.appendChild(bubble);
-  
-  return recWrapper;
-}
+      recWrapper.appendChild(recBtn);
+      recWrapper.appendChild(bubble);
+      
+      return recWrapper;
+    }
 
     function createSaveButton(couponId) {
       const saveBtn = document.createElement('button');
@@ -3248,35 +4375,42 @@ if (coupon.article_url) {
       }
     }
 
-    function setupCardEvents(card, flipOverlay) {
-  // flipOverlay 이벤트 제거하고 card 자체에서 처리
-  
-  card.addEventListener('click', (e) => {
-    // 클릭 가능한 요소들
-    if (e.target.closest('button, a, .save, .share-btn, .copy-btn, .btn-show-detail, .recommendation-btn, .speech-bubble')) {
-      return;
+    function setupCardEvents(card, flipOverlay, couponId) {
+      // 카드 클릭 이벤트
+      card.addEventListener('click', (e) => {
+        // 클릭 가능한 요소들
+        if (e.target.closest('button, a, .save, .share-btn, .copy-btn, .btn-show-detail, .recommendation-btn, .speech-bubble')) {
+          return;
+        }
+        
+        // 모바일과 PC 분기
+        if (MobileUIManager.isMobile) {
+          MobileUIManager.showDetailSheet(couponId);
+        } else {
+          const isFlipped = card.classList.contains('flipped');
+          flipCard(card, !isFlipped);
+        }
+      });
+      
+      // 키보드 이벤트
+      card.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target === card) {
+          e.preventDefault();
+          
+          if (MobileUIManager.isMobile) {
+            MobileUIManager.showDetailSheet(couponId);
+          } else {
+            const isFlipped = card.classList.contains('flipped');
+            flipCard(card, !isFlipped);
+          }
+        }
+        
+        if (e.key === 'Escape' && card.classList.contains('flipped')) {
+          e.preventDefault();
+          flipCard(card, false);
+        }
+      });
     }
-    
-    // 플립 상태에 따라 토글
-    const isFlipped = card.classList.contains('flipped');
-    flipCard(card, !isFlipped);
-  });
-  
-  // 키보드 이벤트는 그대로
-  card.addEventListener('keydown', (e) => {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target === card) {
-      e.preventDefault();
-      const isFlipped = card.classList.contains('flipped');
-      flipCard(card, !isFlipped);
-    }
-    
-    if (e.key === 'Escape' && card.classList.contains('flipped')) {
-      e.preventDefault();
-      flipCard(card, false);
-    }
-  });
-}
-    
 
     // 저장 토글
     function toggleSave(id, btn) {
@@ -3323,14 +4457,14 @@ if (coupon.article_url) {
     }
 
     // ===========================================
-    // 메인 애플리케이션 클래스 (최적화)
+    // 메인 애플리케이션 클래스 (하이브리드 버전)
     // ===========================================
     class JKWalletApp {
         parseDiscount(offerText) {
-    if (!offerText) return 0;
-    const match = offerText.match(/(\d+)%/);
-    return match ? parseInt(match[1], 10) : 0;
-} 
+            if (!offerText) return 0;
+            const match = offerText.match(/(\d+)%/);
+            return match ? parseInt(match[1], 10) : 0;
+        } 
         
       constructor() {
         this.state = {
@@ -3338,8 +4472,9 @@ if (coupon.article_url) {
             filtered: [],
             saved: [],
             userLocation: null,
-            currentFilter: 'all',     // 카테고리 필터 상태 (기본값 'all')
-            currentSort: 'latest',    // 정렬 상태 (기본값 'latest')
+            currentFilter: 'all',     // 카테고리 필터
+            currentRegion: 'all',     // 지역 필터 (새로 추가)
+            currentSort: 'latest',    // 정렬
             currentSearch: '',
             currentView: 'home',
             isLoading: true,
@@ -3374,6 +4509,7 @@ if (coupon.article_url) {
           Toast.init();
           ImageLazyLoader.init();
           HeaderManager.init();
+          MobileUIManager.init(); // 모바일 UI 매니저 추가
           
           // 3. 언어 시스템 초기화
           LanguageManager.init();
@@ -3407,6 +4543,12 @@ if (coupon.article_url) {
           // 10. 저장 카운트 업데이트
           this.updateSavedCount();
           
+          // 11. 필터 카운트 업데이트
+          this.updateFilterCounts();
+          
+          // 12. 모바일 추천 업데이트
+          MobileUIManager.updateSuggestion();
+          
           console.log('✅ JK Wallet 초기화 완료');
           
         } catch (error) {
@@ -3419,6 +4561,11 @@ if (coupon.article_url) {
         const filter = Utils.getUrlParam('filter');
         if (filter && ['all', 'saved', 'electronics', 'fashion', 'dining', 'transport', 'nearby'].includes(filter)) {
           this.state.currentFilter = filter;
+        }
+        
+        const region = Utils.getUrlParam('region');
+        if (region && ['all', 'tokyo', 'osaka', 'fukuoka', 'sapporo', 'okinawa', 'others'].includes(region)) {
+          this.state.currentRegion = region;
         }
         
         const search = Utils.getUrlParam('q');
@@ -3436,7 +4583,16 @@ if (coupon.article_url) {
             if (card) {
               obs.disconnect(); // 관찰 중지
               card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              flipCard(card, true);
+              
+              // 모바일과 PC 분기
+              if (MobileUIManager.isMobile) {
+                setTimeout(() => {
+                  MobileUIManager.showDetailSheet(parseInt(couponId));
+                }, 500);
+              } else {
+                flipCard(card, true);
+              }
+              
               Toast.show(T[LanguageManager.currentLang].sharedCoupon || 'Shared coupon', 2000);
             }
           });
@@ -3476,6 +4632,7 @@ if (coupon.article_url) {
         // 추천 검색어 이벤트 위임
         this.setupSuggestions();
 
+        // PC 필터 설정
         this.setupFilterAndSortControls();
       }
 
@@ -3532,35 +4689,55 @@ if (coupon.article_url) {
       }
 
       setupFilterAndSortControls() {
-    const filterContainer = DOMCache.get('filterContainer'); // 이제 Pill 버튼 컨테이너
-    const sortSelect = DOMCache.get('sortSelect');           // 새로운 정렬 드롭다운
+        const filterContainer = DOMCache.get('filterContainer');
+        const regionContainer = DOMCache.get('regionContainer');
+        const sortSelect = DOMCache.get('sortSelect');
 
-    // 카테고리 필터(Pill) 클릭 이벤트
-    if (filterContainer) {
-        filterContainer.addEventListener('click', (e) => {
-            const pill = e.target.closest('.pill');
-            if (!pill) return;
+        // PC 필터 클릭 이벤트 (카테고리)
+        if (filterContainer) {
+            filterContainer.addEventListener('click', (e) => {
+                const pill = e.target.closest('.pill');
+                if (!pill) return;
 
-            // UI 업데이트
-            filterContainer.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-selected', 'false'));
-            pill.setAttribute('aria-selected', 'true');
+                // UI 업데이트
+                filterContainer.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-selected', 'false'));
+                pill.setAttribute('aria-selected', 'true');
 
-            // 상태 업데이트 및 재-렌더링
-            this.state.currentFilter = pill.dataset.filter;
-            this.applyFilters();
-        });
-    }
+                // 카테고리 필터 적용
+                const filterValue = pill.dataset.filter;
+                this.state.currentFilter = filterValue;
+                
+                this.applyFilters();
+            });
+        }
 
-    // 정렬(Select) 변경 이벤트
-    if (sortSelect) {
-        sortSelect.addEventListener('change', (e) => {
-            // 상태 업데이트 및 재-렌더링
-            this.state.currentSort = e.target.value;
-            this.applyFilters();
-            Toast.show(t('sortChanged') || '정렬이 변경되었습니다');
-        });
-    }
-}
+        // PC 지역 필터 클릭 이벤트
+        if (regionContainer) {
+            regionContainer.addEventListener('click', (e) => {
+                const pill = e.target.closest('.pill');
+                if (!pill) return;
+
+                // UI 업데이트
+                regionContainer.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-selected', 'false'));
+                pill.setAttribute('aria-selected', 'true');
+
+                // 지역 필터 적용
+                const regionValue = pill.dataset.filter;
+                this.state.currentRegion = regionValue;
+                
+                this.applyFilters();
+            });
+        }
+
+        // 정렬 변경 이벤트
+        if (sortSelect) {
+            sortSelect.addEventListener('change', (e) => {
+                this.state.currentSort = e.target.value;
+                this.applyFilters();
+                Toast.show(t('sortChanged') || '정렬이 변경되었습니다');
+            });
+        }
+      }
 
       setupNavigation() {
         const navContainer = DOMCache.get('navContainer');
@@ -3601,9 +4778,6 @@ if (coupon.article_url) {
             if (suggestion) {
               const searchInput = DOMCache.get('searchInput');
               searchInput.value = suggestion;
-
-              console.log('1. 추천어 클릭됨:', suggestion); // <--- 이 줄 추가!
-
               searchInput.dispatchEvent(new Event('input', { bubbles: true }));
             }
           }
@@ -3696,8 +4870,6 @@ if (coupon.article_url) {
       }
 
       handleSearch(e) {
-        console.log('2. handleSearch 실행됨!', e.target.value); // <--- 이 줄 추가!
-
         this.state.currentSearch = e.target.value.trim();
         
         // 검색 클리어 버튼 표시
@@ -3713,66 +4885,72 @@ if (coupon.article_url) {
       }
 
       applyFilters() {
-    if (this.state.isLoading) return;
+        if (this.state.isLoading) return;
 
-    let processedCoupons = [...this.state.coupons];
+        let processedCoupons = [...this.state.coupons];
 
-    // --- 1단계: 카테고리 필터링 ---
-    if (this.state.currentFilter !== 'all') {
-        if (this.state.currentFilter === 'saved') {
-            processedCoupons = processedCoupons.filter(c => this.state.saved.includes(c.id));
-        } else if (this.state.currentFilter === 'nearby') {
-            // '근처'는 정렬에서 처리하므로 여기서는 필터링하지 않음
-        } else {
-            // 일반 카테고리 필터
-            processedCoupons = processedCoupons.filter(c => c.category === this.state.currentFilter);
+        // --- 1단계: 지역 필터링 ---
+        if (this.state.currentRegion !== 'all') {
+            processedCoupons = processedCoupons.filter(c => 
+                c.region && c.region.includes(this.state.currentRegion)
+            );
         }
-    }
 
-    // --- 2단계: 검색어 필터링 ---
-    if (this.state.currentSearch) {
-        const query = this.state.currentSearch.toLowerCase();
-        processedCoupons = processedCoupons.filter(c => {
-            const store = getCouponField(c, 'store').toLowerCase();
-            const description = getCouponField(c, 'description').toLowerCase();
-            const area = getCouponField(c, 'area', '').toLowerCase();
-            return store.includes(query) || description.includes(query) || area.includes(query);
-        });
-    }
+        // --- 2단계: 카테고리 필터링 ---
+        if (this.state.currentFilter !== 'all') {
+            if (this.state.currentFilter === 'saved') {
+                processedCoupons = processedCoupons.filter(c => this.state.saved.includes(c.id));
+            } else if (this.state.currentFilter === 'nearby') {
+                // '근처'는 정렬에서 처리하므로 여기서는 필터링하지 않음
+            } else {
+                // 일반 카테고리 필터
+                processedCoupons = processedCoupons.filter(c => c.category === this.state.currentFilter);
+            }
+        }
 
-    // --- 3단계: 정렬 적용 ---
-    switch (this.state.currentSort) {
-        case 'high_discount':
-            processedCoupons.sort((a, b) => (b.discount_rate || 0) - (a.discount_rate || 0));
-            break;
-        case 'latest':
-            processedCoupons.sort((a, b) => (b.id || 0) - (a.id || 0)); // ID가 높을수록 최신이라고 가정
-            break;
-        case 'by_area':
-            processedCoupons.sort((a, b) => {
-                const areaA = getCouponField(a, 'area', '');
-                const areaB = getCouponField(b, 'area', '');
-                return areaA.localeCompare(areaB, 'ko');
+        // --- 3단계: 검색어 필터링 ---
+        if (this.state.currentSearch) {
+            const query = this.state.currentSearch.toLowerCase();
+            processedCoupons = processedCoupons.filter(c => {
+                const store = getCouponField(c, 'store').toLowerCase();
+                const description = getCouponField(c, 'description').toLowerCase();
+                const area = getCouponField(c, 'area', '').toLowerCase();
+                return store.includes(query) || description.includes(query) || area.includes(query);
             });
-            break;
-    }
-    
-    // --- '근처' 필터는 항상 마지막에 특별 정렬 ---
-    if (this.state.currentFilter === 'nearby' && this.state.userLocation) {
-        processedCoupons.sort((a, b) => {
-            const distA = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, a.lat, a.lng);
-            const distB = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, b.lat, b.lng);
-            return distA - distB;
-        });
-    }
+        }
 
-    this.state.filtered = processedCoupons;
-    this.render();
-}
-      // 할인율 파싱 헬퍼 함수 추가
-      parseDiscount(offerText) {
-        const match = offerText.match(/(\d+)%/);
-        return match ? parseInt(match[1]) : 0;
+        // --- 4단계: 정렬 적용 ---
+        switch (this.state.currentSort) {
+            case 'high_discount':
+                processedCoupons.sort((a, b) => {
+                    const discountA = this.parseDiscount(getCouponField(a, 'offer'));
+                    const discountB = this.parseDiscount(getCouponField(b, 'offer'));
+                    return discountB - discountA;
+                });
+                break;
+            case 'latest':
+                processedCoupons.sort((a, b) => (b.id || 0) - (a.id || 0));
+                break;
+            case 'by_area':
+                processedCoupons.sort((a, b) => {
+                    const areaA = getCouponField(a, 'area', '');
+                    const areaB = getCouponField(b, 'area', '');
+                    return areaA.localeCompare(areaB, LanguageManager.currentLang);
+                });
+                break;
+        }
+        
+        // --- '근처' 필터는 항상 마지막에 특별 정렬 ---
+        if (this.state.currentFilter === 'nearby' && this.state.userLocation) {
+            processedCoupons.sort((a, b) => {
+                const distA = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, a.lat, a.lng);
+                const distB = Utils.distance(this.state.userLocation.lat, this.state.userLocation.lng, b.lat, b.lng);
+                return distA - distB;
+            });
+        }
+
+        this.state.filtered = processedCoupons;
+        this.render();
       }
 
       render() {
@@ -3847,6 +5025,9 @@ if (coupon.article_url) {
         if (window.mapInstance) {
           MapManager.renderMarkers();
         }
+        
+        // 모바일 추천 업데이트
+        MobileUIManager.updateSuggestion();
       }
 
       updateSavedCount() {
@@ -3857,6 +5038,80 @@ if (coupon.article_url) {
         if (navBadge) {
           navBadge.textContent = count;
           navBadge.classList.toggle('show', count > 0);
+        }
+        
+        // 필터의 saved 카운트
+        const savedCount = DOMCache.get('savedCount');
+        if (savedCount) {
+          savedCount.textContent = count;
+          savedCount.classList.toggle('show', count > 0);
+        }
+      }
+
+      updateFilterCounts() {
+        // 지역별 카운트
+        const regionCounts = {};
+        regionCounts.all = this.state.coupons.length;
+        
+        this.state.coupons.forEach(coupon => {
+          coupon.region?.forEach(region => {
+            regionCounts[region] = (regionCounts[region] || 0) + 1;
+          });
+        });
+        
+        // 카테고리별 카운트
+        const categoryCounts = {};
+        categoryCounts.all = this.state.coupons.length;
+        
+        this.state.coupons.forEach(coupon => {
+          if (coupon.category) {
+            categoryCounts[coupon.category] = (categoryCounts[coupon.category] || 0) + 1;
+          }
+        });
+        
+        // 모바일 필터 패널 카운트 업데이트
+        document.querySelectorAll('#regionOptions .filter-option').forEach(option => {
+          const region = option.dataset.region;
+          const countEl = option.querySelector('.filter-count');
+          if (countEl && regionCounts[region] !== undefined) {
+            countEl.textContent = regionCounts[region];
+          }
+        });
+        
+        document.querySelectorAll('#categoryOptions .filter-option').forEach(option => {
+          const category = option.dataset.category;
+          const countEl = option.querySelector('.filter-count');
+          if (countEl && categoryCounts[category] !== undefined) {
+            countEl.textContent = categoryCounts[category];
+          }
+        });
+      }
+
+      updateFilterTexts() {
+        // 모바일 필터 상태바 텍스트 업데이트
+        const regionChip = DOMCache.get('mobileRegionChip');
+        const categoryChip = DOMCache.get('mobileCategoryChip');
+        
+        if (regionChip) {
+          const regionName = this.state.currentRegion === 'all' ? 
+            t('all') : t(this.state.currentRegion);
+          regionChip.textContent = `📍 ${regionName}`;
+        }
+        
+        if (categoryChip) {
+          let categoryName = t('all');
+          if (this.state.currentFilter !== 'all') {
+            const categoryMap = {
+              'electronics': t('electronics'),
+              'fashion': t('fashion'),
+              'dining': t('dining'),
+              'transport': t('transport'),
+              'saved': t('saved'),
+              'nearby': t('nearby')
+            };
+            categoryName = categoryMap[this.state.currentFilter] || this.state.currentFilter;
+          }
+          categoryChip.textContent = `🏷️ ${categoryName}`;
         }
       }
 
@@ -3974,16 +5229,22 @@ if (coupon.article_url) {
         // 검색/필터 바 숨기기
         const searchFilterBar = document.querySelector('.search-filter-bar');
         if (searchFilterBar) searchFilterBar.style.display = 'none';
+        
+        // 모바일 필터 상태바 숨기기
+        const filterStatusBar = DOMCache.get('filterStatusBar');
+        if (filterStatusBar) filterStatusBar.style.display = 'none';
       }
       
       hideSettings() {
         const grid = DOMCache.get('couponGrid');
         const settingsView = DOMCache.get('settingsView');
         const searchFilterBar = document.querySelector('.search-filter-bar');
+        const filterStatusBar = DOMCache.get('filterStatusBar');
         
         if (grid) grid.style.display = '';
         if (settingsView) settingsView.classList.remove('show');
         if (searchFilterBar) searchFilterBar.style.display = '';
+        if (filterStatusBar && MobileUIManager.isMobile) filterStatusBar.style.display = 'flex';
       }
 
       // 이벤트 핸들러
@@ -3997,6 +5258,7 @@ if (coupon.article_url) {
     // ===========================================
     window.retryMap = () => MapManager.init();
     window.getCouponField = getCouponField;
+    window.showCardDetail = showCardDetail;
 
     // ===========================================
     // 초기화
