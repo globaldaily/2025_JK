@@ -181,27 +181,44 @@
         }
         
         .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-text);
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: all 0.3s ease;
         }
-        
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--gradient-primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
+
+        .logo:hover {
+            transform: translateY(-1px);
         }
-        
+
+        .logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-image {
+            transform: scale(1.05);
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .logo-image {
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 28px;
+            }
+        }
+
+        /* 다크모드 지원 */
+        [data-theme="dark"] .logo-image {
+            filter: brightness(1.1);
+        }
         .nav {
             display: flex;
             gap: 32px;
@@ -397,6 +414,128 @@
         }
         
         /* Hero Section */
+
+        .hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.japankuru-intro-compact {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-medium);
+    padding: 24px;
+    margin: 32px 0;
+    border-left: 4px solid var(--accent);
+}
+
+.intro-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--secondary-text);
+    margin-bottom: 16px;
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: var(--surface);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--secondary-text);
+    border: 1px solid var(--border-light);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.hero-cta.secondary {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+/* 오른쪽 비주얼 */
+.visual-container {
+    position: relative;
+    border-radius: var(--radius-large);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-medium);
+}
+
+.main-visual {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.visual-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px;
+    color: white;
+}
+
+.live-badge {
+    background: #ff4444;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.mini-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.mini-img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-small);
+    transition: transform 0.3s ease;
+}
+
+.mini-img:hover {
+    transform: scale(1.05);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .service-tags {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+    }
+}
         .hero {
             padding: 140px 0 100px;
             background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
@@ -419,7 +558,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
-            align-items: center;
+            align-items: start;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -496,239 +635,7 @@
             box-shadow: var(--shadow-heavy);
         }
         
-        /* Enhanced Info Cards with Animation */
-        .japankuru-info {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius-large);
-            padding: 40px;
-            border: 1px solid var(--border-light);
-            animation: fadeInUp 1.2s ease-out;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 32px;
-        }
-        
-        [data-theme="dark"] .japankuru-info {
-            background: rgba(28, 28, 30, 0.7);
-        }
-        
-        .japankuru-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .info-title {
-            font-size: 24px;
-            margin-bottom: 32px;
-            color: var(--primary-text);
-            font-weight: 600;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            border-radius: var(--radius-medium);
-            transition: all 0.3s ease;
-        }
-        
-        .info-item:hover {
-            background: rgba(0, 122, 255, 0.05);
-            transform: translateY(-2px);
-        }
-        
-        .info-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-            box-shadow: var(--shadow-light);
-        }
-        
-        .info-number {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-text);
-            counter-reset: countUp;
-        }
-        
-        .info-label {
-            font-size: 14px;
-            color: var(--secondary-text);
-        }
-        
-        /* Real-time Dashboard Widget */
-        .dashboard-widget {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius-large);
-            border: 1px solid var(--border-light);
-            padding: 24px;
-            box-shadow: var(--shadow-medium);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1.4s ease-out;
-        }
-
-        [data-theme="dark"] .dashboard-widget {
-            background: rgba(28, 28, 30, 0.8);
-        }
-
-        .dashboard-widget::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-        }
-
-        .widget-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .widget-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .live-indicator {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.1); }
-        }
-
-        .last-update {
-            font-size: 12px;
-            color: var(--secondary-text);
-        }
-
-        .dashboard-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 16px;
-        }
-
-        .dashboard-info-card {
-            background: var(--surface);
-            border-radius: var(--radius-medium);
-            padding: 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-info-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-light);
-        }
-
-        .dashboard-info-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .dashboard-info-card:hover::before {
-            left: 100%;
-        }
-
-        .dashboard-info-icon {
-            font-size: 20px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .dashboard-info-value {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary-text);
-            margin-bottom: 4px;
-        }
-
-        .dashboard-info-label {
-            font-size: 12px;
-            color: var(--secondary-text);
-            margin-bottom: 4px;
-        }
-
-        .dashboard-info-change {
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .dashboard-info-change.positive {
-            background: rgba(52, 199, 89, 0.1);
-            color: var(--success);
-        }
-
-        .dashboard-info-change.negative {
-            background: rgba(255, 59, 48, 0.1);
-            color: #ff3b30;
-        }
-
-        .dashboard-info-change.neutral {
-            background: var(--border-light);
-            color: var(--secondary-text);
-        }
-        
-        /* Animated Counter */
-        .animated-counter {
-            animation: countUp 2s ease-out forwards;
-        }
-        
-        @keyframes countUp {
-            from { 
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    
         
         /* Enhanced Cards */
         .card-enhanced {
@@ -2217,6 +2124,13 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .logo-text {
+            display: none;
+                }
+            
+            .logo-image {
+                height: 28px;
+            }
             .nav {
                 display: none;
             }
@@ -2365,134 +2279,84 @@
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Header -->
-    <header class="header" id="header">
+    <!-- Header -->
+<!-- Header -->
+<header class="header" id="header">
     <div class="header-content">
         <a href="#" class="logo">
-            <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru Logo" />
+            <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru Logo" class="logo-image" />
         </a>
+        
+        <nav class="nav">
+            <a href="#home" class="nav-link active">Beranda</a>
+            <a href="#hot-topics" class="nav-link">Trending</a>
+            <a href="#trip-planner" class="nav-link">Perencana</a>
+            <a href="#destinations" class="nav-link">Destinasi</a>
+            <a href="#guide" class="nav-link">Panduan</a>
+        </nav>
+        
+        <div class="header-controls">
+            <!-- 기존 controls... -->
+        </div>
     </div>
 </header>
-            
-            <nav class="nav">
-                <a href="#home" class="nav-link active">Beranda</a>
-                <a href="#hot-topics" class="nav-link">Trending</a>
-                <a href="#trip-planner" class="nav-link">Perencana</a>
-                <a href="#destinations" class="nav-link">Destinasi</a>
-                <a href="#guide" class="nav-link">Panduan</a>
-            </nav>
-            
-            <div class="header-controls">
-                <div class="search-box" id="searchBox">
-                    <input type="text" class="search-input" placeholder="Cari destinasi, makanan halal..." id="searchInput">
-                    <span class="search-icon">🔍</span>
-                    <div class="search-results" id="searchResults"></div>
-                </div>
-                <button class="search-toggle" onclick="toggleSearch()" title="Cari">🔍</button>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Ganti tema" id="themeToggle">🌙</button>
-                <div class="lang-switch" onclick="toggleLanguage()">
-                    🇮🇩 ID / EN
-                </div>
-            </div>
-            
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-container">
+            <!-- 왼쪽: 메시지 + 소개 + CTA -->
             <div class="hero-content">
                 <p class="hero-subtitle-jp">日本旅行の完璧なガイド</p>
                 <h1 class="text-large">Jelajahi Jepang dengan Nyaman & Halal</h1>
                 <p class="hero-subtitle">Platform wisata Muslim-friendly terlengkap untuk perjalanan impianmu ke Jepang</p>
-                <a href="#hot-topics" class="hero-cta">
-                    Mulai Petualangan
-                    <span>→</span>
-                </a>
+                
+                <!-- 재팬쿠루 소개 -->
+                <div class="japankuru-intro-compact">
+                    <p class="intro-text">
+                        <strong>Tim kreatif multinasional di Tokyo</strong> yang setiap hari melakukan riset langsung, 
+                        menyajikan informasi bermanfaat melalui artikel, foto, dan video.
+                        <span class="text-english">Multinational creative team providing daily insights from Tokyo.</span>
+                    </p>
+                    
+                    <div class="service-tags">
+                        <span class="tag">📍 Info Real-time</span>
+                        <span class="tag">🍜 Panduan Halal</span>
+                        <span class="tag">🎌 Pengalaman Budaya</span>
+                        <span class="tag">✈️ Perjalanan Custom</span>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="#hot-topics" class="hero-cta primary">
+                        Mulai Petualangan →
+                    </a>
+                    <a href="https://instagram.com/japankuru.id" target="_blank" class="hero-cta secondary">
+                        📱 Follow @japankuru.id
+                    </a>
+                </div>
             </div>
             
-            <div>
-                <div class="japankuru-info">
-                    <h2 class="info-title">Mengapa Japankuru? <span class="text-english">Why Japankuru?</span></h2>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-icon">🌏</div>
-                            <div class="info-text">
-                                <div class="info-number animated-counter" data-target="14">0</div>
-                                <div class="info-label">Tahun Pengalaman <span class="text-english">Years Experience</span></div>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon">👥</div>
-                            <div class="info-text">
-                                <div class="info-number animated-counter" data-target="1000000">0</div>
-                                <div class="info-label">Follower Global <span class="text-english">Global Followers</span></div>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon">📝</div>
-                            <div class="info-text">
-                                <div class="info-number animated-counter" data-target="4000">0</div>
-                                <div class="info-label">Konten Original <span class="text-english">Original Content</span></div>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-icon">🏆</div>
-                            <div class="info-text">
-                                <div class="info-number">Best</div>
-                                <div class="info-label">Award Winner <span class="text-english">Travel Fair Winner</span></div>
-                            </div>
+            <!-- 오른쪽: 매력적인 비주얼 -->
+            <div class="hero-visual">
+                <div class="visual-container">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&h=400&fit=crop" 
+                         alt="Tokyo Cityscape" class="main-visual">
+                    <div class="visual-overlay">
+                        <div class="overlay-content">
+                            <span class="live-badge">🔴 LIVE dari Tokyo</span>
+                            <p>Informasi terbaru langsung dari lapangan</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Real-time Dashboard Widget -->
-                <div class="dashboard-widget" id="dashboardWidget">
-                    <div class="widget-header">
-                        <div class="widget-title">
-                            <span>Info Perjalanan Real-time <span class="text-english">Real-time Travel Info</span></span>
-                            <div class="live-indicator"></div>
-                        </div>
-                        <div class="last-update" id="lastUpdate">Memperbarui...</div>
-                    </div>
-
-                    <div class="dashboard-info-grid">
-                        <!-- Tokyo Weather -->
-                        <div class="dashboard-info-card" id="weatherCard" onclick="openWeatherDetails()">
-                            <span class="dashboard-info-icon" id="weatherIcon">🌤️</span>
-                            <div class="dashboard-info-value" id="temperature">22°C</div>
-                            <div class="dashboard-info-label">Cuaca Tokyo</div>
-                            <div class="dashboard-info-change neutral" id="weatherDesc">Cerah</div>
-                        </div>
-
-                        <!-- Exchange Rate IDR -> JPY -->
-                        <div class="dashboard-info-card" id="exchangeCard" onclick="openExchangeDetails()">
-                            <span class="dashboard-info-icon">💱</span>
-                            <div class="dashboard-info-value" id="exchangeRate">¥0.095</div>
-                            <div class="dashboard-info-label">Kurs (Rp1.000)</div>
-                            <div class="dashboard-info-change positive" id="exchangeChange">+0.02%</div>
-                        </div>
-
-                        <!-- Flight Status -->
-                        <div class="dashboard-info-card" id="flightCard" onclick="openFlightInfo()">
-                            <span class="dashboard-info-icon">✈️</span>
-                            <div class="dashboard-info-value" id="flightPrice">Rp12.5JT</div>
-                            <div class="dashboard-info-label">Tiket Pesawat</div>
-                            <div class="dashboard-info-change negative" id="flightTrend">-5%</div>
-                        </div>
-
-                        <!-- Current Event -->
-                        <div class="dashboard-info-card" id="eventCard" onclick="openEventDetails()">
-                            <span class="dashboard-info-icon">🎌</span>
-                            <div class="dashboard-info-value" id="eventCount">12</div>
-                            <div class="dashboard-info-label">Event Berlangsung</div>
-                            <div class="dashboard-info-change positive" id="eventStatus">BARU</div>
-                        </div>
-                    </div>
+                
+                <!-- 작은 갤러리 -->
+                <div class="mini-gallery">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=150&h=100&fit=crop" 
+                         alt="Kimono Experience" class="mini-img">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=150&h=100&fit=crop" 
+                         alt="Halal Food" class="mini-img">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=150&h=100&fit=crop" 
+                         alt="Sakura Season" class="mini-img">
                 </div>
             </div>
         </div>
