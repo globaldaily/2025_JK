@@ -8,9 +8,6 @@
     <meta name="description" content="Platform wisata Muslim-friendly terlengkap untuk perjalanan ke Jepang. Temukan restoran halal, tempat ibadah, dan panduan lengkap.">
     <meta name="keywords" content="wisata jepang, halal food japan, muslim travel japan, japankuru, panduan wisata jepang">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'><rect width='1' height='1' fill='%23f5f5f7'/></svg>" as="image">
-    
     <style>
         /* Apple-inspired Design System - Optimized */
         :root {
@@ -82,20 +79,6 @@
             letter-spacing: 0.004em;
         }
         
-        .text-subheading {
-            font-size: clamp(18px, 3vw, 24px);
-            font-weight: 600;
-            line-height: 1.17;
-            letter-spacing: 0.009em;
-        }
-        
-        .text-body {
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.47;
-            letter-spacing: -0.022em;
-        }
-        
         .text-english {
             font-size: 0.85em;
             color: var(--secondary-text);
@@ -103,7 +86,7 @@
             opacity: 0.8;
         }
         
-        /* Enhanced Loading Screen */
+        /* Loading Screen */
         .loading {
             position: fixed;
             top: 0;
@@ -139,12 +122,7 @@
             50% { transform: scale(1.1); opacity: 0.8; }
         }
         
-        .loading-text {
-            color: var(--secondary-text);
-            font-weight: 500;
-        }
-        
-        /* Header with enhanced functionality */
+        /* Header */
         .header {
             position: fixed;
             top: 0;
@@ -202,23 +180,6 @@
             transform: scale(1.05);
         }
 
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .logo-image {
-                height: 32px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-image {
-                height: 28px;
-            }
-        }
-
-        /* 다크모드 지원 */
-        [data-theme="dark"] .logo-image {
-            filter: brightness(1.1);
-        }
         .nav {
             display: flex;
             gap: 32px;
@@ -246,130 +207,6 @@
             right: 0;
             height: 2px;
             background: var(--accent);
-            border-radius: 1px;
-        }
-        
-        /* Enhanced Search and Controls */
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .search-box {
-            position: relative;
-            display: none;
-        }
-        
-        .search-box.active {
-            display: block;
-        }
-        
-        .search-input {
-            width: 240px;
-            padding: 8px 16px 8px 40px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-            background: var(--surface);
-            color: var(--primary-text);
-        }
-        
-        .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-            background: var(--background);
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-text);
-            font-size: 16px;
-        }
-        
-        .search-toggle {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            color: var(--primary-text);
-        }
-        
-        .search-toggle:hover,
-        .theme-toggle:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        
-        .theme-toggle {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            color: var(--primary-text);
-        }
-        
-        .lang-switch {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            color: var(--primary-text);
-        }
-        
-        .lang-switch:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        
-        /* Mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-        
-        .mobile-menu-btn:hover {
-            background: var(--surface);
-        }
-        
-        .mobile-menu-btn span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--primary-text);
-            margin: 4px 0;
-            transition: 0.3s;
             border-radius: 1px;
         }
         
@@ -414,128 +251,6 @@
         }
         
         /* Hero Section */
-
-        .hero-container {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 60px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.japankuru-intro-compact {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: var(--radius-medium);
-    padding: 24px;
-    margin: 32px 0;
-    border-left: 4px solid var(--accent);
-}
-
-.intro-text {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--secondary-text);
-    margin-bottom: 16px;
-}
-
-.service-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag {
-    background: var(--surface);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: var(--secondary-text);
-    border: 1px solid var(--border-light);
-}
-
-.hero-actions {
-    display: flex;
-    gap: 16px;
-    margin-top: 32px;
-}
-
-.hero-cta.secondary {
-    background: transparent;
-    border: 2px solid var(--accent);
-    color: var(--accent);
-}
-
-/* 오른쪽 비주얼 */
-.visual-container {
-    position: relative;
-    border-radius: var(--radius-large);
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow-medium);
-}
-
-.main-visual {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.visual-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    padding: 20px;
-    color: white;
-}
-
-.live-badge {
-    background: #ff4444;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: inline-block;
-}
-
-.mini-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.mini-img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: var(--radius-small);
-    transition: transform 0.3s ease;
-}
-
-.mini-img:hover {
-    transform: scale(1.05);
-}
-
-/* 모바일 반응형 */
-@media (max-width: 768px) {
-    .hero-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .service-tags {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .hero-actions {
-        flex-direction: column;
-    }
-}
         .hero {
             padding: 140px 0 100px;
             background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
@@ -556,9 +271,9 @@
         
         .hero-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 60px;
-            align-items: start;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -596,6 +311,42 @@
             margin-bottom: 40px;
             font-weight: 400;
         }
+
+        .japankuru-intro-compact {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-medium);
+            padding: 24px;
+            margin: 32px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .intro-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--secondary-text);
+            margin-bottom: 16px;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: var(--surface);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--secondary-text);
+            border: 1px solid var(--border-light);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
         
         .hero-cta {
             display: inline-flex;
@@ -613,20 +364,11 @@
             position: relative;
             overflow: hidden;
         }
-        
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .hero-cta:hover::before {
-            left: 100%;
+
+        .hero-cta.secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
         }
         
         .hero-cta:hover {
@@ -634,8 +376,60 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-heavy);
         }
-        
-    
+
+        /* 오른쪽 비주얼 */
+        .visual-container {
+            position: relative;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .main-visual {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .visual-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 20px;
+            color: white;
+        }
+
+        .live-badge {
+            background: #ff4444;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .mini-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .mini-img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-small);
+            transition: transform 0.3s ease;
+        }
+
+        .mini-img:hover {
+            transform: scale(1.05);
+        }
         
         /* Enhanced Cards */
         .card-enhanced {
@@ -650,30 +444,12 @@
             transform: translateY(0);
         }
         
-        .card-enhanced::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
         .card-enhanced:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: var(--shadow-heavy);
         }
         
-        .card-enhanced:hover::before {
-            opacity: 0.05;
-        }
-        
-        /* Hot Topics Enhanced */
+        /* Hot Topics */
         .hot-topics {
             background: var(--surface);
         }
@@ -685,17 +461,11 @@
             margin-top: 60px;
         }
         
-        .topic-card {
-            position: relative;
-            z-index: 2;
-        }
-        
         .topic-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
             transition: transform 0.4s ease;
-            loading: lazy;
         }
         
         .card-enhanced:hover .topic-image {
@@ -704,8 +474,6 @@
         
         .topic-content {
             padding: 32px;
-            position: relative;
-            z-index: 2;
         }
         
         .topic-tag {
@@ -748,403 +516,13 @@
         .read-more:hover {
             gap: 8px;
         }
-
-        /* Trip Planner Section - Replaces Interactive Map */
-        .trip-planner-section {
-            background: var(--background);
-        }
-
-        .planner-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .planner-title {
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .planner-subtitle {
-            font-size: 18px;
-            color: var(--secondary-text);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Tab Navigation */
-        .tab-navigation {
-            display: flex;
-            background: var(--surface);
-            border-radius: var(--radius-large);
-            padding: 8px;
-            margin-bottom: 40px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .tab-navigation::-webkit-scrollbar {
-            display: none;
-        }
-
-        .tab-button {
-            flex: 1;
-            min-width: 120px;
-            padding: 16px 24px;
-            border: none;
-            background: transparent;
-            border-radius: var(--radius-medium);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--secondary-text);
-            text-align: center;
-        }
-
-        .tab-button.active {
-            background: var(--accent);
-            color: white;
-            box-shadow: var(--shadow-light);
-        }
-
-        .tab-button:hover:not(.active) {
-            background: rgba(0, 122, 255, 0.1);
-            color: var(--accent);
-        }
-
-        /* Content Panels */
-        .content-container {
-            background: var(--background);
-            border-radius: var(--radius-large);
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            min-height: 500px;
-        }
-
-        .content-panel {
-            display: none;
-            padding: 40px;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .content-panel.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .panel-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--primary-text);
-        }
-
-        .panel-subtitle {
-            font-size: 14px;
-            color: var(--secondary-text);
-            margin-bottom: 24px;
-        }
-
-        /* Quick Selections */
-        .quick-selections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        .selection-card {
-            background: var(--surface);
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-medium);
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .selection-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .selection-card.selected {
-            border-color: var(--accent);
-            background: rgba(0, 122, 255, 0.05);
-        }
-
-        .selection-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .selection-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .selection-desc {
-            font-size: 14px;
-            color: var(--secondary-text);
-        }
-
-        /* Interest Tags */
-        .interest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .interest-tag {
-            background: var(--surface);
-            border: 2px solid var(--border-light);
-            border-radius: 25px;
-            padding: 12px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .interest-tag:hover {
-            border-color: var(--accent);
-        }
-
-        .interest-tag.selected {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        /* Generated Itinerary */
-        .generated-content {
-            background: var(--surface);
-            border-radius: var(--radius-large);
-            padding: 32px;
-            margin-top: 32px;
-        }
-
-        .itinerary-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .summary-card {
-            background: var(--background);
-            padding: 20px;
-            border-radius: var(--radius-medium);
-            text-align: center;
-            box-shadow: var(--shadow-light);
-        }
-
-        .summary-number {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .summary-label {
-            font-size: 14px;
-            color: var(--secondary-text);
-            margin-bottom: 4px;
-        }
-
-        .summary-sublabel {
-            font-size: 12px;
-            color: var(--secondary-text);
-            opacity: 0.8;
-        }
-
-        /* Day Cards */
-        .day-cards {
-            display: grid;
-            gap: 24px;
-        }
-
-        .day-card {
-            background: var(--background);
-            border-radius: var(--radius-medium);
-            padding: 24px;
-            box-shadow: var(--shadow-light);
-        }
-
-        .day-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .day-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .day-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .activities-list {
-            display: grid;
-            gap: 16px;
-        }
-
-        .activity-item {
-            display: flex;
-            gap: 16px;
-            padding: 16px;
-            background: var(--surface);
-            border-radius: var(--radius-medium);
-            transition: all 0.3s ease;
-        }
-
-        .activity-item:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-light);
-        }
-
-        .activity-time {
-            min-width: 60px;
-            font-weight: 600;
-            color: var(--accent);
-            font-size: 14px;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .activity-desc {
-            color: var(--secondary-text);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .activity-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .activity-tag {
-            background: var(--border-light);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            color: var(--secondary-text);
-        }
-
-        .activity-tag.halal {
-            background: #34c759;
-            color: white;
-        }
-
-        .activity-tag.prayer {
-            background: var(--japan-red);
-            color: white;
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        /* Loading */
-        .loading-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-light);
-            border-top: 4px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         
         /* Follow CTA Section */
         .follow-cta {
             background: var(--gradient-primary);
             color: white;
             text-align: center;
-            padding: 60px 20px;
-            margin: 40px 0;
+            padding: 60px 40px;
             border-radius: var(--radius-large);
             position: relative;
             overflow: hidden;
@@ -1203,95 +581,7 @@
             box-shadow: var(--shadow-heavy);
         }
         
-        /* Enhanced Sections with consistent styling */
-        .killer-content {
-            background: var(--background);
-        }
-        
-        .celeb-trail {
-            background: var(--surface);
-            border-radius: var(--radius-large);
-            padding: 40px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .celeb-trail::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .celeb-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-        
-        .celeb-title {
-            font-size: 28px;
-            color: var(--primary-text);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .celeb-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-        
-        .celeb-card {
-            position: relative;
-            border-radius: var(--radius-medium);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: var(--shadow-light);
-        }
-        
-        .celeb-card:hover {
-            transform: scale(1.02) rotateY(2deg);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .celeb-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            loading: lazy;
-        }
-        
-        .celeb-card:hover .celeb-image {
-            transform: scale(1.1);
-        }
-        
-        .celeb-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 24px 20px;
-            color: white;
-        }
-        
-        .celeb-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .celeb-spot {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        /* Enhanced Michelin Section */
+        /* Michelin Section */
         .michelin-section {
             background: var(--surface);
         }
@@ -1341,6 +631,8 @@
             box-shadow: var(--shadow-light);
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
         }
         
         .michelin-card::before {
@@ -1392,7 +684,7 @@
             gap: 8px;
         }
         
-        /* Enhanced Beauty Section */
+        /* Beauty Section */
         .beauty-section {
             background: var(--background);
         }
@@ -1409,6 +701,8 @@
             overflow: hidden;
             box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
         }
         
         .beauty-card:hover {
@@ -1421,7 +715,6 @@
             height: 200px;
             object-fit: cover;
             transition: transform 0.3s ease;
-            loading: lazy;
         }
         
         .beauty-card:hover .beauty-image {
@@ -1478,7 +771,7 @@
             font-weight: bold;
         }
         
-        /* Enhanced Checklist with Local Storage */
+        /* Checklist Section */
         .checklist-section {
             background: var(--surface);
         }
@@ -1593,7 +886,7 @@
             margin-bottom: 8px;
         }
         
-        /* Progress indicator for checklist */
+        /* Progress indicator */
         .progress-indicator {
             background: var(--surface);
             padding: 20px;
@@ -1630,7 +923,7 @@
             color: var(--primary-text);
         }
         
-        /* Enhanced Gallery with Lightbox Effect */
+        /* Gallery Section */
         .gallery-section {
             background: var(--background);
         }
@@ -1650,6 +943,8 @@
             cursor: pointer;
             transition: all 0.4s ease;
             box-shadow: var(--shadow-light);
+            text-decoration: none;
+            color: inherit;
         }
         
         .gallery-item:hover {
@@ -1662,7 +957,6 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.4s ease;
-            loading: lazy;
         }
         
         .gallery-item:hover .gallery-image {
@@ -1690,70 +984,9 @@
             opacity: 0.9;
         }
         
-        /* Enhanced Partners */
-        .partners-section {
-            background: var(--surface);
-        }
-        
-        .partner-scroll {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            padding: 20px 0;
-            scrollbar-width: none;
-        }
-        
-        .partner-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .partner-card {
-            flex: 0 0 300px;
-            background: var(--background);
-            border-radius: var(--radius-medium);
-            padding: 32px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-light);
-        }
-        
-        .partner-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .partner-logo {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-        }
-        
-        .partner-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--primary-text);
-        }
-        
-        .partner-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 16px;
-        }
-        
-        .partner-feature {
-            background: var(--accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        /* Enhanced Seasons */
+        /* Seasons Section */
         .seasons-section {
-            background: var(--background);
+            background: var(--surface);
         }
         
         .seasons-grid {
@@ -1764,12 +997,14 @@
         }
         
         .season-card {
-            background: var(--surface);
+            background: var(--background);
             border-radius: var(--radius-large);
             overflow: hidden;
             box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
         
         .season-card:hover {
@@ -1782,7 +1017,6 @@
             height: 160px;
             object-fit: cover;
             transition: transform 0.3s ease;
-            loading: lazy;
         }
         
         .season-card:hover .season-image {
@@ -1823,55 +1057,7 @@
             font-size: 14px;
         }
         
-        /* Enhanced About */
-        .about-japankuru {
-            background: var(--primary-text);
-            color: white;
-            text-align: center;
-        }
-        
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .about-title {
-            font-size: 32px;
-            margin-bottom: 24px;
-            font-weight: 700;
-        }
-        
-        .about-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .about-stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--japan-gold);
-            margin-bottom: 8px;
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
-        .about-desc {
-            font-size: 18px;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        /* Enhanced Final CTA */
+        /* Final CTA */
         .final-cta {
             background: var(--gradient-primary);
             color: white;
@@ -1939,7 +1125,7 @@
             color: var(--accent);
         }
         
-        /* Enhanced Footer */
+        /* Footer */
         .footer {
             background: var(--primary-text);
             color: white;
@@ -2010,7 +1196,7 @@
             transform: translateY(-2px);
         }
         
-        /* Enhanced Utilities */
+        /* Utilities */
         .scroll-top {
             position: fixed;
             bottom: 32px;
@@ -2043,7 +1229,7 @@
             transform: translateY(-2px);
         }
         
-        /* Enhanced Notification System */
+        /* Notification */
         .notification {
             position: fixed;
             top: 80px;
@@ -2077,79 +1263,19 @@
             background: var(--error);
         }
         
-        /* Search Results */
-        .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--background);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-medium);
-            box-shadow: var(--shadow-medium);
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-        }
-        
-        .search-results.show {
-            display: block;
-        }
-        
-        .search-result-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-light);
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .search-result-item:hover {
-            background: var(--surface);
-        }
-        
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .search-result-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .search-result-desc {
-            font-size: 14px;
-            color: var(--secondary-text);
-        }
-        
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .logo-text {
-            display: none;
-                }
-            
-            .logo-image {
-                height: 28px;
-            }
             .nav {
                 display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header-controls {
-                gap: 8px;
-            }
-            
-            .search-box {
-                display: none !important;
             }
             
             .hero-container {
                 grid-template-columns: 1fr;
                 gap: 40px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
             }
             
             .text-large {
@@ -2167,19 +1293,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .celeb-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .about-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 24px;
-            }
-            
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -2191,40 +1304,9 @@
                 max-width: 280px;
                 justify-content: center;
             }
-            
-            .follow-cta {
-                margin: 20px;
-                padding: 40px 20px;
-            }
 
-            .content-panel {
-                padding: 24px;
-            }
-
-            .quick-selections {
-                grid-template-columns: 1fr;
-            }
-
-            .interest-grid {
+            .mini-gallery {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .itinerary-summary {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .dashboard-info-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
             }
         }
         
@@ -2233,36 +1315,18 @@
                 padding: 0 16px;
             }
             
-            .celeb-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .partner-card {
-                flex: 0 0 280px;
-            }
-            
             .hero-container {
                 padding: 0 16px;
             }
             
-            .japankuru-info,
-            .celeb-trail,
             .michelin-banner {
                 padding: 32px 24px;
             }
-
-            .dashboard-widget {
-                padding: 20px;
-            }
         }
         
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        /* Dark theme support */
+        [data-theme="dark"] .logo-image {
+            filter: brightness(1.1);
         }
     </style>
 </head>
@@ -2279,30 +1343,24 @@
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Header -->
-    <!-- Header -->
-<!-- Header -->
-<header class="header" id="header">
-    <div class="header-content">
-        <a href="#" class="logo">
-            <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru Logo" class="logo-image" />
-        </a>
-        
-        <nav class="nav">
-            <a href="#home" class="nav-link active">Beranda</a>
-            <a href="#hot-topics" class="nav-link">Trending</a>
-            <a href="#trip-planner" class="nav-link">Perencana</a>
-            <a href="#destinations" class="nav-link">Destinasi</a>
-            <a href="#guide" class="nav-link">Panduan</a>
-        </nav>
-        
-        <div class="header-controls">
-            <!-- 기존 controls... -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru Logo" class="logo-image" />
+            </a>
+            
+            <nav class="nav">
+                <a href="#hot-topics" class="nav-link active">Trending</a>
+                <a href="#michelin" class="nav-link">Kuliner</a>
+                <a href="#beauty" class="nav-link">Beauty</a>
+                <a href="#guide" class="nav-link">Panduan</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+            </nav>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-container">
             <!-- 왼쪽: 메시지 + 소개 + CTA -->
             <div class="hero-content">
@@ -2371,7 +1429,8 @@
             </div>
             
             <div class="topic-cards">
-                <a href="https://japankuru.com/tokyo-halal-ramen-best-5" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" class="topic-card card-enhanced" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Ramen" class="topic-image">
                     <div class="topic-content">
                         <span class="topic-tag">🍜 Makanan Halal</span>
@@ -2381,7 +1440,8 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/autumn-leaves-best-spots" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" class="topic-card card-enhanced" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Autumn Leaves" class="topic-image">
                     <div class="topic-content">
                         <span class="topic-tag">🍁 Musim Gugur</span>
@@ -2391,27 +1451,30 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/winter-fashion-sale-2024" target="_blank" class="topic-card card-enhanced" rel="noopener">
-                    <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=200&fit=crop" alt="Shopping" class="topic-image">
+                <!-- 기존 기사 활용 -->
+                <a href="https://japankuru.com/en/tour/e3196/" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=200&fit=crop" alt="San'in Local Food" class="topic-image">
                     <div class="topic-content">
-                        <span class="topic-tag">🛍️ Belanja</span>
-                        <h3 class="topic-title">Info Sale Fashion Musim Dingin</h3>
-                        <p class="topic-desc">Sale terbaru Uniqlo, GU, Muji! Plus item yang cocok dipadukan dengan hijab.</p>
+                        <span class="topic-tag">🦀 Kuliner Lokal</span>
+                        <h3 class="topic-title">Makanan Laut Segar di Wilayah San'in</h3>
+                        <p class="topic-desc">Jelajahi kelezatan makanan laut segar Tottori dan Shimane yang wajib dicoba para pecinta seafood.</p>
                         <div class="read-more">Selengkapnya →</div>
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/tokyo-night-view-spots" target="_blank" class="topic-card card-enhanced" rel="noopener">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=200&fit=crop" alt="Tokyo Tower" class="topic-image">
+                <!-- 기존 기사 활용 -->
+                <a href="https://japankuru.com/en/tour/e3195/" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1566051625375-761e0b1bdc9d?w=400&h=200&fit=crop" alt="Tanabata Festival" class="topic-image">
                     <div class="topic-content">
-                        <span class="topic-tag">🌃 Wisata Malam</span>
-                        <h3 class="topic-title">Spot Pemandangan Malam Tokyo</h3>
-                        <p class="topic-desc">Dari Tokyo Tower hingga Skytree, tempat terbaik menikmati gemerlap lampu kota Tokyo.</p>
+                        <span class="topic-tag">🎋 Festival</span>
+                        <h3 class="topic-title">3 Festival Tanabata Terbaik di Jepang</h3>
+                        <p class="topic-desc">Event musim panas yang menceritakan tentang legenda Jepang dan cinta abadi yang romantis.</p>
                         <div class="read-more">Selengkapnya →</div>
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/hijab-friendly-kimono-experience" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" class="topic-card card-enhanced" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Kimono" class="topic-image">
                     <div class="topic-content">
                         <span class="topic-tag">👘 Budaya</span>
@@ -2421,7 +1484,8 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/women-only-onsen-guide" target="_blank" class="topic-card card-enhanced" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" class="topic-card card-enhanced" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" alt="Onsen" class="topic-image">
                     <div class="topic-content">
                         <span class="topic-tag">♨️ Relaksasi</span>
@@ -2431,8 +1495,12 @@
                     </div>
                 </a>
             </div>
-            
-            <!-- Follow CTA in middle -->
+        </div>
+    </section>
+
+    <!-- Follow CTA Section -->
+    <section class="section" style="padding: 60px 0; background: var(--background);">
+        <div class="container">
             <div class="follow-cta">
                 <div class="follow-content">
                     <h3 class="follow-title">Dapatkan Update Terbaru! <span class="text-english">Get Latest Updates!</span></h3>
@@ -2440,151 +1508,6 @@
                     <a href="https://instagram.com/japankuru.id" target="_blank" class="follow-btn" rel="noopener">
                         <span>📱</span>
                         <span>Follow @japankuru.id</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Smart Trip Planner Section - Replaces Interactive Map -->
-    <section class="section trip-planner-section" id="trip-planner">
-        <div class="container">
-            <div class="planner-header">
-                <h2 class="planner-title">Perencana Perjalanan Cerdas <span class="text-english">Smart Trip Planner</span></h2>
-                <p class="planner-subtitle">Dengan beberapa pilihan sederhana, buat itinerary perjalanan Jepang yang sempurna</p>
-            </div>
-
-            <div class="tab-navigation">
-                <button class="tab-button active" data-tab="duration">📅 Durasi</button>
-                <button class="tab-button" data-tab="interests">🎯 Minat</button>
-                <button class="tab-button" data-tab="budget">💰 Budget</button>
-                <button class="tab-button" data-tab="result">✨ Itinerary</button>
-            </div>
-
-            <div class="content-container">
-                <!-- Duration Tab -->
-                <div class="content-panel active" data-panel="duration">
-                    <h3 class="panel-title">Pilih durasi perjalanan Anda</h3>
-                    <p class="panel-subtitle">Choose your travel duration</p>
-                    <div class="quick-selections" id="durationOptions"></div>
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="nextTab()">Lanjut →</button>
-                    </div>
-                </div>
-
-                <!-- Interests Tab -->
-                <div class="content-panel" data-panel="interests">
-                    <h3 class="panel-title">Pengalaman apa yang Anda inginkan?</h3>
-                    <p class="panel-subtitle">What experiences do you want? (Multiple selections allowed)</p>
-                    <div class="interest-grid" id="interestOptions"></div>
-                    <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="prevTab()">← Kembali</button>
-                        <button class="btn btn-primary" onclick="nextTab()">Lanjut →</button>
-                    </div>
-                </div>
-
-                <!-- Budget Tab -->
-                <div class="content-panel" data-panel="budget">
-                    <h3 class="panel-title">Pilih budget harian Anda</h3>
-                    <p class="panel-subtitle">Choose your daily budget</p>
-                    <div class="quick-selections" id="budgetOptions"></div>
-                    <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="prevTab()">← Kembali</button>
-                        <button class="btn btn-primary" onclick="generateTrip()">Buat Itinerary ✨</button>
-                    </div>
-                </div>
-
-                <!-- Result Tab -->
-                <div class="content-panel" data-panel="result">
-                    <div class="loading-state" id="loadingState">
-                        <div class="loading-spinner"></div>
-                        <p>Membuat itinerary perjalanan yang sempurna untuk Anda...</p>
-                        <p style="font-size: 14px; color: var(--secondary-text); margin-top: 8px;">Creating your perfect travel itinerary...</p>
-                    </div>
-
-                    <div id="generatedResult" style="display: none;">
-                        <h3 class="panel-title">🎌 Itinerary Perjalanan Jepang Anda</h3>
-                        <p class="panel-subtitle">Your Japan Travel Itinerary</p>
-                        
-                        <div class="itinerary-summary">
-                            <div class="summary-card">
-                                <div class="summary-number" id="totalDays">-</div>
-                                <div class="summary-label">Durasi Perjalanan</div>
-                                <div class="summary-sublabel">Travel Duration</div>
-                            </div>
-                            <div class="summary-card">
-                                <div class="summary-number" id="totalActivities">-</div>
-                                <div class="summary-label">Total Aktivitas</div>
-                                <div class="summary-sublabel">Total Activities</div>
-                            </div>
-                            <div class="summary-card">
-                                <div class="summary-number" id="halalSpots">-</div>
-                                <div class="summary-label">Resto Halal</div>
-                                <div class="summary-sublabel">Halal Restaurants</div>
-                            </div>
-                            <div class="summary-card">
-                                <div class="summary-number" id="totalBudget">-</div>
-                                <div class="summary-label">Perkiraan Biaya</div>
-                                <div class="summary-sublabel">Estimated Cost</div>
-                            </div>
-                        </div>
-
-                        <div class="generated-content">
-                            <div class="day-cards" id="dayCards"></div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn-secondary" onclick="downloadPDF()">📄 Unduh PDF</button>
-                            <button class="btn btn-primary" onclick="shareTrip()">🔗 Bagikan</button>
-                            <button class="btn btn-secondary" onclick="resetPlanner()">🔄 Buat Ulang</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Killer Content -->
-    <section class="section killer-content" id="destinations">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">Konten Eksklusif Japankuru <span class="text-english">Japankuru Exclusive Content</span></h2>
-                <p class="section-subtitle">Informasi khusus yang tidak akan Anda temukan di tempat lain</p>
-            </div>
-            
-            <div class="celeb-trail">
-                <div class="celeb-header">
-                    <h3 class="celeb-title">Jejak Selebriti Indonesia di Jepang <span class="text-english">Indonesian Celebrity Trails in Japan</span></h3>
-                    <p class="section-subtitle">Ikuti jejak selebriti favorit Anda dan rasakan pengalaman yang sama!</p>
-                </div>
-                <div class="celeb-grid">
-                    <a href="https://japankuru.com/raisa-tokyo-tower-visit" target="_blank" class="celeb-card" rel="noopener">
-                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop" alt="Tokyo Tower" class="celeb-image">
-                        <div class="celeb-info">
-                            <div class="celeb-name">Raisa Andriana</div>
-                            <div class="celeb-spot">Observasi Tokyo Tower</div>
-                        </div>
-                    </a>
-                    <a href="https://japankuru.com/atta-shibuya-crossing" target="_blank" class="celeb-card" rel="noopener">
-                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&h=200&fit=crop" alt="Shibuya" class="celeb-image">
-                        <div class="celeb-info">
-                            <div class="celeb-name">Atta Halilintar</div>
-                            <div class="celeb-spot">Shibuya Crossing</div>
-                        </div>
-                    </a>
-                    <a href="https://japankuru.com/natasha-kimono-asakusa" target="_blank" class="celeb-card" rel="noopener">
-                        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=300&h=200&fit=crop" alt="Kimono" class="celeb-image">
-                        <div class="celeb-info">
-                            <div class="celeb-name">Natasha Wilona</div>
-                            <div class="celeb-spot">Pengalaman Kimono Asakusa</div>
-                        </div>
-                    </a>
-                    <a href="https://japankuru.com/ricis-harajuku-takeshita" target="_blank" class="celeb-card" rel="noopener">
-                        <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=300&h=200&fit=crop" alt="Harajuku" class="celeb-image">
-                        <div class="celeb-info">
-                            <div class="celeb-name">Ria Ricis</div>
-                            <div class="celeb-spot">Harajuku Takeshita Street</div>
-                        </div>
                     </a>
                 </div>
             </div>
@@ -2600,25 +1523,29 @@
             </div>
             
             <div class="michelin-list">
-                <a href="https://japankuru.com/kaiseki-hana-den-halal" target="_blank" class="michelin-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="michelin-card">
                     <h3 class="michelin-name">Kaiseki Hana-den</h3>
                     <p class="michelin-desc">Kaiseki halal otentik dengan pelayanan penuh. Reservasi sebelumnya untuk menu spesial tersedia.</p>
                     <p class="michelin-price">Makan Siang: ¥5,000~ / Makan Malam: ¥12,000~</p>
                     <div class="visit-btn">Kunjungi Artikel →</div>
                 </a>
-                <a href="https://japankuru.com/teppanyaki-takumi-halal" target="_blank" class="michelin-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="michelin-card">
                     <h3 class="michelin-name">Teppanyaki Takumi</h3>
                     <p class="michelin-desc">Wagyu halal yang dimasak di depan mata Anda. Pertunjukan chef juga wajib ditonton!</p>
                     <p class="michelin-price">Set Menu: ¥8,000~</p>
                     <div class="visit-btn">Kunjungi Artikel →</div>
                 </a>
-                <a href="https://japankuru.com/sushi-kaigetsu-halal" target="_blank" class="michelin-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="michelin-card">
                     <h3 class="michelin-name">Sushi-dokoro Kaigetsu</h3>
                     <p class="michelin-desc">Sushi Edomae otentik dengan kecap halal. Opsi vegetarian juga tersedia.</p>
                     <p class="michelin-price">Omakase: ¥6,000~</p>
                     <div class="visit-btn">Kunjungi Artikel →</div>
                 </a>
-                <a href="https://japankuru.com/ramen-yashichi-halal" target="_blank" class="michelin-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="michelin-card">
                     <h3 class="michelin-name">Ramen Yashichi</h3>
                     <p class="michelin-desc">Ramen halal paling terkenal di Tokyo. Dari tonkotsu kental hingga shio yang segar.</p>
                     <p class="michelin-price">Ramen: ¥1,200~</p>
@@ -2637,7 +1564,8 @@
             </div>
             
             <div class="beauty-grid">
-                <a href="https://japankuru.com/hijab-friendly-hair-salon" target="_blank" class="beauty-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" alt="Hair Salon" class="beauty-image">
                     <div class="beauty-content">
                         <span class="beauty-badge">Khusus Wanita</span>
@@ -2651,7 +1579,8 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/japanese-makeup-hijab-friendly" target="_blank" class="beauty-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Makeup" class="beauty-image">
                     <div class="beauty-content">
                         <span class="beauty-badge">Pengalaman Khusus</span>
@@ -2665,7 +1594,8 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/women-only-spa-onsen" target="_blank" class="beauty-card" rel="noopener">
+                <!-- 신규 제작 필요 -->
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" alt="Spa" class="beauty-image">
                     <div class="beauty-content">
                         <span class="beauty-badge">Relaksasi</span>
@@ -2682,7 +1612,7 @@
         </div>
     </section>
 
-    <!-- Checklist Section with Local Storage -->
+    <!-- Checklist Section -->
     <section class="section checklist-section" id="guide">
         <div class="checklist-container">
             <div class="section-header">
@@ -2805,7 +1735,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="section gallery-section">
+    <section class="section gallery-section" id="gallery">
         <div class="container">
             <div class="section-header">
                 <h2 class="text-heading section-title">Kisah Nyata Para Traveler <span class="text-english">Real Traveler Stories</span></h2>
@@ -2813,7 +1743,7 @@
             </div>
             
             <div class="gallery-grid">
-                <a href="https://japankuru.com/tokyo-skytree-night-view" target="_blank" class="gallery-item" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop" alt="Tokyo Night View" class="gallery-image">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Tokyo Skytree</h3>
@@ -2821,7 +1751,7 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/kimono-experience-asakusa" target="_blank" class="gallery-item" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop" alt="Kimono Experience" class="gallery-image">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Pengalaman Kimono</h3>
@@ -2829,7 +1759,7 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/kyoto-autumn-momiji" target="_blank" class="gallery-item" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop" alt="Kyoto Autumn" class="gallery-image">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Momiji Kyoto</h3>
@@ -2837,7 +1767,7 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/hokkaido-winter-wonderland" target="_blank" class="gallery-item" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Hokkaido Winter" class="gallery-image">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Musim Dingin Hokkaido</h3>
@@ -2845,7 +1775,7 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/halal-food-tokyo-guide" target="_blank" class="gallery-item" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop" alt="Halal Food" class="gallery-image">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Kuliner Halal</h3>
@@ -2853,69 +1783,13 @@
                     </div>
                 </a>
                 
-                <a href="https://japankuru.com/okinawa-emerald-sea" target="_blank" class="gallery-item" rel="noopener">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa Sea" class="gallery-image">
+                <a href="https://japankuru.com/en/tour/e3194/" target="_blank" class="gallery-item" rel="noopener">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa Manzamo" class="gallery-image">
                     <div class="gallery-overlay">
-                        <h3 class="gallery-title">Laut Okinawa</h3>
-                        <p class="gallery-desc">Waktu damai di laut zamrud Okinawa yang mempesona</p>
+                        <h3 class="gallery-title">Cape Manzamo Okinawa</h3>
+                        <p class="gallery-desc">Tebing spektakuler berbentuk gajah dengan pemandangan laut yang menakjubkan</p>
                     </div>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partners Section -->
-    <section class="section partners-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">Partner Terpercaya <span class="text-english">Trusted Partners</span></h2>
-                <p class="section-subtitle">Bersama partner terbaik di Jepang untuk memberikan perjalanan yang aman dan nyaman</p>
-            </div>
-            
-            <div class="partner-scroll">
-                <div class="partner-card">
-                    <div class="partner-logo">🏨</div>
-                    <h3 class="partner-name">JTB Travel</h3>
-                    <p>Kemitraan eksklusif dengan agen perjalanan terbesar Jepang untuk produk spesial.</p>
-                    <div class="partner-features">
-                        <span class="partner-feature">Hotel Spesial</span>
-                        <span class="partner-feature">Paket Tour</span>
-                        <span class="partner-feature">24/7 Support</span>
-                    </div>
-                </div>
-                
-                <div class="partner-card">
-                    <div class="partner-logo">🍱</div>
-                    <h3 class="partner-name">Halal Food Japan</h3>
-                    <p>Jaringan lebih dari 3.000 restoran bersertifikat halal di seluruh Jepang.</p>
-                    <div class="partner-features">
-                        <span class="partner-feature">Sertifikat Halal</span>
-                        <span class="partner-feature">Reservasi Restoran</span>
-                        <span class="partner-feature">Terjemahan Menu</span>
-                    </div>
-                </div>
-                
-                <div class="partner-card">
-                    <div class="partner-logo">🚅</div>
-                    <h3 class="partner-name">JR East Japan</h3>
-                    <p>Partner resmi JR Pass memberikan solusi transportasi terbaik.</p>
-                    <div class="partner-features">
-                        <span class="partner-feature">JR Pass</span>
-                        <span class="partner-feature">Reservasi Kursi</span>
-                        <span class="partner-feature">Panduan Rute</span>
-                    </div>
-                </div>
-                
-                <div class="partner-card">
-                    <div class="partner-logo">🕌</div>
-                    <h3 class="partner-name">Islamic Center Japan</h3>
-                    <p>Informasi fasilitas Islam di Jepang dan dukungan keagamaan.</p>
-                    <div class="partner-features">
-                        <span class="partner-feature">Info Musala</span>
-                        <span class="partner-feature">Konsultasi Agama</span>
-                        <span class="partner-feature">Komunitas</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -2929,7 +1803,7 @@
             </div>
             
             <div class="seasons-grid">
-                <a href="https://japankuru.com/spring-sakura-guide" target="_blank" class="season-card" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="season-card">
                     <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=160&fit=crop" alt="Spring" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🌸</div>
@@ -2944,7 +1818,7 @@
                     </ul>
                 </a>
                 
-                <a href="https://japankuru.com/summer-festival-guide" target="_blank" class="season-card" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="season-card">
                     <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=160&fit=crop" alt="Summer" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🎆</div>
@@ -2959,7 +1833,7 @@
                     </ul>
                 </a>
                 
-                <a href="https://japankuru.com/autumn-momiji-spots" target="_blank" class="season-card" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="season-card">
                     <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=160&fit=crop" alt="Autumn" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">🍁</div>
@@ -2974,7 +1848,7 @@
                     </ul>
                 </a>
                 
-                <a href="https://japankuru.com/winter-illumination-guide" target="_blank" class="season-card" rel="noopener">
+                <a href="#" onclick="showNotification('기사 제작 중입니다!', 'warning'); return false;" class="season-card">
                     <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop" alt="Winter" class="season-image">
                     <div class="season-header">
                         <div class="season-icon">❄️</div>
@@ -2988,37 +1862,6 @@
                         <li>Makanan khusus musim dingin</li>
                     </ul>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Japankuru -->
-    <section class="section about-japankuru">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="about-title">Japankuru Indonesia</h2>
-                <div class="about-stats">
-                    <div class="about-stat">
-                        <div class="stat-number animated-counter" data-target="14">0</div>
-                        <div class="stat-label">Tahun Pengalaman</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="stat-number animated-counter" data-target="1000000">0</div>
-                        <div class="stat-label">Follower</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="stat-number animated-counter" data-target="5000">0</div>
-                        <div class="stat-label">Restoran Halal</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="stat-number animated-counter" data-target="200">0</div>
-                        <div class="stat-label">Info Musala</div>
-                    </div>
-                </div>
-                <p class="about-desc">
-                    Dimulai sejak 2010, Japankuru adalah panduan wisata Jepang terbaik untuk traveler Muslim Indonesia. 
-                    Tim lokal kami di Tokyo mengumpulkan informasi dengan riset langsung, menjamin perjalanan yang aman dan nyaman.
-                </p>
             </div>
         </div>
     </section>
@@ -3065,36 +1908,36 @@
                 <div class="footer-section">
                     <h3>Layanan Wisata</h3>
                     <ul class="footer-links">
-                        <li><a href="https://japankuru.com/custom-travel-plan">Perencanaan Wisata Custom</a></li>
-                        <li><a href="https://japankuru.com/halal-restaurant-guide">Panduan Restoran Halal</a></li>
-                        <li><a href="https://japankuru.com/accommodation-booking">Reservasi Akomodasi</a></li>
-                        <li><a href="https://japankuru.com/transport-pass">Pass Transportasi</a></li>
-                        <li><a href="https://japankuru.com/cultural-tours">Tour Pengalaman Budaya</a></li>
-                        <li><a href="https://japankuru.com/local-guide">Layanan Guide Lokal</a></li>
+                        <li><a href="#">Perencanaan Wisata Custom</a></li>
+                        <li><a href="#">Panduan Restoran Halal</a></li>
+                        <li><a href="#">Reservasi Akomodasi</a></li>
+                        <li><a href="#">Pass Transportasi</a></li>
+                        <li><a href="#">Tour Pengalaman Budaya</a></li>
+                        <li><a href="#">Layanan Guide Lokal</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Informasi Wisata</h3>
                     <ul class="footer-links">
-                        <li><a href="https://japankuru.com/weather-info">Info Cuaca</a></li>
-                        <li><a href="https://japankuru.com/exchange-rate">Info Nilai Tukar</a></li>
-                        <li><a href="https://japankuru.com/transportation">Info Transportasi</a></li>
-                        <li><a href="https://japankuru.com/visa-info">Info Visa</a></li>
-                        <li><a href="https://japankuru.com/language-guide">Panduan Bahasa</a></li>
-                        <li><a href="https://japankuru.com/emergency-contacts">Kontak Darurat</a></li>
+                        <li><a href="#">Info Cuaca</a></li>
+                        <li><a href="#">Info Nilai Tukar</a></li>
+                        <li><a href="#">Info Transportasi</a></li>
+                        <li><a href="#">Info Visa</a></li>
+                        <li><a href="#">Panduan Bahasa</a></li>
+                        <li><a href="#">Kontak Darurat</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Dukungan Pelanggan</h3>
                     <ul class="footer-links">
-                        <li><a href="https://japankuru.com/customer-service">Customer Service 24 Jam</a></li>
-                        <li><a href="https://japankuru.com/faq">Pertanyaan Umum</a></li>
-                        <li><a href="https://japankuru.com/reviews">Review Perjalanan</a></li>
-                        <li><a href="https://japankuru.com/cancellation-policy">Kebijakan Pembatalan/Pengembalian</a></li>
-                        <li><a href="https://japankuru.com/privacy-policy">Kebijakan Privasi</a></li>
-                        <li><a href="https://japankuru.com/terms">Syarat dan Ketentuan</a></li>
+                        <li><a href="#">Customer Service 24 Jam</a></li>
+                        <li><a href="#">Pertanyaan Umum</a></li>
+                        <li><a href="#">Review Perjalanan</a></li>
+                        <li><a href="#">Kebijakan Pembatalan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat dan Ketentuan</a></li>
                     </ul>
                 </div>
             </div>
@@ -3112,26 +1955,13 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // Enhanced JavaScript with all optimizations
-        
         // Loading animation
         window.addEventListener('load', function() {
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
                 
-                // Initialize counter animations
-                setTimeout(() => {
-                    animateCounters();
-                }, 500);
-                
                 // Initialize checklist from localStorage
                 initializeChecklist();
-                
-                // Initialize dashboard
-                initializeDashboard();
-                
-                // Initialize trip planner
-                initializeTripPlanner();
             }, 1200);
         });
 
@@ -3175,7 +2005,7 @@
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-link');
             
-            let currentSection = '';
+            let currentSection = 'hot-topics'; // 기본값을 hot-topics로 설정
             sections.forEach(section => {
                 const sectionTop = section.offsetTop - 100;
                 if (window.pageYOffset >= sectionTop) {
@@ -3204,440 +2034,6 @@
                 }
             });
         });
-
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.animated-counter');
-            
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        counter.textContent = target >= 1000000 ? '1 Juta+' : target.toLocaleString();
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current).toLocaleString();
-                    }
-                }, 16);
-            });
-        }
-
-        // Enhanced Search Functionality
-        const searchData = [
-            { title: "5 Ramen Halal Terbaik di Tokyo", desc: "Panduan lengkap ramen halal", url: "https://japankuru.com/tokyo-halal-ramen-best-5" },
-            { title: "Spot Pemandangan Momiji", desc: "10 lokasi terbaik melihat daun gugur", url: "https://japankuru.com/autumn-leaves-best-spots" },
-            { title: "Pengalaman Kimono Ramah Hijab", desc: "Studio kimono yang mendukung hijab", url: "https://japankuru.com/hijab-friendly-kimono-experience" },
-            { title: "Panduan Onsen Khusus Wanita", desc: "Pemandian air panas yang aman", url: "https://japankuru.com/women-only-onsen-guide" },
-            { title: "Info Sale Fashion Musim Dingin", desc: "Belanja hemat di Jepang", url: "https://japankuru.com/winter-fashion-sale-2024" }
-        ];
-
-        function toggleSearch() {
-            const searchBox = document.getElementById('searchBox');
-            const searchInput = document.getElementById('searchInput');
-            
-            if (searchBox.classList.contains('active')) {
-                searchBox.classList.remove('active');
-            } else {
-                searchBox.classList.add('active');
-                setTimeout(() => searchInput.focus(), 100);
-            }
-        }
-
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase().trim();
-            const resultsContainer = document.getElementById('searchResults');
-            
-            if (query.length < 2) {
-                resultsContainer.classList.remove('show');
-                return;
-            }
-            
-            const filtered = searchData.filter(item => 
-                item.title.toLowerCase().includes(query) || 
-                item.desc.toLowerCase().includes(query)
-            );
-            
-            if (filtered.length > 0) {
-                resultsContainer.innerHTML = filtered.map(item => `
-                    <div class="search-result-item" onclick="window.open('${item.url}', '_blank')">
-                        <div class="search-result-title">${item.title}</div>
-                        <div class="search-result-desc">${item.desc}</div>
-                    </div>
-                `).join('');
-                resultsContainer.classList.add('show');
-            } else {
-                resultsContainer.innerHTML = '<div class="search-result-item">Tidak ada hasil ditemukan</div>';
-                resultsContainer.classList.add('show');
-            }
-        });
-
-        // Close search results when clicking outside
-        document.addEventListener('click', function(e) {
-            const searchBox = document.getElementById('searchBox');
-            const resultsContainer = document.getElementById('searchResults');
-            
-            if (!searchBox.contains(e.target)) {
-                resultsContainer.classList.remove('show');
-            }
-        });
-
-        // Real-time Dashboard Functionality
-        function initializeDashboard() {
-            updateDashboardData();
-            
-            // Update every few minutes
-            setInterval(updateDashboardData, 5 * 60 * 1000);
-            
-            // Update timestamp every minute
-            setInterval(updateTimestamp, 60 * 1000);
-            updateTimestamp();
-        }
-
-        function updateDashboardData() {
-            // Simulate API calls with random data
-            const weatherConditions = ['Cerah', 'Berawan', 'Hujan Ringan', 'Berawan Terang'];
-            const weatherIcons = ['☀️', '⛅', '🌧️', '🌤️'];
-            const randomWeather = Math.floor(Math.random() * weatherConditions.length);
-            
-            document.getElementById('temperature').textContent = `${Math.floor(Math.random() * 10) + 18}°C`;
-            document.getElementById('weatherIcon').textContent = weatherIcons[randomWeather];
-            document.getElementById('weatherDesc').textContent = weatherConditions[randomWeather];
-            
-            // Exchange rate
-            const rate = (Math.random() * 0.02 + 0.09).toFixed(3);
-            document.getElementById('exchangeRate').textContent = `¥${rate}`;
-            
-            // Flight price
-            const price = Math.floor(Math.random() * 5000000) + 10000000;
-            document.getElementById('flightPrice').textContent = `Rp${Math.floor(price / 1000000)}JT`;
-            
-            // Events
-            document.getElementById('eventCount').textContent = Math.floor(Math.random() * 15) + 8;
-        }
-
-        function updateTimestamp() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-            document.getElementById('lastUpdate').textContent = `${timeString} diperbarui`;
-        }
-
-        // Dashboard click handlers
-        function openWeatherDetails() {
-            showNotification('Cuaca Tokyo: Hari ini cerah dengan suhu 22°C. Sempurna untuk jalan-jalan!');
-        }
-
-        function openExchangeDetails() {
-            showNotification('Kurs IDR-JPY: Rp1.000 = ¥0.095. Nilai tukar stabil hari ini.');
-        }
-
-        function openFlightInfo() {
-            showNotification('Tiket pesawat Jakarta-Tokyo mulai Rp12.5JT. Booking 2-3 bulan lebih awal untuk harga terbaik!');
-        }
-
-        function openEventDetails() {
-            showNotification('12 event menarik sedang berlangsung di Tokyo! Termasuk festival musim dingin dan pameran seni.');
-        }
-
-        // Trip Planner Data (Indonesian)
-        const plannerData = {
-            durations: [
-                { id: '3days', icon: '🚀', title: '3 Hari', desc: 'Perjalanan akhir pekan', days: 3 },
-                { id: '5days', icon: '🎒', title: '5 Hari', desc: 'Liburan sempurna', days: 5 },
-                { id: '7days', icon: '✈️', title: '7 Hari', desc: 'Perjalanan seminggu', days: 7 },
-                { id: '10days', icon: '🌟', title: '10+ Hari', desc: 'Perjalanan panjang', days: 10 }
-            ],
-            interests: [
-                { id: 'food', icon: '🍜', title: 'Makanan Halal' },
-                { id: 'culture', icon: '🏯', title: 'Budaya Tradisional' },
-                { id: 'shopping', icon: '🛍️', title: 'Belanja' },
-                { id: 'nature', icon: '🌸', title: 'Alam & Taman' },
-                { id: 'anime', icon: '🎌', title: 'Anime & Manga' },
-                { id: 'onsen', icon: '♨️', title: 'Onsen & Spa' },
-                { id: 'nightlife', icon: '🌃', title: 'Pemandangan Malam' },
-                { id: 'history', icon: '🏛️', title: 'Sejarah' },
-                { id: 'photography', icon: '📸', title: 'Fotografi' },
-                { id: 'relaxation', icon: '😌', title: 'Relaksasi' }
-            ],
-            budgets: [
-                { id: 'budget', icon: '💰', title: 'Rp1.5 Juta', desc: 'Hemat & nyaman', amount: 1500000 },
-                { id: 'standard', icon: '💎', title: 'Rp2.5 Juta', desc: 'Standar terbaik', amount: 2500000 },
-                { id: 'premium', icon: '👑', title: 'Rp4 Juta', desc: 'Premium experience', amount: 4000000 },
-                { id: 'luxury', icon: '✨', title: 'Rp6+ Juta', desc: 'Mewah & eksklusif', amount: 6000000 }
-            ],
-            itineraryTemplates: {
-                'default': [
-                    {
-                        day: 1,
-                        title: 'Tiba di Tokyo & Jelajahi Asakusa',
-                        activities: [
-                            { time: '10:00', name: 'Tiba di Bandara Haneda', desc: 'Perjalanan dari bandara ke pusat kota', tags: ['transportasi'] },
-                            { time: '12:00', name: 'Kuil Sensoji', desc: 'Kuil tertua di Tokyo, pengalaman budaya', tags: ['budaya', 'fotografi'] },
-                            { time: '13:30', name: 'Halal Ramen Yashichi', desc: 'Ramen halal bersertifikat 100%', tags: ['halal', 'makanan'] },
-                            { time: '15:00', name: 'Jalan Nakamise', desc: 'Belanja oleh-oleh tradisional', tags: ['belanja'] },
-                            { time: '17:00', name: 'Masjid Asakusa', desc: 'Waktu sholat Ashar', tags: ['sholat'] }
-                        ]
-                    },
-                    {
-                        day: 2,
-                        title: 'Shibuya & Harajuku - Budaya Modern',
-                        activities: [
-                            { time: '10:00', name: 'Shibuya Crossing', desc: 'Penyeberangan tersibuk di dunia', tags: ['fotografi', 'budaya'] },
-                            { time: '12:00', name: 'Takeshita Street', desc: 'Pusat budaya remaja Jepang', tags: ['budaya', 'belanja'] },
-                            { time: '14:00', name: 'Halal Cafe Sakura', desc: 'Kafe ramah hijab untuk makan siang', tags: ['halal', 'istirahat'] },
-                            { time: '16:00', name: 'Omotesando', desc: 'Jalan belanja mewah', tags: ['belanja'] }
-                        ]
-                    },
-                    {
-                        day: 3,
-                        title: 'Tokyo Skytree & Keberangkatan',
-                        activities: [
-                            { time: '09:00', name: 'Tokyo Skytree', desc: 'Menara observasi setinggi 634m', tags: ['fotografi', 'wisata'] },
-                            { time: '11:00', name: 'Solamachi Shopping', desc: 'Belanja terakhir', tags: ['belanja'] },
-                            { time: '13:00', name: 'Halal Sushi Ginza', desc: 'Pengalaman sushi halal', tags: ['halal', 'makanan'] },
-                            { time: '15:00', name: 'Berangkat ke Bandara', desc: 'Persiapan pulang', tags: ['transportasi'] }
-                        ]
-                    }
-                ]
-            }
-        };
-
-        let currentTabIndex = 0;
-        let selectedData = {
-            duration: null,
-            interests: [],
-            budget: null
-        };
-
-        const tabs = ['duration', 'interests', 'budget', 'result'];
-
-        // Trip Planner Initialization
-        function initializeTripPlanner() {
-            renderDurationOptions();
-            renderInterestOptions();
-            renderBudgetOptions();
-            setupTabNavigation();
-        }
-
-        function setupTabNavigation() {
-            document.querySelectorAll('.tab-button').forEach((btn, index) => {
-                btn.addEventListener('click', () => switchTab(index));
-            });
-        }
-
-        function switchTab(index) {
-            currentTabIndex = index;
-            
-            document.querySelectorAll('.tab-button').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-            
-            document.querySelectorAll('.content-panel').forEach((panel, i) => {
-                panel.classList.toggle('active', i === index);
-            });
-        }
-
-        function nextTab() {
-            if (validateCurrentTab() && currentTabIndex < tabs.length - 1) {
-                switchTab(currentTabIndex + 1);
-            }
-        }
-
-        function prevTab() {
-            if (currentTabIndex > 0) {
-                switchTab(currentTabIndex - 1);
-            }
-        }
-
-        function validateCurrentTab() {
-            switch (currentTabIndex) {
-                case 0:
-                    if (!selectedData.duration) {
-                        showNotification('Silakan pilih durasi perjalanan terlebih dahulu!', 'warning');
-                        return false;
-                    }
-                    break;
-                case 1:
-                    if (selectedData.interests.length === 0) {
-                        showNotification('Pilih minimal satu minat perjalanan!', 'warning');
-                        return false;
-                    }
-                    break;
-                case 2:
-                    if (!selectedData.budget) {
-                        showNotification('Silakan pilih budget perjalanan!', 'warning');
-                        return false;
-                    }
-                    break;
-            }
-            return true;
-        }
-
-        function renderDurationOptions() {
-            const container = document.getElementById('durationOptions');
-            if (!container) return;
-            
-            container.innerHTML = plannerData.durations.map(duration => `
-                <div class="selection-card" data-value="${duration.id}" onclick="selectDuration('${duration.id}')">
-                    <div class="selection-icon">${duration.icon}</div>
-                    <div class="selection-title">${duration.title}</div>
-                    <div class="selection-desc">${duration.desc}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderInterestOptions() {
-            const container = document.getElementById('interestOptions');
-            if (!container) return;
-            
-            container.innerHTML = plannerData.interests.map(interest => `
-                <div class="interest-tag" data-value="${interest.id}" onclick="toggleInterest('${interest.id}')">
-                    ${interest.icon} ${interest.title}
-                </div>
-            `).join('');
-        }
-
-        function renderBudgetOptions() {
-            const container = document.getElementById('budgetOptions');
-            if (!container) return;
-            
-            container.innerHTML = plannerData.budgets.map(budget => `
-                <div class="selection-card" data-value="${budget.id}" onclick="selectBudget('${budget.id}')">
-                    <div class="selection-icon">${budget.icon}</div>
-                    <div class="selection-title">${budget.title}</div>
-                    <div class="selection-desc">${budget.desc}</div>
-                </div>
-            `).join('');
-        }
-
-        function selectDuration(durationId) {
-            document.querySelectorAll('#durationOptions .selection-card').forEach(card => {
-                card.classList.toggle('selected', card.dataset.value === durationId);
-            });
-            selectedData.duration = plannerData.durations.find(d => d.id === durationId);
-        }
-
-        function toggleInterest(interestId) {
-            const element = document.querySelector(`[data-value="${interestId}"]`);
-            
-            if (selectedData.interests.includes(interestId)) {
-                selectedData.interests = selectedData.interests.filter(id => id !== interestId);
-                element.classList.remove('selected');
-            } else {
-                selectedData.interests.push(interestId);
-                element.classList.add('selected');
-            }
-        }
-
-        function selectBudget(budgetId) {
-            document.querySelectorAll('#budgetOptions .selection-card').forEach(card => {
-                card.classList.toggle('selected', card.dataset.value === budgetId);
-            });
-            selectedData.budget = plannerData.budgets.find(b => b.id === budgetId);
-        }
-
-        function generateTrip() {
-            if (!validateCurrentTab()) return;
-            
-            switchTab(3);
-            
-            document.getElementById('loadingState').style.display = 'block';
-            document.getElementById('generatedResult').style.display = 'none';
-            
-            setTimeout(() => {
-                const itinerary = generateItinerary();
-                displayItinerary(itinerary);
-                
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('generatedResult').style.display = 'block';
-                
-                showNotification('Itinerary perjalanan Anda telah dibuat!', 'success');
-            }, 3000);
-        }
-
-        function generateItinerary() {
-            const template = plannerData.itineraryTemplates['default'];
-            
-            return {
-                days: selectedData.duration.days,
-                activities: template.reduce((sum, day) => sum + day.activities.length, 0),
-                halalSpots: template.reduce((sum, day) => 
-                    sum + day.activities.filter(act => act.tags.includes('halal')).length, 0),
-                budget: selectedData.budget.amount * selectedData.duration.days,
-                schedule: template.slice(0, selectedData.duration.days)
-            };
-        }
-
-        function displayItinerary(itinerary) {
-            document.getElementById('totalDays').textContent = `${itinerary.days} Hari`;
-            document.getElementById('totalActivities').textContent = `${itinerary.activities} Aktivitas`;
-            document.getElementById('halalSpots').textContent = `${itinerary.halalSpots} Resto`;
-            document.getElementById('totalBudget').textContent = `Rp${Math.floor(itinerary.budget / 1000000)}JT`;
-            
-            const dayCardsContainer = document.getElementById('dayCards');
-            if (!dayCardsContainer) return;
-            
-            dayCardsContainer.innerHTML = itinerary.schedule.map(day => `
-                <div class="day-card">
-                    <div class="day-header">
-                        <div class="day-number">${day.day}</div>
-                        <div class="day-title">${day.title}</div>
-                    </div>
-                    <div class="activities-list">
-                        ${day.activities.map(activity => `
-                            <div class="activity-item">
-                                <div class="activity-time">${activity.time}</div>
-                                <div class="activity-content">
-                                    <div class="activity-name">${activity.name}</div>
-                                    <div class="activity-desc">${activity.desc}</div>
-                                    <div class="activity-tags">
-                                        ${activity.tags.map(tag => `
-                                            <span class="activity-tag ${tag === 'halal' ? 'halal' : tag === 'sholat' ? 'prayer' : ''}">${tag}</span>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function downloadPDF() {
-            showNotification('Fitur unduh PDF akan segera tersedia!', 'warning');
-        }
-
-        function shareTrip() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Japankuru Itinerary Perjalanan',
-                    text: 'Lihat itinerary perjalanan Jepang saya!',
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                showNotification('Link telah disalin ke clipboard!', 'success');
-            }
-        }
-
-        function resetPlanner() {
-            selectedData = { duration: null, interests: [], budget: null };
-            currentTabIndex = 0;
-            switchTab(0);
-            
-            document.querySelectorAll('.selection-card, .interest-tag').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            showNotification('Perencana telah direset', 'success');
-        }
 
         // Enhanced Checklist with Local Storage
         function initializeChecklist() {
@@ -3699,47 +2095,6 @@
             }
         }
 
-        // Enhanced theme toggle with system preference
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            const currentTheme = body.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                themeToggle.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-                showNotification('Tema terang diaktifkan', 'success');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeToggle.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-                showNotification('Tema gelap diaktifkan', 'success');
-            }
-        }
-
-        function initializeTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const themeToggle = document.getElementById('themeToggle');
-            
-            if (savedTheme) {
-                document.body.setAttribute('data-theme', savedTheme);
-                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-            } else if (systemDarkMode) {
-                document.body.setAttribute('data-theme', 'dark');
-                themeToggle.textContent = '☀️';
-            }
-        }
-
-        function toggleLanguage() {
-            showNotification('Fitur pergantian bahasa sedang dikembangkan', 'warning');
-        }
-
-        function toggleMobileMenu() {
-            showNotification('Menu mobile sedang dikembangkan', 'warning');
-        }
-
         // Enhanced notification system
         function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
@@ -3779,8 +2134,8 @@
         // Initialize animations
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll(
-                '.topic-card, .celeb-card, .michelin-card, .beauty-card, ' +
-                '.gallery-item, .partner-card, .season-card, .checklist-item'
+                '.topic-card, .michelin-card, .beauty-card, ' +
+                '.gallery-item, .season-card, .checklist-item'
             );
             
             animatedElements.forEach(el => {
@@ -3790,54 +2145,15 @@
                 observer.observe(el);
             });
             
-            initializeTheme();
             updateActiveNavLink();
         });
 
         // Keyboard navigation support
         document.addEventListener('keydown', function(e) {
-            if (e.key === '/' && !e.target.matches('input, textarea')) {
-                e.preventDefault();
-                toggleSearch();
-            }
-            
             if (e.key === 'Home' && !e.target.matches('input, textarea')) {
                 e.preventDefault();
                 scrollToTop();
             }
-            
-            if (e.key === 'Escape') {
-                const searchBox = document.getElementById('searchBox');
-                const resultsContainer = document.getElementById('searchResults');
-                searchBox.classList.remove('active');
-                resultsContainer.classList.remove('show');
-            }
-
-            // Trip planner keyboard shortcuts
-            if (e.key === 'ArrowRight' && currentTabIndex < 3) nextTab();
-            if (e.key === 'ArrowLeft' && currentTabIndex > 0) prevTab();
-        });
-
-        // Analytics tracking (placeholder)
-        function trackEvent(eventName, eventData) {
-            console.log('Event tracked:', eventName, eventData);
-        }
-
-        let maxScroll = 0;
-        window.addEventListener('scroll', function() {
-            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-            if (scrollPercent > maxScroll) {
-                maxScroll = scrollPercent;
-                if (maxScroll % 25 === 0) {
-                    trackEvent('scroll_depth', { percent: maxScroll });
-                }
-            }
-        });
-
-        // Error handling
-        window.addEventListener('error', function(e) {
-            console.error('JavaScript error:', e.error);
-            showNotification('Terjadi kesalahan teknis. Halaman akan dimuat ulang.', 'error');
         });
 
         // Welcome message
@@ -3848,55 +2164,8 @@
             }
         }, 3000);
 
-        // Performance monitoring
-        window.addEventListener('load', function() {
-            const loadTime = performance.now();
-            if (loadTime > 3000) {
-                console.warn('Page load time is slow:', loadTime + 'ms');
-            }
-            trackEvent('page_load_time', { duration: loadTime });
-        });
-
-        // Listen for system theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-            if (!localStorage.getItem('theme')) {
-                const themeToggle = document.getElementById('themeToggle');
-                if (e.matches) {
-                    document.body.setAttribute('data-theme', 'dark');
-                    themeToggle.textContent = '☀️';
-                } else {
-                    document.body.setAttribute('data-theme', 'light');
-                    themeToggle.textContent = '🌙';
-                }
-            }
-        });
-
-        // Enhanced click tracking for external links
-        document.querySelectorAll('a[target="_blank"]').forEach(link => {
-            link.addEventListener('click', function() {
-                const url = this.href;
-                const text = this.textContent.trim();
-                trackEvent('external_link_click', { url, text });
-            });
-        });
-
-        // Connection status handling
-        window.addEventListener('online', function() {
-            showNotification('Koneksi internet tersambung kembali', 'success');
-        });
-
-        window.addEventListener('offline', function() {
-            showNotification('Koneksi internet terputus. Beberapa fitur mungkin tidak tersedia.', 'warning');
-        });
-
         // Final initialization
         console.log('🏯 Japankuru Indonesia website loaded successfully!');
-        console.log('📊 Performance metrics:', {
-            loadTime: performance.now() + 'ms',
-            userAgent: navigator.userAgent,
-            screenSize: screen.width + 'x' + screen.height,
-            language: navigator.language
-        });
     </script>
 
     <!-- Schema.org structured data for SEO -->
