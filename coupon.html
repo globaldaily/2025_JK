@@ -3876,15 +3876,15 @@ if (termsList) {
   }
 }
       
-      async shareCode() {
+ async shareCode() {
   const detailSheet = DOMCache.get('detailSheet');
   const code = detailSheet?.dataset.couponCode;
   const name = detailSheet?.dataset.couponName;
-  const id = detailSheet?.dataset.couponId; // updateDetailContent에서 이미 넣어둔 값
+  const id = detailSheet?.dataset.couponId;
 
   if (!code || !name) return;
 
-  // 공유용 URL에 쿠폰 식별자를 포함하면, 링크를 받은 사람이 바로 해당 쿠폰을 열 수 있습니다.
+  // 현재 화면 URL을 바꾸지 않고, 공유용으로만 ?coupon=ID를 포함
   const urlObj = new URL(window.location.href);
   if (id) urlObj.searchParams.set('coupon', id);
   const shareUrl = urlObj.toString();
@@ -3896,24 +3896,24 @@ if (termsList) {
   };
 
   try {
-    // ✅ 기기/브라우저가 지원하면 무조건 네이티브 공유 시트 사용
-    if (navigator.share) {
+    // 기존 동작 그대로: 모바일 + Web Share API면 네이티브 공유
+    if (navigator.share && this.isMobile) {
       await navigator.share(shareData);
+      Toast.show(t('sharedCoupon'));
       return;
     }
   } catch (err) {
-    // 사용자가 공유 시트를 닫은 경우 등은 무시
     if (err?.name !== 'AbortError') console.error('Share error:', err);
-    // 계속해서 클립보드 폴백 시도
+    // 취소면 조용히 폴백 진행
   }
 
-  // ✅ 폴백: 클립보드 복사 (HTTPS/localhost 권장)
+  // 폴백: 공유 텍스트를 클립보드에 복사 (PC 포함)
   const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
   try {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(shareText);
     } else {
-      // 더 구형 환경용 폴백
+      // 구형 브라우저 폴백
       const ta = document.createElement('textarea');
       ta.value = shareText;
       ta.setAttribute('readonly', '');
@@ -3927,9 +3927,9 @@ if (termsList) {
     Toast.show(t('copySuccess'));
   } catch (e) {
     console.error('Clipboard fallback failed:', e);
-    alert(shareText); // 최후 폴백
+    alert(shareText); // 마지막 폴백
   }
-}
+},
 
       
       // 스마트 제안 시스템 (개선)
