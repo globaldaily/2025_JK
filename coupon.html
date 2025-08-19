@@ -1430,6 +1430,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .filter-controls {
   padding: 0.5rem 0;
 }
+/* 시트가 하단 네비보다 위로 오도록 레이어만 정리 */
+.filter-panel,
+.detail-sheet { z-index: 1300; }  /* 기존: 300 / 400 */
+.overlay { z-index: 1200; }       /* 기존: 250 */
+.bottom-nav { z-index: 1000; }    /* 기존 그대로 혹은 확인용 명시 */
+@media (max-width: 768px){
+  .filter-panel{
+    max-height: min(88dvh, 88vh);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  }
+  .detail-sheet{
+    max-height: min(90dvh, 90vh);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  }
+}
+
   </style>
 </head>
 <body>
