@@ -3806,12 +3806,12 @@ if (termsList) {
           opt.classList.remove('selected');
         });
         option.classList.add('selected');
-        
+
         // 상태 업데이트
         if (type === 'region') {
           const region = option.dataset.region || 'all';
           window.app.state.currentRegion = region;
-          
+
           // 모바일 상태바 업데이트
           const chip = DOMCache.get('mobileRegionChip');
           if (chip) {
@@ -3820,116 +3820,103 @@ if (termsList) {
         } else if (type === 'category') {
           const category = option.dataset.category || 'all';
           window.app.state.currentFilter = category;
-          
+
           // 모바일 상태바 업데이트
           const chip = DOMCache.get('mobileCategoryChip');
           if (chip) {
             chip.textContent = `🏷️ ${option.textContent.trim()}`;
           }
         }
-        
+
         // 필터 적용
         if (window.app) {
           window.app.applyFilters();
         }
-        
+
         // 패널 닫기
         setTimeout(() => this.hideFilterPanel(), 300);
       },
-      
+
+      // ✅ 복사 기능 (완성본)
       async copyCode() {
-  const detailSheet = DOMCache.get('detailSheet');
-  const code = detailSheet?.dataset.couponCode;
-  if (!code) return;
+        const detailSheet = DOMCache.get('detailSheet');
+        const code = detailSheet?.dataset.couponCode;
+        if (!code) return;
 
-  const btn = document.getElementById('detailCopy');
-  const sr = DOMCache.get('srAnnouncement');
+        const btn = document.getElementById('detailCopy');
 
-  try {
-    await navigator.clipboard.writeText(code);
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            // 폴백
+            const ta = document.createElement('textarea');
+            ta.value = code;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
 
-    // 버튼 피드백
-    if (btn) {
-      const original = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = `<span>✅</span><span>${t('copySuccess') || 'Copied!'}</span>`;
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.disabled = false;
-      }, 1200);
-    }
+          Toast.show(t('copySuccess') || t('copied') || 'Copied!');
+          if (btn) {
+            btn.classList.add('success');
+            setTimeout(() => btn.classList.remove('success'), 1200);
+          }
+        } catch (e) {
+          console.error('Copy failed:', e);
+          Toast.show(t('copyFailed') || 'Copy failed');
+        }
+      },
 
-    // 스크린리더 알림 & 토스트
-    if (sr) sr.textContent = T[LanguageManager.currentLang].codeCopied || 'Copied';
-    Toast.show(T[LanguageManager.currentLang].codeCopied || 'Coupon code copied!', 1500);
-  } catch (e) {
-    // 실패 시 대안: 코드 엘리먼트 선택
-    const codeEl = document.getElementById('detailCode');
-    if (codeEl) {
-      const range = document.createRange();
-      range.selectNodeContents(codeEl);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-    Toast.show(T[LanguageManager.currentLang].copyFailed || 'Copy failed. Please copy manually.', 2500);
-  }
-}
-      
- async shareCode() {
-  const detailSheet = DOMCache.get('detailSheet');
-  const code = detailSheet?.dataset.couponCode;
-  const name = detailSheet?.dataset.couponName;
-  const id = detailSheet?.dataset.couponId;
+      // ✅ 공유 기능 (신규 메서드, fallback 포함)
+      async shareCode() {
+        const detailSheet = DOMCache.get('detailSheet');
+        const code = detailSheet?.dataset.couponCode;
+        const name = detailSheet?.dataset.couponName;
+        if (!code || !name) return;
 
-  if (!code || !name) return;
+        const shareData = {
+          title: name,
+          text: `${name} - ${t('coupon')}: ${code}`,
+          url: window.location.href
+        };
 
-  // 현재 화면 URL을 바꾸지 않고, 공유용으로만 ?coupon=ID를 포함
-  const urlObj = new URL(window.location.href);
-  if (id) urlObj.searchParams.set('coupon', id);
-  const shareUrl = urlObj.toString();
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+            Toast.show(t('sharedCoupon') || t('shareCoupon') || 'Shared');
+          } else {
+            // 공유 미지원 → 텍스트 복사 fallback
+            const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+            if (navigator.clipboard?.writeText) {
+              await navigator.clipboard.writeText(shareText);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = shareText;
+              ta.setAttribute('readonly', '');
+              ta.style.position = 'fixed';
+              ta.style.top = '-9999px';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+            Toast.show(t('copySuccess'));
+          }
+        } catch (err) {
+          // 사용자가 공유 다이얼로그를 닫은 경우(AbortError)는 조용히 무시
+          if (err?.name !== 'AbortError') {
+            console.error('Share error:', err);
+            Toast.show(t('error') || 'Error');
+          }
+        }
+      }
+    }; // ← ← ← ✅ MobileUIManager 객체 끝 제대로 닫기 (콤마 없음)
 
-  const shareData = {
-    title: name,
-    text: `${name} - ${t('coupon')}: ${code}`,
-    url: shareUrl
-  };
-
-  try {
-    // 기존 동작 그대로: 모바일 + Web Share API면 네이티브 공유
-    if (navigator.share && this.isMobile) {
-      await navigator.share(shareData);
-      Toast.show(t('sharedCoupon'));
-      return;
-    }
-  } catch (err) {
-    if (err?.name !== 'AbortError') console.error('Share error:', err);
-    // 취소면 조용히 폴백 진행
-  }
-
-  // 폴백: 공유 텍스트를 클립보드에 복사 (PC 포함)
-  const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(shareText);
-    } else {
-      // 구형 브라우저 폴백
-      const ta = document.createElement('textarea');
-      ta.value = shareText;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.top = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    }
-    Toast.show(t('copySuccess'));
-  } catch (e) {
-    console.error('Clipboard fallback failed:', e);
-    alert(shareText); // 마지막 폴백
-  }
-}
 
       
       // 스마트 제안 시스템 (개선)
