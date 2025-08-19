@@ -3838,58 +3838,99 @@ if (termsList) {
       },
       
       async copyCode() {
-        const detailSheet = DOMCache.get('detailSheet');
-        const code = detailSheet?.dataset.couponCode;
-        
-        if (!code) return;
-        
-        try {
-          await navigator.clipboard.writeText(code);
-          
-          // 버튼 애니메이션
-          const btn = document.getElementById('detailCopy');
-          if (btn) {
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<span>✅</span><span>' + t('copied') + '</span>';
-            setTimeout(() => {
-              btn.innerHTML = originalHTML;
-            }, 1500);
-          }
-          
-          Toast.show(t('codeCopied'));
-        } catch (err) {
-          Toast.show(t('copyFailed'), 3000);
-        }
-      },
+  const detailSheet = DOMCache.get('detailSheet');
+  const code = detailSheet?.dataset.couponCode;
+  if (!code) return;
+
+  const btn = document.getElementById('detailCopy');
+  const sr = DOMCache.get('srAnnouncement');
+
+  try {
+    await navigator.clipboard.writeText(code);
+
+    // 버튼 피드백
+    if (btn) {
+      const original = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span>✅</span><span>${t('copySuccess') || 'Copied!'}</span>`;
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
+      }, 1200);
+    }
+
+    // 스크린리더 알림 & 토스트
+    if (sr) sr.textContent = T[LanguageManager.currentLang].codeCopied || 'Copied';
+    Toast.show(T[LanguageManager.currentLang].codeCopied || 'Coupon code copied!', 1500);
+  } catch (e) {
+    // 실패 시 대안: 코드 엘리먼트 선택
+    const codeEl = document.getElementById('detailCode');
+    if (codeEl) {
+      const range = document.createRange();
+      range.selectNodeContents(codeEl);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    Toast.show(T[LanguageManager.currentLang].copyFailed || 'Copy failed. Please copy manually.', 2500);
+  }
+}
       
       async shareCode() {
-        const detailSheet = DOMCache.get('detailSheet');
-        const code = detailSheet?.dataset.couponCode;
-        const name = detailSheet?.dataset.couponName;
-        
-        if (!code || !name) return;
-        
-        const shareData = {
-          title: name,
-          text: `${name} - ${t('coupon')}: ${code}`,
-          url: window.location.href
-        };
-        
-        try {
-          if (navigator.share && this.isMobile) {
-            await navigator.share(shareData);
-          } else {
-            // PC에서는 링크 복사
-            const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
-            await navigator.clipboard.writeText(shareText);
-            Toast.show(t('copySuccess'));
-          }
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            console.error('Share error:', err);
-          }
-        }
-      },
+  const detailSheet = DOMCache.get('detailSheet');
+  const code = detailSheet?.dataset.couponCode;
+  const name = detailSheet?.dataset.couponName;
+  const id = detailSheet?.dataset.couponId; // updateDetailContent에서 이미 넣어둔 값
+
+  if (!code || !name) return;
+
+  // 공유용 URL에 쿠폰 식별자를 포함하면, 링크를 받은 사람이 바로 해당 쿠폰을 열 수 있습니다.
+  const urlObj = new URL(window.location.href);
+  if (id) urlObj.searchParams.set('coupon', id);
+  const shareUrl = urlObj.toString();
+
+  const shareData = {
+    title: name,
+    text: `${name} - ${t('coupon')}: ${code}`,
+    url: shareUrl
+  };
+
+  try {
+    // ✅ 기기/브라우저가 지원하면 무조건 네이티브 공유 시트 사용
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+  } catch (err) {
+    // 사용자가 공유 시트를 닫은 경우 등은 무시
+    if (err?.name !== 'AbortError') console.error('Share error:', err);
+    // 계속해서 클립보드 폴백 시도
+  }
+
+  // ✅ 폴백: 클립보드 복사 (HTTPS/localhost 권장)
+  const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(shareText);
+    } else {
+      // 더 구형 환경용 폴백
+      const ta = document.createElement('textarea');
+      ta.value = shareText;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    Toast.show(t('copySuccess'));
+  } catch (e) {
+    console.error('Clipboard fallback failed:', e);
+    alert(shareText); // 최후 폴백
+  }
+}
+
       
       // 스마트 제안 시스템 (개선)
       updateSmartSuggestion() {
