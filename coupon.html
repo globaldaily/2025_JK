@@ -3742,6 +3742,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             siteLink.innerHTML = `<span>🌐</span><span>${t('officialWebsite')}</span>`;
             linksEl.appendChild(siteLink);
           }
+
+          /* ✅ 여기부터 추가: 관련 기사 버튼 */
+  if (coupon.article_url) {
+    const articleLink = document.createElement('a');
+    articleLink.href = coupon.article_url;
+    articleLink.target = '_blank';
+    articleLink.rel = 'noopener';
+    articleLink.className = 'action-btn secondary';
+    articleLink.style.marginBottom = '8px';
+    // 버튼 라벨은 번역 키 준비되어 있음: relatedArticle / readArticle
+    articleLink.innerHTML = `<span>📰</span><span>${t('relatedArticle') || 'Related Article'}</span>`;
+    linksEl.appendChild(articleLink);
+  }
         }
         
         // 현재 쿠폰 데이터 저장
