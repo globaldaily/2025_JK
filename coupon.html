@@ -1798,7 +1798,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <script>
     'use strict';
+// === ENV/host 감지 (추가) ===
+const ENV = {
+  isLocal: ['localhost', '127.0.0.1'].includes(location.hostname),
+  isGithub: /\.github\.io$/.test(location.hostname),
+  isProd: /japankuru\.com$/.test(location.hostname)
+};
 
+// === WP REST root 탐지 (추가) ===
+function detectWpRestRoot() {
+  if (window.wpApiSettings?.root) return window.wpApiSettings.root; // WP 테마/플러그인 기본
+  const apiLink = document.querySelector('link[rel="https://api.w.org/"]');
+  if (apiLink?.href) return apiLink.href; // 보통 https://site.com/wp-json/
+  return null;
+}
     // ===========================================
     // 유틸리티 함수들
     // ===========================================
@@ -2799,63 +2812,79 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       }
 
       async loadFromAPI() {
-        try {
-          // WordPress API 엔드포인트 결정
-          let apiUrl;
-          
-          if (window.wpApiSettings && window.wpApiSettings.root) {
-            apiUrl = `${window.wpApiSettings.root}jkwallet/v1/coupons`;
-          } else if (window.location.pathname.includes('/wp-admin/') || 
-                     window.location.pathname.includes('/wp-content/')) {
-            const baseUrl = window.location.origin;
-            apiUrl = `${baseUrl}/wp-json/jkwallet/v1/coupons`;
-          } else {
-            apiUrl = './wp-json/jkwallet/v1/coupons';
-          }
+  // === 환경 판단: API가 없을 가능성이 높은 경우(로컬/깃허브/파일)엔 곧장 캐시/폴백 ===
+  const isGithub = /\.github\.io$/.test(location.hostname);
+  const isLocal  = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const isFile   = location.protocol === 'file:';
+  const isProd   = /japankuru\.com$/.test(location.hostname);
 
-          console.log('API 요청:', apiUrl);
-          
-          const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              ...(window.wpApiSettings?.nonce && {
-                'X-WP-Nonce': window.wpApiSettings.nonce
-              })
-            }
-          });
+  const likelyNoApi =
+    !window.wpApiSettings?.root && (isGithub || isLocal || isFile);
 
-          if (!response.ok) {
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
-          }
+  if (likelyNoApi) {
+    const cached = this.getCachedData();
+    if (cached) return cached;
+    const fb = this.getFallbackData();
+    this.cacheData(fb);
+    return fb;
+  }
 
-          const data = await response.json();
-          
-          if (!Array.isArray(data) || data.length === 0) {
-            throw new Error('Invalid API response format');
-          }
+  // === WP REST root 유추(내부 전용, 외부 헬퍼 불필요) ===
+  const detectWpRestRoot = () => {
+    if (window.wpApiSettings?.root) return window.wpApiSettings.root; // WP가 제공하는 루트
+    const apiLink = document.querySelector('link[rel="https://api.w.org/"]');
+    if (apiLink?.href) return apiLink.href; // 대개 https://site.com/wp-json/
+    return `${location.origin}/wp-json/`;   // 마지막 폴백
+  };
 
-          this.cacheData(data);
-          console.log(`✅ API에서 ${data.length}개 쿠폰 로드 성공`);
-          
-          return data;
+  try {
+    const apiRoot = detectWpRestRoot().replace(/\/$/, ''); // 끝 슬래시 제거
+    const apiUrl  = `${apiRoot}/jkwallet/v1/coupons`;
 
-        } catch (error) {
-          console.warn('🔄 API 로드 실패, 캐시/폴백 데이터 시도:', error.message);
-          
-          // 사용자에게 에러 알림
-          Toast.show(T[LanguageManager.currentLang].errorLoadingCoupons || 'クーポン情報の取得に失敗しました', 3000);
-          
-          const cached = this.getCachedData();
-          if (cached) {
-            console.log('📦 캐시된 데이터 사용');
-            return cached;
-          }
-          
-          console.log('⚠️  하드코딩 데이터 사용');
-          return this.getFallbackData();
-        }
+    console.log('API 요청:', apiUrl);
+
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(window.wpApiSettings?.nonce && { 'X-WP-Nonce': window.wpApiSettings.nonce })
       }
+    });
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('Invalid API response format');
+    }
+
+    this.cacheData(data);
+    console.log(`✅ API에서 ${data.length}개 쿠폰 로드 성공`);
+    return data;
+
+  } catch (error) {
+    console.warn('🔄 API 로드 실패, 캐시/폴백 데이터 시도:', error.message);
+
+    // 운영 도메인에서만 사용자 토스트 표기(프리뷰 환경은 조용히 폴백)
+    if (isProd) {
+      Toast.show(T[LanguageManager.currentLang].errorLoadingCoupons || 'クーポン情報の取得に失敗しました', 3000);
+    }
+
+    const cached = this.getCachedData();
+    if (cached) {
+      console.log('📦 캐시된 데이터 사용');
+      return cached;
+    }
+
+    console.log('⚠️  하드코딩 데이터 사용');
+    const fb = this.getFallbackData();
+    this.cacheData(fb);
+    return fb;
+  }
+}
+
 
       getCachedData() {
         try {
