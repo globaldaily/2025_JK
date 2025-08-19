@@ -3726,17 +3726,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         }
         if (codeEl) codeEl.textContent = coupon.code;
         
-        // 이용조건
-        const termsList = document.getElementById('detailTermsList');
-        if (termsList) {
-          termsList.innerHTML = '';
-          const localizedTerms = T[LanguageManager.currentLang]?.terms || coupon.terms;
-          localizedTerms.forEach(term => {
-            const li = document.createElement('li');
-            li.textContent = `• ${term}`;
-            termsList.appendChild(li);
-          });
-        }
+        // 이용조건 (권장 패치: 다국어/문자열/배열 모두 대응)
+const termsList = document.getElementById('detailTermsList');
+if (termsList) {
+  termsList.innerHTML = '';
+
+  // ko, en, zh_TW 등 언어별 terms 필드 → 공용 terms → T 기본 문구 순으로 폴백
+  const langKey = LanguageManager.currentLang.replace('-', '_');
+  const raw =
+    coupon[`terms_${langKey}`] ||  // 예: terms_ko, terms_en, terms_zh_TW
+    coupon.terms ||                // 공용 terms (배열/문자열 둘 다 가능)
+    T[LanguageManager.currentLang]?.terms || [];
+
+  // 배열/문자열 모두 지원 (문자열이면 줄바꿈/| 구분자로 분리)
+  const list = Array.isArray(raw) ? raw : String(raw).split(/\r?\n|\|/);
+
+  list
+    .map(s => s.trim())
+    .filter(Boolean)
+    .forEach(term => {
+      const li = document.createElement('li');
+      li.textContent = `• ${term}`;
+      termsList.appendChild(li);
+    });
+}
+
         
         // 링크들
         const linksEl = document.getElementById('detailLinks');
