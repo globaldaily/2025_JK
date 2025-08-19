@@ -1445,7 +1445,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
   }
 }
+.search-section {
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
 
+.mobile-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  background: var(--gray-100);
+  color: var(--text);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.search-clear-mobile {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--muted);
+  padding: 8px;
+  display: none;
+}
+
+.search-clear-mobile.show {
+  display: block;
+}
   </style>
 </head>
 <body>
@@ -1684,12 +1726,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <h3 id="filterPanelTitle">Filter Options</h3>
       <button class="panel-close" id="filterPanelClose">×</button>
     </div>
-
+  
+    <!-- 검색 섹션 추가 -->
+    <div class="search-section">
+      <div class="mobile-search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="search" 
+          id="mobileSearchInput" 
+          placeholder="Search stores..." 
+          class="mobile-search-input"
+        />
+        <button class="search-clear-mobile" id="mobileSearchClear">✕</button>
+      </div>
+    </div>
+  
     <div class="nearby-section">
-  <button class="nearby-btn" data-action="nearby">
-  📍 <span data-i18n="findNearbyStores">Find Nearby Stores</span>
-</button>
-</div>
+      <button class="nearby-btn" data-action="nearby">
+        📍 <span data-i18n="findNearbyStores">Find Nearby Stores</span>
+      </button>
+    </div>
 
     
     <div class="panel-section">
