@@ -3630,12 +3630,20 @@ function detectWpRestRoot() {
         }
         
         if (detailCopy) {
-          detailCopy.addEventListener('click', () => this.copyCode());
-        }
-        
-        if (detailShare) {
-          detailShare.addEventListener('click', () => this.shareCode());
-        }
+  detailCopy.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.copyCode();
+  }, { passive: false });
+}
+
+if (detailShare) {
+  detailShare.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.shareCode();
+  }, { passive: false });
+}
         
         // 스와이프 제스처
         this.setupSwipeGesture(DOMCache.get('detailSheet'));
@@ -3901,47 +3909,58 @@ if (termsList) {
         }
       },
 
-      // ✅ 공유 기능 (신규 메서드, fallback 포함)
+           // ✅ 딥링크 + 모바일만 네이티브 공유, 그 외엔 복사 fallback
       async shareCode() {
-        const detailSheet = DOMCache.get('detailSheet');
-        const code = detailSheet?.dataset.couponCode;
-        const name = detailSheet?.dataset.couponName;
+        const sheet = DOMCache.get('detailSheet');
+        const code = sheet?.dataset.couponCode;
+        const name = sheet?.dataset.couponName;
+        const id   = sheet?.dataset.couponId;
         if (!code || !name) return;
+
+        // 받는 사람이 바로 이 쿠폰을 열 수 있도록 딥링크 구성
+        const u = new URL(window.location.href);
+        if (id) u.searchParams.set('coupon', id);
+        const shareUrl = u.toString();
 
         const shareData = {
           title: name,
           text: `${name} - ${t('coupon')}: ${code}`,
-          url: window.location.href
+          url: shareUrl
         };
 
         try {
-          if (navigator.share) {
+          // 모바일일 때만 네이티브 공유 호출
+          if (navigator.share && this.isMobile) {
             await navigator.share(shareData);
             Toast.show(t('sharedCoupon') || t('shareCoupon') || 'Shared');
-          } else {
-            // 공유 미지원 → 텍스트 복사 fallback
-            const shareText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
-            if (navigator.clipboard?.writeText) {
-              await navigator.clipboard.writeText(shareText);
-            } else {
-              const ta = document.createElement('textarea');
-              ta.value = shareText;
-              ta.setAttribute('readonly', '');
-              ta.style.position = 'fixed';
-              ta.style.top = '-9999px';
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand('copy');
-              document.body.removeChild(ta);
-            }
-            Toast.show(t('copySuccess'));
+            return;
           }
         } catch (err) {
-          // 사용자가 공유 다이얼로그를 닫은 경우(AbortError)는 조용히 무시
-          if (err?.name !== 'AbortError') {
-            console.error('Share error:', err);
-            Toast.show(t('error') || 'Error');
+          // 사용자가 공유창을 닫은 경우는 무시
+          if (err?.name !== 'AbortError') console.error('Share error:', err);
+          // 아래 폴백으로 이어짐
+        }
+
+        // 폴백: 공유 텍스트를 클립보드에 복사
+        const fallback = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(fallback);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = fallback;
+            ta.setAttribute('readonly','');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
           }
+          Toast.show(t('copySuccess') || 'Copied!');
+        } catch (e) {
+          console.error('Share fallback copy failed:', e);
+          Toast.show(t('error') || 'Error');
         }
       },
       
