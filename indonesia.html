@@ -140,7 +140,7 @@
         /* Progress Bar */
         .progress-bar {
             position: fixed;
-            top: 60px;
+            top: 60px; /* JS에서 실제 높이로 덮어씌움 */
             left: 0;
             width: 0%;
             height: 3px;
@@ -179,7 +179,7 @@
         
         /* Hero Section - Simplified for Mobile */
         .hero {
-            padding: 140px 0 60px; /* Adjusted for expo banner */
+            padding: 140px 0 60px; /* JS에서 헤더/배너 높이에 따라 갱신 */
             background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
             position: relative;
             overflow: hidden;
@@ -445,12 +445,23 @@
             text-decoration: none;
             color: inherit;
             display: block;
-            border-left: 4px solid var(--gradient-halal);
+            /* gradient는 border-color에 직접 사용할 수 없으므로 투명색으로 두께만 확보하고 ::before로 표현 */
+            border-left: 4px solid transparent;
+            position: relative;
+            box-shadow: none;
         }
-        
         .restaurant-card:hover {
             transform: translateX(4px);
             box-shadow: var(--shadow-light);
+        }
+        .restaurant-card::before{
+            content:"";
+            position:absolute;
+            left:0; top:0; bottom:0;
+            width:4px;
+            background: var(--gradient-halal);
+            border-top-left-radius: var(--radius-large);
+            border-bottom-left-radius: var(--radius-large);
         }
         
         .restaurant-name {
@@ -833,7 +844,7 @@
         /* Notification */
         .notification {
             position: fixed;
-            top: 70px;
+            top: 70px; /* JS에서 배너 높이에 따라 보정 */
             right: 20px;
             background: var(--accent);
             color: white;
@@ -1382,7 +1393,7 @@
             }
             
             body {
-                padding-bottom: 60px; /* Space for bottom nav */
+                padding-bottom: 60px; /* Space for bottom nav, sticky 배너는 별도 처리 아래 참조 */
             }
             
             .ig-floating-widget {
@@ -1434,88 +1445,94 @@
                 padding: 0 15px;
             }
         }
+
         /* Sticky Follow Banner */
-.sticky-follow-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 12px 15px;
-    z-index: 1001;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    transform: translateY(100%);
-    animation: slideUp 0.5s 2s ease-out forwards;
-}
+        .sticky-follow-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 15px;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            transform: translateY(100%);
+            animation: slideUp 0.5s 2s ease-out forwards;
+        }
 
-@keyframes slideUp {
-    to { transform: translateY(0); }
-}
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
 
-.sticky-follow-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+        .sticky-follow-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.sticky-follow-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f58529, #dd2a7b);
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        .sticky-follow-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f58529, #dd2a7b);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
-.sticky-follow-text {
-    font-size: 13px;
-    line-height: 1.3;
-}
+        .sticky-follow-text {
+            font-size: 13px;
+            line-height: 1.3;
+        }
 
-.sticky-follow-text strong {
-    font-size: 15px;
-    color: var(--primary-text);
-    display: block;
-}
+        .sticky-follow-text strong {
+            font-size: 15px;
+            color: var(--primary-text);
+            display: block;
+        }
 
-.sticky-follow-text span {
-    color: var(--secondary-text);
-}
+        .sticky-follow-text span {
+            color: var(--secondary-text);
+        }
 
-.sticky-follow-button {
-    background: #0095f6;
-    color: white;
-    padding: 8px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    flex-shrink: 0;
-}
+        .sticky-follow-button {
+            background: #0095f6;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
 
-/* 데스크탑에서는 하단 고정 배너 숨기기 */
-@media (min-width: 768px) {
-    .sticky-follow-banner {
-        display: none;
-    }
-}
+        /* 데스크탑에서는 하단 고정 배너 숨기기 */
+        @media (min-width: 768px) {
+            .sticky-follow-banner {
+                display: none;
+            }
+        }
 
-/* 기존 모바일 하단 메뉴와 겹치지 않도록 body에 padding-bottom 추가 */
-@media (max-width: 767px) {
-    body {
-        /* 기존 60px + 새 배너 높이 약 65px */
-        padding-bottom: 125px; 
-    }
-}
+        /* 기존 모바일 하단 메뉴와 겹치지 않도록 body에 padding-bottom 추가 */
+        @media (max-width: 767px) {
+            body {
+                /* 기존 60px + 새 배너 높이 약 65px */
+                padding-bottom: 125px; 
+            }
+        }
+
+        /* 모션 민감 사용자 배려 */
+        @media (prefers-reduced-motion: reduce){
+            * { animation: none !important; transition: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -1527,7 +1544,7 @@
                 <span>Dapatkan Hadiah Eksklusif!</span>
             </div>
         </div>
-        <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="sticky-follow-button" rel="noopener">Follow</a>
+        <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="sticky-follow-button" rel="noopener noreferrer">Follow</a>
     </div>
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
@@ -1536,7 +1553,7 @@
     <header class="header" id="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru" class="logo-image" />
+                <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru" class="logo-image" decoding="async" />
             </a>
             
             <nav class="nav">
@@ -1581,7 +1598,7 @@
                 <div class="hero-visual">
                     <div class="visual-container">
                         <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&h=400&fit=crop" 
-                             alt="Tokyo Cityscape" class="main-visual">
+                             alt="Tokyo Cityscape" class="main-visual" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -1593,203 +1610,92 @@
             </div>
         </div>
     </section>
-
-    <!-- Expo Section (Travel Fair Information) -->
-    <section class="section expo-section" id="expo">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Travel Fair Jakarta 2025
-                    <span class="text-english">Meet Japankuru Team!</span>
-                </h2>
-                <p class="section-subtitle">Kunjungi booth kami dan dapatkan berbagai hadiah menarik!</p>
-                <h3 style="margin-top: 20px; color: var(--accent); font-size: 1.2em;">
-                    Follow Instagram kami & dapatkan semua hadiah ini SEKARANG!
-                </h3>
+<!-- Event Booth Section (간결한 버전) -->
+<section class="section event-booth-section" id="event-booth" style="background: var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">
+                🎌 JAPANKURU x Dwidayatour Event Booth
+                <span class="text-english">Experience Japan at AEON Mall BSD</span>
+            </h2>
+            <p class="section-subtitle">
+                <strong>📅 25-28 September 2025 | 📍 AEON MALL BSD CITY</strong>
+                <br>Mandiri AEON Travel Deals - Japan Festival
+            </p>
+        </div>
+        
+        <!-- Booth Visual -->
+        <div class="booth-main-visual" style="position: relative; border-radius: var(--radius-large); overflow: hidden; height: 400px; margin-bottom: 60px; background: linear-gradient(135deg, #ff6b6b, #4ecdc4); box-shadow: var(--shadow-heavy);">
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 40px; color: white;">
+                <span style="display: inline-block; background: #ff4444; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 16px;">🔴 LIVE EVENT</span>
+                <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">Booth Jepang Interaktif Terbesar</h3>
+                <p style="font-size: 16px; opacity: 0.9;">VR Experience • Photo Spot • Konsultasi Gratis • Exclusive Deals</p>
+            </div>
+        </div>
+        
+        <!-- Features Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 60px;">
+            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">🗾</div>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Travel Planning</h4>
+                <p style="color: var(--secondary-text); font-size: 14px;">Konsultasi & booking paket wisata halal custom</p>
             </div>
             
-            <!-- Countdown -->
-            <div class="expo-countdown">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">7</span>
-                    <span class="countdown-label">Hari</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">12</span>
-                    <span class="countdown-label">Jam</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">34</span>
-                    <span class="countdown-label">Menit</span>
-                </div>
+            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">📸</div>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Sakura Photo Spot</h4>
+                <p style="color: var(--secondary-text); font-size: 14px;">Torii gate & kimono trial experience</p>
             </div>
             
-            <!-- Booth Information -->
-            <div class="cards-grid">
-                <!-- Location Info -->
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-tag">📍 Lokasi</span>
-                        <h3 class="card-title">JCC Senayan</h3>
-                        <p class="card-desc">
-                            <strong>Hall A - Booth 23</strong><br>
-                            14-16 Januari 2025<br>
-                            10:00 - 21:00 WIB<br>
-                            <span style="color: var(--accent); font-size: 12px;">
-                                Dekat pintu masuk utama
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- What You Get -->
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-tag">🎁 Yang Kamu Dapat</span>
-                        <h3 class="card-title">Hadiah Eksklusif</h3>
-                        <ul class="expo-benefits-list">
-                            <li>📍 Tokyo Halal Map PDF</li>
-                            <li>👜 Totebag Japankuru</li>
-                            <li>💴 Voucher Don Quijote ¥1000</li>
-                            <li>🎌 Stiker & Merchandise</li>
-                            <li>📱 Lucky Draw iPhone 15!</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Activities -->
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-tag">🎪 Aktivitas</span>
-                        <h3 class="card-title">Di Booth Kami</h3>
-                        <ul class="expo-benefits-list">
-                            <li>📸 Photo Booth Jepang</li>
-                            <li>🎯 Games & Quiz</li>
-                            <li>🗾 Konsultasi Travel</li>
-                            <li>🍜 Info Resto Halal</li>
-                            <li>🎁 Doorprize Setiap Jam</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">🎮</div>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">VR Experience</h4>
+                <p style="color: var(--secondary-text); font-size: 14px;">Virtual tour Tokyo, Mt. Fuji & Kyoto</p>
             </div>
             
-            <!-- Instagram Follow Section -->
-            <div class="ig-follow-section">
-                <h3>🌟 Cara Dapat Semua Hadiah?</h3>
-                <div class="follow-steps">
-                    <div class="step-item">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <strong>Datang ke Booth A-23</strong>
-                            <p>Temui tim Japankuru</p>
-                        </div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <strong>Follow @japankuru.id</strong>
-                            <p>Di Instagram</p>
-                        </div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <strong>Tunjukkan ke Staff</strong>
-                            <p>Langsung dapat hadiah!</p>
-                        </div>
-                    </div>
+            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">🎁</div>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Special Deals</h4>
+                <p style="color: var(--secondary-text); font-size: 14px;">Diskon s/d 20% & free souvenir</p>
+            </div>
+        </div>
+        
+        <!-- Location Info (Compact) -->
+        <div style="background: var(--background); border-radius: var(--radius-large); padding: 40px; margin-bottom: 40px; box-shadow: var(--shadow-light);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <div>
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">📍 AEON MALL BSD CITY</h3>
+                    <p style="color: var(--secondary-text); margin-bottom: 16px;">Jl. BSD Raya Utama, BSD City, Tangerang</p>
+                    <p style="color: var(--secondary-text); font-size: 14px;">• 30 menit dari Jakarta via tol<br>• Shuttle bus dari Stasiun Cisauk<br>• Parkir gratis 3 jam pertama</p>
                 </div>
-                
-                <!-- Big Instagram CTA -->
-                <div class="ig-cta-container">
-                    <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="ig-main-cta" rel="noopener">
-                        <div class="ig-cta-box">
-                            <div class="ig-cta-inner">
-                                <div class="ig-avatar">
-                                    <span>JK</span>
-                                </div>
-                                <div class="ig-info">
-                                    <div class="ig-handle">@japankuru.id</div>
-                                    <div class="ig-followers">2.5K followers • Info wisata Jepang</div>
-                                </div>
-                                <div class="ig-follow-button">Follow</div>
-                            </div>
-                        </div>
-                    </a>
-                    <p class="ig-note">
-                        💡 <strong>Tips:</strong> Follow sekarang, tunjukkan di booth, dapat hadiah lebih banyak!
+                <div>
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">⏰ Jadwal Event</h3>
+                    <p style="color: var(--secondary-text); font-size: 14px;">
+                        <strong>25-27 September:</strong> 10:00 - 22:00 WIB<br>
+                        <strong>28 September:</strong> 10:00 - 21:00 WIB
                     </p>
+                    <a href="https://goo.gl/maps/aeonbsd" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; background: var(--accent); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 500;">
+                        🗺️ Google Maps
+                    </a>
                 </div>
             </div>
-            
-            <!-- Sponsor Section -->
-            <div class="expo-sponsors">
-                <h3 style="text-align: center; margin: 40px 0 30px; color: var(--primary-text);">
-                    Partner & Sponsor
-                </h3>
-                <div class="cards-grid">
-                    <!-- JR Pass -->
-                    <div class="card sponsor-card">
-                        <div class="card-content">
-                            <span class="card-tag">✨ Partner</span>
-                            <h3 class="card-title">JR Pass</h3>
-                            <p class="card-desc">Unlimited Shinkansen 7 hari</p>
-                            <div class="sponsor-offer">
-                                <span style="color: var(--japan-red); font-weight: 600;">PROMO: Diskon 10%</span>
-                                <span style="font-size: 12px; color: var(--secondary-text);">Khusus pengunjung booth</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Pocket WiFi -->
-                    <div class="card sponsor-card">
-                        <div class="card-content">
-                            <span class="card-tag">✨ Partner</span>
-                            <h3 class="card-title">Ninja WiFi</h3>
-                            <p class="card-desc">Internet unlimited di Jepang</p>
-                            <div class="sponsor-offer">
-                                <span style="color: var(--japan-red); font-weight: 600;">FREE 1 Day</span>
-                                <span style="font-size: 12px; color: var(--secondary-text);">Untuk follower @japankuru.id</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Hotel -->
-                    <div class="card sponsor-card">
-                        <div class="card-content">
-                            <span class="card-tag">✨ Partner</span>
-                            <h3 class="card-title">APA Hotels</h3>
-                            <p class="card-desc">Muslim-friendly hotel chain</p>
-                            <div class="sponsor-offer">
-                                <span style="color: var(--japan-red); font-weight: 600;">Special Rate</span>
-                                <span style="font-size: 12px; color: var(--secondary-text);">Kiblat direction di kamar</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Live Counter -->
-            <div class="expo-counter">
-                <span class="counter-number" id="visitorCount">347</span>
-                <span class="counter-text">orang sudah daftar untuk visit booth!</span>
-                <div class="recent-activity">
-                    <span class="activity-badge">🔥 2 menit lalu: <strong>Sarah_jkt</strong> follow IG</span>
-                </div>
-            </div>
-            
-            <!-- WhatsApp Group -->
-            <div style="text-align: center; margin-top: 40px;">
-                <h4 style="margin-bottom: 20px;">💬 Join Community Kami!</h4>
-                <a href="https://wa.me/628xxx?text=Saya%20mau%20join%20Japankuru%20Community" 
-                   class="hero-cta" 
-                   style="background: #25d366; display: inline-flex; align-items: center; gap: 8px;">
-                    <span>WhatsApp Group</span>
-                    <span style="font-size: 12px;">(500+ members)</span>
+        </div>
+        
+        <!-- CTA -->
+        <div style="background: var(--gradient-primary); color: white; text-align: center; padding: 50px 40px; border-radius: var(--radius-large);">
+            <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 16px;">Jangan Lewatkan Event Ini!</h3>
+            <p style="font-size: 16px; margin-bottom: 24px; opacity: 0.95;">Daftar sekarang untuk akses VIP & hadiah eksklusif</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" onclick="showNotification('Pendaftaran dibuka 1 Agustus 2025!', 'info'); return false;" style="background: white; color: var(--accent); padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px;">
+                    📝 Daftar Sekarang
+                </a>
+                <a href="https://instagram.com/japankuru.id" target="_blank" style="background: transparent; color: white; border: 2px solid white; padding: 12px 26px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px;">
+                    📱 Follow @japankuru.id
                 </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Trend Section (PDF Page 2) -->
     <section class="section" id="trend">
@@ -1805,7 +1711,7 @@
             <div class="cards-grid">
                 <!-- Halal Food - New Article Needed -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Japanese Sweets" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=200&fit=crop" alt="Halal Japanese Sweets" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag halal">🍡 Halal</span>
                         <h3 class="card-title">Jajanan Halal Tradisional</h3>
@@ -1816,7 +1722,7 @@
                 
                 <!-- Season - New Article Needed -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Autumn Leaves" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=200&fit=crop" alt="Autumn Leaves" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🍁 Musim</span>
                         <h3 class="card-title">10 Spot Momiji dari Tokyo</h3>
@@ -1827,7 +1733,7 @@
                 
                 <!-- Shopping - New Article Needed -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Osaka Shopping" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Osaka Shopping" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🛍️ Shopping</span>
                         <h3 class="card-title">Shopping Spot Osaka</h3>
@@ -1838,7 +1744,7 @@
                 
                 <!-- Culture - Evangelion (New Article Needed) -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" alt="Evangelion World" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" alt="Evangelion World" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🤖 Budaya</span>
                         <h3 class="card-title">Dunia Evangelion</h3>
@@ -1848,8 +1754,8 @@
                 </a>
                 
                 <!-- Japan Items - Skincare -->
-                <a href="https://www.japankuru.com/en/tour/144203/" target="_blank" class="card" rel="noopener">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=200&fit=crop" alt="Japanese Skincare" class="card-image">
+                <a href="https://www.japankuru.com/en/tour/144203/" target="_blank" class="card" rel="noopener noreferrer">
+                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=200&fit=crop" alt="Japanese Skincare" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">💄 Items</span>
                         <h3 class="card-title">Skincare Musim Gugur</h3>
@@ -1860,7 +1766,7 @@
                 
                 <!-- Experience - New Article Needed -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Cosplay Experience" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Cosplay Experience" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag new">🎭 Pengalaman</span>
                         <h3 class="card-title">Cosplay di Aizu-mura</h3>
@@ -1901,7 +1807,7 @@
                             </a>
                         </li>
                         <li class="trip-item">
-                            <a href="https://japankuru.com/en/tour/e3196/" target="_blank" rel="noopener">
+                            <a href="https://japankuru.com/en/tour/e3196/" target="_blank" rel="noopener noreferrer">
                                 <span>Ferry ke Hokkaido (MOL)</span>
                                 <span>→</span>
                             </a>
@@ -1920,7 +1826,7 @@
                             </a>
                         </li>
                         <li class="trip-item">
-                            <a href="https://japankuru.com/en/tour/e3195/" target="_blank" rel="noopener">
+                            <a href="https://japankuru.com/en/tour/e3195/" target="_blank" rel="noopener noreferrer">
                                 <span>San'in - Izumo hingga Daisen</span>
                                 <span>→</span>
                             </a>
@@ -2001,7 +1907,7 @@
             <div class="cards-grid">
                 <!-- Convenience Store -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=400&h=200&fit=crop" alt="NewDays" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=400&h=200&fit=crop" alt="NewDays" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🏪 Konbini</span>
                         <h3 class="card-title">Rekomendasi NewDays</h3>
@@ -2012,7 +1918,7 @@
                 
                 <!-- Don Quijote -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=200&fit=crop" alt="Don Quijote" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=200&fit=crop" alt="Don Quijote" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🛒 Must Buy</span>
                         <h3 class="card-title">Don Quijote Must Buy</h3>
@@ -2023,7 +1929,7 @@
                 
                 <!-- Luxury Shopping -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=200&fit=crop" alt="Ginza Wako" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=200&fit=crop" alt="Ginza Wako" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">💎 Luxury</span>
                         <h3 class="card-title">Tokyo Luxury Shopping</h3>
@@ -2034,7 +1940,7 @@
                 
                 <!-- Resort Shopping -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=400&h=200&fit=crop" alt="Karuizawa" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=400&h=200&fit=crop" alt="Karuizawa" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
                         <span class="card-tag">🏔️ Resort</span>
                         <h3 class="card-title">Karuizawa Prince Shopping</h3>
@@ -2060,7 +1966,7 @@
             <div class="cards-grid">
                 <!-- Cosmetics -->
                 <div class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" alt="Japanese Cosmetics" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" alt="Japanese Cosmetics" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Item</span>
                         <h3 class="beauty-title">5 Kosmetik Wajib Beli</h3>
@@ -2075,7 +1981,7 @@
                 
                 <!-- Traditional Umbrella -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Japanese Umbrella" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" alt="Japanese Umbrella" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Pengalaman</span>
                         <h3 class="beauty-title">Payung Tradisional Mewah</h3>
@@ -2085,7 +1991,7 @@
                 
                 <!-- BEAMS Style -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=200&fit=crop" alt="BEAMS" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=200&fit=crop" alt="BEAMS" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Style</span>
                         <h3 class="beauty-title">Japanese Lifestyle Brand</h3>
@@ -2095,7 +2001,7 @@
                 
                 <!-- Hijab Salon -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Hijab Salon" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Hijab Salon" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Hijab-Friendly</span>
                         <h3 class="beauty-title">Salon Khusus Wanita</h3>
@@ -2109,7 +2015,7 @@
                 
                 <!-- Spa Experience -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" alt="Women's Spa" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" alt="Women's Spa" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Relaksasi</span>
                         <h3 class="beauty-title">Spa & Onsen Wanita</h3>
@@ -2123,7 +2029,7 @@
                 
                 <!-- Makeup Experience -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Japanese Makeup" class="beauty-image">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Japanese Makeup" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
                         <span class="beauty-badge">Experience</span>
                         <h3 class="beauty-title">Japanese Makeup Class</h3>
@@ -2244,7 +2150,7 @@
             
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop" alt="Tokyo Skytree" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop" alt="Tokyo Skytree" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Tokyo Skytree</h3>
                         <p class="gallery-desc">Pemandangan malam dari 634m</p>
@@ -2252,7 +2158,7 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Shopping Experience" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Shopping Experience" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Shopping Experience</h3>
                         <p class="gallery-desc">Petualangan di Don Quijote</p>
@@ -2260,7 +2166,7 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop" alt="Sakura Kyoto" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop" alt="Sakura Kyoto" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Sakura Kyoto</h3>
                         <p class="gallery-desc">Musim semi yang memukau</p>
@@ -2268,7 +2174,7 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Hokkaido Winter" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Hokkaido Winter" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Hokkaido Winter</h3>
                         <p class="gallery-desc">Winter wonderland</p>
@@ -2276,7 +2182,7 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop" alt="Halal Cuisine" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop" alt="Halal Cuisine" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Halal Cuisine</h3>
                         <p class="gallery-desc">Kelezatan halal Jepang</p>
@@ -2284,7 +2190,7 @@
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa" class="gallery-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa" class="gallery-image" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Okinawa Manzamo</h3>
                         <p class="gallery-desc">Tebing gajah yang spektakuler</p>
@@ -2302,7 +2208,7 @@
                 <span class="text-english">Ready to Start Your Adventure?</span>
             </h2>
             <p class="cta-subtitle">Bergabung dengan ribuan traveler Indonesia</p>
-            <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="cta-button" rel="noopener">
+            <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="cta-button" rel="noopener noreferrer">
                 📱 Follow @japankuru.id
             </a>
         </div>
@@ -2317,17 +2223,17 @@
             </div>
             
             <div class="footer-links">
-                <a href="https://japankuru.com/id" target="_blank" rel="noopener">Website</a>
+                <a href="https://japankuru.com/id" target="_blank" rel="noopener noreferrer">Website</a>
                 <a href="#">Tentang Kami</a>
                 <a href="#">Kontak</a>
                 <a href="#">FAQ</a>
             </div>
             
             <div class="social-links">
-                <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener">f</a>
-                <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="social-link" rel="noopener">📷</a>
-                <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener">𝕏</a>
-                <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener">▶</a>
+                <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener noreferrer">f</a>
+                <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="social-link" rel="noopener noreferrer">📷</a>
+                <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener noreferrer">𝕏</a>
+                <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener noreferrer">▶</a>
             </div>
             
             <div class="footer-copyright">
@@ -2337,12 +2243,37 @@
     </footer>
 
     <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="맨 위로">↑</button>
 
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
+    <!-- Notification (a11y) -->
+    <div class="notification" id="notification" role="status" aria-live="polite"></div>
 
     <script>
+        // --- Layout helpers: progress bar & hero top padding vs fixed header/banner ---
+        function placeProgressBar(){
+            const bar = document.getElementById('progressBar');
+            const header = document.getElementById('header');
+            const expo = document.getElementById('expoBanner');
+            if(!bar) return;
+            let top = (header?.offsetHeight || 0);
+            if (expo && getComputedStyle(expo).display !== 'none') {
+                top += expo.offsetHeight;
+            }
+            bar.style.top = top + 'px';
+        }
+
+        function adjustHeroTopPadding(){
+            const hero = document.querySelector('.hero');
+            const header = document.getElementById('header');
+            const expo = document.getElementById('expoBanner');
+            if(!hero) return;
+            let top = (header?.offsetHeight || 0);
+            if (expo && getComputedStyle(expo).display !== 'none') {
+                top += expo.offsetHeight;
+            }
+            hero.style.paddingTop = (top + 60) + 'px'; // 여유 60px
+        }
+
         // Expo Section Management
         function manageExpoSection() {            
             const expoBanner = document.getElementById('expoBanner');
@@ -2353,16 +2284,12 @@
             const TESTING_MODE = true;
             
             if (TESTING_MODE) {
-                // No need to change display since they're already visible
-                // Just ensure hero padding is adjusted
-                const hero = document.querySelector('.hero');
-                if (hero) hero.style.paddingTop = '140px';
-                
-                // Start countdown
+                // Start countdown & counter
                 startCountdown();
-                
-                // Update pre-registration counter
                 animateCounter();
+                // 동적 위치 보정
+                placeProgressBar();
+                adjustHeroTopPadding();
             }
         }
         
@@ -2460,6 +2387,26 @@
             updateActiveNavLink();
             manageExpoSection();
             updateMobileMenuActive(); // Add mobile menu management
+
+            // initial layout fixes
+            placeProgressBar();
+            adjustHeroTopPadding();
+
+            // 이미지 성능 최적화 (히어로 제외 lazy)
+            document.querySelectorAll('img:not(.main-visual)').forEach(img=>{
+                if(!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+                if(!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+            });
+            const heroImg = document.querySelector('.main-visual');
+            if (heroImg){
+                heroImg.setAttribute('fetchpriority','high');
+                heroImg.setAttribute('decoding','async');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            placeProgressBar();
+            adjustHeroTopPadding();
         });
 
         // Scroll functionality
@@ -2516,17 +2463,15 @@
             });
         }
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth scrolling - 대상 ID가 있을 때만 동작
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+            anchor.addEventListener('click', function(e){
+                const href = this.getAttribute('href');
+                if (!href || href === '#' || href.length <= 1) return; // 대상 없으면 기본 동작 유지
+                const target = document.querySelector(href);
+                if (!target) return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                target.scrollIntoView({ behavior:'smooth', block:'start' });
             });
         });
 
