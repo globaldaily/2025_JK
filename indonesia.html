@@ -1434,9 +1434,101 @@
                 padding: 0 15px;
             }
         }
+        /* Sticky Follow Banner */
+.sticky-follow-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 15px;
+    z-index: 1001;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    transform: translateY(100%);
+    animation: slideUp 0.5s 2s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to { transform: translateY(0); }
+}
+
+.sticky-follow-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sticky-follow-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f58529, #dd2a7b);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sticky-follow-text {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.sticky-follow-text strong {
+    font-size: 15px;
+    color: var(--primary-text);
+    display: block;
+}
+
+.sticky-follow-text span {
+    color: var(--secondary-text);
+}
+
+.sticky-follow-button {
+    background: #0095f6;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+/* 데스크탑에서는 하단 고정 배너 숨기기 */
+@media (min-width: 768px) {
+    .sticky-follow-banner {
+        display: none;
+    }
+}
+
+/* 기존 모바일 하단 메뉴와 겹치지 않도록 body에 padding-bottom 추가 */
+@media (max-width: 767px) {
+    body {
+        /* 기존 60px + 새 배너 높이 약 65px */
+        padding-bottom: 125px; 
+    }
+}
     </style>
 </head>
 <body>
+    <div class="sticky-follow-banner">
+        <div class="sticky-follow-content">
+            <span class="sticky-follow-avatar">JK</span>
+            <div class="sticky-follow-text">
+                <strong>Follow @japankuru.id</strong>
+                <span>Dapatkan Hadiah Eksklusif!</span>
+            </div>
+        </div>
+        <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="sticky-follow-button" rel="noopener">Follow</a>
+    </div>
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -1511,6 +1603,9 @@
                     <span class="text-english">Meet Japankuru Team!</span>
                 </h2>
                 <p class="section-subtitle">Kunjungi booth kami dan dapatkan berbagai hadiah menarik!</p>
+                <h3 style="margin-top: 20px; color: var(--accent); font-size: 1.2em;">
+                    Follow Instagram kami & dapatkan semua hadiah ini SEKARANG!
+                </h3>
             </div>
             
             <!-- Countdown -->
@@ -1607,7 +1702,7 @@
                 
                 <!-- Big Instagram CTA -->
                 <div class="ig-cta-container">
-                    <a href="https://instagram.com/japankuru.id" target="_blank" class="ig-main-cta" rel="noopener">
+                    <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="ig-main-cta" rel="noopener">
                         <div class="ig-cta-box">
                             <div class="ig-cta-inner">
                                 <div class="ig-avatar">
@@ -2207,7 +2302,7 @@
                 <span class="text-english">Ready to Start Your Adventure?</span>
             </h2>
             <p class="cta-subtitle">Bergabung dengan ribuan traveler Indonesia</p>
-            <a href="https://instagram.com/japankuru.id" target="_blank" class="cta-button" rel="noopener">
+            <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="cta-button" rel="noopener">
                 📱 Follow @japankuru.id
             </a>
         </div>
@@ -2230,7 +2325,7 @@
             
             <div class="social-links">
                 <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener">f</a>
-                <a href="https://instagram.com/japankuru.id" target="_blank" class="social-link" rel="noopener">📷</a>
+                <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="social-link" rel="noopener">📷</a>
                 <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener">𝕏</a>
                 <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener">▶</a>
             </div>
