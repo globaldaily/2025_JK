@@ -1610,93 +1610,185 @@
             </div>
         </div>
     </section>
-<!-- Event Booth Section (간결한 버전) -->
-<section class="section event-booth-section" id="event-booth" style="background: var(--surface);">
+<!-- 통합된 Event Booth Section (모바일 최적화) -->
+<section class="section event-booth-section" id="event-booth" style="background: var(--surface); padding: 60px 0;">
     <div class="container">
-        <div class="section-header">
-            <h2 class="text-heading section-title">
-                🎌 JAPANKURU x Dwidayatour Event Booth
-                <span class="text-english">Experience Japan at AEON Mall BSD</span>
+        <!-- Header -->
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <h2 class="text-heading section-title" style="font-size: clamp(24px, 5vw, 36px); margin-bottom: 12px;">
+                🎌 Temui JAPANKURU di AEON BSD
+                <span class="text-english" style="display: block; font-size: 0.6em; margin-top: 8px; color: var(--secondary-text);">
+                    Meet JAPANKURU at AEON BSD
+                </span>
             </h2>
-            <p class="section-subtitle">
-                <strong>📅 25-28 September 2025 | 📍 AEON MALL BSD CITY</strong>
-                <br>Mandiri AEON Travel Deals - Japan Festival
+            <p class="section-subtitle" style="font-size: 16px; color: var(--secondary-text);">
+                <strong>📅 25-28 September 2025</strong><br>
+                Mandiri AEON Travel Deals - Japan Festival
             </p>
         </div>
-        
-        <!-- Booth Visual -->
-        <div class="booth-main-visual" style="position: relative; border-radius: var(--radius-large); overflow: hidden; height: 400px; margin-bottom: 60px; background: linear-gradient(135deg, #ff6b6b, #4ecdc4); box-shadow: var(--shadow-heavy);">
-            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 40px; color: white;">
-                <span style="display: inline-block; background: #ff4444; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 16px;">🔴 LIVE EVENT</span>
-                <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">Booth Jepang Interaktif Terbesar</h3>
-                <p style="font-size: 16px; opacity: 0.9;">VR Experience • Photo Spot • Konsultasi Gratis • Exclusive Deals</p>
-            </div>
-        </div>
-        
-        <!-- Features Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 60px;">
-            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 16px;">🗾</div>
-                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Travel Planning</h4>
-                <p style="color: var(--secondary-text); font-size: 14px;">Konsultasi & booking paket wisata halal custom</p>
-            </div>
+
+        <!-- Main Content Grid (Mobile First) -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 900px; margin: 0 auto;">
             
-            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 16px;">📸</div>
-                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Sakura Photo Spot</h4>
-                <p style="color: var(--secondary-text); font-size: 14px;">Torii gate & kimono trial experience</p>
-            </div>
-            
-            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 16px;">🎮</div>
-                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">VR Experience</h4>
-                <p style="color: var(--secondary-text); font-size: 14px;">Virtual tour Tokyo, Mt. Fuji & Kyoto</p>
-            </div>
-            
-            <div class="card-enhanced" style="background: var(--background); border-radius: var(--radius-large); padding: 30px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 16px;">🎁</div>
-                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Special Deals</h4>
-                <p style="color: var(--secondary-text); font-size: 14px;">Diskon s/d 20% & free souvenir</p>
-            </div>
-        </div>
-        
-        <!-- Location Info (Compact) -->
-        <div style="background: var(--background); border-radius: var(--radius-large); padding: 40px; margin-bottom: 40px; box-shadow: var(--shadow-light);">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                <div>
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">📍 AEON MALL BSD CITY</h3>
-                    <p style="color: var(--secondary-text); margin-bottom: 16px;">Jl. BSD Raya Utama, BSD City, Tangerang</p>
-                    <p style="color: var(--secondary-text); font-size: 14px;">• 30 menit dari Jakarta via tol<br>• Shuttle bus dari Stasiun Cisauk<br>• Parkir gratis 3 jam pertama</p>
+            <!-- 1. About JAPANKURU Card -->
+            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                    <span style="display: inline-flex; align-items: center; gap: 6px; background: #ff3b30; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;">
+                        <span style="width: 6px; height: 6px; background: white; border-radius: 50%; animation: pulse 2s infinite;"></span>
+                        LIVE from TOKYO
+                    </span>
+                    <span style="background: #34c759; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;">
+                        NEW: Bahasa Indonesia
+                    </span>
                 </div>
-                <div>
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">⏰ Jadwal Event</h3>
-                    <p style="color: var(--secondary-text); font-size: 14px;">
-                        <strong>25-27 September:</strong> 10:00 - 22:00 WIB<br>
-                        <strong>28 September:</strong> 10:00 - 21:00 WIB
+                
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; line-height: 1.3;">
+                    Tim Kreatif Multinasional Langsung dari Tokyo 🗾
+                </h3>
+                
+                <p style="color: var(--secondary-text); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+                    JAPANKURU adalah platform informasi wisata Jepang yang dikelola oleh tim kreatif berbagai negara yang tinggal di Tokyo. 
+                    Kini hadir dalam Bahasa Indonesia untuk memberikan info terkini setiap hari!
+                </p>
+                
+                <!-- Features in compact grid -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                    <div style="background: var(--surface); padding: 12px; border-radius: 12px; text-align: center;">
+                        <span style="font-size: 24px;">🏮</span>
+                        <p style="font-size: 13px; margin-top: 4px;">Konten Original</p>
+                    </div>
+                    <div style="background: var(--surface); padding: 12px; border-radius: 12px; text-align: center;">
+                        <span style="font-size: 24px;">🍜</span>
+                        <p style="font-size: 13px; margin-top: 4px;">Info Halal</p>
+                    </div>
+                    <div style="background: var(--surface); padding: 12px; border-radius: 12px; text-align: center;">
+                        <span style="font-size: 24px;">📸</span>
+                        <p style="font-size: 13px; margin-top: 4px;">Spot Foto</p>
+                    </div>
+                    <div style="background: var(--surface); padding: 12px; border-radius: 12px; text-align: center;">
+                        <span style="font-size: 24px;">🎌</span>
+                        <p style="font-size: 13px; margin-top: 4px;">Tips Lokal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Instagram Follow Event -->
+            <div style="background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 16px; padding: 24px; color: white;">
+                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">
+                    🎁 Special Event: Follow & Get Gift!
+                </h3>
+                
+                <!-- Instagram Preview -->
+                <div style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #dc2743); padding: 2px;">
+                            <div style="width: 100%; height: 100%; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                📷
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #1d1d1f; font-size: 16px; font-weight: 600;">@japankuru.id</h4>
+                            <p style="color: #8e8e93; font-size: 13px;">Akun resmi Bahasa Indonesia</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Mini Gallery -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 12px;">
+                        <div style="aspect-ratio: 1; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=150&h=150&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="aspect-ratio: 1; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=150&h=150&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="aspect-ratio: 1; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=150&h=150&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <p style="font-size: 14px; margin-bottom: 12px;">
+                        Follow sekarang di booth & dapatkan hadiah eksklusif!
                     </p>
-                    <a href="https://goo.gl/maps/aeonbsd" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; background: var(--accent); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 500;">
-                        🗺️ Google Maps
+                    <a href="https://instagram.com/japankuru.id" target="_blank" style="display: inline-block; background: white; color: #dc2743; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px;">
+                        Follow @japankuru.id →
                     </a>
                 </div>
             </div>
-        </div>
-        
-        <!-- CTA -->
-        <div style="background: var(--gradient-primary); color: white; text-align: center; padding: 50px 40px; border-radius: var(--radius-large);">
-            <h3 style="font-size: 28px; font-weight: 700; margin-bottom: 16px;">Jangan Lewatkan Event Ini!</h3>
-            <p style="font-size: 16px; margin-bottom: 24px; opacity: 0.95;">Daftar sekarang untuk akses VIP & hadiah eksklusif</p>
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <a href="#" onclick="showNotification('Pendaftaran dibuka 1 Agustus 2025!', 'info'); return false;" style="background: white; color: var(--accent); padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px;">
-                    📝 Daftar Sekarang
-                </a>
-                <a href="https://instagram.com/japankuru.id" target="_blank" style="background: transparent; color: white; border: 2px solid white; padding: 12px 26px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px;">
-                    📱 Follow @japankuru.id
-                </a>
+
+            <!-- 3. Location & Map -->
+            <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+                <!-- Map Container -->
+                <div style="position: relative; height: 200px; background: #e0e0e0;">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.5644081898843!2d106.64406831476974!3d-6.320470895425585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e4f8c0b5b5e5%3A0x4f0b5b5e5e5e5e5e!2sAEON%20MALL%20BSD%20CITY!5e0!3m2!1sid!2sid!4v1234567890"
+                        width="100%" 
+                        height="200" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--accent); color: white; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                        📍 JAPANKURU Booth
+                    </div>
+                </div>
+                
+                <!-- Location Info -->
+                <div style="padding: 20px;">
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">
+                        📍 AEON MALL BSD CITY
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                        <div>
+                            <p style="color: var(--secondary-text); font-size: 14px; line-height: 1.5;">
+                                Jl. BSD Raya Utama, BSD City<br>
+                                Tangerang Selatan, Banten 15345
+                            </p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div style="background: var(--surface); padding: 12px; border-radius: 8px;">
+                                <span style="font-size: 12px; color: var(--secondary-text);">Jadwal:</span>
+                                <p style="font-size: 13px; font-weight: 600; margin-top: 4px;">10:00 - 22:00</p>
+                            </div>
+                            <div style="background: var(--surface); padding: 12px; border-radius: 8px;">
+                                <span style="font-size: 12px; color: var(--secondary-text);">Lokasi:</span>
+                                <p style="font-size: 13px; font-weight: 600; margin-top: 4px;">Lt. 1 Main Atrium</p>
+                            </div>
+                        </div>
+                        
+                        <a href="https://goo.gl/maps/aeonmallbsd" target="_blank" style="display: block; text-align: center; background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 14px;">
+                            🗺️ Buka di Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. What to Expect -->
+            <div style="background: var(--surface); border-radius: 16px; padding: 20px; text-align: center;">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">
+                    ✨ Apa yang bisa Anda dapatkan?
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; font-size: 14px;">
+                    <div style="background: white; padding: 12px; border-radius: 8px;">
+                        💬 Konsultasi wisata gratis
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 8px;">
+                        🎁 Hadiah eksklusif
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 8px;">
+                        📱 Follow & connect
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 8px;">
+                        📚 Info terkini Jepang
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
-
     <!-- Trend Section (PDF Page 2) -->
     <section class="section" id="trend">
         <div class="container">
