@@ -1533,6 +1533,126 @@
         @media (prefers-reduced-motion: reduce){
             * { animation: none !important; transition: none !important; }
         }
+
+        /* ----- 기본 스타일 ----- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        /* ----- 전체 섹션 컨테이너 ----- */
+        .destination-selector {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .selector-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .selector-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* ----- 카드 컨테이너 (핵심) ----- */
+        .card-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2개의 열을 생성 */
+            gap: 30px; /* 카드 사이의 간격 */
+        }
+
+        /* ----- 개별 카드 스타일 ----- */
+        .destination-card {
+            position: relative;
+            padding: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            color: white;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* 콘텐츠를 카드 하단에 정렬 */
+            text-align: left;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: scale(1.03); /* 마우스 올리면 살짝 확대 */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ----- 이미지 위에 어두운 오버레이 추가 (가독성 향상) ----- */
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 80%);
+            z-index: 1;
+        }
+
+        /* ----- 카드 내부 콘텐츠 ----- */
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+        }
+
+        .trip-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .trip-list li a {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 0;
+            font-size: 1.1rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        
+        .trip-list li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* ----- 카드별 배경 이미지 ----- */
+        .card-tokyo {
+            background-image: url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .card-kansai {
+            background-image: url('https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg');
+        }
+        
+        /* ----- 반응형 디자인 (모바일 화면) ----- */
+        @media (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr; /* 모바일에서는 1열로 변경 */
+            }
+            .selector-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1880,58 +2000,29 @@
                 <p class="section-subtitle">Dari Tokyo dan Kansai ke seluruh Jepang</p>
             </div>
             
-            <div class="trip-grid">
-                <!-- Tokyo Base -->
-                <div class="trip-category">
-                    <h3 class="trip-category-title">Dari TOKYO</h3>
-                    <ul class="trip-list">
-                        <li class="trip-item">
-                            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                                <span>5 Kota Day Trip dari Tokyo</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                        <li class="trip-item">
-                            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                                <span>Nikko - Kota Warisan Dunia</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                        <li class="trip-item">
-                            <a href="https://japankuru.com/en/tour/e3196/" target="_blank" rel="noopener noreferrer">
-                                <span>Ferry ke Hokkaido (MOL)</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="card-container">
+                <div class="destination-card card-tokyo">
+                    <div class="card-content">
+                        <h3 class="card-title">From TOKYO</h3>
+                        <ul class="trip-list">
+                            <li><a href="#">5 Kota Day Trip dari Tokyo →</a></li>
+                            <li><a href="#">Nikko - Kota Warisan Dunia →</a></li>
+                            <li><a href="#">Ferry ke Hokkaido (MOL) →</a></li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <!-- Kansai Base -->
-                <div class="trip-category">
-                    <h3 class="trip-category-title">Dari KANSAI</h3>
-                    <ul class="trip-list">
-                        <li class="trip-item">
-                            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                                <span>Kyoto Road Trip</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                        <li class="trip-item">
-                            <a href="https://japankuru.com/en/tour/e3195/" target="_blank" rel="noopener noreferrer">
-                                <span>San'in - Izumo hingga Daisen</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                        <li class="trip-item">
-                            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                                <span>Kyushu Selatan Drive</span>
-                                <span>→</span>
-                            </a>
-                        </li>
-                    </ul>
+    
+                <div class="destination-card card-kansai">
+                    <div class="card-content">
+                        <h3 class="card-title">From KANSAI</h3>
+                        <ul class="trip-list">
+                            <li><a href="#">Kyoto Road Trip →</a></li>
+                            <li><a href="#">San'in - Izumo hingga Daisen →</a></li>
+                            <li><a href="#">Kyushu Selatan Drive →</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>      
     </section>
 
     <!-- Gourmet Section (PDF Page 5) -->
@@ -2014,17 +2105,6 @@
                         <span class="card-tag">🛒 Must Buy</span>
                         <h3 class="card-title">Don Quijote Must Buy</h3>
                         <p class="card-desc">Barang unik dengan harga terjangkau</p>
-                        <div class="card-link">Baca Selengkapnya →</div>
-                    </div>
-                </a>
-                
-                <!-- Luxury Shopping -->
-                <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=200&fit=crop" alt="Ginza Wako" class="card-image" loading="lazy" decoding="async">
-                    <div class="card-content">
-                        <span class="card-tag">💎 Luxury</span>
-                        <h3 class="card-title">Tokyo Luxury Shopping</h3>
-                        <p class="card-desc">Ginza Wako dan butik eksklusif</p>
                         <div class="card-link">Baca Selengkapnya →</div>
                     </div>
                 </a>
