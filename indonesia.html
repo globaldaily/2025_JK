@@ -651,6 +651,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
+            display: block;
         }
         
         .season-card:hover {
@@ -695,6 +696,7 @@
         @media (min-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
             }
         }
         
@@ -706,6 +708,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-light);
+            background-size: cover;
+            background-position: center;
         }
         
         .gallery-item:hover {
@@ -713,10 +717,16 @@
             box-shadow: var(--shadow-medium);
         }
         
-        .gallery-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        /* 오버레이 효과 */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
         }
         
         .gallery-overlay {
@@ -724,9 +734,354 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
             padding: 20px;
             color: white;
+            z-index: 2;
+        }
+        
+        .gallery-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .gallery-desc {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* New Styles for Gourmet Section */
+        .gourmet-gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 32px;
+        }
+        
+        @media (min-width: 640px) {
+            .gourmet-gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .gourmet-gallery-item {
+            position: relative;
+            height: 280px; /* 고정된 높이로 통일감을 줍니다 */
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .gourmet-gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .gourmet-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 80%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: white;
+        }
+        
+        .gourmet-overlay h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+        
+        .gourmet-overlay p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .gourmet-badge {
+            background: var(--gradient-halal);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            align-self: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .gourmet-link {
+            font-weight: bold;
+            color: white;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        
+        /* Shopping Section */
+        .shopping-section {
+            background: var(--surface);
+        }
+        
+        /* Beauty Section */
+        .beauty-section {
+            background: var(--background);
+        }
+        
+        .beauty-card {
+            background: var(--surface);
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .beauty-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .beauty-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .beauty-content {
+            padding: 20px;
+        }
+        
+        .beauty-badge {
+            display: inline-block;
+            background: var(--japan-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .beauty-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .beauty-features {
+            list-style: none;
+        }
+        
+        .beauty-features li {
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--secondary-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .check-icon {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Checklist Section */
+        .checklist-section {
+            background: var(--surface);
+        }
+        
+        .checklist-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .checklist-item {
+            background: var(--background);
+            border-radius: var(--radius-medium);
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .checklist-header {
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .checklist-checkbox.checked {
+            background: var(--accent);
+        }
+        
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+        
+        .checklist-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 16px;
+        }
+        
+        .checklist-content.expanded {
+            max-height: 400px;
+            padding: 0 16px 16px;
+        }
+        
+        .checklist-tip {
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius-small);
+            margin-top: 12px;
+            border-left: 3px solid var(--accent);
+            font-size: 13px;
+        }
+        
+        /* Seasons Section */
+        .seasons-section {
+            background: var(--background);
+        }
+        
+        .seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .seasons-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        .season-card {
+            background: var(--surface);
+            border-radius: var(--radius-large);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .season-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .season-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .season-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .season-period {
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--surface);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 32px;
+        }
+        
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            height: 220px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        /* 오버레이 효과 */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            color: white;
+            z-index: 2;
         }
         
         .gallery-title {
@@ -1534,125 +1889,96 @@
             * { animation: none !important; transition: none !important; }
         }
 
-        /* ----- 기본 스타일 ----- */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 40px 20px;
-        }
-
-        /* ----- 전체 섹션 컨테이너 ----- */
-        .destination-selector {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .selector-title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .selector-subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        /* ----- 카드 컨테이너 (핵심) ----- */
-        .card-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 2개의 열을 생성 */
-            gap: 30px; /* 카드 사이의 간격 */
-        }
-
-        /* ----- 개별 카드 스타일 ----- */
-        .destination-card {
-            position: relative;
-            padding: 30px;
-            border-radius: 15px;
-            overflow: hidden;
-            color: white;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* 콘텐츠를 카드 하단에 정렬 */
-            text-align: left;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .destination-card:hover {
-            transform: scale(1.03); /* 마우스 올리면 살짝 확대 */
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        /* ----- 이미지 위에 어두운 오버레이 추가 (가독성 향상) ----- */
-        .destination-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 80%);
-            z-index: 1;
-        }
-
-        /* ----- 카드 내부 콘텐츠 ----- */
-        .card-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 0 0 15px 0;
-        }
-
-        .trip-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .trip-list li a {
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            padding: 8px 0;
-            font-size: 1.1rem;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-        
-        .trip-list li a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        /* ----- 카드별 배경 이미지 ----- */
-        .card-tokyo {
-            background-image: url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80');
-        }
-
-        .card-kansai {
-            background-image: url('https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg');
-        }
-        
-        /* ----- 반응형 디자인 (모바일 화면) ----- */
-        @media (max-width: 768px) {
-            .card-container {
-                grid-template-columns: 1fr; /* 모바일에서는 1열로 변경 */
-            }
-            .selector-title {
-                font-size: 1.5rem;
-            }
-        }
+        /* ----- Destination Selector Section ----- */
+.destination-selector {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+.selector-title {
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.004em;
+    margin-bottom: 12px;
+}
+.selector-subtitle {
+    font-size: 16px;
+    color: var(--secondary-text);
+    margin-bottom: 40px;
+}
+.card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+.destination-card {
+    position: relative;
+    padding: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    color: white;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.destination-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+.destination-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 80%);
+    z-index: 1;
+}
+.destination-card .card-content {
+    position: relative;
+    z-index: 2;
+}
+.destination-card .card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    color: white; /* 텍스트 색상 강제 */
+}
+.destination-card .trip-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.destination-card .trip-list li a {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 8px 0;
+    font-size: 1.1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.destination-card .trip-list li a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+.card-tokyo {
+    background-image: url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80');
+}
+.card-kansai {
+    background-image: url('https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg');
+}
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
 </head>
 <body>
@@ -1666,10 +1992,8 @@
         </div>
         <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="sticky-follow-button" rel="noopener noreferrer">Follow</a>
     </div>
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Header -->
     <header class="header" id="header">
         <div class="header-content">
             <a href="#" class="logo">
@@ -1695,7 +2019,6 @@
         </div>
     </header>
 
-    <!-- Expo Banner (Conditional) -->
     <div class="expo-banner" id="expoBanner">
         <div class="expo-banner-content">
             <span class="expo-badge">🎊 TRAVEL FAIR 2025</span>
@@ -1704,7 +2027,6 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -1730,10 +2052,8 @@
             </div>
         </div>
     </section>
-<!-- 통합된 Event Booth Section (모바일 최적화) -->
 <section class="section event-booth-section" id="event-booth" style="background: var(--surface); padding: 60px 0;">
     <div class="container">
-        <!-- Header -->
         <div class="section-header" style="text-align: center; margin-bottom: 40px;">
             <h2 class="text-heading section-title" style="font-size: clamp(24px, 5vw, 36px); margin-bottom: 12px;">
                 🎌 Temui JAPANKURU di AEON BSD
@@ -1747,10 +2067,8 @@
             </p>
         </div>
 
-        <!-- Main Content Grid (Mobile First) -->
         <div style="display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 900px; margin: 0 auto;">
             
-            <!-- 1. About JAPANKURU Card -->
             <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
                     <span style="display: inline-flex; align-items: center; gap: 6px; background: #ff3b30; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;">
@@ -1771,7 +2089,6 @@
                     Kini hadir dalam Bahasa Indonesia untuk memberikan info terkini setiap hari!
                 </p>
                 
-                <!-- Features in compact grid -->
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                     <div style="background: var(--surface); padding: 12px; border-radius: 12px; text-align: center;">
                         <span style="font-size: 24px;">🏮</span>
@@ -1792,13 +2109,11 @@
                 </div>
             </div>
 
-            <!-- 2. Instagram Follow Event -->
             <div style="background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 16px; padding: 24px; color: white;">
                 <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">
                     🎁 Special Event: Follow & Get Gift!
                 </h3>
                 
-                <!-- Instagram Preview -->
                 <div style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #dc2743); padding: 2px;">
@@ -1812,7 +2127,6 @@
                         </div>
                     </div>
                     
-                    <!-- Mini Gallery -->
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 12px;">
                         <div style="aspect-ratio: 1; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
                             <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/07/DSC06580-1.jpg" style="width: 100%; height: 100%; object-fit: cover;">
@@ -1836,9 +2150,7 @@
                 </div>
             </div>
 
-            <!-- 3. Location & Map -->
             <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
-                <!-- Map Container -->
                 <div style="position: relative; height: 200px; background: #e0e0e0;">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.5644081898843!2d106.64406831476974!3d-6.320470895425585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e4f8c0b5b5e5%3A0x4f0b5b5e5e5e5e5e!2sAEON%20MALL%20BSD%20CITY!5e0!3m2!1sid!2sid!4v1234567890"
@@ -1854,7 +2166,6 @@
                     </div>
                 </div>
                 
-                <!-- Location Info -->
                 <div style="padding: 20px;">
                     <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">
                         📍 AEON MALL BSD CITY
@@ -1886,7 +2197,6 @@
                 </div>
             </div>
 
-            <!-- 4. What to Expect -->
             <div style="background: var(--surface); border-radius: 16px; padding: 20px; text-align: center;">
                 <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">
                     ✨ Apa yang bisa Anda dapatkan?
@@ -1909,7 +2219,6 @@
         </div>
     </div>
 </section>
-    <!-- Trend Section (PDF Page 2) -->
     <section class="section" id="trend">
         <div class="container">
             <div class="section-header">
@@ -1931,7 +2240,6 @@
                     </div>
                 </a>
                 
-                <!-- Season - New Article Needed -->
                 <a href="https://www.japankuru.com/en/tour/e2381/" class="card" target="_blank" rel="noopener noreferrer">
                     <img src="https://img.japankuru.com/prg_img/img/img2019100913542156817500.jpg" alt="Autumn Leaves" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -1942,7 +2250,6 @@
                     </div>
                 </a>
                 
-                <!-- Shopping - New Article Needed -->
                 <a href="https://www.japankuru.com/en/entertainment/e3949/" class="card" target="_blank" rel="noopener noreferrer">
                     <img src="https://jw-webmagazine.com/wp-content/uploads/2022/10/Shinsekai-min.jpg" alt="Osaka Shopping" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -1953,7 +2260,6 @@
                     </div>
                 </a>
                 
-                <!-- Culture - Evangelion (New Article Needed) -->
                 <a href="https://www.japankuru.com/en/entertainment/e3949/" class="card" target="_blank" rel="noopener noreferrer">
                     <img src="https://img.japankuru.com/prg_img/img/img2023061609511365658900.jpg" alt="Evangelion World" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -1964,7 +2270,6 @@
                     </div>
                 </a>
                 
-                <!-- Japan Items - Skincare -->
                 <a href="https://www.japankuru.com/en/tour/144203/" target="_blank" class="card" rel="noopener noreferrer">
                     <img src="https://www.japankuru.com/gld-kanri/data/uploads/2025/06/Canmake_Summer_Thumbnail02-2048x1152.jpg" alt="Japanese Skincare" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -1975,7 +2280,6 @@
                     </div>
                 </a>
                 
-                <!-- Experience - New Article Needed -->
                 <a href="https://www.japankuru.com/en/tour/e2356/" class="card" target="_blank" rel="noopener noreferrer">
                     <img src="https://img.japankuru.com/prg_img/thumbnail1/img2019101809562467208400.jpg" alt="Cosplay Experience" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -1989,43 +2293,42 @@
         </div>
     </section>
 
-    <!-- Trip Section (PDF Page 3-4) -->
     <section class="section trip-section" id="trip">
         <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
+            <div class="destination-selector">
+                <h2 class="selector-title">
                     Destinasi Wisata Pilihan
                     <span class="text-english">Selected Travel Destinations</span>
                 </h2>
-                <p class="section-subtitle">Dari Tokyo dan Kansai ke seluruh Jepang</p>
-            </div>
-            
-            <div class="card-container">
-                <div class="destination-card card-tokyo">
-                    <div class="card-content">
-                        <h3 class="card-title">From TOKYO</h3>
-                        <ul class="trip-list">
-                            <li><a href="#">5 Kota Day Trip dari Tokyo →</a></li>
-                            <li><a href="#">Nikko - Kota Warisan Dunia →</a></li>
-                            <li><a href="#">Ferry ke Hokkaido (MOL) →</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <p class="selector-subtitle">Dari Tokyo dan Kansai ke seluruh Jepang</p>
     
-                <div class="destination-card card-kansai">
-                    <div class="card-content">
-                        <h3 class="card-title">From KANSAI</h3>
-                        <ul class="trip-list">
-                            <li><a href="#">Kyoto Road Trip →</a></li>
-                            <li><a href="#">San'in - Izumo hingga Daisen →</a></li>
-                            <li><a href="#">Kyushu Selatan Drive →</a></li>
-                        </ul>
+                <div class="card-container">
+                    <div class="destination-card card-tokyo">
+                        <div class="card-content">
+                            <h3 class="card-title">From TOKYO</h3>
+                            <ul class="trip-list">
+                                <li><a href="#">5 Kota Day Trip dari Tokyo →</a></li>
+                                <li><a href="#">Nikko - Kota Warisan Dunia →</a></li>
+                                <li><a href="#">Ferry ke Hokkaido (MOL) →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                    <div class="destination-card card-kansai">
+                        <div class="card-content">
+                            <h3 class="card-title">From KANSAI</h3>
+                            <ul class="trip-list">
+                                <li><a href="#">Kyoto Road Trip →</a></li>
+                                <li><a href="#">San'in - Izumo hingga Daisen →</a></li>
+                                <li><a href="#">Kyushu Selatan Drive →</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>      
+            </div>
+        </div>
     </section>
 
-    <!-- Gourmet Section (PDF Page 5) -->
     <section class="section gourmet-section" id="gourmet">
         <div class="container">
             <div class="section-header">
@@ -2037,45 +2340,40 @@
             </div>
             
             <div class="halal-badge">✨ Halal Michelin Guide</div>
-            
-            <!-- Kaiseki -->
-            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="restaurant-card">
-                <h3 class="restaurant-name">懐石花傳 (Kaiseki Kaden)</h3>
-                <p class="restaurant-desc">Kaiseki halal dengan menu lengkap. Reservasi diperlukan untuk menu khusus.</p>
-                <p class="restaurant-price">Lunch: ¥5,000~ / Dinner: ¥12,000~</p>
-            </a>
-            
-            <!-- Teppanyaki -->
-            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="restaurant-card">
-                <h3 class="restaurant-name">鉄板焼 匠 (Teppanyaki Takumi)</h3>
-                <p class="restaurant-desc">Wagyu halal dengan pertunjukan chef yang memukau</p>
-                <p class="restaurant-price">Set Menu: ¥8,000~</p>
-            </a>
-            
-            <!-- Sushi -->
-            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="restaurant-card">
-                <h3 class="restaurant-name">鮨処 海月 (Sushi Kaigetsu)</h3>
-                <p class="restaurant-desc">Sushi Edomae dengan kecap halal. Menu vegetarian tersedia.</p>
-                <p class="restaurant-price">Omakase: ¥6,000~</p>
-            </a>
-            
-            <!-- Ramen -->
-            <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="restaurant-card">
-                <h3 class="restaurant-name">弥七ラーメン (Yashichi Ramen)</h3>
-                <p class="restaurant-desc">Ramen halal paling populer di Tokyo</p>
-                <p class="restaurant-price">Ramen: ¥1,200~</p>
-            </a>
-            
-            <!-- Additional -->
-            <div class="mt-4 text-center">
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="card-link">
-                    <span>Lihat 6 Makanan Wajib Coba Lainnya →</span>
+
+            <div class="gourmet-gallery-grid">
+                
+                <a href="#" class="gourmet-gallery-item" style="background-image: url('https://img.japankuru.com/prg_img/prg/img2022062417441589311600.jpg');">
+                    <div class="gourmet-overlay">
+                        <div class="gourmet-badge">⭐ Michelin</div>
+                        <h3>懐石花傳 (Kaiseki Kaden)</h3>
+                        <p>Kaiseki halal dengan menu lengkap</p>
+                        <span class="gourmet-link">Lihat Detail →</span>
+                    </div>
                 </a>
+                
+                <a href="#" class="gourmet-gallery-item" style="background-image: url('https://img.japankuru.com/prg_img/prg/img2023022415132228519900.jpg');">
+                    <div class="gourmet-overlay">
+                        <div class="gourmet-badge">🍣 Sushi</div>
+                        <h3>鮨処 海月 (Sushi Kaigetsu)</h3>
+                        <p>Sushi otentik dengan kecap halal</p>
+                        <span class="gourmet-link">Lihat Detail →</span>
+                    </div>
+                </a>
+                
+                <a href="#" class="gourmet-gallery-item" style="background-image: url('https://img.japankuru.com/prg_img/prg/img2022020211105151528600.jpg');">
+                    <div class="gourmet-overlay">
+                        <div class="gourmet-badge">🍜 Ramen</div>
+                        <h3>弥七ラーメン (Yashichi Ramen)</h3>
+                        <p>Ramen halal paling populer di Tokyo</p>
+                        <span class="gourmet-link">Lihat Detail →</span>
+                    </div>
+                </a>
+                
             </div>
-        </div>
+            </div>
     </section>
 
-    <!-- Shopping Section (PDF Page 6) -->
     <section class="section shopping-section" id="shopping">
         <div class="container">
             <div class="section-header">
@@ -2087,7 +2385,6 @@
             </div>
             
             <div class="cards-grid">
-                <!-- Convenience Store -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=400&h=200&fit=crop" alt="NewDays" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -2098,7 +2395,6 @@
                     </div>
                 </a>
                 
-                <!-- Don Quijote -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=200&fit=crop" alt="Don Quijote" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -2109,7 +2405,6 @@
                     </div>
                 </a>
                 
-                <!-- Resort Shopping -->
                 <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
                     <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=400&h=200&fit=crop" alt="Karuizawa" class="card-image" loading="lazy" decoding="async">
                     <div class="card-content">
@@ -2123,7 +2418,6 @@
         </div>
     </section>
 
-    <!-- Beauty Section (PDF Page 7) -->
     <section class="section beauty-section" id="beauty">
         <div class="container">
             <div class="section-header">
@@ -2135,7 +2429,6 @@
             </div>
             
             <div class="cards-grid">
-                <!-- Cosmetics -->
                 <div class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" alt="Japanese Cosmetics" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2150,7 +2443,6 @@
                     </div>
                 </div>
                 
-                <!-- Traditional Umbrella -->
                 <a href="https://www.japankuru.com/en/shopping/133326/" class="card" target="_blank" rel="noopener noreferrer">
                     <img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/11/Maehara_CC08-scaled.jpg" alt="Japanese Umbrella" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2160,7 +2452,6 @@
                     </div>
                 </a>
                 
-                <!-- BEAMS Style -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=200&fit=crop" alt="BEAMS" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2170,7 +2461,6 @@
                     </div>
                 </a>
                 
-                <!-- Hijab Salon -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Hijab Salon" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2184,7 +2474,6 @@
                     </div>
                 </a>
                 
-                <!-- Spa Experience -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" alt="Women's Spa" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2198,7 +2487,6 @@
                     </div>
                 </a>
                 
-                <!-- Makeup Experience -->
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="beauty-card">
                     <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" alt="Japanese Makeup" class="beauty-image" loading="lazy" decoding="async">
                     <div class="beauty-content">
@@ -2211,7 +2499,6 @@
         </div>
     </section>
 
-    <!-- Checklist Section (PDF Page 8) -->
     <section class="section checklist-section" id="checklist">
         <div class="checklist-container">
             <div class="section-header">
@@ -2269,7 +2556,6 @@
         </div>
     </section>
 
-    <!-- Seasons Section (PDF Page 9) -->
     <section class="section seasons-section" id="seasons">
         <div class="container">
             <div class="section-header">
@@ -2308,7 +2594,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section (PDF Page 10) -->
     <section class="section gallery-section">
         <div class="container">
             <div class="section-header">
@@ -2320,48 +2605,42 @@
             </div>
             
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop" alt="Tokyo Skytree" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Tokyo Skytree</h3>
                         <p class="gallery-desc">Pemandangan malam dari 634m</p>
                     </div>
                 </div>
                 
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop" alt="Shopping Experience" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Shopping Experience</h3>
                         <p class="gallery-desc">Petualangan di Don Quijote</p>
                     </div>
                 </div>
                 
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop" alt="Sakura Kyoto" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Sakura Kyoto</h3>
                         <p class="gallery-desc">Musim semi yang memukau</p>
                     </div>
                 </div>
                 
-                <div class="gallery-item">
-                    <img src="https://www.japankuru.com/gld-kanri/data/uploads/2025/02/Tokachi_CC11-scaled.jpg" alt="Hokkaido Winter" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/02/Tokachi_CC11-scaled.jpg');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Hokkaido Winter</h3>
                         <p class="gallery-desc">Winter wonderland</p>
                     </div>
                 </div>
                 
-                <div class="gallery-item">
-                    <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXfp6-CV7YLlLskFUPdXIwArbsMSy1a2-tdAuYREZEKuiA7CD_NsMIQ_GufDkl3Hr44sLk6w2SWzyvxVIGceNQqJEajCfDFro4S0E_6ovEuFZHYoGZc97fG-vYYdjbtDjKpXlsv15Q?key=BOq2t3AqnHl_bnZ-b5aNoSSY" alt="Halal Cuisine" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://lh7-rt.googleusercontent.com/docsz/AD_4nXfp6-CV7YLlLskFUPdXIwArbsMSy1a2-tdAuYREZEKuiA7CD_NsMIQ_GufDkl3Hr44sLk6w2SWzyvxVIGceNQqJEajCfDFro4S0E_6ovEuFZHYoGZc97fG-vYYdjbtDjKpXlsv15Q?key=BOq2t3AqnHl_bnZ-b5aNoSSY');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Halal Cuisine</h3>
                         <p class="gallery-desc">Kelezatan halal Jepang</p>
                     </div>
                 </div>
                 
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Okinawa" class="gallery-image" loading="lazy" decoding="async">
+                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop');">
                     <div class="gallery-overlay">
                         <h3 class="gallery-title">Okinawa Manzamo</h3>
                         <p class="gallery-desc">Tebing gajah yang spektakuler</p>
@@ -2371,7 +2650,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <h2 class="cta-title">
@@ -2385,7 +2663,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -2408,15 +2685,13 @@
             </div>
             
             <div class="footer-copyright">
-                &copy; 2024 Japankuru Indonesia. All rights reserved.
+                © 2024 Japankuru Indonesia. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="맨 위로">↑</button>
 
-    <!-- Notification (a11y) -->
     <div class="notification" id="notification" role="status" aria-live="polite"></div>
 
     <script>
@@ -2446,7 +2721,7 @@
         }
 
         // Expo Section Management
-        function manageExpoSection() {            
+        function manageExpoSection() {          
             const expoBanner = document.getElementById('expoBanner');
             const expoSection = document.getElementById('expo');
             const expoNavLink = document.getElementById('expoNavLink');
