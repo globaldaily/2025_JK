@@ -1979,9 +1979,364 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* 모바일 도트 네비게이션 */
+.mobile-dots-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* 헤더에 현재 섹션 표시 */
+    .header-content::after {
+        content: attr(data-current-section);
+        font-size: 13px;
+        color: var(--accent);
+        font-weight: 600;
+        padding: 4px 12px;
+        background: rgba(0, 122, 255, 0.1);
+        border-radius: 12px;
+        margin-left: auto;
+    }
+    
+    /* 도트 네비게이션 */
+    .mobile-dots-nav {
+        display: flex;
+        position: fixed;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        gap: 20px;
+        z-index: 99;
+    }
+    
+    .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav-dot.active {
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+    }
+    
+    /* 툴팁 */
+    .nav-dot::before {
+        content: attr(data-title);
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    
+    .nav-dot:hover::before {
+        opacity: 1;
+    }
+}
+:root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --accent: #007aff;
+            --spring: #ffb3d9;
+            --summer: #87ceeb;
+            --autumn: #ff8c42;
+            --winter: #b8e6ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface);
+            padding: 20px;
+        }
+        
+        .seasons-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+        
+        /* Timeline Container */
+        .timeline-container {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            overflow-x: auto;
+        }
+        
+        /* Month Bar */
+        .month-bar {
+            display: flex;
+            height: 60px;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .month-segment {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-width: 80px;
+        }
+        
+        .month-segment:hover {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+        
+        /* Season Colors */
+        .spring { background: linear-gradient(135deg, #ff69b4, #ffb3d9); }
+        .summer { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .autumn { background: linear-gradient(135deg, #ff6b35, #ffa500); }
+        .winter { background: linear-gradient(135deg, #667eea, #764ba2); }
+        
+        /* Season Detail Panel */
+        .season-panels {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .season-panel {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .season-panel.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Panel Content */
+        .panel-image {
+            border-radius: 16px;
+            overflow: hidden;
+            height: 280px;
+            position: relative;
+        }
+        
+        .panel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .best-time-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .panel-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .season-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .season-icon {
+            font-size: 32px;
+        }
+        
+        .season-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+        
+        .temp-range {
+            display: inline-block;
+            background: var(--surface);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+        }
+        
+        /* Event Timeline */
+        .events-timeline {
+            margin-bottom: 20px;
+        }
+        
+        .event-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .event-item:hover {
+            background: var(--surface);
+        }
+        
+        .event-month {
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 40px;
+            font-size: 12px;
+        }
+        
+        .event-desc {
+            font-size: 14px;
+            color: var(--primary-text);
+        }
+        
+        /* Quick Links */
+        .quick-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-link {
+            padding: 6px 12px;
+            background: var(--surface);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .month-bar {
+                height: 40px;
+                font-size: 11px;
+            }
+            
+            .month-segment {
+                min-width: 60px;
+            }
+            
+            .season-panel.active {
+                grid-template-columns: 1fr;
+            }
+            
+            .panel-image {
+                height: 200px;
+            }
+            
+            .season-name {
+                font-size: 20px;
+            }
+            
+            .timeline-container {
+                padding: 20px 15px;
+            }
+        }
+        
+        /* Scroll Indicator for Mobile */
+        @media (max-width: 640px) {
+            .month-bar {
+                position: relative;
+            }
+            
+            .month-bar::after {
+                content: '→';
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                font-size: 18px;
+                animation: slideRight 1.5s infinite;
+            }
+            
+            @keyframes slideRight {
+                0%, 100% { transform: translateY(-50%) translateX(0); }
+                50% { transform: translateY(-50%) translateX(5px); }
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- 모바일 도트 네비게이션 -->
+<!-- 모바일 도트 네비게이션 -->
+<nav class="mobile-dots-nav" id="mobileDotsNav">
+    <span class="nav-dot" data-section="trend" data-title="Trend"></span>
+    <span class="nav-dot" data-section="trip" data-title="Trip"></span>
+    <span class="nav-dot" data-section="gourmet" data-title="Kuliner"></span>
+    <span class="nav-dot" data-section="shopping" data-title="Shopping"></span>
+    <span class="nav-dot" data-section="beauty" data-title="Beauty"></span>
+    <span class="nav-dot" data-section="checklist" data-title="Checklist"></span>
+    <span class="nav-dot" data-section="seasons" data-title="Musim"></span>
+</nav>
+
+
     <div class="sticky-follow-banner">
         <div class="sticky-follow-content">
             <span class="sticky-follow-avatar">JK</span>
@@ -2011,11 +2366,7 @@
                 <a href="#seasons" class="nav-link">Musim</a>
             </nav>
             
-            <div class="menu-btn" onclick="toggleMenu()">
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-            </div>
+          
         </div>
     </header>
 
@@ -2556,99 +2907,185 @@
         </div>
     </section>
 
-    <section class="section seasons-section" id="seasons">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Empat Musim di Jepang
-                    <span class="text-english">Japan's Four Seasons</span>
-                </h2>
-                <p class="section-subtitle">Setiap musim memiliki pesona tersendiri</p>
+    <section class="seasons-section" id="seasons">
+        <div class="section-header">
+            <h2 class="section-title">
+                Kalender Musim & Event Jepang 2025
+                <span style="display: block; font-size: 0.6em; margin-top: 8px; color: var(--secondary-text);">
+                    Japan Seasonal Calendar & Events
+                </span>
+            </h2>
+        </div>
+        
+        <div class="timeline-container">
+            <!-- Month Bar -->
+            <div class="month-bar">
+                <div class="month-segment winter" onclick="showSeason('winter')">JAN</div>
+                <div class="month-segment winter" onclick="showSeason('winter')">FEB</div>
+                <div class="month-segment spring" onclick="showSeason('spring')">MAR</div>
+                <div class="month-segment spring" onclick="showSeason('spring')">APR</div>
+                <div class="month-segment spring" onclick="showSeason('spring')">MAY</div>
+                <div class="month-segment summer" onclick="showSeason('summer')">JUN</div>
+                <div class="month-segment summer" onclick="showSeason('summer')">JUL</div>
+                <div class="month-segment summer" onclick="showSeason('summer')">AUG</div>
+                <div class="month-segment autumn" onclick="showSeason('autumn')">SEP</div>
+                <div class="month-segment autumn" onclick="showSeason('autumn')">OCT</div>
+                <div class="month-segment autumn" onclick="showSeason('autumn')">NOV</div>
+                <div class="month-segment winter" onclick="showSeason('winter')">DEC</div>
             </div>
             
-            <div class="seasons-grid">
-                <a href="#" onclick="showNotification('Video dalam pengembangan', 'warning'); return false;" class="season-card">
-                    <div class="season-icon">🌸</div>
-                    <h3 class="season-name">Musim Semi</h3>
-                    <p class="season-period">Maret - Mei</p>
-                </a>
+            <!-- Season Detail Panels -->
+            <div class="season-panels">
+                <!-- Spring Panel -->
+                <div class="season-panel active" id="spring-panel">
+                    <div class="panel-image">
+                        <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=600&h=400&fit=crop" alt="Sakura">
+                        <span class="best-time-badge">🏆 Best Time: Late March - Early April</span>
+                    </div>
+                    <div class="panel-info">
+                        <div class="season-title">
+                            <span class="season-icon">🌸</span>
+                            <h3 class="season-name">Musim Semi</h3>
+                        </div>
+                        <span class="temp-range">🌡️ 10°C - 20°C | Cuaca sejuk & nyaman</span>
+                        
+                        <div class="events-timeline">
+                            <div class="event-item">
+                                <span class="event-month">MAR</span>
+                                <span class="event-desc">Plum blossom (Ume) mulai mekar</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">APR</span>
+                                <span class="event-desc">🌸 Peak Sakura + Hanami parties</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">MAY</span>
+                                <span class="event-desc">Golden Week (29 Apr - 5 Mei) super ramai!</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-links">
+                            <a href="#" class="quick-link">Sakura Forecast 2025</a>
+                            <a href="#" class="quick-link">Best Hanami Spots</a>
+                            <a href="#" class="quick-link">Spring Fashion</a>
+                        </div>
+                    </div>
+                </div>
                 
-                <a href="#" onclick="showNotification('Video dalam pengembangan', 'warning'); return false;" class="season-card">
-                    <div class="season-icon">🎆</div>
-                    <h3 class="season-name">Musim Panas</h3>
-                    <p class="season-period">Juni - Agustus</p>
-                </a>
+                <!-- Summer Panel -->
+                <div class="season-panel" id="summer-panel">
+                    <div class="panel-image">
+                        <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=600&h=400&fit=crop" alt="Summer Festival">
+                        <span class="best-time-badge">🎆 Festival Season!</span>
+                    </div>
+                    <div class="panel-info">
+                        <div class="season-title">
+                            <span class="season-icon">🎐</span>
+                            <h3 class="season-name">Musim Panas</h3>
+                        </div>
+                        <span class="temp-range">🌡️ 25°C - 35°C | Panas & lembab (rainy season Juni)</span>
+                        
+                        <div class="events-timeline">
+                            <div class="event-item">
+                                <span class="event-month">JUN</span>
+                                <span class="event-desc">Tsuyu (rainy season) - bawa payung!</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">JUL</span>
+                                <span class="event-desc">🗻 Mt. Fuji climbing season opens</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">AUG</span>
+                                <span class="event-desc">🎆 Peak hanabi (fireworks) & Obon</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-links">
+                            <a href="#" class="quick-link">Hanabi Calendar</a>
+                            <a href="#" class="quick-link">Beach Guide</a>
+                            <a href="#" class="quick-link">Summer Matsuri</a>
+                        </div>
+                    </div>
+                </div>
                 
-                <a href="#" onclick="showNotification('Video dalam pengembangan', 'warning'); return false;" class="season-card">
-                    <div class="season-icon">🍁</div>
-                    <h3 class="season-name">Musim Gugur</h3>
-                    <p class="season-period">September - November</p>
-                </a>
+                <!-- Autumn Panel -->
+                <div class="season-panel" id="autumn-panel">
+                    <div class="panel-image">
+                        <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=600&h=400&fit=crop" alt="Autumn Leaves">
+                        <span class="best-time-badge">📸 Perfect Weather & Colors</span>
+                    </div>
+                    <div class="panel-info">
+                        <div class="season-title">
+                            <span class="season-icon">🍁</span>
+                            <h3 class="season-name">Musim Gugur</h3>
+                        </div>
+                        <span class="temp-range">🌡️ 15°C - 25°C | Cuaca terbaik sepanjang tahun</span>
+                        
+                        <div class="events-timeline">
+                            <div class="event-item">
+                                <span class="event-month">SEP</span>
+                                <span class="event-desc">Typhoon season - cek prakiraan</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">OCT</span>
+                                <span class="event-desc">Halloween di Shibuya (crowded!)</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">NOV</span>
+                                <span class="event-desc">🍁 Peak momiji (red leaves)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-links">
+                            <a href="#" class="quick-link">Koyo Map</a>
+                            <a href="#" class="quick-link">Autumn Food</a>
+                            <a href="#" class="quick-link">Hiking Trails</a>
+                        </div>
+                    </div>
+                </div>
                 
-                <a href="#" onclick="showNotification('Video dalam pengembangan', 'warning'); return false;" class="season-card">
-                    <div class="season-icon">❄️</div>
-                    <h3 class="season-name">Musim Dingin</h3>
-                    <p class="season-period">Desember - Februari</p>
-                </a>
+                <!-- Winter Panel -->
+                <div class="season-panel" id="winter-panel">
+                    <div class="panel-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop" alt="Winter Illumination">
+                        <span class="best-time-badge">💰 Low Season = Budget Friendly</span>
+                    </div>
+                    <div class="panel-info">
+                        <div class="season-title">
+                            <span class="season-icon">❄️</span>
+                            <h3 class="season-name">Musim Dingin</h3>
+                        </div>
+                        <span class="temp-range">🌡️ 0°C - 10°C | Dingin kering (bawa coat!)</span>
+                        
+                        <div class="events-timeline">
+                            <div class="event-item">
+                                <span class="event-month">DEC</span>
+                                <span class="event-desc">✨ Illumination everywhere</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">JAN</span>
+                                <span class="event-desc">🎍 New Year + Fukubukuro sales</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-month">FEB</span>
+                                <span class="event-desc">⛷️ Peak ski season + Sapporo Snow</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-links">
+                            <a href="#" class="quick-link">Illumination Map</a>
+                            <a href="#" class="quick-link">Ski Resort</a>
+                            <a href="#" class="quick-link">Onsen Guide</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+</body>
+</html>
 
-    <section class="section gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Kisah Perjalanan
-                    <span class="text-english">Traveler's Stories</span>
-                </h2>
-                <p class="section-subtitle">Momen istimewa yang tak terlupakan</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Tokyo Skytree</h3>
-                        <p class="gallery-desc">Pemandangan malam dari 634m</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Shopping Experience</h3>
-                        <p class="gallery-desc">Petualangan di Don Quijote</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Sakura Kyoto</h3>
-                        <p class="gallery-desc">Musim semi yang memukau</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/02/Tokachi_CC11-scaled.jpg');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Hokkaido Winter</h3>
-                        <p class="gallery-desc">Winter wonderland</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" style="background-image: url('https://lh7-rt.googleusercontent.com/docsz/AD_4nXfp6-CV7YLlLskFUPdXIwArbsMSy1a2-tdAuYREZEKuiA7CD_NsMIQ_GufDkl3Hr44sLk6w2SWzyvxVIGceNQqJEajCfDFro4S0E_6ovEuFZHYoGZc97fG-vYYdjbtDjKpXlsv15Q?key=BOq2t3AqnHl_bnZ-b5aNoSSY');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Halal Cuisine</h3>
-                        <p class="gallery-desc">Kelezatan halal Jepang</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop');">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Okinawa Manzamo</h3>
-                        <p class="gallery-desc">Tebing gajah yang spektakuler</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+ 
 
     <section class="cta-section">
         <div class="container">
@@ -2834,6 +3271,9 @@
             manageExpoSection();
             updateMobileMenuActive(); // Add mobile menu management
 
+            initMobileDotsNav();  // 모바일 도트 네비 초기화
+            
+            showSeason('spring');  // 페이지 로드시 봄으로 초기화
             // initial layout fixes
             placeProgressBar();
             adjustHeroTopPadding();
@@ -2888,6 +3328,67 @@
                 behavior: 'smooth'
             });
         }
+
+        function showSeason(season) {
+    document.querySelectorAll('.season-panel').forEach(panel => {
+        panel.classList.remove('active');
+    });
+    
+    const selectedPanel = document.getElementById(season + '-panel');
+    if (selectedPanel) {
+        selectedPanel.classList.add('active');
+    }
+}
+
+    function initMobileDotsNav() {
+    const dots = document.querySelectorAll('.nav-dot');
+    const headerContent = document.querySelector('.header-content');
+    
+    // 도트 클릭 이벤트
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const section = document.getElementById(dot.dataset.section);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // 스크롤 감지하여 도트 활성화
+    function updateActiveDot() {
+        // 실제 섹션 ID로 변경
+        const sections = ['trend', 'trip', 'gourmet', 'shopping', 'beauty', 'checklist', 'seasons'];
+        const sectionNames = ['📍 Trend', '📍 Trip', '📍 Kuliner', '📍 Shopping', '📍 Beauty', '📍 Checklist', '📍 Musim'];
+        let currentSection = 0;
+        
+        sections.forEach((sectionId, index) => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    currentSection = index;
+                }
+            }
+        });
+        
+        // 도트 활성화
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSection);
+        });
+        
+        // 헤더에 현재 섹션 표시 (모바일만)
+        if (window.innerWidth <= 768 && headerContent) {
+            headerContent.setAttribute('data-current-section', sectionNames[currentSection]);
+        }
+    }
+    
+    // 스크롤 이벤트에 추가
+    window.addEventListener('scroll', updateActiveDot);
+    window.addEventListener('resize', updateActiveDot);
+    
+    // 초기 실행
+    updateActiveDot();
+}
 
         function updateActiveNavLink() {
             const sections = document.querySelectorAll('section[id]');
@@ -2978,6 +3479,8 @@
         }, 2000);
 
         console.log('🏯 Japankuru Indonesia - PDF-based structure loaded!');
+
+
     </script>
 </body>
 </html>
