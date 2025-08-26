@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAPANKURU Wallet</title>
+  
+  <style>
+    /* ===== Apple Design System ===== */
+    :root {
+      --primary: #007AFF;
+      --secondary: #5856D6;
+      --success: #34C759;
+      --warning: #FF9500;
+      --danger: #FF3B30;
+      
+      --gray-50: #F2F2F7;
+      --gray-100: #E5E5EA;
+      --gray-200: #D1D1D6;
+      --gray-300: #C7C7CC;
+      --gray-400: #AEAEB2;
+      --gray-500: #8E8E93;
+      --gray-600: #636366;
+      --gray-700: #48484A;
+      --gray-800: #2C2C2E;
+      --gray-900: #1C1C1E;
+      
+      --bg: #FFFFFF;
+      --surface: #F2F2F7;
+      --text: #000000;
+      --text-secondary: #8E8E93;
+      
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-xs: 8px;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+      
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #1C1C1E;
+        --text: #FFFFFF;
+        --text-secondary: #8E8E93;
+        --gray-50: #1C1C1E;
+        --gray-100: #2C2C2E;
+      }
+    }
+    
+    /* ===== 리셋 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font);
+      background: var(--surface);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* ===== 레이아웃 ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* ===== 헤더 (Apple 스타일) ===== */
+    header {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      header {
+        background: rgba(28,28,30,0.8);
+      }
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 52px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 19px;
+    }
+    
+    .logo img {
+      height: 28px;
+      width: auto;
+    }
+    
+    /* ===== 언어 선택 (Apple 스타일) ===== */
+    .lang-select {
+      padding: 6px 12px;
+      border: none;
+      border-radius: var(--radius-xs);
+      background: var(--gray-100);
+      color: var(--text);
+      font-size: 15px;
+      cursor: pointer;
+      font-family: inherit;
+      min-width: 120px;
+      transition: all 0.2s;
+    }
+    
+    .lang-select:hover {
+      background: var(--gray-200);
+    }
+    
+    .lang-select:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0,122,255,0.3);
+    }
+    
+    /* ===== 히어로 섹션 (Apple 스타일) ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 60px 40px;
+      border-radius: var(--radius);
+      margin: 30px 0;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    
+    .hero p {
+      font-size: 21px;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 40px 20px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+      .hero p {
+        font-size: 17px;
+      }
+    }
+    
+    /* ===== 검색바 (Apple 스타일) ===== */
+    .search-bar {
+      margin-bottom: 30px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 16px 20px;
+      padding-left: 48px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      font-size: 17px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+    
+    .search-wrapper {
+      position: relative;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      pointer-events: none;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0,122,255,0.3);
+    }
+    
+    .search-input::placeholder {
+      color: var(--gray-400);
+    }
+    
+    /* ===== 카테고리 탭 (Apple 스타일) ===== */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      border: none;
+      background: var(--bg);
+      border-radius: 100px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+      color: var(--text);
+      font-family: inherit;
+    }
+    
+    .tab:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow);
+    }
+    
+    .tab.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+    }
+    
+    .tab .badge {
+      display: inline-block;
+      background: rgba(0,0,0,0.1);
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 12px;
+      margin-left: 6px;
+      font-weight: 600;
+    }
+    
+    .tab.active .badge {
+      background: rgba(255,255,255,0.3);
+    }
+    
+    /* ===== 쿠폰 그리드 ===== */
+    .coupon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    
+    @media (max-width: 768px) {
+      .coupon-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+    
+    /* ===== 쿠폰 카드 (Apple 스타일) ===== */
+    .coupon-card {
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .coupon-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .coupon-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    /* 만료 임박 배지 */
+    .expiry-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--danger);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+    
+    .coupon-body {
+      padding: 20pak;
+    }
+    
+    .coupon-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    
+    .coupon-offer {
+      font-size: 28px;
+      color: var(--danger);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .coupon-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    
+    .coupon-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-100);
+    }
+    
+    .coupon-area {
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* ===== 저장 버튼 (Apple 스타일) ===== */
+    .save-btn {
+      padding: 8px 16px;
+      border: none;
+      background: var(--gray-100);
+      border-radius: 100px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: inherit;
+    }
+    
+    .save-btn:hover {
+      background: var(--gray-200);
+      transform: scale(1.05);
+    }
+    
+    .save-btn.saved {
+      background: var(--warning);
+      color: white;
+    }
+    
+    .save-btn.saved:hover {
+      background: #FF8800;
+    }
+    
+    /* ===== 모달 (Apple 스타일) ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .modal-content {
+      background: var(--bg);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-body {
+      padding: 30px;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--gray-100);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    
+    .modal-close:hover {
+      background: var(--gray-200);
+      transform: scale(1.1);
+    }
+    
+    .modal-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      padding-right: 40px;
+      letter-spacing: -0.02em;
+    }
+    
+    .modal-offer {
+      font-size: 36px;
+      color: var(--danger);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    
+    .coupon-code-box {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .coupon-code {
+      font-size: 32px;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+    
+    /* ===== 버튼 (Apple 스타일) ===== */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 100px;
+      font-size: 17px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 120px;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #0051D5;
+      transform: scale(1.05);
+    }
+    
+    .btn-secondary {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--gray-200);
+      transform: scale(1.05);
+    }
+    
+    .btn.copied {
+      background: var(--success);
+      color: white;
+    }
+    
+    /* ===== 링크 섹션 (새로 추가) ===== */
+    .links-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+      padding: 20px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+    }
+    
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--bg);
+      border-radius: var(--radius-xs);
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+      border: 1px solid var(--gray-100);
+    }
+    
+    .link-item:hover {
+      background: var(--gray-50);
+      transform: translateX(4px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .link-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    
+    .link-arrow {
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+    
+    /* ===== 모달 섹션 ===== */
+    .modal-section {
+      margin-bottom: 24px;
+    }
+    
+    .modal-section h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .modal-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .modal-section li {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+    
+    .modal-section li:before {
+      content: "•";
+      position: absolute;
+      left: 8px;
+      color: var(--gray-400);
+    }
+    
+    .modal-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .close-modal-btn {
+      width: 100%;
+      margin-top: 24px;
+    }
+    
+    /* ===== 저장 정보 배너 ===== */
+    .saved-info {
+      background: linear-gradient(135deg, var(--warning), #FF8800);
+      color: white;
+      padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+      display: none;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+    }
+    
+    .saved-info.show {
+      display: block;
+    }
+    
+    /* ===== 검색 결과 없음 ===== */
+    .no-results {
+      text-align: center;
+      padding: 80px 20px;
+      display: none;
+    }
+    
+    .no-results.show {
+      display: block;
+    }
+    
+    .no-results-icon {
+      font-size: 72px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    .no-results h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    
+    .no-results p {
+      color: var(--text-secondary);
+      font-size: 17px;
+    }
+    
+    /* ===== 공유 버튼 섹션 ===== */
+    .share-section {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .share-btn {
+      flex: 1;
+    }
+    
+    /* ===== 반응형 ===== */
+    @media (max-width: 640px) {
+      .modal-content {
+        margin: 20px;
+        max-height: calc(100vh - 40px);
+      }
+      
+      .tabs {
+        padding: 0 20px 10px;
+        margin: 0 -20px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <img src="https://japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru">
+          <span>Wallet</span>
+        </a>
+        <select id="langSelect" class="lang-select" aria-label="Language">
+          <option value="ko">🇰🇷 한국어</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="zh-tw">🇹🇼 繁體中文</option>
+          <option value="th">🇹🇭 ไทย</option>
+          <option value="id">🇮🇩 Indonesia</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <div class="container">
+    
+    <!-- 히어로 섹션 -->
+    <div class="hero">
+      <h1 data-i18n="hero_title">일본 여행 할인 쿠폰</h1>
+      <p data-i18n="hero_desc">인기 매장에서 바로 사용 가능한 할인 쿠폰</p>
+    </div>
+
+    <!-- 검색바 -->
+    <div class="search-bar">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="search" 
+               id="searchInput" 
+               class="search-input"
+               placeholder="매장명, 지역으로 검색..."
+               data-i18n-placeholder="search_placeholder">
+      </div>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div class="tabs" id="categoryTabs">
+      <button class="tab active" data-category="all">
+        <span data-i18n="cat_all">전체</span> <span class="badge">6</span>
+      </button>
+      <button class="tab" data-category="electronics">
+        <span>🔌</span> <span data-i18n="cat_electronics">전자제품</span> <span class="badge">2</span>
+      </button>
+      <button class="tab" data-category="fashion">
+        <span>👕</span> <span data-i18n="cat_fashion">패션</span> <span class="badge">2</span>
+      </button>
+      <button class="tab" data-category="dining">
+        <span>🍽️</span> <span data-i18n="cat_dining">맛집</span> <span class="badge">1</span>
+      </button>
+      <button class="tab" data-category="transport">
+        <span>🚇</span> <span data-i18n="cat_transport">교통</span> <span class="badge">1</span>
+      </button>
+      <button class="tab" data-category="saved">
+        <span>⭐</span> <span data-i18n="cat_saved">저장됨</span> <span class="badge" id="savedBadge">0</span>
+      </button>
+    </div>
+
+    <!-- 저장된 쿠폰 정보 -->
+    <div class="saved-info" id="savedInfo">
+      <span data-i18n="saved_info">저장된 쿠폰</span> <strong id="savedCount">0</strong><span data-i18n="saved_unit">개</span>
+    </div>
+
+    <!-- 쿠폰 그리드 -->
+    <div class="coupon-grid" id="couponGrid">
+      <!-- 쿠폰 카드들이 여기 동적 생성됨 -->
+    </div>
+
+    <!-- 검색 결과 없음 -->
+    <div class="no-results" id="noResults">
+      <div class="no-results-icon">🔍</div>
+      <h3 data-i18n="no_results">검색 결과가 없습니다</h3>
+      <p data-i18n="no_results_desc">다른 검색어를 시도해보세요</p>
+    </div>
+  </div>
+
+  <!-- 모달 -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-body" id="modalBody">
+        <!-- 모달 내용이 여기 동적 생성됨 -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== WordPress 통합 가이드 ======
+    // PHP에서 이렇게 데이터를 주입합니다:
+    // const couponsData = <?php echo json_encode($wordpress_coupons); ?>;
+    
+    // ====== 개발용 샘플 데이터 (실제 운영시 WordPress에서 자동 주입) ======
+    const couponsData = [
+      {
+        id: 1,
+        // 다국어 매장명
+        store_ko: '코지마 x 빅카메라',
+        store_en: 'Kojima x BicCamera',
+        store_zh: '小岛 x Bic Camera',
+        store_zh_tw: '小島 x Bic Camera',
+        store_th: 'โคจิมะ x บิกคาเมร่า',
+        store_id: 'Kojima x BicCamera',
+        // 할인 정보
+        offer: '최대 17% OFF',
+        offer_en: 'Up to 17% OFF',
+        // 설명
+        description_ko: '면세 10% + 추가 7% 할인! 최신 전자제품을 저렴하게.',
+        description_en: 'Tax-free 10% + Additional 7% discount!',
+        description_zh: '免税10% + 额外7%折扣！',
+        description_zh_tw: '免稅10% + 額外7%折扣！',
+        description_th: 'ปลอดภาษี 10% + ส่วนลดเพิ่ม 7%!',
+        description_id: 'Bebas pajak 10% + Diskon tambahan 7%!',
+        // 기본 정보
+        category: 'electronics',
+        expiry: '2025-12-31',
+        image: 'https://japankuru.com/gld-kanri/data/uploads/2023/11/kojima%E8%8B%B1%E8%AA%9E%E7%89%88%E4%BC%81%E6%A5%AD%E6%9C%89_kojima_EN_B-2.jpg',
+        code: 'JK-BIC2025',
+        // 지역
+        area_ko: '아키하바라',
+        area_en: 'Akihabara',
+        // 이용조건
+        terms_ko: '타 할인과 중복 불가|일부 품목 제외|계산 전 제시|1인 1회',
+        terms_en: 'Cannot combine|Some items excluded|Show before payment|Once per person',
+        // 링크들 (새로 추가!)
+        article_url: 'https://www.japankuru.com/en/e2290.html',
+        official_url: 'https://www.biccamera.com',
+        maps_url: 'https://maps.google.com/?q=35.6909,139.7003'
+      },
+      {
+        id: 2,
+        store_ko: '진스 (JINS)',
+        store_en: 'JINS',
+        store_zh: 'JINS',
+        store_zh_tw: 'JINS',
+        store_th: 'จินส์',
+        store_id: 'JINS',
+        offer: '10% OFF',
+        offer_en: '10% OFF',
+        description_ko: '면세+할인 안경.',
+        description_en: 'Tax-free + discount glasses.',
+        description_zh: '免税+折扣眼镜。',
+        description_zh_tw: '免稅+折扣眼鏡。',
+        description_th: 'แว่นตาปลอดภาษี+ส่วนลด',
+        description_id: 'Kacamata bebas pajak + diskon.',
+        category: 'fashion',
+        expiry: '2025-02-28',
+        image: 'https://japankuru.com/gld-kanri/data/uploads/2024/06/japankuru_1800-1200-1536x1024.jpg',
+        code: 'JK-JINS2025',
+        area_ko: '시부야',
+        area_en: 'Shibuya',
+        terms_ko: '타 할인과 중복 불가|일부 품목 제외',
+        terms_en: 'Cannot combine|Some items excluded',
+        article_url: 'https://www.japankuru.com/en/e2291.html',
+        official_url: 'https://www.jins.com',
+        maps_url: 'https://maps.google.com/?q=35.6581,139.6986'
+      },
+      // 나머지 쿠폰 데이터는 동일 형식...
+    ];
+
+    // ====== 전역 변수 ======
+    let currentLang = 'ko';
+    let savedCoupons = JSON.parse(localStorage.getItem('savedCoupons') || '[]');
+    let filteredCoupons = [...couponsData];
+    let currentCategory = 'all';
+
+    // ====== 번역 (6개 언어) ======
+    const translations = {
+      ko: {
+        hero_title: '일본 여행 할인 쿠폰',
+        hero_desc: '인기 매장에서 바로 사용 가능한 할인 쿠폰',
+        search_placeholder: '매장명, 지역으로 검색...',
+        cat_all: '전체',
+        cat_electronics: '전자제품',
+        cat_fashion: '패션',
+        cat_dining: '맛집',
+        cat_transport: '교통',
+        cat_saved: '저장됨',
+        saved_info: '저장된 쿠폰',
+        saved_unit: '개',
+        no_results: '검색 결과가 없습니다',
+        no_results_desc: '다른 검색어를 시도해보세요',
+        save: '저장',
+        unsave: '저장 해제',
+        copy: '코드 복사',
+        copied: '복사완료!',
+        close: '닫기',
+        terms: '이용조건',
+        expiry: '유효기한',
+        no_expiry: '무제한',
+        share: '공유',
+        view_article: '관련 기사',
+        visit_website: '공식 홈페이지',
+        view_map: '지도 보기',
+        days_left: '일 남음'
+      },
+      en: {
+        hero_title: 'Japan Travel Discount Coupons',
+        hero_desc: 'Instant discounts at popular stores',
+        search_placeholder: 'Search by store or area...',
+        cat_all: 'All',
+        cat_electronics: 'Electronics',
+        cat_fashion: 'Fashion',
+        cat_dining: 'Dining',
+        cat_transport: 'Transport',
+        cat_saved: 'Saved',
+        saved_info: 'Saved coupons',
+        saved_unit: '',
+        no_results: 'No results found',
+        no_results_desc: 'Try different search terms',
+        save: 'Save',
+        unsave: 'Unsave',
+        copy: 'Copy Code',
+        copied: 'Copied!',
+        close: 'Close',
+        terms: 'Terms',
+        expiry: 'Expiry',
+        no_expiry: 'No expiry',
+        share: 'Share',
+        view_article: 'Related Article',
+        visit_website: 'Official Website',
+        view_map: 'View Map',
+        days_left: 'days left'
+      },
+      zh: {
+        hero_title: '日本旅行优惠券',
+        hero_desc: '热门商店即时折扣',
+        search_placeholder: '按店名或地区搜索...',
+        cat_all: '全部',
+        cat_electronics: '电子产品',
+        cat_fashion: '时尚',
+        cat_dining: '美食',
+        cat_transport: '交通',
+        cat_saved: '已保存',
+        saved_info: '已保存的优惠券',
+        saved_unit: '张',
+        no_results: '没有找到结果',
+        no_results_desc: '尝试其他搜索词',
+        save: '保存',
+        unsave: '取消保存',
+        copy: '复制代码',
+        copied: '已复制！',
+        close: '关闭',
+        terms: '使用条款',
+        expiry: '有效期',
+        no_expiry: '无期限',
+        share: '分享',
+        view_article: '相关文章',
+        visit_website: '官方网站',
+        view_map: '查看地图',
+        days_left: '天剩余'
+      },
+      'zh-tw': {
+        hero_title: '日本旅行優惠券',
+        hero_desc: '熱門商店即時折扣',
+        search_placeholder: '按店名或地區搜索...',
+        cat_all: '全部',
+        cat_electronics: '電子產品',
+        cat_fashion: '時尚',
+        cat_dining: '美食',
+        cat_transport: '交通',
+        cat_saved: '已保存',
+        saved_info: '已保存的優惠券',
+        saved_unit: '張',
+        no_results: '沒有找到結果',
+        no_results_desc: '嘗試其他搜索詞',
+        save: '保存',
+        unsave: '取消保存',
+        copy: '複製代碼',
+        copied: '已複製！',
+        close: '關閉',
+        terms: '使用條款',
+        expiry: '有效期',
+        no_expiry: '無期限',
+        share: '分享',
+        view_article: '相關文章',
+        visit_website: '官方網站',
+        view_map: '查看地圖',
+        days_left: '天剩餘'
+      },
+      th: {
+        hero_title: 'คูปองส่วนลดการท่องเที่ยวญี่ปุ่น',
+        hero_desc: 'ส่วนลดทันทีที่ร้านค้ายอดนิยม',
+        search_placeholder: 'ค้นหาตามชื่อร้านหรือพื้นที่...',
+        cat_all: 'ทั้งหมด',
+        cat_electronics: 'อิเล็กทรอนิกส์',
+        cat_fashion: 'แฟชั่น',
+        cat_dining: 'อาหาร',
+        cat_transport: 'การเดินทาง',
+        cat_saved: 'บันทึกแล้ว',
+        saved_info: 'คูปองที่บันทึก',
+        saved_unit: 'ใบ',
+        no_results: 'ไม่พบผลลัพธ์',
+        no_results_desc: 'ลองคำค้นหาอื่น',
+        save: 'บันทึก',
+        unsave: 'ยกเลิกการบันทึก',
+        copy: 'คัดลอกโค้ด',
+        copied: 'คัดลอกแล้ว!',
+        close: 'ปิด',
+        terms: 'เงื่อนไข',
+        expiry: 'หมดอายุ',
+        no_expiry: 'ไม่มีกำหนด',
+        share: 'แชร์',
+        view_article: 'บทความที่เกี่ยวข้อง',
+        visit_website: 'เว็บไซต์อย่างเป็นทางการ',
+        view_map: 'ดูแผนที่',
+        days_left: 'วันที่เหลือ'
+      },
+      id: {
+        hero_title: 'Kupon Diskon Perjalanan Jepang',
+        hero_desc: 'Diskon instan di toko-toko populer',
+        search_placeholder: 'Cari berdasarkan nama toko atau area...',
+        cat_all: 'Semua',
+        cat_electronics: 'Elektronik',
+        cat_fashion: 'Fashion',
+        cat_dining: 'Kuliner',
+        cat_transport: 'Transportasi',
+        cat_saved: 'Tersimpan',
+        saved_info: 'Kupon tersimpan',
+        saved_unit: '',
+        no_results: 'Tidak ada hasil',
+        no_results_desc: 'Coba kata kunci lain',
+        save: 'Simpan',
+        unsave: 'Batal simpan',
+        copy: 'Salin Kode',
+        copied: 'Tersalin!',
+        close: 'Tutup',
+        terms: 'Syarat',
+        expiry: 'Berlaku hingga',
+        no_expiry: 'Tidak terbatas',
+        share: 'Bagikan',
+        view_article: 'Artikel Terkait',
+        visit_website: 'Situs Resmi',
+        view_map: 'Lihat Peta',
+        days_left: 'hari tersisa'
+      }
+    };
+
+    // ====== 초기화 ======
+    document.addEventListener('DOMContentLoaded', () => {
+      detectLanguage();
+      updateLanguage();
+      renderCoupons();
+      updateSavedInfo();
+      setupEventListeners();
+    });
+
+    // ====== 언어 감지 ======
+    function detectLanguage() {
+      const saved = localStorage.getItem('selectedLang');
+      if (saved && ['ko', 'en', 'zh', 'zh-tw', 'th', 'id'].includes(saved)) {
+        currentLang = saved;
+      } else {
+        const browserLang = navigator.language.slice(0, 2);
+        if (['ko', 'en', 'zh', 'th', 'id'].includes(browserLang)) {
+          currentLang = browserLang;
+        }
+        if (navigator.language.toLowerCase().includes('zh-tw') || 
+            navigator.language.toLowerCase().includes('zh-hk')) {
+          currentLang = 'zh-tw';
+        }
+      }
+      document.getElementById('langSelect').value = currentLang;
+    }
+
+    // ====== 이벤트 리스너 ======
+    function setupEventListeners() {
+      // 검색
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        filterBySearch(e.target.value);
+      });
+      
+      // 카테고리 탭
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentCategory = tab.dataset.category;
+          filterByCategory(currentCategory);
+        });
+      });
+      
+      // 언어 변경
+      document.getElementById('langSelect').addEventListener('change', (e) => {
+        currentLang = e.target.value;
+        localStorage.setItem('selectedLang', currentLang);
+        updateLanguage();
+        renderCoupons();
+      });
+      
+      // 모달 외부 클릭시 닫기
+      document.getElementById('modal').addEventListener('click', (e) => {
+        if (e.target.id === 'modal') {
+          closeModal();
+        }
+      });
+    }
+
+    // ====== 언어 업데이트 ======
+    function updateLanguage() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+      
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang][key]) {
+          el.placeholder = translations[currentLang][key];
+        }
+      });
+    }
+
+    // ====== 날짜 계산 함수 (새로 추가) ======
+    function getDaysLeft(expiryDate) {
+      if (expiryDate === '9999-12-31') return 999;
+      const today = new Date();
+      const expiry = new Date(expiryDate);
+      const diffTime = expiry - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    }
+
+    // ====== 쿠폰 렌더링 ======
+    function renderCoupons() {
+      const grid = document.getElementById('couponGrid');
+      const noResults = document.getElementById('noResults');
+      
+      if (filteredCoupons.length === 0) {
+        grid.style.display = 'none';
+        noResults.classList.add('show');
+        return;
+      }
+      
+      grid.style.display = 'grid';
+      noResults.classList.remove('show');
+      
+      grid.innerHTML = filteredCoupons.map(coupon => {
+        const isSaved = savedCoupons.includes(coupon.id);
+        const store = coupon[`store_${currentLang}`] || coupon.store_ko;
+        const offer = coupon[`offer_${currentLang}`] || coupon.offer;
+        const desc = coupon[`description_${currentLang}`] || coupon.description_ko;
+        const area = coupon[`area_${currentLang}`] || coupon.area_ko;
+        const daysLeft = getDaysLeft(coupon.expiry);
+        
+        // 만료 임박 배지
+        const expiryBadge = daysLeft <= 7 && daysLeft !== 999 ? 
+          `<div class="expiry-badge">🔥 ${daysLeft}${translations[currentLang].days_left}</div>` : '';
+        
+        return `
+          <div class="coupon-card" onclick="showModal(${coupon.id})">
+            ${expiryBadge}
+            <img src="${coupon.image}" alt="${store}">
+            <div class="coupon-body">
+              <div class="coupon-title">${store}</div>
+              <div class="coupon-offer">${offer}</div>
+              <div class="coupon-desc">${desc}</div>
+              <div class="coupon-footer">
+                <span class="coupon-area">📍 ${area}</span>
+                <button class="save-btn ${isSaved ? 'saved' : ''}" 
+                        onclick="event.stopPropagation(); toggleSave(${coupon.id})">
+                  ${isSaved ? '⭐' : '☆'} ${translations[currentLang][isSaved ? 'unsave' : 'save']}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ====== 필터링 ======
+    function filterBySearch(query) {
+      query = query.toLowerCase();
+      
+      if (currentCategory === 'saved') {
+        filteredCoupons = couponsData.filter(coupon => {
+          if (!savedCoupons.includes(coupon.id)) return false;
+          const store = (coupon[`store_${currentLang}`] || '').toLowerCase();
+          const area = (coupon[`area_${currentLang}`] || '').toLowerCase();
+          const desc = (coupon[`description_${currentLang}`] || '').toLowerCase();
+          return store.includes(query) || area.includes(query) || desc.includes(query);
+        });
+      } else if (currentCategory === 'all') {
+        filteredCoupons = couponsData.filter(coupon => {
+          const store = (coupon[`store_${currentLang}`] || '').toLowerCase();
+          const area = (coupon[`area_${currentLang}`] || '').toLowerCase();
+          const desc = (coupon[`description_${currentLang}`] || '').toLowerCase();
+          return store.includes(query) || area.includes(query) || desc.includes(query);
+        });
+      } else {
+        filteredCoupons = couponsData.filter(coupon => {
+          if (coupon.category !== currentCategory) return false;
+          const store = (coupon[`store_${currentLang}`] || '').toLowerCase();
+          const area = (coupon[`area_${currentLang}`] || '').toLowerCase();
+          const desc = (coupon[`description_${currentLang}`] || '').toLowerCase();
+          return store.includes(query) || area.includes(query) || desc.includes(query);
+        });
+      }
+      
+      renderCoupons();
+    }
+
+    function filterByCategory(category) {
+      const searchValue = document.getElementById('searchInput').value;
+      
+      if (category === 'all') {
+        filteredCoupons = [...couponsData];
+      } else if (category === 'saved') {
+        filteredCoupons = couponsData.filter(c => savedCoupons.includes(c.id));
+      } else {
+        filteredCoupons = couponsData.filter(c => c.category === category);
+      }
+      
+      if (searchValue) {
+        filterBySearch(searchValue);
+      } else {
+        renderCoupons();
+      }
+    }
+
+    // ====== 저장 기능 ======
+    function toggleSave(id) {
+      if (savedCoupons.includes(id)) {
+        savedCoupons = savedCoupons.filter(sid => sid !== id);
+      } else {
+        savedCoupons.push(id);
+      }
+      localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
+      renderCoupons();
+      updateSavedInfo();
+    }
+
+    function updateSavedInfo() {
+      const info = document.getElementById('savedInfo');
+      const count = document.getElementById('savedCount');
+      const badge = document.getElementById('savedBadge');
+      
+      const savedCount = savedCoupons.length;
+      
+      if (savedCount > 0) {
+        info.classList.add('show');
+        count.textContent = savedCount;
+        badge.textContent = savedCount;
+      } else {
+        info.classList.remove('show');
+        badge.textContent = '0';
+      }
+    }
+
+    // ====== 모달 ======
+    function showModal(id) {
+      const coupon = couponsData.find(c => c.id === id);
+      if (!coupon) return;
+      
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modalBody');
+      
+      const store = coupon[`store_${currentLang}`] || coupon.store_ko;
+      const offer = coupon[`offer_${currentLang}`] || coupon.offer;
+      const terms = (coupon[`terms_${currentLang}`] || coupon.terms_ko || '').split('|');
+      const area = coupon[`area_${currentLang}`] || coupon.area_ko;
+      const daysLeft = getDaysLeft(coupon.expiry);
+      const expiry = daysLeft === 999 ? translations[currentLang].no_expiry : 
+                     `${coupon.expiry} (${daysLeft}${translations[currentLang].days_left})`;
+      
+      modalBody.innerHTML = `
+        <div class="modal-title">${store}</div>
+        <div class="modal-offer">${offer}</div>
+        
+        <div class="coupon-code-box">
+          <div class="coupon-code">${coupon.code}</div>
+          <button class="btn btn-primary" id="copyBtn" onclick="copyCode('${coupon.code}')">
+            📋 ${translations[currentLang].copy}
+          </button>
+        </div>
+        
+        ${coupon.article_url || coupon.official_url || coupon.maps_url ? `
+        <div class="links-section">
+          ${coupon.article_url ? `
+          <a href="${coupon.article_url}" target="_blank" class="link-item">
+            <span class="link-label">
+              <span>📰</span>
+              <span>${translations[currentLang].view_article}</span>
+            </span>
+            <span class="link-arrow">→</span>
+          </a>` : ''}
+          ${coupon.official_url ? `
+          <a href="${coupon.official_url}" target="_blank" class="link-item">
+            <span class="link-label">
+              <span>🌐</span>
+              <span>${translations[currentLang].visit_website}</span>
+            </span>
+            <span class="link-arrow">→</span>
+          </a>` : ''}
+          ${coupon.maps_url ? `
+          <a href="${coupon.maps_url}" target="_blank" class="link-item">
+            <span class="link-label">
+              <span>📍</span>
+              <span>${translations[currentLang].view_map}</span>
+            </span>
+            <span class="link-arrow">→</span>
+          </a>` : ''}
+        </div>` : ''}
+        
+        <div class="share-section">
+          <button class="btn btn-secondary share-btn" onclick="shareCode('${coupon.id}')">
+            📤 ${translations[currentLang].share}
+          </button>
+        </div>
+        
+        <div class="modal-section">
+          <h3>${translations[currentLang].terms}</h3>
+          <ul>
+            ${terms.map(term => `<li>${term}</li>`).join('')}
+          </ul>
+        </div>
+        
+        <div class="modal-info">📍 ${area}</div>
+        <div class="modal-info">📅 ${translations[currentLang].expiry}: ${expiry}</div>
+        
+        <button class="btn btn-secondary close-modal-btn" onclick="closeModal()">
+          ${translations[currentLang].close}
+        </button>
+      `;
+      
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('show');
+    }
+
+    function copyCode(code) {
+      const btn = document.getElementById('copyBtn');
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(() => {
+          showCopied();
+        }).catch(() => {
+          fallbackCopy(code);
+        });
+      } else {
+        fallbackCopy(code);
+      }
+      
+      function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showCopied();
+      }
+      
+      function showCopied() {
+        btn.classList.add('copied');
+        btn.textContent = '✅ ' + translations[currentLang].copied;
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '📋 ' + translations[currentLang].copy;
+        }, 2000);
+      }
+    }
+    
+    // ====== 공유 기능 (새로 추가) ======
+    async function shareCode(couponId) {
+      const coupon = couponsData.find(c => c.id === parseInt(couponId));
+      if (!coupon) return;
+      
+      const store = coupon[`store_${currentLang}`] || coupon.store_ko;
+      const shareUrl = `${window.location.origin}${window.location.pathname}?coupon=${couponId}&lang=${currentLang}`;
+      
+      const shareData = {
+        title: store,
+        text: `${store} - ${coupon.code}`,
+        url: shareUrl
+      };
+      
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else {
+          // Fallback: URL 복사
+          await navigator.clipboard.writeText(shareUrl);
+          alert(translations[currentLang].copied);
+        }
+      } catch (err) {
+        console.log('Share failed:', err);
+      }
+    }
+  </script>
+</body>
+</html>
