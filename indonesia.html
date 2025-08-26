@@ -2320,6 +2320,257 @@
                 50% { transform: translateY(-50%) translateX(5px); }
             }
         }
+        :root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --accent: #007aff;
+            --border-light: #e5e5ea;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.04);
+            --radius-medium: 12px;
+            --japan-red: #dc143c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface);
+            padding: 20px;
+        }
+        
+        .shopping-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--secondary-text);
+        }
+        
+        /* Shopping List Container */
+        .shopping-container {
+            background: var(--background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            background: var(--surface);
+            padding: 8px;
+            gap: 8px;
+            overflow-x: auto;
+        }
+        
+        .category-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-text);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab.active {
+            background: var(--background);
+            color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .category-tab:hover {
+            color: var(--primary-text);
+        }
+        
+        /* Shopping List */
+        .shopping-list {
+            padding: 24px;
+        }
+        
+        .shopping-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .shopping-item:last-child {
+            border-bottom: none;
+        }
+        
+        .shopping-item:hover {
+            background: var(--surface);
+            margin: 0 -20px;
+            padding: 20px;
+            border-radius: var(--radius-medium);
+        }
+        
+        /* Item Image */
+        .item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        /* Item Info */
+        .item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .item-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+        
+        .item-badge {
+            background: var(--japan-red);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .item-desc {
+            color: var(--secondary-text);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .item-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+        
+        .meta-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--secondary-text);
+        }
+        
+        .meta-tag strong {
+            color: var(--primary-text);
+        }
+        
+        /* Quick Filter Pills */
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            padding: 20px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+        
+        .filter-pill {
+            padding: 6px 14px;
+            background: var(--background);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-pill.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        /* Mobile View */
+        @media (max-width: 640px) {
+            .shopping-item {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 180px;
+            }
+            
+            .category-tabs {
+                padding: 6px;
+            }
+            
+            .category-tab {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .shopping-list {
+                padding: 16px;
+            }
+        }
+        
+        /* Alternate Compact View */
+        .compact-view .shopping-item {
+            gap: 12px;
+            padding: 12px 0;
+        }
+        
+        .compact-view .item-image {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .compact-view .item-name {
+            font-size: 16px;
+        }
+        
+        .compact-view .item-desc {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -2725,49 +2976,125 @@
             </div>
     </section>
 
-    <section class="section shopping-section" id="shopping">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Surga Belanja di Jepang
-                    <span class="text-english">Shopping Paradise in Japan</span>
-                </h2>
-                <p class="section-subtitle">Dari konbini hingga butik mewah</p>
+    
+    <section class="shopping-section" id="shopping">
+        <div class="section-header">
+            <h2 class="section-title">
+                Shopping Guide Japan
+                <span style="display: block; font-size: 0.6em; margin-top: 8px; color: var(--secondary-text);">
+                    Panduan Belanja dari Konbini hingga Luxury
+                </span>
+            </h2>
+            <p class="section-subtitle">Tips hemat & item wajib beli di setiap kategori</p>
+        </div>
+        
+        <div class="shopping-container">
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="showCategory('must-buy', this)">🎯 Must Buy</button>
+<button class="category-tab" onclick="showCategory('konbini', this)">🏪 Konbini</button>
+<button class="category-tab" onclick="showCategory('drugstore', this)">💊 Drug Store</button>
+<button class="category-tab" onclick="showCategory('fashion', this)">👕 Fashion</button>
+<button class="category-tab" onclick="showCategory('souvenirs', this)">🎁 Oleh-oleh</button>
             </div>
             
-            <div class="cards-grid">
-                <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=400&h=200&fit=crop" alt="NewDays" class="card-image" loading="lazy" decoding="async">
-                    <div class="card-content">
-                        <span class="card-tag">🏪 Konbini</span>
-                        <h3 class="card-title">Rekomendasi NewDays</h3>
-                        <p class="card-desc">Snack dan item unik di stasiun JR</p>
-                        <div class="card-link">Baca Selengkapnya →</div>
+            <!-- Filter Pills -->
+            <div class="filter-pills">
+                <span class="filter-pill active">Semua</span>
+                <span class="filter-pill">Under ¥1000</span>
+                <span class="filter-pill">Tax Free</span>
+                <span class="filter-pill">Limited Edition</span>
+                <span class="filter-pill">Halal OK</span>
+            </div>
+            
+            <!-- Shopping List -->
+            <div class="shopping-list">
+                <!-- Must Buy / Souvenirs / Konbini -->
+                <a href="#" class="shopping-item"
+                   data-categories="must-buy,souvenirs,konbini">
+                  <img src="https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=200&h=200&fit=crop" alt="KitKat" class="item-image">
+                  <div class="item-info">
+                    <div class="item-header">
+                      <h3 class="item-name">KitKat Limited Flavors</h3>
+                      <span class="item-badge">TOP SELLER</span>
                     </div>
-                </a>
-                
-                <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=200&fit=crop" alt="Don Quijote" class="card-image" loading="lazy" decoding="async">
-                    <div class="card-content">
-                        <span class="card-tag">🛒 Must Buy</span>
-                        <h3 class="card-title">Don Quijote Must Buy</h3>
-                        <p class="card-desc">Barang unik dengan harga terjangkau</p>
-                        <div class="card-link">Baca Selengkapnya →</div>
+                    <p class="item-desc">35+ rasa unik hanya di Jepang! Matcha, sakura, sake, wasabi - koleksi sempurna untuk oleh-oleh.</p>
+                    <div class="item-meta">
+                      <span class="meta-tag">💴 <strong>¥200-500</strong>/pack</span>
+                      <span class="meta-tag">📍 <strong>Don Quijote, konbini</strong></span>
+                      <span class="meta-tag">✈️ <strong>Airport friendly</strong></span>
                     </div>
+                  </div>
                 </a>
-                
-                <a href="#" class="card" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;">
-                    <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=400&h=200&fit=crop" alt="Karuizawa" class="card-image" loading="lazy" decoding="async">
-                    <div class="card-content">
-                        <span class="card-tag">🏔️ Resort</span>
-                        <h3 class="card-title">Karuizawa Prince Shopping</h3>
-                        <p class="card-desc">Shopping & relaksasi 1 jam dari Tokyo</p>
-                        <div class="card-link">Baca Selengkapnya →</div>
+              
+                <!-- Konbini -->
+                <a href="#" class="shopping-item"
+                   data-categories="konbini">
+                  <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=200&h=200&fit=crop" alt="NewDays" class="item-image">
+                  <div class="item-info">
+                    <div class="item-header">
+                      <h3 class="item-name">NewDays Ekiben</h3>
+                      <span class="item-badge">UNIQUE</span>
                     </div>
+                    <p class="item-desc">Bento box spesial di stasiun JR. Setiap daerah punya menu khas - perfect untuk perjalanan kereta!</p>
+                    <div class="item-meta">
+                      <span class="meta-tag">💴 <strong>¥800-1500</strong></span>
+                      <span class="meta-tag">📍 <strong>Stasiun JR</strong></span>
+                      <span class="meta-tag">🍱 <strong>Regional special</strong></span>
+                    </div>
+                  </div>
                 </a>
+              
+                <!-- Must Buy / Konbini -->
+                <a href="#" class="shopping-item"
+                   data-categories="must-buy,konbini">
+                  <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=200&h=200&fit=crop" alt="Don Quijote" class="item-image">
+                  <div class="item-info">
+                    <div class="item-header">
+                      <h3 class="item-name">Don Quijote Mystery Box</h3>
+                      <span class="item-badge">VIRAL</span>
+                    </div>
+                    <p class="item-desc">Surga belanja 24 jam! Dari kosmetik, snack aneh, hingga kostum - semua ada dengan harga miring.</p>
+                    <div class="item-meta">
+                      <span class="meta-tag">💴 <strong>Tax free ¥5000+</strong></span>
+                      <span class="meta-tag">🕐 <strong>24 jam</strong></span>
+                      <span class="meta-tag">🎁 <strong>One-stop shop</strong></span>
+                    </div>
+                  </div>
+                </a>
+              
+                <!-- Fashion -->
+                <a href="#" class="shopping-item"
+                   data-categories="fashion">
+                  <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=200&h=200&fit=crop" alt="Outlet" class="item-image">
+                  <div class="item-info">
+                    <div class="item-header">
+                      <h3 class="item-name">Karuizawa Prince Outlet</h3>
+                      <span class="item-badge">LUXURY DEALS</span>
+                    </div>
+                    <p class="item-desc">200+ brand dengan diskon hingga 70%! Kombinasi shopping & resort 1 jam dari Tokyo.</p>
+                    <div class="item-meta">
+                      <span class="meta-tag">💴 <strong>30-70% OFF</strong></span>
+                      <span class="meta-tag">🚄 <strong>1 jam dari Tokyo</strong></span>
+                      <span class="meta-tag">🛍️ <strong>Premium brands</strong></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              
+        
+        <!-- Shopping Tips Box -->
+        <div style="margin-top: 32px; padding: 20px; background: white; border-radius: 16px; border-left: 4px solid var(--accent);">
+            <h3 style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">💡 Shopping Hacks</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; font-size: 14px; color: var(--secondary-text);">
+                <div>✅ <strong>Tax Free:</strong> Min ¥5,000 (consumables) / ¥10,000 (general)</div>
+                <div>✅ <strong>Best time:</strong> New Year & Summer Sale (hingga 80% off)</div>
+                <div>✅ <strong>Payment:</strong> IC Card accepted di konbini & drugstore</div>
+                <div>✅ <strong>Coupon:</strong> Download app Don Quijote untuk extra discount</div>
             </div>
         </div>
     </section>
+    
 
     <section class="section beauty-section" id="beauty">
         <div class="container">
@@ -3329,6 +3656,56 @@
             });
         }
 
+        function showCategory(category, clickedElement) {
+    // 모든 탭에서 active 제거
+    document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // 클릭된 탭에 active 추가
+    if (clickedElement) {
+        clickedElement.classList.add('active');
+    }
+    
+    // 여기에 실제 카테고리별 아이템 필터링 로직 추가
+    console.log('Showing category:', category);
+    
+    // 예시: 카테고리별 콘텐츠 전환
+    filterShoppingItems(category);
+}
+
+function filterShoppingItems(category) {
+  const list = document.querySelector('.shopping-list');
+  const items = list ? list.querySelectorAll('.shopping-item') : [];
+  let visibleCount = 0;
+
+  items.forEach(item => {
+    const catStr = (item.dataset.categories || '').toLowerCase();
+    const cats = catStr.split(',').map(s => s.trim()).filter(Boolean);
+    const show = category === 'all'
+      ? true
+      : cats.includes((category || '').toLowerCase());
+
+    item.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+
+  // 비어 있을 때 안내 문구
+  let empty = document.getElementById('shopping-empty');
+  if (!empty) {
+    empty = document.createElement('div');
+    empty.id = 'shopping-empty';
+    empty.style.padding = '24px';
+    empty.style.textAlign = 'center';
+    empty.style.color = 'var(--secondary-text)';
+    empty.style.display = 'none';
+    empty.textContent = 'Kategori ini belum ada item.';
+    list?.appendChild(empty);
+  }
+  empty.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+
         function showSeason(season) {
     document.querySelectorAll('.season-panel').forEach(panel => {
         panel.classList.remove('active');
@@ -3480,6 +3857,9 @@
 
         console.log('🏯 Japankuru Indonesia - PDF-based structure loaded!');
 
+        document.addEventListener('DOMContentLoaded', () => {
+  filterShoppingItems('must-buy'); // 기본 노출
+});
 
     </script>
 </body>
