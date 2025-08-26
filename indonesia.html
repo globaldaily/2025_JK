@@ -557,7 +557,12 @@
             color: white;
             transform: translateX(5px);
         }
-        
+        .hub-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    margin-bottom: 16px;
+}
         /* ========== Gourmet Gallery ========== */
         .halal-platforms-grid {
     display: grid;
@@ -775,14 +780,28 @@
         }
         
         .shop-card {
-            min-width: 280px;
+            min-width: 320px; /* 280px에서 증가 */
             background: white;
             border-radius: 16px;
             overflow: hidden;
             scroll-snap-align: start;
             box-shadow: var(--shadow-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
-        
+        .shop-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* shop-badge 종류 추가 */
+        .badge-luxury {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+        }  
         .shop-image {
             position: relative;
             height: 200px;
@@ -832,75 +851,259 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 12px;
         }
         
-        .shop-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--japan-red);
+        .shop-tags {
+        font-size: 12px;
+        color: var(--secondary-text);
+        font-weight: 500;
         }
+
+        .read-arrow {
+            font-size: 20px;
+            color: var(--accent);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .shop-card:hover .read-arrow {
+            transform: translateX(4px);
+        }
+
         
         /* ========== Beauty Section ========== */
-        .beauty-card {
-            background: var(--surface);
-            border-radius: var(--radius-large);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .beauty-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .beauty-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-        
-        .beauty-content {
-            padding: 20px;
-        }
-        
-        .beauty-badge {
-            display: inline-block;
-            background: var(--japan-red);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .beauty-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .beauty-features {
-            list-style: none;
-        }
-        
-        .beauty-features li {
-            padding: 6px 0;
-            font-size: 13px;
-            color: var(--secondary-text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .check-icon {
-            color: var(--success);
-            font-weight: bold;
-        }
+     
+        /* Magazine Style Layout */
+.fashion-magazine-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin: 40px 0;
+    min-height: 500px;
+}
+
+@media (max-width: 768px) {
+    .fashion-magazine-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Main Feature */
+.feature-main {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+}
+
+.feature-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.feature-main:hover .feature-image {
+    transform: scale(1.05);
+}
+
+.feature-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    padding: 40px;
+    color: white;
+}
+
+.feature-label {
+    display: inline-block;
+    background: white;
+    color: black;
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.feature-overlay h3 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.feature-overlay p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Side Grid */
+.feature-side {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.side-item {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+}
+
+.side-item:hover {
+    transform: translateX(-8px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.side-image {
+    width: 140px;
+    background-size: cover;
+    background-position: center;
+}
+
+.side-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.side-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.side-content h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+}
+
+.side-content p {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Brand Showcase */
+.brand-showcase {
+    margin-top: 60px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border-light);
+}
+
+.showcase-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    color: #1a1a1a;
+}
+
+.brand-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+}
+
+.brand-item {
+    min-width: 200px;
+    padding: 24px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    text-align: center;
+    scroll-snap-align: start;
+    transition: all 0.3s ease;
+}
+
+.brand-item:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.brand-logo {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.brand-item p {
+    font-size: 12px;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .side-item {
+        flex-direction: column;
+    }
+    
+    .side-image {
+        width: 100%;
+        height: 150px;
+    }
+}
+.showcase-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--secondary-text);
+    margin-top: -20px;
+    margin-bottom: 32px;
+}
+
+.brand-item.brand-featured {
+    background: white;
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.brand-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--japan-red);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.brand-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.brand-item.brand-featured:hover {
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
         
         /* ========== Checklist ========== */
         .checklist-item {
@@ -963,6 +1166,27 @@
             margin-top: 12px;
             border-left: 3px solid var(--accent);
             font-size: 13px;
+        }
+        .checklist-tip a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--accent);
+            transition: all 0.2s ease;
+        }
+
+        .checklist-tip a:hover {
+            color: var(--accent-hover);
+            border-bottom-style: solid;
+        }
+
+        .checklist-tip ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .checklist-tip li {
+            margin: 4px 0;
         }
         
         /* ========== Seasons Timeline ========== */
@@ -1226,43 +1450,262 @@
         }
         
         /* ========== CTA Section ========== */
-        .cta-section {
-            background: var(--gradient-primary);
-            color: white;
-            text-align: center;
+        :root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --accent: #007aff;
+            --japan-red: #dc143c;
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.08);
+            --radius-large: 16px;
+            --gradient-instagram: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            color: var(--primary-text);
+            background: var(--surface);
+        }
+        
+        .final-cta-compact {
             padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .cta-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
         
         .cta-title {
-            font-size: 28px;
+            font-size: clamp(24px, 4vw, 32px);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            color: var(--primary-text);
         }
         
         .cta-subtitle {
             font-size: 16px;
-            margin-bottom: 24px;
-            opacity: 0.9;
+            color: var(--secondary-text);
         }
         
-        .cta-button {
-            background: white;
-            color: var(--accent);
-            padding: 14px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            display: inline-flex;
+        .cta-main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
             align-items: center;
-            gap: 8px;
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 40px;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        @media (max-width: 768px) {
+            .cta-main-content {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 30px;
+            }
+        }
+        
+        /* Photo Collage */
+        .photo-collage {
+            position: relative;
+            height: 240px;
+        }
+        
+        .collage-photo {
+            position: absolute;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
         
-        .cta-button:hover {
+        .collage-photo:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .photo-1 {
+            width: 140px;
+            height: 100px;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+        
+        .photo-2 {
+            width: 120px;
+            height: 120px;
+            top: 20px;
+            right: 0;
+            object-fit: cover;
+        }
+        
+        .photo-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 0;
+            left: 30px;
+            object-fit: cover;
+        }
+        
+        .photo-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--japan-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .photo-collage {
+                height: 180px;
+                margin: 0 auto;
+                max-width: 280px;
+            }
+        }
+        
+        /* Content */
+        .cta-content {
+            flex: 1;
+        }
+        
+        .value-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 480px) {
+            .value-points {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .point-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .point-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .point-text {
+            flex: 1;
+        }
+        
+        .point-text strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .point-text span {
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+        
+        .smart-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(220, 20, 60, 0.1));
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-text);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-follow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-instagram);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-follow:hover {
             transform: translateY(-2px);
         }
         
+        .btn-bookmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--accent);
+            padding: 12px 24px;
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-bookmark:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .trust-numbers {
+            display: flex;
+            gap: 32px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .trust-item {
+            text-align: center;
+        }
+        
+        .trust-number {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .trust-label {
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+        
+        @media (max-width: 480px) {
+            .trust-numbers {
+                justify-content: space-around;
+            }
+        }
         /* ========== Footer ========== */
         .footer {
             background: var(--primary-text);
@@ -1725,41 +2168,43 @@
     </section>
 
     <!-- Trip Section -->
-    <section class="section" id="trip">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Destinasi Wisata Pilihan
-                    <span class="text-english">Selected Travel Destinations</span>
-                </h2>
-                <p class="section-subtitle">Dari Tokyo dan Kansai ke seluruh Jepang</p>
-            </div>
-    
-            <div class="destination-container">
-                <div class="destination-card" data-bg="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&h=600&fit=crop&auto=format&q=60">
-                    <div class="card-content">
-                        <h3>From TOKYO</h3>
-                        <ul>
-                            <li><a href="#">5 Kota Day Trip dari Tokyo →</a></li>
-                            <li><a href="#">Nikko - Kota Warisan Dunia →</a></li>
-                            <li><a href="#">Ferry ke Hokkaido (MOL) →</a></li>
-                        </ul>
-                    </div>
+<section class="section" id="trip">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">
+                Mulai Perjalanan dari Mana?
+                <span class="text-english">Where to Start Your Journey?</span>
+            </h2>
+            <p class="section-subtitle">Jelajahi area lokal menarik dari 2 hub utama Jepang</p>
+        </div>
+        
+        <div class="destination-container">
+            <div class="destination-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 80%), url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&h=600&fit=crop');">
+                <div class="card-content">
+                    <h3>Dari TOKYO</h3>
+                    <span class="hub-subtitle">Hub Wilayah Timur</span>
+                    <ul>
+                        <li><a href="https://www.japankuru.com/en/tour/e3622/">5 Kota Day Trip dari Tokyo →</a></li>
+                        <li><a href="https://www.japankuru.com/en/entertainment/e1050/">Nikko - Kota Warisan Dunia →</a></li>
+                        <li><a href="https://www.japankuru.com/en/tour/99153/">Ferry ke Hokkaido (MOL) →</a></li>
+                    </ul>
                 </div>
-    
-                <div class="destination-card" data-bg="https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg">
-                    <div class="card-content">
-                        <h3>From KANSAI</h3>
-                        <ul>
-                            <li><a href="#">Kyoto Road Trip →</a></li>
-                            <li><a href="#">San'in - Izumo hingga Daisen →</a></li>
-                            <li><a href="#">Kyushu Selatan Drive →</a></li>
-                        </ul>
-                    </div>
+            </div>
+            
+            <div class="destination-card" style="background-image: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 80%), url('https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg');">
+                <div class="card-content">
+                    <h3>Dari OSAKA</h3>
+                    <span class="hub-subtitle">Hub Wilayah Barat</span>
+                    <ul>
+                        <li><a href="https://www.japankuru.com/en/accommodation/e3898/">Kyoto Road Trip →</a></li>
+                        <li><a href="https://www.japankuru.com/en/tour/e4107/">San'in - Izumo hingga Daisen →</a></li>
+                        <li><a href="https://www.japankuru.com/en/tour/e1659/">Kyushu Selatan Drive →</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Gourmet Section -->
 <section class="section" id="gourmet">
@@ -1930,214 +2375,274 @@
 </section>
 
     <!-- Shopping Section -->
-    <section class="section" id="shopping">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">Shopping Secrets Tokyo</h2>
-                <p class="section-subtitle">Swipe untuk lihat item viral & hidden gems!</p>
+<section class="section" id="shopping">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">Shopping Guide Tokyo & Beyond</h2>
+            <p class="section-subtitle">Dari konbini hingga luxury, panduan belanja lengkap di Jepang</p>
+        </div>
+        
+        <div class="shopping-scroll">
+            <!-- Convenience Store -->
+            <a href="https://www.japankuru.com/en/shopping/159325/" target="_blank" class="shop-card" rel="noopener">
+                <div class="shop-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/03/Newdays_CC23-scaled.jpg');">
+                    <span class="shop-badge">🏪 KONBINI</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">NewDays Convenience Store</h3>
+                    <p class="shop-desc">15 produk wajib coba di konbini stasiun JR</p>
+                    <div class="shop-meta">
+                        <span class="shop-tags">Snack • Bento • Minuman</span>
+                        <span class="read-arrow">→</span>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Don Quijote -->
+            <div class="shop-card" onclick="showNotification('Artikel dalam pengembangan', 'warning');">
+                <div class="shop-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/07/DSC01199-1536x1024.jpg');">
+                    <span class="shop-badge badge-viral">🔥 MUST BUY</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Don Quijote Must-Buy</h3>
+                    <p class="shop-desc">Item viral & oleh-oleh unik khas Jepang</p>
+                    <div class="shop-meta">
+                        <span class="shop-tags">KitKat • Kosmetik • Souvenir</span>
+                        <span class="read-arrow">→</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="shopping-scroll">
-                <div class="shop-card">
-                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=800&h=600&fit=crop&auto=format&q=60">
-                        <span class="shop-badge badge-viral">🔥 VIRAL</span>
-                    </div>
-                    <div class="shop-info">
-                        <h3 class="shop-name">KitKat Limited Edition</h3>
-                        <p class="shop-desc">35+ rasa unik! Matcha, sake, wasabi - hanya di Jepang</p>
-                        <div class="shop-meta">
-                            <span class="shop-price">¥200~</span>
-                            <span>📍 Don Quijote</span>
-                        </div>
+            <!-- Ginza Wako -->
+            <a href="https://www.japankuru.com/en/shopping/157149/" target="_blank" class="shop-card" rel="noopener">
+                <div class="shop-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/03/Wako_CC01-2048x1365.jpg');">
+                    <span class="shop-badge badge-luxury">💎 LUXURY</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Ginza Wako</h3>
+                    <p class="shop-desc">Seiko watches, jewelry & art gallery mewah</p>
+                    <div class="shop-meta">
+                        <span class="shop-tags">Watch • Jewelry • Art</span>
+                        <span class="read-arrow">→</span>
                     </div>
                 </div>
-                
-                <div class="shop-card">
-                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=800&h=600&fit=crop&auto=format&q=60">
-                        <span class="shop-badge badge-halal">✅ HALAL</span>
-                    </div>
-                    <div class="shop-info">
-                        <h3 class="shop-name">Gyumon Halal Wagyu</h3>
-                        <p class="shop-desc">Wagyu A5 bersertifikat halal di Shibuya!</p>
-                        <div class="shop-meta">
-                            <span class="shop-price">¥3,000~</span>
-                            <span>📍 Shibuya</span>
-                        </div>
+            </a>
+            
+            <!-- Karuizawa Outlet -->
+            <a href="https://www.japankuru.com/en/shopping/136096/" target="_blank" class="shop-card" rel="noopener">
+                <div class="shop-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/12/DSC05498-1.jpg');">
+                    <span class="shop-badge">🛍️ OUTLET</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Karuizawa Prince Outlet</h3>
+                    <p class="shop-desc">Day trip shopping dari Tokyo dengan 240+ toko</p>
+                    <div class="shop-meta">
+                        <span class="shop-tags">Fashion • Sport • Kids</span>
+                        <span class="read-arrow">→</span>
                     </div>
                 </div>
-                
-                <div class="shop-card">
-                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop&auto=format&q=60">
-                        <span class="shop-badge">-30%</span>
-                    </div>
-                    <div class="shop-info">
-                        <h3 class="shop-name">Tokyo Banana</h3>
-                        <p class="shop-desc">Oleh-oleh wajib! Best seller di Tokyo Station</p>
-                        <div class="shop-meta">
-                            <span class="shop-price">¥1,500</span>
-                            <span>📍 Tokyo Station</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="shop-card">
-                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800&h=600&fit=crop&auto=format&q=60">
-                        <span class="shop-badge">💄 BEAUTY</span>
-                    </div>
-                    <div class="shop-info">
-                        <h3 class="shop-name">SK-II Essence</h3>
-                        <p class="shop-desc">Tax-free! Lebih murah 40% dari Indonesia</p>
-                        <div class="shop-meta">
-                            <span class="shop-price">¥9,000</span>
-                            <span>📍 Matsukiyo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Beauty Section -->
-    <section class="section" id="beauty">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Fashion & Beauty Experience
-                    <span class="text-english">Pengalaman Fashion & Kecantikan Hijab-Friendly</span>
-                </h2>
-                <p class="section-subtitle">Tampil cantik dengan teknologi kecantikan Jepang</p>
-            </div>
-            
-            <div class="cards-grid">
-                <div class="beauty-card">
-                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=200&fit=crop" 
-                         alt="Japanese Cosmetics" class="beauty-image" loading="lazy">
-                    <div class="beauty-content">
-                        <span class="beauty-badge">Item</span>
-                        <h3 class="beauty-title">5 Kosmetik Wajib Beli</h3>
-                        <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> SK-II</li>
-                            <li><span class="check-icon">✓</span> Shiseido</li>
-                            <li><span class="check-icon">✓</span> DHC</li>
-                            <li><span class="check-icon">✓</span> Canmake</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <a href="https://www.japankuru.com/en/shopping/133326/" class="beauty-card" target="_blank" rel="noopener">
-                    <img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/11/Maehara_CC08-scaled.jpg" 
-                         alt="Japanese Umbrella" class="beauty-image" loading="lazy">
-                    <div class="beauty-content">
-                        <span class="beauty-badge">Pengalaman</span>
-                        <h3 class="beauty-title">Payung Tradisional Mewah</h3>
-                        <p class="card-desc">Maebara Koei Shoten - Craftmanship sejak 1948</p>
+<section class="section" id="beauty">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">
+                Fashion & Beauty Experience
+                <span class="text-english">日本でもっとカッコよく、美しくなる</span>
+            </h2>
+            <p class="section-subtitle">Transformasi gaya dengan sentuhan Jepang</p>
+        </div>
+        
+        <!-- Magazine Style Layout -->
+        <div class="fashion-magazine-layout">
+            <!-- Main Feature -->
+            <div class="feature-main">
+                <a href="https://www.japankuru.com/en/shopping/133326/" target="_blank" rel="noopener">
+                    <div class="feature-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/11/Maehara_CC08-scaled.jpg');">
+                        <div class="feature-overlay">
+                            <span class="feature-label">CRAFTSMANSHIP</span>
+                            <h3>Maehara Koei</h3>
+                            <p>Payung mewah handmade sejak 1948</p>
+                        </div>
                     </div>
                 </a>
-                
-                <div class="beauty-card" onclick="showNotification('Artikel dalam pengembangan', 'warning');">
-                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=200&fit=crop" 
-                         alt="Hijab Salon" class="beauty-image" loading="lazy">
-                    <div class="beauty-content">
-                        <span class="beauty-badge">Hijab-Friendly</span>
-                        <h3 class="beauty-title">Salon Khusus Wanita</h3>
-                        <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> Ruang privat</li>
-                            <li><span class="check-icon">✓</span> Staf wanita</li>
-                            <li><span class="check-icon">✓</span> Produk halal</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="beauty-card" onclick="showNotification('Artikel dalam pengembangan', 'warning');">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=200&fit=crop" 
-                         alt="Women's Spa" class="beauty-image" loading="lazy">
-                    <div class="beauty-content">
-                        <span class="beauty-badge">Relaksasi</span>
-                        <h3 class="beauty-title">Spa & Onsen Wanita</h3>
-                        <ul class="beauty-features">
-                            <li><span class="check-icon">✓</span> Private onsen</li>
-                            <li><span class="check-icon">✓</span> Amenitas halal</li>
-                            <li><span class="check-icon">✓</span> Musala tersedia</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Checklist Section -->
-    <section class="section" id="checklist">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Checklist Persiapan Wisata
-                    <span class="text-english">Travel Preparation Checklist</span>
-                </h2>
-                <p class="section-subtitle">Panduan lengkap untuk perjalanan pertama ke Jepang</p>
             </div>
             
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="checklist-item">
-                    <div class="checklist-header" onclick="toggleChecklist(this)">
-                        <span>Visa & Paspor</span>
-                        <div class="checklist-checkbox"></div>
-                    </div>
-                    <div class="checklist-content">
-                        <p>Indonesia bebas visa untuk 90 hari!</p>
-                        <div class="checklist-tip">
-                            • Paspor berlaku minimal 6 bulan<br>
-                            • Tiket pulang-pergi (wajib)<br>
-                            • Konfirmasi hotel<br>
-                            • Visit Japan Web
-                        </div>
+            <!-- Side Grid -->
+            <div class="feature-side">
+                <!-- Cosmetics -->
+                <div class="side-item" onclick="showNotification('Artikel dalam pengembangan', 'warning');">
+                    <div class="side-image" style="background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=300&fit=crop');"></div>
+                    <div class="side-content">
+                        <span class="side-label">BEAUTY</span>
+                        <h4>Top 5 Japanese Cosmetics</h4>
+                        <p>SK-II hingga drugstore finds</p>
                     </div>
                 </div>
                 
-                <div class="checklist-item">
-                    <div class="checklist-header" onclick="toggleChecklist(this)">
-                        <span>Transportation Pass</span>
-                        <div class="checklist-checkbox"></div>
+                <!-- JINS Eyewear -->
+                <a href="https://www.jins.com/jp/" class="side-item" target="_blank" rel="noopener">
+                    <div class="side-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/JINs_Ginza_CC15-1-2048x1365.jpg');"></div>
+                    <div class="side-content">
+                        <span class="side-label">EYEWEAR</span>
+                        <h4>JINS Innovation</h4>
+                        <p>Kacamata custom 30 menit</p>
                     </div>
-                    <div class="checklist-content">
-                        <div class="checklist-tip">
-                            • JR Pass: 7 hari ¥50,000 / 14 hari ¥80,000<br>
-                            • Tokyo Metro Pass: 24 jam ¥800 / 72 jam ¥1,500<br>
-                            • Kansai Railway Pass: 2 hari ¥5,600
-                        </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Additional Brands Carousel -->
+<div class="brand-showcase">
+    <h3 class="showcase-title">Japan Exclusive & Limited Edition</h3>
+    <p class="showcase-subtitle">Koleksi khusus yang hanya bisa ditemukan di Jepang</p>
+    
+    <div class="brand-scroll">
+        <!-- Converse Japan -->
+        <a href="https://www.japankuru.com/en/shopping/201384/" class="brand-item brand-featured" target="_blank" rel="noopener">
+            <span class="brand-badge">EXCLUSIVE</span>
+            <div class="brand-logo">Converse Japan</div>
+            <p>Yokohama & Sendai flagship stores</p>
+            <span class="brand-link">Baca →</span>
+        </a>
+        
+        <!-- Vivienne Westwood -->
+        <a href="https://www.japankuru.com/en/shopping/202042/" class="brand-item brand-featured" target="_blank" rel="noopener">
+            <span class="brand-badge">HARAJUKU</span>
+            <div class="brand-logo">Vivienne Westwood</div>
+            <p>RED+MAN Laforet exclusive designs</p>
+            <span class="brand-link">Baca →</span>
+        </a>
+        
+        <!-- Japanese Brands -->
+        <div class="brand-item">
+            <div class="brand-logo">Onitsuka Tiger</div>
+            <p>Nippon Made collection</p>
+        </div>
+        
+        <div class="brand-item">
+            <div class="brand-logo">MUJI</div>
+            <p>Found MUJI exclusives</p>
+        </div>
+        
+        <div class="brand-item">
+            <div class="brand-logo">UNIQLO</div>
+            <p>UT Artist collaborations</p>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+    <!-- Checklist Section -->
+   <!-- Checklist Section -->
+<section class="section" id="checklist">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">
+                Checklist Persiapan Wisata
+                <span class="text-english">Travel Preparation Checklist</span>
+            </h2>
+            <p class="section-subtitle">Panduan lengkap untuk perjalanan pertama ke Jepang</p>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto;">
+            <!-- Visa & Dokumen -->
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>Visa & Dokumen Perjalanan</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p><strong>✅ Bebas visa 90 hari untuk WNI!</strong></p>
+                    <div class="checklist-tip">
+                        <ul>
+                            <li>Paspor berlaku min. 6 bulan</li>
+                            <li>Tiket pulang-pergi (WAJIB)</li>
+                            <li>Bukti reservasi hotel</li>
+                            <li>Daftar <a href="https://vjw-lp.digital.go.jp/" target="_blank" rel="noopener">Visit Japan Web</a> sebelum berangkat</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="checklist-item">
-                    <div class="checklist-header" onclick="toggleChecklist(this)">
-                        <span>Persiapan Halal & Ibadah</span>
-                        <div class="checklist-checkbox"></div>
-                    </div>
-                    <div class="checklist-content">
-                        <div class="checklist-tip">
-                            • Download app Halal Gourmet Japan<br>
-                            • Set alarm waktu sholat<br>
-                            • Bawa sajadah portable<br>
-                            • Aplikasi kompas kiblat
-                        </div>
+            </div>
+            
+            <!-- Transportation Pass -->
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>Transportation Pass</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <p><strong>⚠️ Update Harga 2024:</strong></p>
+                    <div class="checklist-tip">
+                        <ul>
+                            <li><a href="https://japanrailpass.net/en/" target="_blank" rel="noopener">JR Pass</a>: 7 hari ¥50,000 / 14 hari ¥80,000</li>
+                            <li><a href="https://www.tokyometro.jp/en/ticket/travel/index.html" target="_blank" rel="noopener">Tokyo Subway Ticket</a>: 24 jam ¥800 / 72 jam ¥1,500</li>
+                            <li><a href="https://www.kansai-thru-pass.com/en/" target="_blank" rel="noopener">Kansai Thru Pass</a>: 2 hari ¥5,600 / 3 hari ¥7,000</li>
+                        </ul>
+                        <p style="margin-top: 12px; font-size: 12px; color: var(--warning);">
+                            💡 <strong>Tips:</strong> JR Pass naik harga Oct 2023. Pertimbangkan pass regional jika hanya di satu area.
+                        </p>
                     </div>
                 </div>
-                
-                <div class="checklist-item">
-                    <div class="checklist-header" onclick="toggleChecklist(this)">
-                        <span>Internet & Komunikasi</span>
-                        <div class="checklist-checkbox"></div>
+            </div>
+            
+            <!-- Persiapan Muslim -->
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>Persiapan Muslim Traveler</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <div class="checklist-tip">
+                        <strong>Aplikasi Wajib:</strong>
+                        <ul>
+                            <li><a href="https://www.halalgourmet.jp/" target="_blank" rel="noopener">Halal Gourmet Japan</a> - Database restoran halal</li>
+                            <li>Qibla Compass: <a href="https://apps.apple.com/app/id560444328" target="_blank" rel="noopener">iOS</a> / <a href="https://play.google.com/store/apps/details?id=qibla.compass.finddirection.hijricalendar" target="_blank" rel="noopener">Android</a></li>
+                            <li>Muslim Pro - Jadwal sholat otomatis</li>
+                        </ul>
+                        
+                        <strong style="margin-top: 12px; display: block;">Bawa dari Indonesia:</strong>
+                        <ul>
+                            <li>Sajadah travel (ringan & compact)</li>
+                            <li>Mukena/sarung</li>
+                            <li>Mie instan halal untuk emergency</li>
+                        </ul>
                     </div>
-                    <div class="checklist-content">
-                        <div class="checklist-tip">
-                            • Sewa Pocket Wi-Fi: ¥500-1,000/hari<br>
-                            • SIM Card: ¥1,500-3,000 (7-30 hari)<br>
-                            • Wi-Fi gratis: konbini, stasiun, kafe
-                        </div>
+                </div>
+            </div>
+            
+            <!-- Internet -->
+            <div class="checklist-item">
+                <div class="checklist-header" onclick="toggleChecklist(this)">
+                    <span>Internet & Komunikasi</span>
+                    <div class="checklist-checkbox"></div>
+                </div>
+                <div class="checklist-content">
+                    <div class="checklist-tip">
+                        <strong>Opsi Internet:</strong>
+                        <ul>
+                            <li>Pocket WiFi: ¥500-1,000/hari (pesan online lebih murah)</li>
+                            <li>Tourist SIM: ¥1,500-3,000 (7-30 hari)</li>
+                            <li>eSIM: Cek provider lokal Indonesia</li>
+                        </ul>
+                        
+                        <strong style="margin-top: 12px; display: block;">WiFi Gratis:</strong>
+                        <ul>
+                            <li>7-Eleven, Lawson, FamilyMart (registrasi email)</li>
+                            <li>JR Station (JR-East Free WiFi)</li>
+                            <li>Starbucks, McDonald's</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Seasons Section -->
     <section class="section" id="seasons">
@@ -2255,16 +2760,86 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-title">
-                Siap Memulai Petualangan?
-                <span class="text-english">Ready to Start Your Adventure?</span>
-            </h2>
-            <p class="cta-subtitle">Bergabung dengan ribuan traveler Indonesia</p>
-            <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="cta-button" rel="noopener">
-                📱 Follow @japankuru.id
-            </a>
+    <section class="final-cta-compact">
+        <div class="cta-header">
+            <h2 class="cta-title">Smart Travel, Real Experience 🗾</h2>
+            <p class="cta-subtitle">Dipercaya oleh 1.000.000+ penggemar global sejak 2010</p>Komunitas global 1M+ traveler, kini hadir di Indonesia
+        </div>
+        
+        <div class="cta-main-content">
+            <!-- Photo Collage -->
+            <div class="photo-collage">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2023/06/69166496_2319739331408151_3163022712314527744_n.jpeg" 
+                     alt="Testing halal ramen" class="collage-photo photo-1">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/MakingPhoto_CC02_0-scaled.jpg" 
+                     alt="Behind scenes" class="collage-photo photo-2">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/MakingPhoto_CC01_0-scaled-e1722583606753.jpg" 
+                     alt="Team work" class="collage-photo photo-3">
+                <span class="photo-badge">LIVE from Tokyo</span>
+            </div>
+            
+            <!-- Content -->
+            <div class="cta-content">
+                <span class="smart-badge">🧠 Be a Smart Japan Traveler!</span>
+                
+                <div class="value-points">
+                    <div class="point-item">
+                        <span class="point-icon">🎬</span>
+                        <div class="point-text">
+                            <strong>100% Field Tested</strong>
+                            <span>Setiap rekomendasi sudah kami coba</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">🕌</span>
+                        <div class="point-text">
+                            <strong>Muslim-Friendly Focus</strong>
+                            <span>Halal food & tempat sholat</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">💎</span>
+                        <div class="point-text">
+                            <strong>Hidden Gems</strong>
+                            <span>Spot rahasia locals only</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">⚡</span>
+                        <div class="point-text">
+                            <strong>Real-Time Info</strong>
+                            <span>Update langsung dari lapangan</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="btn-follow">
+                        📱 Follow @japankuru.id
+                    </a>
+                    <button onclick="alert('Tekan Ctrl+D (Windows) atau ⌘+D (Mac) untuk bookmark!')" class="btn-bookmark">
+                        🔖 Bookmark Site
+                    </button>
+                </div>
+                
+                <div class="trust-numbers">
+                    <div class="trust-item">
+                        <span class="trust-number">14</span>
+                        <span class="trust-label">Tahun di Tokyo</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">1M+</span>
+                        <span class="trust-label">Global Fans</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">1000+</span>
+                        <span class="trust-label">Artikel & Tips</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2274,22 +2849,24 @@
             <h3>Japankuru Indonesia</h3>
             <p>Platform wisata Muslim-friendly terbaik untuk Jepang</p>
             
-            <div class="footer-links">
-                <a href="https://japankuru.com/id" target="_blank" rel="noopener">Website</a>
-                <a href="#">Tentang Kami</a>
-                <a href="#">Kontak</a>
-                <a href="#">FAQ</a>
+            <div class="footer-links unified-footer">
+                <a href="https://japankuru.com/id" target="_blank" rel="noopener">
+                    🌐 Website (Indonesia)
+                </a>
+                <a href="https://facebook.com/japankuru" target="_blank" rel="noopener">
+                    f Facebook (Global)
+                </a>
+                <a href="https://www.instagram.com/japankuru/" target="_blank" rel="noopener">
+                    📷 Instagram (Global)
+                </a>
+                <a href="https://www.youtube.com/@cometojapankuru" target="_blank" rel="noopener">
+                    ▶ YouTube (Global)
+                </a>
             </div>
             
-            <div class="social-links">
-                <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener">f</a>
-                <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="social-link" rel="noopener">📷</a>
-                <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener">𝕏</a>
-                <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener">▶</a>
-            </div>
             
             <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 20px;">
-                © 2024 Japankuru Indonesia. All rights reserved.
+                © 2025 Japankuru Indonesia. All rights reserved.
             </p>
         </div>
     </footer>
