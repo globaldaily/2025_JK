@@ -6,6 +6,12 @@
     <title>Japankuru Indonesia - Panduan Wisata Muslim-Friendly ke Jepang</title>
     <meta name="description" content="Platform wisata Muslim-friendly terlengkap untuk perjalanan ke Jepang. Temukan restoran halal, tempat ibadah, dan panduan lengkap.">
     <meta name="keywords" content="wisata jepang, halal food japan, muslim travel japan, japankuru, panduan wisata jepang">
+
+    <!-- Preconnect for faster image fetch -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://img.japankuru.com">
+    <link rel="preconnect" href="https://www.japankuru.com">
+    <link rel="preconnect" href="https://jw-webmagazine.com">
     
     <style>
         /* ========== CSS Variables ========== */
@@ -834,26 +840,26 @@
             box-shadow: var(--shadow-medium);
         }
         /* 모바일에서 월별 바 그리드로 변경 */
-    @media (max-width: 767px) {
-    .month-bar {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        height: auto;
-        gap: 2px;
-        overflow: visible;  /* 스크롤 제거 */
-    }
-    
-    .month-segment {
-        min-width: auto;
-        font-size: 12px;
-        padding: 10px 5px;
-    }
-    
-    .month-segment:hover {
-        transform: none;  /* 모바일에서 호버 효과 제거 */
-    }
-}
+        @media (max-width: 767px) {
+            .month-bar {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                height: auto;
+                gap: 2px;
+                overflow: visible;  /* 스크롤 제거 */
+            }
+            
+            .month-segment {
+                min-width: auto;
+                font-size: 12px;
+                padding: 10px 5px;
+            }
+            
+            .month-segment:hover {
+                transform: none;  /* 모바일에서 호버 효과 제거 */
+            }
+        }
         .month-segment {
             flex: 1;
             display: flex;
@@ -1292,6 +1298,85 @@
         #beauty { background: var(--background); }
         #checklist { background: var(--surface); }
         #seasons { background: var(--background); }
+
+        .slide-wrapper {
+            position: relative;
+            height: 100%;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        /* ======== OVERRIDES: Hero slider visual polish & ratio ======== */
+        .slide-wrapper{
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          min-height: clamp(220px, 45vw, 420px);
+          max-height: 480px;
+          overflow: hidden;
+        }
+        @media (min-width: 1024px){
+          .slide-wrapper{ aspect-ratio: 3 / 1; min-height: 420px; }
+        }
+        .slide{
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          object-fit: cover; object-position: center 40%;
+          opacity: 0;
+          transition: opacity .6s ease-in-out, transform 6s ease-out;
+          will-change: opacity, transform;
+          backface-visibility: hidden;
+          display: block;
+        }
+        .slide.active{
+          opacity: 1;
+          transform: scale(1.03);
+        }
+        .visual-container{ position: relative; }
+        .visual-container::after{
+          content:""; position:absolute; inset:0;
+          background: linear-gradient(to top, rgba(0,0,0,.22), transparent 55%);
+          pointer-events: none;
+        }
+        .slide-dots{ z-index:2; }
+        .dot{ width:12px; height:12px; transition: transform .2s ease; }
+        .dot.active{ transform: scale(1.1); filter: brightness(1.1); }
+        @media (prefers-reduced-motion: reduce){
+          .slide{ transition: opacity .2s linear, transform 0s; }
+          .slide.active{ transform: none; }
+        }
     </style>
 </head>
 <body>
@@ -1351,8 +1436,22 @@
                 <p class="hero-subtitle">Platform wisata Muslim-friendly dari tim kreatif multinasional di Tokyo</p>
                 
                 <div class="visual-container">
-                    <img src="https://img.japankuru.com/prg_img/img/img2019041918255724598100.jpg" 
-                         alt="Tokyo Cityscape" class="main-visual" loading="eager">
+                    <div class="slide-wrapper">
+                        <img src="https://img.japankuru.com/prg_img/img/img2020041318575545639000.jpg" 
+                             class="slide active" alt="Tokyo"
+                             loading="eager" fetchpriority="high" decoding="async">
+                        <img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/05/1-1-2048x1365.jpg" 
+                             class="slide" alt="Osaka"
+                             loading="lazy" fetchpriority="low" decoding="async">
+                        <img src="https://www.japankuru.com/gld-kanri/data/uploads/2025/02/OsakaViewHotel_CC10_OG.jpg" 
+                             class="slide" alt="Kyoto"
+                             loading="lazy" fetchpriority="low" decoding="async">
+                    </div>
+                    <div class="slide-dots">
+                        <span class="dot active" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
                 </div>
                 
                 <a href="#trend" class="hero-cta">🏯 Mulai Petualangan</a>
@@ -1495,7 +1594,7 @@
             </div>
     
             <div class="destination-container">
-                <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&h=400&fit=crop');">
+                <div class="destination-card" data-bg="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1200&h=600&fit=crop&auto=format&q=60">
                     <div class="card-content">
                         <h3>From TOKYO</h3>
                         <ul>
@@ -1506,7 +1605,7 @@
                     </div>
                 </div>
     
-                <div class="destination-card" style="background-image: url('https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg');">
+                <div class="destination-card" data-bg="https://jw-webmagazine.com/wp-content/uploads/2022/10/Osaka-Castle-min.jpg">
                     <div class="card-content">
                         <h3>From KANSAI</h3>
                         <ul>
@@ -1534,7 +1633,7 @@
             <div class="gourmet-gallery-grid">
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" 
                    class="gourmet-gallery-item" 
-                   style="background-image: url('https://img.japankuru.com/prg_img/prg/img2022062417441589311600.jpg');">
+                   data-bg="https://img.japankuru.com/prg_img/prg/img2022062417441589311600.jpg">
                     <div class="gourmet-overlay">
                         <div class="gourmet-badge">⭐ Michelin</div>
                         <h3>懐石花傳 (Kaiseki Kaden)</h3>
@@ -1545,7 +1644,7 @@
                 
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;"
                    class="gourmet-gallery-item" 
-                   style="background-image: url('https://img.japankuru.com/prg_img/prg/img2023022415132228519900.jpg');">
+                   data-bg="https://img.japankuru.com/prg_img/prg/img2023022415132228519900.jpg">
                     <div class="gourmet-overlay">
                         <div class="gourmet-badge">🍣 Sushi</div>
                         <h3>鮨処 海月 (Sushi Kaigetsu)</h3>
@@ -1556,7 +1655,7 @@
                 
                 <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;"
                    class="gourmet-gallery-item" 
-                   style="background-image: url('https://img.japankuru.com/prg_img/prg/img2022020211105151528600.jpg');">
+                   data-bg="https://img.japankuru.com/prg_img/prg/img2022020211105151528600.jpg">
                     <div class="gourmet-overlay">
                         <div class="gourmet-badge">🍜 Ramen</div>
                         <h3>弥七ラーメン (Yashichi)</h3>
@@ -1578,7 +1677,7 @@
             
             <div class="shopping-scroll">
                 <div class="shop-card">
-                    <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=400&h=300&fit=crop');">
+                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=800&h=600&fit=crop&auto=format&q=60">
                         <span class="shop-badge badge-viral">🔥 VIRAL</span>
                     </div>
                     <div class="shop-info">
@@ -1592,7 +1691,7 @@
                 </div>
                 
                 <div class="shop-card">
-                    <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop');">
+                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=800&h=600&fit=crop&auto=format&q=60">
                         <span class="shop-badge badge-halal">✅ HALAL</span>
                     </div>
                     <div class="shop-info">
@@ -1606,7 +1705,7 @@
                 </div>
                 
                 <div class="shop-card">
-                    <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop');">
+                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop&auto=format&q=60">
                         <span class="shop-badge">-30%</span>
                     </div>
                     <div class="shop-info">
@@ -1620,7 +1719,7 @@
                 </div>
                 
                 <div class="shop-card">
-                    <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=300&fit=crop');">
+                    <div class="shop-image" data-bg="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800&h=600&fit=crop&auto=format&q=60">
                         <span class="shop-badge">💄 BEAUTY</span>
                     </div>
                     <div class="shop-info">
@@ -2002,7 +2101,7 @@
             window.addEventListener('resize', updateActiveDot);
             updateActiveDot();
         }
-
+    
         // Adjust layout for Expo Banner
         function adjustLayoutForBanner() {
             const progressBar = document.getElementById('progressBar');
@@ -2026,7 +2125,7 @@
                 hero.style.paddingTop = paddingTop + 'px';
             }
         }
-
+    
         // Progress Bar & Scroll Effects
         window.addEventListener('scroll', function() {
             const scrollTop = document.getElementById('scrollTop');
@@ -2053,7 +2152,7 @@
             
             updateActiveNav();
         });
-
+    
         // Update Active Navigation
         function updateActiveNav() {
             const sections = document.querySelectorAll('section[id]');
@@ -2074,7 +2173,7 @@
                 }
             });
         }
-
+    
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -2088,12 +2187,12 @@
                 }
             });
         });
-
+    
         // Scroll to Top
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
+    
         // Checklist Toggle
         function toggleChecklist(header) {
             const content = header.nextElementSibling;
@@ -2110,7 +2209,7 @@
                 localStorage.setItem('checklist_' + label, 'true');
             }
         }
-
+    
         // Initialize Checklist from LocalStorage
         function initChecklist() {
             document.querySelectorAll('.checklist-item').forEach(item => {
@@ -2122,7 +2221,7 @@
                 }
             });
         }
-
+    
         // Season Panel Toggle
         function showSeason(season) {
             document.querySelectorAll('.season-panel').forEach(panel => {
@@ -2133,7 +2232,7 @@
                 selectedPanel.classList.add('active');
             }
         }
-
+    
         // Show Notification
         function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
@@ -2148,6 +2247,26 @@
             }
         }
 
+        // Lazy load background images defined via data-bg
+        function initLazyBg(){
+            const io = new IntersectionObserver((entries, obs)=>{
+                entries.forEach(ent=>{
+                    if(ent.isIntersecting){
+                        const el = ent.target;
+                        const src = el.getAttribute('data-bg');
+                        if(src){
+                            el.style.backgroundImage = `url('${src}')`;
+                            el.style.backgroundSize = 'cover';
+                            el.style.backgroundPosition = 'center';
+                            el.removeAttribute('data-bg');
+                        }
+                        obs.unobserve(el);
+                    }
+                });
+            }, { rootMargin: "300px" });
+            document.querySelectorAll('[data-bg]').forEach(el=>io.observe(el));
+        }
+    
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             initChecklist();
@@ -2155,6 +2274,7 @@
             updateActiveNav();
             adjustLayoutForBanner();
             showSeason('spring');
+            initLazyBg();
             
             // Welcome message
             if (!sessionStorage.getItem('welcomed')) {
@@ -2164,11 +2284,41 @@
                 }, 2000);
             }
         });
-
+    
         // Handle window resize
         window.addEventListener('resize', adjustLayoutForBanner);
+    
+        /* ======= 슬라이드쇼 코드 (부드러운 페이드 + 타이머 리셋 지원) ======= */
+        let slideIndex = 0, sliderTimer;
 
+        function showAt(idx){
+            const slides = document.querySelectorAll('.slide');
+            const dots   = document.querySelectorAll('.dot');
+            if(!slides.length) return;
+
+            slideIndex = (idx + slides.length) % slides.length;
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            if(dots[slideIndex]) dots[slideIndex].classList.add('active');
+        }
+
+        function nextSlide(){ showAt(slideIndex + 1); }
+
+        document.addEventListener('DOMContentLoaded', ()=>{
+            showAt(0);
+            sliderTimer = setInterval(nextSlide, 4000);
+        });
+
+        // 점(도트) 클릭 시 수동 이동 + 타이머 리셋
+        window.currentSlide = function(n){
+            clearInterval(sliderTimer);
+            showAt(n - 1);
+            sliderTimer = setInterval(nextSlide, 4000);
+        };
+    
         console.log('Japankuru Indonesia - Full version loaded successfully');
     </script>
+    
 </body>
 </html>
