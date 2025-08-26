@@ -559,60 +559,202 @@
         }
         
         /* ========== Gourmet Gallery ========== */
-        .gourmet-gallery-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            margin-top: 32px;
-        }
-        
-        @media (min-width: 640px) {
-            .gourmet-gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .gourmet-gallery-item {
-            position: relative;
-            height: 280px;
-            border-radius: var(--radius-large);
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: var(--shadow-light);
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .gourmet-gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .gourmet-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 80%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            color: white;
-        }
-        
-        .gourmet-badge {
-            background: var(--gradient-halal);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            align-self: flex-start;
-            margin-bottom: 12px;
-        }
-        
+        .halal-platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.platform-card {
+    background: white;
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-light);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+}
+
+.platform-header {
+    padding: 20px 20px 0;
+}
+
+.platform-badge {
+    background: var(--gradient-halal);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.platform-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.platform-features {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.platform-features li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--secondary-text);
+}
+
+.platform-footer {
+    padding: 0 20px 20px;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.additional-resources {
+    background: var(--surface);
+    border-radius: var(--radius-large);
+    padding: 32px;
+    margin: 40px 0;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.halal-tips-box {
+    background: linear-gradient(135deg, #00c896, #00a881);
+    color: white;
+    border-radius: var(--radius-large);
+    padding: 32px;
+    margin-top: 40px;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .halal-platforms-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.related-articles-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-light);
+}
+
+.article-cards-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.article-card-mini {
+    display: flex;
+    background: white;
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    min-height: 120px;
+}
+
+.article-card-mini:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-medium);
+}
+
+.article-thumb {
+    width: 120px;
+    min-width: 120px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.article-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.article-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--surface);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    width: fit-content;
+    font-weight: 600;
+    color: var(--secondary-text);
+}
+
+.article-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    color: var(--primary-text);
+}
+
+.article-info p {
+    font-size: 13px;
+    color: var(--secondary-text);
+    line-height: 1.4;
+}
+
+/* 모바일 대응 */
+@media (max-width: 640px) {
+    .article-cards-compact {
+        grid-template-columns: 1fr;
+    }
+    
+    .article-card-mini {
+        min-height: 100px;
+    }
+    
+    .article-thumb {
+        width: 100px;
+        min-width: 100px;
+    }
+    
+    .article-info {
+        padding: 12px;
+    }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .article-card-mini {
+        background: var(--surface);
+    }
+}
+
         /* ========== Shopping Scroll ========== */
         .shopping-scroll {
             display: flex;
@@ -1546,24 +1688,24 @@
                     </div>
                 </a>
                 
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="card">
-                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=200&fit=crop" 
-                         alt="Kimono" class="card-image" loading="lazy">
+                <a href="https://www.japankuru.com/en/entertainment/e3949/"class="card" target="_blank" rel="noopener">
+                    <img src="https://img.japankuru.com/prg_img/img/img2023061609511365658900.jpg" alt="Kimono" class="card-image" loading="lazy">
                     <div class="card-content">
                         <span class="card-tag">👘 Budaya</span>
-                        <h3 class="card-title">Pengalaman Kimono Ramah Hijab</h3>
-                        <p class="card-desc">Studio profesional dengan hijab-friendly service</p>
+                        <h3 class="card-title">Tokyo’s SMALL WORLDS Miniature Museum</h3>
+                        <p class="card-desc">A World of Miniatures in the Big City</p>
                         <div class="card-link">Baca Selengkapnya →</div>
                     </div>
                 </a>
                 
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" class="card">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" 
-                         alt="Onsen" class="card-image" loading="lazy">
+                <a href="https://www.japankuru.com/en/tour/e2356/"class="card" target="_blank" rel="noopener">
+                    <img src="https://img.japankuru.com/prg_img/thumbnail1/img2019101809562467208400.jpg" alt="Kimono" class="card-image" loading="lazy">
                     <div class="card-content">
-                        <span class="card-tag new">♨️ Relaksasi</span>
-                        <h3 class="card-title">Pemandian Air Panas Khusus Wanita</h3>
-                        <p class="card-desc">Onsen privat dengan fasilitas lengkap</p>
+                        <span class="card-tag new">📸 - Spot Foto</span>
+                        <h3 class="card-title">Aizumura: Studio Foto Kostum Tradisional</h3>
+                        <p class="card-desc">• Kostum samurai & ninja tersedia<br>
+                            • Hijab-friendly (dapat dikenakan dengan hijab)<br>
+                            • Latar foto sejarah Aizu-Wakamatsu</p>
                         <div class="card-link">Baca Selengkapnya →</div>
                     </div>
                 </a>
@@ -1620,52 +1762,172 @@
     </section>
 
     <!-- Gourmet Section -->
-    <section class="section" id="gourmet">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="text-heading section-title">
-                    Kuliner Halal & Muslim-Friendly
-                    <span class="text-english">Halal & Muslim-Friendly Cuisine</span>
-                </h2>
-                <p class="section-subtitle">Cita rasa Jepang yang autentik dan halal</p>
-            </div>
+<section class="section" id="gourmet">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="text-heading section-title">
+                Panduan Lengkap Makanan Halal di Jepang
+                <span class="text-english">Complete Guide to Halal Food in Japan</span>
+            </h2>
+            <p class="section-subtitle">Platform terpercaya untuk mencari restoran halal di seluruh Jepang</p>
+        </div>
+        
+        <!-- 메인 3대 플랫폼 -->
+        <div class="halal-platforms-grid">
+            <!-- Halal Gourmet Japan -->
+            <a href="https://www.halalgourmet.jp" target="_blank" class="platform-card" rel="noopener">
+                <div class="platform-header">
+                    <span class="platform-badge">📱 TOP 1</span>
+                    <h3>Halal Gourmet Japan</h3>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-desc">Platform terlengkap dengan aplikasi mobile untuk pencarian real-time</p>
+                    <ul class="platform-features">
+                        <li>✓ 1000+ restoran terverifikasi</li>
+                        <li>✓ Filter halal certified vs Muslim-friendly</li>
+                        <li>✓ Aplikasi iOS & Android tersedia</li>
+                        <li>✓ Bahasa Inggris & Jepang</li>
+                    </ul>
+                </div>
+                <div class="platform-footer">
+                    <span class="visit-link">Kunjungi Website →</span>
+                </div>
+            </a>
             
-            <div class="gourmet-gallery-grid">
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;" 
-                   class="gourmet-gallery-item" 
-                   data-bg="https://img.japankuru.com/prg_img/prg/img2022062417441589311600.jpg">
-                    <div class="gourmet-overlay">
-                        <div class="gourmet-badge">⭐ Michelin</div>
-                        <h3>懐石花傳 (Kaiseki Kaden)</h3>
-                        <p>Kaiseki halal dengan menu lengkap</p>
-                        <span>Lihat Detail →</span>
-                    </div>
-                </a>
+            <!-- Halal Eats Japan -->
+            <a href="https://www.halaleats.jp" target="_blank" class="platform-card" rel="noopener">
+                <div class="platform-header">
+                    <span class="platform-badge">⭐ USER FAVORITE</span>
+                    <h3>Halal Eats Japan</h3>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-desc">Portal dengan review pengunjung untuk Tokyo, Osaka, Kyoto</p>
+                    <ul class="platform-features">
+                        <li>✓ Review dari pengunjung Muslim</li>
+                        <li>✓ Kategori halal, vegan, vegetarian</li>
+                        <li>✓ Info tempat sholat terdekat</li>
+                        <li>✓ Rating & foto dari users</li>
+                    </ul>
+                </div>
+                <div class="platform-footer">
+                    <span class="visit-link">Kunjungi Website →</span>
+                </div>
+            </a>
+            
+            <!-- Halal Food in Japan -->
+            <a href="https://www.halalfoodinjapan.com" target="_blank" class="platform-card" rel="noopener">
+                <div class="platform-header">
+                    <span class="platform-badge">🗾 NATIONWIDE</span>
+                    <h3>Halal Food in Japan</h3>
+                </div>
+                <div class="platform-content">
+                    <p class="platform-desc">Database terluas mencakup seluruh prefektur Jepang</p>
+                    <ul class="platform-features">
+                        <li>✓ Coverage seluruh Jepang</li>
+                        <li>✓ Toko bahan makanan halal</li>
+                        <li>✓ Blog review mendalam</li>
+                        <li>✓ Update rutin informasi</li>
+                    </ul>
+                </div>
+                <div class="platform-footer">
+                    <span class="visit-link">Kunjungi Website →</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Gourmet Section 내 추가 - 플랫폼 정보 다음에 삽입 -->
+<div class="related-articles-section">
+    <h3 class="section-subtitle" style="text-align: center; margin: 40px 0 24px;">
+        Inspirasi Kuliner dari Tim Japankuru
+        <span class="text-english">Culinary Inspiration from Japankuru Team</span>
+    </h3>
+    
+    <div class="article-cards-compact">
+        <!-- 6 Japanese Dishes -->
+        <a href="https://www.japankuru.com/en/food/e2093/" target="_blank" class="article-card-mini" rel="noopener">
+            <div class="article-thumb" style="background-image: url('https://img.japankuru.com/prg_img/thumbnail1/img2020062514382119630800.jpg')"></div>
+            <div class="article-info">
+                <span class="article-badge">🍱 Must Try</span>
+                <h4>6 Hidangan Jepang Unik</h4>
+                <p>Makanan lokal & Muslim-friendly yang hanya ada di Jepang</p>
+            </div>
+        </a>
+        
+        <!-- San'in Seafood -->
+        <a href="https://japankuru.medium.com/must-try-local-eats-in-japans-san-in-region-part-1-a-seafood-lover-s-gourmet-route-through-26b5d1f44ae3" target="_blank" class="article-card-mini" rel="noopener">
+            <div class="article-thumb" style="background-image: url('https://miro.medium.com/v2/resize:fit:2000/format:webp/0*OTw2w_4XxxXFWeoj')"></div>
+            <div class="article-info">
+                <span class="article-badge">🦀 Seafood</span>
+                <h4>Wisata Kuliner San'in</h4>
+                <p>Rute seafood terbaik di wilayah San'in</p>
+            </div>
+        </a>
+        
+        <!-- Kamakura Yoridocoro -->
+        <a href="https://www.japankuru.com/en/food/cafe-yoridocoro/" target="_blank" class="article-card-mini" rel="noopener">
+            <div class="article-thumb" style="background-image: url('https://img.japankuru.com/prg_img/img/img2023051511441057194400.jpg')"></div>
+            <div class="article-info">
+                <span class="article-badge">☕ Breakfast</span>
+                <h4>Sarapan di Kamakura</h4>
+                <p>Cafe Yoridocoro - pengalaman sarapan tradisional</p>
+            </div>
+        </a>
+    </div>
+</div>
+        
+        <!-- Sumber Tambahan -->
+        <div class="additional-resources">
+            <h3 class="resources-title">Sumber Informasi Tambahan</h3>
+            
+            <div class="resources-grid">
+                <!-- Aplikasi Mobile -->
+                <div class="resource-category">
+                    <h4>📱 Aplikasi Mobile</h4>
+                    <ul>
+                        <li><a href="https://www.halaltrip.com" target="_blank">Halal Navi</a> - GPS navigator halal Asia</li>
+                        <li><a href="https://www.zabihah.com" target="_blank">Zabihah</a> - Review halal global</li>
+                        <li><a href="https://www.happycow.net" target="_blank">HappyCow</a> - Vegan & vegetarian friendly</li>
+                    </ul>
+                </div>
                 
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;"
-                   class="gourmet-gallery-item" 
-                   data-bg="https://img.japankuru.com/prg_img/prg/img2023022415132228519900.jpg">
-                    <div class="gourmet-overlay">
-                        <div class="gourmet-badge">🍣 Sushi</div>
-                        <h3>鮨処 海月 (Sushi Kaigetsu)</h3>
-                        <p>Sushi otentik dengan kecap halal</p>
-                        <span>Lihat Detail →</span>
-                    </div>
-                </a>
-                
-                <a href="#" onclick="showNotification('Artikel dalam pengembangan', 'warning'); return false;"
-                   class="gourmet-gallery-item" 
-                   data-bg="https://img.japankuru.com/prg_img/prg/img2022020211105151528600.jpg">
-                    <div class="gourmet-overlay">
-                        <div class="gourmet-badge">🍜 Ramen</div>
-                        <h3>弥七ラーメン (Yashichi)</h3>
-                        <p>Ramen halal paling populer di Tokyo</p>
-                        <span>Lihat Detail →</span>
-                    </div>
-                </a>
+                <!-- Panduan Resmi -->
+                <div class="resource-category">
+                    <h4>🏛️ Panduan Pemerintah</h4>
+                    <ul>
+                        <li><a href="https://www.japan.travel/en/plan/muslim-friendly/" target="_blank">JNTO Muslim Guide</a></li>
+                        <li><a href="https://www.gotokyo.org/en/plan/muslim-friendly/" target="_blank">Tokyo Muslim Guide</a></li>
+                        <li><a href="https://kyoto.travel/en/muslim" target="_blank">Kyoto Muslim Guide</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </section>
+        
+        <!-- Quick Tips -->
+        <div class="halal-tips-box">
+            <h4>💡 Tips Praktis</h4>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <strong>Kata Kunci Penting:</strong>
+                    <p>• Halal (ハラール)<br>
+                    • No pork (豚肉なし)<br>
+                    • No alcohol (アルコールなし)</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Alternatif Aman:</strong>
+                    <p>• Seafood & sushi<br>
+                    • Menu vegetarian<br>
+                    • Indian/Turkish resto</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Perhatikan:</strong>
+                    <p>• Mirin & sake dalam masakan<br>
+                    • Gelatin dalam dessert<br>
+                    • Kaldu babi dalam ramen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Shopping Section -->
     <section class="section" id="shopping">
@@ -1906,7 +2168,7 @@
                 <div class="season-panels">
                     <div class="season-panel active" id="spring-panel">
                         <div class="panel-image">
-                            <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?w=600&h=400&fit=crop" alt="Sakura">
+                            <img src="https://img.japankuru.com/prg_img/img/img2022031611391515680600.jpg" alt="Sakura">
                             <span class="best-time-badge">🏆 Best Time: Late March - Early April</span>
                         </div>
                         <div class="panel-info">
@@ -1927,7 +2189,7 @@
                     
                     <div class="season-panel" id="summer-panel">
                         <div class="panel-image">
-                            <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=600&h=400&fit=crop" alt="Summer Festival">
+                            <img src="https://img.japankuru.com/prg_img/img/img2021060211282140835700.jpg" alt="Summer Festival">
                             <span class="best-time-badge">🎆 Festival Season!</span>
                         </div>
                         <div class="panel-info">
@@ -1948,7 +2210,7 @@
                     
                     <div class="season-panel" id="autumn-panel">
                         <div class="panel-image">
-                            <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=600&h=400&fit=crop" alt="Autumn Leaves">
+                            <img src="https://img.japankuru.com/prg_img/img/img2019101609542746573700.jpg" alt="Autumn Leaves">
                             <span class="best-time-badge">📸 Perfect Weather & Colors</span>
                         </div>
                         <div class="panel-info">
@@ -1969,7 +2231,7 @@
                     
                     <div class="season-panel" id="winter-panel">
                         <div class="panel-image">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop" alt="Winter Illumination">
+                            <img src="https://img.japankuru.com/prg_img/img/img2020041612122087856400.jpg" alt="Winter Illumination">
                             <span class="best-time-badge">💰 Low Season = Budget Friendly</span>
                         </div>
                         <div class="panel-info">
