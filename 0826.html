@@ -359,6 +359,34 @@
             box-shadow: var(--shadow-medium);
             margin-top: 32px;
         }
+
+        .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .video-wrapper {
+        display: none;
+    }
+    .mobile-only {
+        display: block;
+    }
+}
         
         .main-visual {
             width: 100%;
@@ -1352,9 +1380,22 @@
                 <p class="hero-subtitle">Platform wisata Muslim-friendly dari tim kreatif multinasional di Tokyo</p>
                 
                 <div class="visual-container">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&h=300&fit=crop" 
-                         alt="Tokyo Cityscape" class="main-visual" loading="eager">
-                </div>
+                  <!-- PC용 영상 -->
+                  <div class="video-wrapper">
+                    <iframe 
+    width="100%" 
+    height="100%"
+    src="https://www.youtube.com/embed/KJM-uVFX0as?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&playlist=KJM-uVFX0as"
+    title="Osaka Transport Experience" 
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+    style="pointer-events: none;">
+</iframe>
+                  </div>
+                  <!-- 모바일용 이미지 (fallback) -->
+                  <img src="https://img.japankuru.com/prg_img/img/img2020021417550682100400.jpg" 
+                       alt="Tokyo Cityscape" class="main-visual mobile-only" loading="eager">
+              </div>
                 
                 <a href="#trend" class="hero-cta">🏯 Mulai Petualangan</a>
             </div>
