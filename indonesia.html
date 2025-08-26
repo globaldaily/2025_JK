@@ -2571,6 +2571,199 @@
             display: none;
         }
 
+        .shopping-section {
+            padding: 60px 0;
+            background: #f5f5f7;
+        }
+        
+        .shopping-header {
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 32px;
+        }
+        
+        .shopping-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+        
+        @media (min-width: 768px) {
+            .shopping-title { font-size: 36px; }
+        }
+        
+        .shopping-subtitle {
+            font-size: 16px;
+            color: #86868b;
+        }
+        
+        /* Horizontal Scroll Container */
+        .shopping-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .shopping-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .shopping-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 3px;
+        }
+        
+        .shopping-scroll::-webkit-scrollbar-thumb {
+            background: #007aff;
+            border-radius: 3px;
+        }
+        
+        /* Card Style */
+        .shop-card {
+            min-width: 280px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            scroll-snap-align: start;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        
+        .shop-image {
+            position: relative;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .shop-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .badge-viral {
+            background: linear-gradient(135deg, #ff6b6b, #ff3b30);
+            color: white;
+        }
+        
+        .badge-halal {
+            background: linear-gradient(135deg, #00c896, #00a881);
+            color: white;
+        }
+        
+        .badge-sale {
+            background: #ffd700;
+            color: #333;
+        }
+        
+        .shop-info {
+            padding: 20px;
+        }
+        
+        .shop-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #1d1d1f;
+        }
+        
+        .shop-desc {
+            font-size: 13px;
+            color: #86868b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .shop-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .shop-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #dc143c;
+        }
+        
+        .shop-location {
+            font-size: 12px;
+            color: #86868b;
+            background: #f5f5f7;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        
+        /* Instagram CTA */
+        .ig-shopping-cta {
+            margin: 40px 20px 0;
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        
+        .ig-shopping-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+        
+        .ig-shopping-desc {
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 20px;
+        }
+        
+        .ig-shopping-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #f58529, #dd2a7b);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .ig-shopping-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Scroll Indicator for Mobile */
+        @media (max-width: 768px) {
+            .shopping-scroll::after {
+                content: '→';
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #007aff;
+                font-size: 24px;
+                font-weight: bold;
+                pointer-events: none;
+                animation: slideHint 2s infinite;
+            }
+            
+            @keyframes slideHint {
+                0%, 100% { transform: translateY(-50%) translateX(0); }
+                50% { transform: translateY(-50%) translateX(10px); }
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -2978,119 +3171,80 @@
 
     
     <section class="shopping-section" id="shopping">
-        <div class="section-header">
-            <h2 class="section-title">
-                Shopping Guide Japan
-                <span style="display: block; font-size: 0.6em; margin-top: 8px; color: var(--secondary-text);">
-                    Panduan Belanja dari Konbini hingga Luxury
-                </span>
-            </h2>
-            <p class="section-subtitle">Tips hemat & item wajib beli di setiap kategori</p>
+        <div class="shopping-header">
+            <h2 class="shopping-title">Shopping Secrets Tokyo</h2>
+            <p class="shopping-subtitle">Swipe untuk lihat item viral & hidden gems!</p>
         </div>
         
-        <div class="shopping-container">
-            <!-- Category Tabs -->
-            <div class="category-tabs">
-                <button class="category-tab active" onclick="showCategory('must-buy', this)">🎯 Must Buy</button>
-<button class="category-tab" onclick="showCategory('konbini', this)">🏪 Konbini</button>
-<button class="category-tab" onclick="showCategory('drugstore', this)">💊 Drug Store</button>
-<button class="category-tab" onclick="showCategory('fashion', this)">👕 Fashion</button>
-<button class="category-tab" onclick="showCategory('souvenirs', this)">🎁 Oleh-oleh</button>
+        <div class="shopping-scroll">
+            <div class="shop-card">
+                <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=400&h=300&fit=crop');">
+                    <span class="shop-badge badge-viral">🔥 VIRAL</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">KitKat Limited Edition</h3>
+                    <p class="shop-desc">35+ rasa unik! Matcha, sake, wasabi - hanya di Jepang</p>
+                    <div class="shop-meta">
+                        <span class="shop-price">¥200~</span>
+                        <span class="shop-location">📍 Don Quijote</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Filter Pills -->
-            <div class="filter-pills">
-                <span class="filter-pill active">Semua</span>
-                <span class="filter-pill">Under ¥1000</span>
-                <span class="filter-pill">Tax Free</span>
-                <span class="filter-pill">Limited Edition</span>
-                <span class="filter-pill">Halal OK</span>
+            <div class="shop-card">
+                <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1555031903-6b8e8d8f8e0e?w=400&h=300&fit=crop');">
+                    <span class="shop-badge badge-halal">✅ HALAL</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Gyumon Halal Wagyu</h3>
+                    <p class="shop-desc">Wagyu A5 bersertifikat halal di Shibuya!</p>
+                    <div class="shop-meta">
+                        <span class="shop-price">¥3,000~</span>
+                        <span class="shop-location">📍 Shibuya</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Shopping List -->
-            <div class="shopping-list">
-                <!-- Must Buy / Souvenirs / Konbini -->
-                <a href="#" class="shopping-item"
-                   data-categories="must-buy,souvenirs,konbini">
-                  <img src="https://images.unsplash.com/photo-1615486364462-ef6363adbc18?w=200&h=200&fit=crop" alt="KitKat" class="item-image">
-                  <div class="item-info">
-                    <div class="item-header">
-                      <h3 class="item-name">KitKat Limited Flavors</h3>
-                      <span class="item-badge">TOP SELLER</span>
+            <div class="shop-card">
+                <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop');">
+                    <span class="shop-badge badge-sale">-30%</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Tokyo Banana</h3>
+                    <p class="shop-desc">Oleh-oleh wajib! Best seller di Tokyo Station</p>
+                    <div class="shop-meta">
+                        <span class="shop-price">¥1,500</span>
+                        <span class="shop-location">📍 Tokyo Station</span>
                     </div>
-                    <p class="item-desc">35+ rasa unik hanya di Jepang! Matcha, sakura, sake, wasabi - koleksi sempurna untuk oleh-oleh.</p>
-                    <div class="item-meta">
-                      <span class="meta-tag">💴 <strong>¥200-500</strong>/pack</span>
-                      <span class="meta-tag">📍 <strong>Don Quijote, konbini</strong></span>
-                      <span class="meta-tag">✈️ <strong>Airport friendly</strong></span>
+                </div>
+            </div>
+            
+            <div class="shop-card">
+                <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&h=300&fit=crop');">
+                    <span class="shop-badge">💄 BEAUTY</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">SK-II Essence</h3>
+                    <p class="shop-desc">Tax-free! Lebih murah 40% dari Indonesia</p>
+                    <div class="shop-meta">
+                        <span class="shop-price">¥9,000</span>
+                        <span class="shop-location">📍 Matsukiyo</span>
                     </div>
-                  </div>
-                </a>
-              
-                <!-- Konbini -->
-                <a href="#" class="shopping-item"
-                   data-categories="konbini">
-                  <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=200&h=200&fit=crop" alt="NewDays" class="item-image">
-                  <div class="item-info">
-                    <div class="item-header">
-                      <h3 class="item-name">NewDays Ekiben</h3>
-                      <span class="item-badge">UNIQUE</span>
+                </div>
+            </div>
+            
+            <div class="shop-card">
+                <div class="shop-image" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop');">
+                    <span class="shop-badge">🏪 24H</span>
+                </div>
+                <div class="shop-info">
+                    <h3 class="shop-name">Lawson Egg Sandwich</h3>
+                    <p class="shop-desc">Secret menu! Paling enak jam 3 pagi</p>
+                    <div class="shop-meta">
+                        <span class="shop-price">¥298</span>
+                        <span class="shop-location">📍 Lawson</span>
                     </div>
-                    <p class="item-desc">Bento box spesial di stasiun JR. Setiap daerah punya menu khas - perfect untuk perjalanan kereta!</p>
-                    <div class="item-meta">
-                      <span class="meta-tag">💴 <strong>¥800-1500</strong></span>
-                      <span class="meta-tag">📍 <strong>Stasiun JR</strong></span>
-                      <span class="meta-tag">🍱 <strong>Regional special</strong></span>
-                    </div>
-                  </div>
-                </a>
-              
-                <!-- Must Buy / Konbini -->
-                <a href="#" class="shopping-item"
-                   data-categories="must-buy,konbini">
-                  <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=200&h=200&fit=crop" alt="Don Quijote" class="item-image">
-                  <div class="item-info">
-                    <div class="item-header">
-                      <h3 class="item-name">Don Quijote Mystery Box</h3>
-                      <span class="item-badge">VIRAL</span>
-                    </div>
-                    <p class="item-desc">Surga belanja 24 jam! Dari kosmetik, snack aneh, hingga kostum - semua ada dengan harga miring.</p>
-                    <div class="item-meta">
-                      <span class="meta-tag">💴 <strong>Tax free ¥5000+</strong></span>
-                      <span class="meta-tag">🕐 <strong>24 jam</strong></span>
-                      <span class="meta-tag">🎁 <strong>One-stop shop</strong></span>
-                    </div>
-                  </div>
-                </a>
-              
-                <!-- Fashion -->
-                <a href="#" class="shopping-item"
-                   data-categories="fashion">
-                  <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?w=200&h=200&fit=crop" alt="Outlet" class="item-image">
-                  <div class="item-info">
-                    <div class="item-header">
-                      <h3 class="item-name">Karuizawa Prince Outlet</h3>
-                      <span class="item-badge">LUXURY DEALS</span>
-                    </div>
-                    <p class="item-desc">200+ brand dengan diskon hingga 70%! Kombinasi shopping & resort 1 jam dari Tokyo.</p>
-                    <div class="item-meta">
-                      <span class="meta-tag">💴 <strong>30-70% OFF</strong></span>
-                      <span class="meta-tag">🚄 <strong>1 jam dari Tokyo</strong></span>
-                      <span class="meta-tag">🛍️ <strong>Premium brands</strong></span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              
-        
-        <!-- Shopping Tips Box -->
-        <div style="margin-top: 32px; padding: 20px; background: white; border-radius: 16px; border-left: 4px solid var(--accent);">
-            <h3 style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">💡 Shopping Hacks</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; font-size: 14px; color: var(--secondary-text);">
-                <div>✅ <strong>Tax Free:</strong> Min ¥5,000 (consumables) / ¥10,000 (general)</div>
-                <div>✅ <strong>Best time:</strong> New Year & Summer Sale (hingga 80% off)</div>
-                <div>✅ <strong>Payment:</strong> IC Card accepted di konbini & drugstore</div>
-                <div>✅ <strong>Coupon:</strong> Download app Don Quijote untuk extra discount</div>
+                </div>
             </div>
         </div>
     </section>
