@@ -1445,43 +1445,262 @@
         }
         
         /* ========== CTA Section ========== */
-        .cta-section {
-            background: var(--gradient-primary);
-            color: white;
-            text-align: center;
+        :root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --accent: #007aff;
+            --japan-red: #dc143c;
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.08);
+            --radius-large: 16px;
+            --gradient-instagram: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            color: var(--primary-text);
+            background: var(--surface);
+        }
+        
+        .final-cta-compact {
             padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .cta-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
         
         .cta-title {
-            font-size: 28px;
+            font-size: clamp(24px, 4vw, 32px);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            color: var(--primary-text);
         }
         
         .cta-subtitle {
             font-size: 16px;
-            margin-bottom: 24px;
-            opacity: 0.9;
+            color: var(--secondary-text);
         }
         
-        .cta-button {
-            background: white;
-            color: var(--accent);
-            padding: 14px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            display: inline-flex;
+        .cta-main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
             align-items: center;
-            gap: 8px;
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 40px;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        @media (max-width: 768px) {
+            .cta-main-content {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 30px;
+            }
+        }
+        
+        /* Photo Collage */
+        .photo-collage {
+            position: relative;
+            height: 240px;
+        }
+        
+        .collage-photo {
+            position: absolute;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
         
-        .cta-button:hover {
+        .collage-photo:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .photo-1 {
+            width: 140px;
+            height: 100px;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+        
+        .photo-2 {
+            width: 120px;
+            height: 120px;
+            top: 20px;
+            right: 0;
+            object-fit: cover;
+        }
+        
+        .photo-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 0;
+            left: 30px;
+            object-fit: cover;
+        }
+        
+        .photo-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--japan-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .photo-collage {
+                height: 180px;
+                margin: 0 auto;
+                max-width: 280px;
+            }
+        }
+        
+        /* Content */
+        .cta-content {
+            flex: 1;
+        }
+        
+        .value-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 480px) {
+            .value-points {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .point-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .point-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .point-text {
+            flex: 1;
+        }
+        
+        .point-text strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .point-text span {
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+        
+        .smart-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(220, 20, 60, 0.1));
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-text);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-follow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-instagram);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-follow:hover {
             transform: translateY(-2px);
         }
         
+        .btn-bookmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--accent);
+            padding: 12px 24px;
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-bookmark:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .trust-numbers {
+            display: flex;
+            gap: 32px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .trust-item {
+            text-align: center;
+        }
+        
+        .trust-number {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .trust-label {
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+        
+        @media (max-width: 480px) {
+            .trust-numbers {
+                justify-content: space-around;
+            }
+        }
         /* ========== Footer ========== */
         .footer {
             background: var(--primary-text);
@@ -2259,7 +2478,7 @@
                 </div>
                 
                 <!-- JINS Eyewear -->
-                <a href="https://www.japankuru.com/en/shopping/206312/" class="side-item" target="_blank" rel="noopener">
+                <a href="https://www.jins.com/jp/" class="side-item" target="_blank" rel="noopener">
                     <div class="side-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/JINs_Ginza_CC15-1-2048x1365.jpg');"></div>
                     <div class="side-content">
                         <span class="side-label">EYEWEAR</span>
@@ -2534,16 +2753,86 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-title">
-                Siap Memulai Petualangan?
-                <span class="text-english">Ready to Start Your Adventure?</span>
-            </h2>
-            <p class="cta-subtitle">Bergabung dengan ribuan traveler Indonesia</p>
-            <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="cta-button" rel="noopener">
-                📱 Follow @japankuru.id
-            </a>
+    <section class="final-cta-compact">
+        <div class="cta-header">
+            <h2 class="cta-title">Smart Travel, Real Experience 🗾</h2>
+            <p class="cta-subtitle">Dipercaya oleh 1.000.000+ penggemar global sejak 2010</p>Komunitas global 1M+ traveler, kini hadir di Indonesia
+        </div>
+        
+        <div class="cta-main-content">
+            <!-- Photo Collage -->
+            <div class="photo-collage">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2023/06/69166496_2319739331408151_3163022712314527744_n.jpeg" 
+                     alt="Testing halal ramen" class="collage-photo photo-1">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/MakingPhoto_CC02_0-scaled.jpg" 
+                     alt="Behind scenes" class="collage-photo photo-2">
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/MakingPhoto_CC01_0-scaled-e1722583606753.jpg" 
+                     alt="Team work" class="collage-photo photo-3">
+                <span class="photo-badge">LIVE from Tokyo</span>
+            </div>
+            
+            <!-- Content -->
+            <div class="cta-content">
+                <span class="smart-badge">🧠 Be a Smart Japan Traveler!</span>
+                
+                <div class="value-points">
+                    <div class="point-item">
+                        <span class="point-icon">🎬</span>
+                        <div class="point-text">
+                            <strong>100% Field Tested</strong>
+                            <span>Setiap rekomendasi sudah kami coba</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">🕌</span>
+                        <div class="point-text">
+                            <strong>Muslim-Friendly Focus</strong>
+                            <span>Halal food & tempat sholat</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">💎</span>
+                        <div class="point-text">
+                            <strong>Hidden Gems</strong>
+                            <span>Spot rahasia locals only</span>
+                        </div>
+                    </div>
+                    
+                    <div class="point-item">
+                        <span class="point-icon">⚡</span>
+                        <div class="point-text">
+                            <strong>Real-Time Info</strong>
+                            <span>Update langsung dari lapangan</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="btn-follow">
+                        📱 Follow @japankuru.id
+                    </a>
+                    <button onclick="alert('Tekan Ctrl+D (Windows) atau ⌘+D (Mac) untuk bookmark!')" class="btn-bookmark">
+                        🔖 Bookmark Site
+                    </button>
+                </div>
+                
+                <div class="trust-numbers">
+                    <div class="trust-item">
+                        <span class="trust-number">14</span>
+                        <span class="trust-label">Tahun di Tokyo</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">1M+</span>
+                        <span class="trust-label">Global Fans</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">1000+</span>
+                        <span class="trust-label">Artikel & Tips</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2553,22 +2842,24 @@
             <h3>Japankuru Indonesia</h3>
             <p>Platform wisata Muslim-friendly terbaik untuk Jepang</p>
             
-            <div class="footer-links">
-                <a href="https://japankuru.com/id" target="_blank" rel="noopener">Website</a>
-                <a href="#">Tentang Kami</a>
-                <a href="#">Kontak</a>
-                <a href="#">FAQ</a>
+            <div class="footer-links unified-footer">
+                <a href="https://japankuru.com/id" target="_blank" rel="noopener">
+                    🌐 Website (Indonesia)
+                </a>
+                <a href="https://facebook.com/japankuru" target="_blank" rel="noopener">
+                    f Facebook (Global)
+                </a>
+                <a href="https://www.instagram.com/japankuru/" target="_blank" rel="noopener">
+                    📷 Instagram (Global)
+                </a>
+                <a href="https://www.youtube.com/@cometojapankuru" target="_blank" rel="noopener">
+                    ▶ YouTube (Global)
+                </a>
             </div>
             
-            <div class="social-links">
-                <a href="https://facebook.com/japankuru.id" target="_blank" class="social-link" rel="noopener">f</a>
-                <a href="https://www.instagram.com/japankuru_id/" target="_blank" class="social-link" rel="noopener">📷</a>
-                <a href="https://twitter.com/japankuru_id" target="_blank" class="social-link" rel="noopener">𝕏</a>
-                <a href="https://youtube.com/japankuru" target="_blank" class="social-link" rel="noopener">▶</a>
-            </div>
             
             <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 20px;">
-                © 2024 Japankuru Indonesia. All rights reserved.
+                © 2025 Japankuru Indonesia. All rights reserved.
             </p>
         </div>
     </footer>
