@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>チーム別ミッションカード</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans JP', sans-serif; }
+
+    /* 화면 표시용: 중앙 정렬 + 페이지 그림자, 배경은 흰색 */
+    @media screen {
+      body {
+        background: #ffffff;            /* 보라색 대신 흰색 */
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .page { box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+    }
+
+    /* 한 장(=A4) 컨테이너: 헤더+그리드 모두 포함 */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: #ffffff;
+      padding: 15mm;                 /* 페이지 바깥 여백 */
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* 헤더 (페이지 안쪽) */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10mm;
+      border-bottom: 2px solid #333;
+    }
+    .logo-space {
+      width: 120px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      flex-grow: 1;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* 카드 2x2 그리드 (페이지 내부 공간을 꽉 채움) */
+    .sheet-grid {
+      margin-top: 10mm;
+      flex: 1; /* 남은 공간을 꽉 채움 */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 12mm;  /* 카드 간격 */
+    }
+
+    /* 카드 */
+    .mission-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      position: relative;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+    }
+
+    /* 큰 아이콘 워터마크 */
+    .category-icon {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 140px; height: 140px;
+      opacity: 0.08;
+      transform: rotate(-15deg);
+      z-index: 0;
+    }
+
+    .card-header {
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 120%; height: 200%;
+      opacity: 0.1;
+      transform: rotate(-15deg);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+    .header-left { flex: 1; }
+
+    .header-icon {
+      width: 48px; height: 48px;
+      padding: 10px; border-radius: 12px;
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+
+    .team-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.9);
+      padding: 6px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 12px; backdrop-filter: blur(10px);
+    }
+    .team-badge svg { width: 16px; height: 16px; }
+
+    .client-section { margin-bottom: 8px; }
+    .client-label {
+      font-size: 10px; font-weight: 600; opacity: .7;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .client-name { font-size: 20px; font-weight: 800; line-height: 1.2; color: #1a1a1a; }
+
+    .category-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 8px; padding: 4px 10px;
+      background: rgba(0,0,0,0.05); border-radius: 8px;
+      font-size: 11px; font-weight: 600;
+    }
+    .category-label svg { width: 14px; height: 14px; }
+
+    .mission-content {
+      padding: 20px;
+      flex: 1;
+      display: flex; flex-direction: column;
+      position: relative; z-index: 1;
+    }
+    .mission-title {
+      font-size: 14px; font-weight: 800; margin-bottom: 12px; color: #2d2d2d;
+      position: relative; padding-left: 20px;
+    }
+    .mission-title::before {
+      content: '🎯'; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    }
+    .mission-text { font-size: 13px; line-height: 1.8; color: #4a4a4a; flex: 1; }
+    .highlight { font-weight: 800; padding: 2px 4px; border-radius: 4px; position: relative; z-index: 1; }
+    .keywords {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(0,0,0,0.1);
+    }
+    .keyword { font-size: 10px; padding: 4px 10px; border-radius: 12px; font-weight: 600; letter-spacing: 0.3px; }
+
+    /* 팀별 색상 */
+    #card-a .card-header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    #card-a .team-badge { color: #0d7a6e; }
+    #card-a .highlight { background: rgba(17,153,142,.15); color: #0d7a6e; }
+    #card-a .keyword { background: rgba(56,239,125,.15); color: #0d7a6e; }
+    #card-a .category-label, #card-a .header-icon { color: #0d7a6e; }
+    #card-a .category-icon { fill: #11998e; }
+
+    #card-b .card-header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    #card-b .team-badge { color: #d41e3c; }
+    #card-b .highlight { background: rgba(245,87,108,.15); color: #d41e3c; }
+    #card-b .keyword { background: rgba(240,147,251,.15); color: #d41e3c; }
+    #card-b .category-label, #card-b .header-icon { color: #d41e3c; }
+    #card-b .category-icon { fill: #f5576c; }
+
+    #card-c .card-header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    #card-c .team-badge { color: #0077be; }
+    #card-c .highlight { background: rgba(79,172,254,.15); color: #0077be; }
+    #card-c .keyword { background: rgba(0,242,254,.15); color: #0077be; }
+    #card-c .category-label, #card-c .header-icon { color: #0077be; }
+    #card-c .category-icon { fill: #4facfe; }
+
+    #card-d .card-header { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    #card-d .team-badge { color: #d6336c; }
+    #card-d .highlight { background: rgba(250,112,154,.15); color: #d6336c; }
+    #card-d .keyword { background: rgba(254,225,64,.15); color: #d6336c; }
+    #card-d .category-label, #card-d .header-icon { color: #d6336c; }
+    #card-d .category-icon { fill: #fa709a; }
+
+    /* 인쇄용: A4 강제 + 여백 0 */
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: white; }
+      .page { box-shadow: none; page-break-after: always; }
+      /* 화면 전용 효과 제거 */
+      .mission-card:hover { transform: none; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 헤더(페이지 내부) -->
+    <div class="header">
+      <div class="logo-space">
+        <img src="https://www.gldaily.com/gld-kanri/wp-content/themes/gldaily/assets/images/logo.png"
+             alt="ロゴ" style="max-width:100%; height:auto;">
+      </div>
+      <h1>チーム別ミッションカード</h1>
+    </div>
+
+    <!-- 2x2 카드 그리드 -->
+    <div class="sheet-grid">
+      <!-- Team A -->
+      <div class="mission-card" id="card-a">
+        <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/></svg>
+        <div class="card-header">
+          <div class="header-content">
+            <div class="header-left">
+              <div class="team-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L2,7V12C2,16.5 4.23,20.68 7.62,23.15L12,24L16.38,23.15C19.77,20.68 22,16.5 22,12V7L12,2Z"/></svg>
+                Aチーム：ロシア・東欧
+              </div>
+              <div class="client-section">
+                <div class="client-label">Client</div>
+                <div class="client-name">箱根観光協会</div>
+              </div>
+              <div class="category-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2C6.5,2 2,6.5 2,12C2,17.5 6.5,22 12,22C17.5,22 22,17.5 22,12C22,6.5 17.5,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/></svg>
+                観光・地域振興
+              </div>
+            </div>
+            <div class="header-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15,18.54C17.13,18.21 19.5,18 22,18V22H5C5,21.35 8.2,19.86 13,18.9V12.4C12.16,12.65 11.45,13.21 11,13.95C10.39,12.93 9.27,12.25 8,12.25C6.73,12.25 5.61,12.93 5,13.95C5.03,10.37 8.5,7.43 13,7.04V7A1,1 0 0,1 14,6A1,1 0 0,1 15,7V7.04C19.5,7.43 22.96,10.37 23,13.95C22.39,12.93 21.27,12.25 20,12.25C18.73,12.25 17.61,12.93 17,13.95C16.55,13.21 15.84,12.65 15,12.39V18.54M7,2A5,5 0 0,1 2,7V8H7V2M17,2V8H22V7A5,5 0 0,0 17,2Z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="mission-content">
+          <div class="mission-title">ミッション</div>
+          <div class="mission-text">
+            東京の賑やかさに疲れた旅行客に、箱根の大自然で楽しむ<span class="highlight">「1泊2日の癒やし温泉旅行」</span>を提案せよ！特に、自然とリラックスを重視する欧米からの旅行客をターゲットに、JAPANKURUとkorekokoをどう活用するか？
+          </div>
+          <div class="keywords">
+            <span class="keyword">♨️ 温泉</span>
+            <span class="keyword">🌿 大自然</span>
+            <span class="keyword">🧘 リラックス</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team B -->
+      <div class="mission-card" id="card-b">
+        <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,13A5,5 0 0,1 7,8H9A3,3 0 0,0 12,11A3,3 0 0,0 15,8H17A5,5 0 0,1 12,13M12,3L13.45,5.55L16.3,6L14.15,8.05L14.7,10.9L12,9.5L9.3,10.9L9.85,8.05L7.7,6L10.55,5.55L12,3M2,21H20V19H2V21M6,15V17H18V15H6Z"/></svg>
+        <div class="card-header">
+          <div class="header-content">
+            <div class="header-left">
+              <div class="team-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L2,7V12C2,16.5 4.23,20.68 7.62,23.15L12,24L16.38,23.15C19.77,20.68 22,16.5 22,12V7L12,2Z"/></svg>
+                Bチーム：中国
+              </div>
+              <div class="client-section">
+                <div class="client-label">Client</div>
+                <div class="client-name">ドン・キホーテ</div>
+              </div>
+              <div class="category-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19,7H16V6A4,4 0 0,0 12,2A4,4 0 0,0 8,6V7H5A1,1 0 0,0 4,8V20A1,1 0 0,0 5,21H19A1,1 0 0,0 20,20V8A1,1 0 0,0 19,7M10,6A2,2 0 0,1 12,4A2,2 0 0,1 14,6V7H10V6Z"/></svg>
+                大型ディスカウントストア
+              </div>
+            </div>
+            <div class="header-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.36 9L18.96 12H5.04L5.64 9H18.36M20 4H4V6H20V4M20 7H4L3 12V14H4V20H14V14H18V20H20V14H21V12L20 7M12 18H6V14H12V18Z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="mission-content">
+          <div class="mission-title">ミッション</div>
+          <div class="mission-text">
+            帰国直前の旅行客に「お土産はドン・キホーテで！」と思わせる<span class="highlight">最後の必須ショッピングコース</span>として定着させよ！特に<span class="highlight">化粧品</span>と<span class="highlight">医薬品</span>を中心に、JAPANKURUとkorekokoを活用した来店促進プランを！
+          </div>
+          <div class="keywords">
+            <span class="keyword">🛍️ ショッピング</span>
+            <span class="keyword">💄 化粧品</span>
+            <span class="keyword">💊 医薬品</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team C -->
+      <div class="mission-card" id="card-c">
+        <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2C8,2 4,2.5 4,6V15.5A3.5,3.5 0 0,0 7.5,19L6,20.5V21H8.23L10,19H14L15.77,21H18V20.5L16.5,19A3.5,3.5 0 0,0 20,15.5V6C20,2.5 16.42,2 12,2M7.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,14A1.5,1.5 0 0,1 9,15.5A1.5,1.5 0 0,1 7.5,17M11,10H6V6H11V10M13,10V6H18V10H13M16.5,17A1.5,1.5 0 0,1 15,15.5A1.5,1.5 0 0,1 16.5,14A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 16.5,17Z"/></svg>
+        <div class="card-header">
+          <div class="header-content">
+            <div class="header-left">
+              <div class="team-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L2,7V12C2,16.5 4.23,20.68 7.62,23.15L12,24L16.38,23.15C19.77,20.68 22,16.5 22,12V7L12,2Z"/></svg>
+                Cチーム：スペイン・中南米
+              </div>
+              <div class="client-section">
+                <div class="client-label">Client</div>
+                <div class="client-name">成田エクスプレス</div>
+              </div>
+              <div class="category-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8,14.25L4.5,10.75L5.92,9.33L8,11.42L12.17,7.25L13.58,8.66L8,14.25M12,2C8,2 4,2.5 4,6V15.5A3.5,3.5 0 0,0 7.5,19L6,20.5V21H8.23L10,19H14L15.77,21H18V20.5L16.5,19A3.5,3.5 0 0,0 20,15.5V6C20,2.5 16.42,2 12,2Z"/></svg>
+                交通機関
+              </div>
+            </div>
+            <div class="header-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2C8,2 4,2.5 4,6V15.5A3.5,3.5 0 0,0 7.5,19L6,20.5V21H8.23L10,19H14L15.77,21H18V20.5L16.5,19A3.5,3.5 0 0,0 20,15.5V6C20,2.5 16.42,2 12,2M7.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,14A1.5,1.5 0 0,1 9,15.5A1.5,1.5 0 0,1 7.5,17M11,10H6V6H11V10M13,10V6H18V10H13M16.5,17A1.5,1.5 0 0,1 15,15.5A1.5,1.5 0 0,1 16.5,14A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 16.5,17Z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="mission-content">
+          <div class="mission-title">ミッション</div>
+          <div class="mission-text">
+            空港到着の旅行客に「複雑なバスより、<span class="highlight">速くて快適な成田エクスプレス</span>こそが最高の日本旅行の始まり」と確信させよ！JAPANKURUとkorekokoで、その<span class="highlight">速さ</span>と<span class="highlight">快適さ</span>をどう効果的に伝えるか？
+          </div>
+          <div class="keywords">
+            <span class="keyword">🚄 高速</span>
+            <span class="keyword">💺 快適</span>
+            <span class="keyword">⏱️ 定時性</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team D -->
+      <div class="mission-card" id="card-d">
+        <svg class="category-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,7H11V14H3V5H1V20H3V17H21V20H23V11A4,4 0 0,0 19,7M7,13A3,3 0 0,0 10,10A3,3 0 0,0 7,7A3,3 0 0,0 4,10A3,3 0 0,0 7,13Z"/></svg>
+        <div class="card-header">
+          <div class="header-content">
+            <div class="header-left">
+              <div class="team-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L2,7V12C2,16.5 4.23,20.68 7.62,23.15L12,24L16.38,23.15C19.77,20.68 22,16.5 22,12V7L12,2Z"/></svg>
+                Dチーム：グローバル
+              </div>
+              <div class="client-section">
+                <div class="client-label">Client</div>
+                <div class="client-name">アパホテル</div>
+              </div>
+              <div class="category-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10,2V4.26L12,5.59V4H22V19H17V21H22A2,2 0 0,0 24,19V4A2,2 0 0,0 22,2H10M7.5,5L0,10V21H15V10L7.5,5M14,6V6.93L15,7.75V6H14M16,6V8.5L17,9.31V6H16M18,6V10.06L19,10.88V6H18M20,6V12.63L21,13.45V6H20M7.5,7.5L13,11V19H10V13H5V19H2V11L7.5,7.5M7,15V19H8V15H7Z"/></svg>
+                宿泊施設
+              </div>
+            </div>
+            <div class="header-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7,13A3,3 0 0,0 10,10A3,3 0 0,0 7,7A3,3 0 0,0 4,10A3,3 0 0,0 7,13M19,7H11V14H3V5H1V20H3V17H21V20H23V11A4,4 0 0,0 19,7Z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="mission-content">
+          <div class="mission-title">ミッション</div>
+          <div class="mission-text">
+            Airbnbを好む若い旅行客に「不安定な個人宿泊」より、駅前の<span class="highlight">「圧倒的な利便性と安心感」</span>を持つアパホテルを選んでもらうには？JAPANKURUとkorekokoを活用し、アパホテルならではの魅力をアピール！
+          </div>
+          <div class="keywords">
+            <span class="keyword">🏨 安心感</span>
+            <span class="keyword">📍 立地</span>
+            <span class="keyword">🔑 利便性</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sheet-grid -->
+  </div><!-- /page -->
+</body>
+</html>
