@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>企画シート</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        /* 印刷設定 */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .worksheet {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 10mm 15mm;
+                box-shadow: none !important;
+                page-break-after: always;
+            }
+        }
+        
+        /* 画面表示設定 */
+        @media screen {
+            body {
+                font-family: 'Noto Sans JP', sans-serif;
+                background-color: #f0f2f5;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                margin: 0;
+            }
+        }
+        
+        .worksheet {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            padding: 10mm 15mm;
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            font-family: 'Noto Sans JP', sans-serif;
+            position: relative;
+        }
+        
+        /* ヘッダー部分（ロゴスペース付き） */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+        
+        .logo-space {
+            width: 120px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 18px;
+        }
+        
+        h2 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #007aff;
+            background-color: #f0f8ff;
+            padding: 5px 10px;
+            border-left: 4px solid #007aff;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .input-group label {
+            font-weight: 700;
+            margin-right: 8px;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+        
+        .input-group .line {
+            border-bottom: 1px solid #999;
+            width: 100%;
+            height: 20px;
+            flex-grow: 1;
+        }
+        
+        .textarea-line {
+            border: 1px solid #999;
+            border-radius: 4px;
+            padding: 8oming;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        
+        .textarea-line.small {
+            height: 50px;
+        }
+        
+        .textarea-line.medium {
+            height: 65px;
+        }
+        
+        .step3-content {
+            font-size: 12px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        
+        .role-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 15px;
+        }
+        
+        .team-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        /* フッター（ページ番号用） */
+        .footer {
+            position: absolute;
+            bottom: 5mm;
+            right: 10mm;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        /* コンパクトなレイアウト調整 */
+        p {
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        .memo {
+    margin-top: 20px;
+}
+
+.memo h3 {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.memo-box {
+    border: 1px solid #999;
+    border-radius: 4px;
+    height: 200px; /* 필요에 따라 높이 조절 */
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <div class="worksheet">
+        <!-- ヘッダー（ロゴスペース付き） -->
+<div class="header">
+    <div class="logo-space">
+        <img src="https://www.gldaily.com/gld-kanri/wp-content/themes/gldaily/assets/images/logo.png" alt="ロゴ" style="max-width:100%; height:auto;">
+    </div>
+    <h1>【企画シート】最高の訪日旅行客集客プランを考えよう!</h1>
+</div>
+
+        
+        <!-- チーム情報 -->
+        <div class="team-info">
+            <div class="input-group">
+                <label>チーム名:</label><div class="line"></div>
+            </div>
+            <div class="input-group">
+                <label>クライアント:</label><div class="line"></div>
+            </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="section">
+            <h2>STEP 1: 誰に? (ターゲット)</h2>
+            <div class="input-group">
+                <label>ターゲット国:</label><div class="line"></div>
+            </div>
+            <div class="input-group">
+                <label>ターゲット層:</label><div class="line"></div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="section">
+            <h2>STEP 2: 何を? (コアアイデア)</h2>
+            <div class="input-group">
+                <label>キャッチコピー:</label><div class="line"></div>
+            </div>
+        </div>
+        
+        <!-- STEP 3 -->
+        <div class="section">
+            <h2>STEP 3: どうやって? (具体的な方法)</h2>
+            <p class="step3-content">1. JAPANKURU (メディア) を使ったアイデア</p>
+            <div class="textarea-line small"></div>
+            <p class="step3-content" style="margin-top: 10px;">2. korekoko (プラットフォーム) を使ったアイデア</p>
+            <div class="textarea-line small"></div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="section">
+            <h2>STEP 4: なぜ? (期待できる効果)</h2>
+            <p>この企画が成功したら、どんな良いことが起こりますか?</p>
+            <div class="textarea-line medium"></div>
+        </div>
+        
+        <!-- チームメンバー -->
+        <div class="section">
+            <h2>チームメンバーと役割分担</h2>
+            <div class="role-section">
+                <div class="input-group">
+                    <label>リーダー:</label><div class="line"></div>
+                </div>
+                <div class="input-group">
+                    <label>書記:</label><div class="line"></div>
+                </div>
+                <div class="input-group">
+                    <label>アイデアマン:</label><div class="line"></div>
+                </div>
+                <div class="input-group">
+                    <label>発表者:</label><div class="line"></div>
+                </div>
+            </div>
+        </div>
+        <!-- メモ欄 -->
+<div class="memo">
+    <h3>メモ</h3>
+    <div class="memo-box"></div>
+</div>
+
+<!-- フッター -->
+<div class="footer">
+    1 / 1
+</div>
+
+        <!-- フッター -->
+        <div class="footer">
+            1 / 1
+        </div>
+    </div>
+</body>
+</html>
