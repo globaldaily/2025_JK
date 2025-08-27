@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JAPANKURU Wallet</title>
-  
+  <meta name="robots" content="noindex,nofollow">
+  <title>JAPANKURU Wallet — DEMO</title>
   <style>
-    /* ===== Apple Design System ===== */
     :root {
       --primary: #007AFF;
       --secondary: #5856D6;
       --success: #34C759;
       --warning: #FF9500;
       --danger: #FF3B30;
-      
       --gray-50: #F2F2F7;
       --gray-100: #E5E5EA;
       --gray-200: #D1D1D6;
@@ -24,692 +22,115 @@
       --gray-700: #48484A;
       --gray-800: #2C2C2E;
       --gray-900: #1C1C1E;
-      
       --bg: #FFFFFF;
       --surface: #F2F2F7;
       --text: #000000;
       --text-secondary: #8E8E93;
-      
       --radius: 20px;
       --radius-sm: 12px;
       --radius-xs: 8px;
-      
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
       --shadow: 0 4px 12px rgba(0,0,0,0.08);
       --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
-      
       --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
     }
-    
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #000000;
-        --surface: #1C1C1E;
-        --text: #FFFFFF;
-        --text-secondary: #8E8E93;
-        --gray-50: #1C1C1E;
-        --gray-100: #2C2C2E;
-      }
-    }
-    
-    /* ===== 리셋 ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: var(--font);
-      background: var(--surface);
-      color: var(--text);
-      line-height: 1.5;
-      font-size: 17px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    /* ===== 레이아웃 ===== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    /* ===== 헤더 (Apple 스타일) ===== */
-    header {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 0.5px solid var(--gray-200);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      header {
-        background: rgba(28,28,30,0.8);
-      }
-    }
-    
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 52px;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 19px;
-    }
-    
-    .logo img {
-      height: 28px;
-      width: auto;
-    }
-    
-    /* ===== 언어 선택 (Apple 스타일) ===== */
-    .lang-select {
-      padding: 6px 12px;
-      border: none;
-      border-radius: var(--radius-xs);
-      background: var(--gray-100);
-      color: var(--text);
-      font-size: 15px;
-      cursor: pointer;
-      font-family: inherit;
-      min-width: 120px;
-      transition: all 0.2s;
-    }
-    
-    .lang-select:hover {
-      background: var(--gray-200);
-    }
-    
-    .lang-select:focus {
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(0,122,255,0.3);
-    }
-    
-    /* ===== 히어로 섹션 (Apple 스타일) ===== */
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 60px 40px;
-      border-radius: var(--radius);
-      margin: 30px 0;
-      text-align: center;
-    }
-    
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-    
-    .hero p {
-      font-size: 21px;
-      opacity: 0.95;
-      font-weight: 400;
-    }
-    
-    @media (max-width: 768px) {
-      .hero {
-        padding: 40px 20px;
-      }
-      .hero h1 {
-        font-size: 32px;
-      }
-      .hero p {
-        font-size: 17px;
-      }
-    }
-    
-    /* ===== 검색바 (Apple 스타일) ===== */
-    .search-bar {
-      margin-bottom: 30px;
-    }
-    
-    .search-input {
-      width: 100%;
-      padding: 16px 20px;
-      padding-left: 48px;
-      border: none;
-      border-radius: var(--radius-sm);
-      background: var(--bg);
-      font-size: 17px;
-      transition: all 0.2s;
-      box-shadow: var(--shadow);
-    }
-    
-    .search-wrapper {
-      position: relative;
-    }
-    
-    .search-icon {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray-400);
-      pointer-events: none;
-    }
-    
-    .search-input:focus {
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(0,122,255,0.3);
-    }
-    
-    .search-input::placeholder {
-      color: var(--gray-400);
-    }
-    
-    /* ===== 카테고리 탭 (Apple 스타일) ===== */
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .tab {
-      padding: 10px 20px;
-      border: none;
-      background: var(--bg);
-      border-radius: 100px;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: all 0.2s;
-      box-shadow: var(--shadow-sm);
-      color: var(--text);
-      font-family: inherit;
-    }
-    
-    .tab:hover {
-      transform: scale(1.05);
-      box-shadow: var(--shadow);
-    }
-    
-    .tab.active {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 4px 12px rgba(0,122,255,0.3);
-    }
-    
-    .tab .badge {
-      display: inline-block;
-      background: rgba(0,0,0,0.1);
-      padding: 2px 8px;
-      border-radius: 100px;
-      font-size: 12px;
-      margin-left: 6px;
-      font-weight: 600;
-    }
-    
-    .tab.active .badge {
-      background: rgba(255,255,255,0.3);
-    }
-    
-    /* ===== 쿠폰 그리드 ===== */
-    .coupon-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      margin-bottom: 60px;
-    }
-    
-    @media (max-width: 768px) {
-      .coupon-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-    }
-    
-    /* ===== 쿠폰 카드 (Apple 스타일) ===== */
-    .coupon-card {
-      background: var(--bg);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .coupon-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    .coupon-card:focus {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
-    }
-    
-    .coupon-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    /* 만료 임박 배지 */
-    .expiry-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--danger);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-    }
-    
-    .coupon-body {
-      padding: 20px;
-    }
-    
-    .coupon-title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    
-    .coupon-offer {
-      font-size: 28px;
-      color: var(--danger);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    
-    .coupon-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.4;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    
-    .coupon-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 16px;
-      border-top: 1px solid var(--gray-100);
-    }
-    
-    .coupon-area {
-      font-size: 14px;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    /* ===== 저장 버튼 (Apple 스타일) ===== */
-    .save-btn {
-      padding: 8px 16px;
-      border: none;
-      background: var(--gray-100);
-      border-radius: 100px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: inherit;
-    }
-    
-    .save-btn:hover {
-      background: var(--gray-200);
-      transform: scale(1.05);
-    }
-    
-    .save-btn.saved {
-      background: var(--warning);
-      color: white;
-    }
-    
-    .save-btn.saved:hover {
-      background: #FF8800;
-    }
-    
-    /* ===== 모달 (Apple 스타일) ===== */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 1000;
-      padding: 20px;
-      overflow-y: auto;
-    }
-    
-    .modal.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.3s;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    .modal-content {
-      background: var(--bg);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-      animation: slideUp 0.3s;
-      box-shadow: var(--shadow-lg);
-    }
-    
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
-    .modal-body {
-      padding: 30px;
-    }
-    
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
-      border: none;
-      background: var(--gray-100);
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      color: var(--text);
-    }
-    
-    .modal-close:hover {
-      background: var(--gray-200);
-      transform: scale(1.1);
-    }
-    
-    .modal-title {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      padding-right: 40px;
-      letter-spacing: -0.02em;
-    }
-    
-    .modal-offer {
-      font-size: 36px;
-      color: var(--danger);
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-    
-    .coupon-code-box {
-      background: var(--surface);
-      padding: 24px;
-      border-radius: var(--radius-sm);
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    
-    .coupon-code {
-      font-size: 32px;
-      font-family: 'SF Mono', 'Monaco', monospace;
-      font-weight: 600;
-      margin-bottom: 16px;
-      letter-spacing: 0.05em;
-    }
-    
-    /* ===== 버튼 (Apple 스타일) ===== */
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 100px;
-      font-size: 17px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-width: 120px;
-    }
-    
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background: #0051D5;
-      transform: scale(1.05);
-    }
-    
-    .btn-secondary {
-      background: var(--gray-100);
-      color: var(--text);
-    }
-    
-    .btn-secondary:hover {
-      background: var(--gray-200);
-      transform: scale(1.05);
-    }
-    
-    .btn.copied {
-      background: var(--success);
-      color: white;
-    }
-    
-    /* ===== 링크 섹션 (새로 추가) ===== */
-    .links-section {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 24px 0;
-      padding: 20px;
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-    }
-    
-    .link-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: var(--bg);
-      border-radius: var(--radius-xs);
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.2s;
-      border: 1px solid var(--gray-100);
-    }
-    
-    .link-item:hover {
-      background: var(--gray-50);
-      transform: translateX(4px);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .link-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      font-weight: 500;
-    }
-    
-    .link-arrow {
-      color: var(--gray-400);
-      font-size: 14px;
-    }
-    
-    /* ===== 모달 섹션 ===== */
-    .modal-section {
-      margin-bottom: 24px;
-    }
-    
-    .modal-section h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-secondary);
-    }
-    
-    .modal-section ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .modal-section li {
-      font-size: 15px;
-      color: var(--text);
-      margin-bottom: 8px;
-      padding-left: 20px;
-      position: relative;
-      line-height: 1.5;
-    }
-    
-    .modal-section li:before {
-      content: "•";
-      position: absolute;
-      left: 8px;
-      color: var(--gray-400);
-    }
-    
-    .modal-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-    
-    .close-modal-btn {
-      width: 100%;
-      margin-top: 24px;
-    }
-    
-    /* ===== 저장 정보 배너 ===== */
-    .saved-info {
-      background: linear-gradient(135deg, var(--warning), #FF8800);
-      color: white;
-      padding: 16px 20px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 24px;
-      display: none;
-      font-weight: 500;
-      box-shadow: var(--shadow);
-    }
-    
-    .saved-info.show {
-      display: block;
-    }
-    
-    /* ===== 검색 결과 없음 ===== */
-    .no-results {
-      text-align: center;
-      padding: 80px 20px;
-      display: none;
-    }
-    
-    .no-results.show {
-      display: block;
-    }
-    
-    .no-results-icon {
-      font-size: 72px;
-      margin-bottom: 20px;
-      opacity: 0.5;
-    }
-    
-    .no-results h3 {
-      font-size: 24px;
-      margin-bottom: 12px;
-      font-weight: 600;
-    }
-    
-    .no-results p {
-      color: var(--text-secondary);
-      font-size: 17px;
-    }
-    
-    /* ===== 공유 버튼 섹션 ===== */
-    .share-section {
-      display: flex;
-      gap: 12px;
-      margin: 20px 0;
-    }
-    
-    .share-btn {
-      flex: 1;
-    }
-    
-    /* ===== 반응형 ===== */
-    @media (max-width: 640px) {
-      .modal-content {
-        margin: 20px;
-        max-height: calc(100vh - 40px);
-      }
-      
-      .tabs {
-        padding: 0 20px 10px;
-        margin: 0 -20px 30px;
-      }
-    }
+      :root { --bg:#000; --surface:#1C1C1E; --text:#fff; --text-secondary:#8E8E93; --gray-50:#1C1C1E; --gray-100:#2C2C2E; }
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font);background:var(--surface);color:var(--text);line-height:1.5;font-size:17px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    header{background:rgba(255,255,255,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--gray-200);position:sticky;top:0;z-index:100}
+    @media (prefers-color-scheme: dark){header{background:rgba(28,28,30,0.8)}}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;height:52px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:600;font-size:19px}
+    .logo img{height:28px;width:auto}
+    .lang-select{padding:6px 12px;border:none;border-radius:var(--radius-xs);background:var(--gray-100);color:var(--text);font-size:15px;cursor:pointer;font-family:inherit;min-width:120px;transition:all .2s}
+    .lang-select:hover{background:var(--gray-200)}
+    .lang-select:focus{outline:none;box-shadow:0 0 0 4px rgba(0,122,255,0.3)}
+    .hero{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:60px 40px;border-radius:var(--radius);margin:30px 0;text-align:center}
+    .hero h1{font-size:48px;font-weight:700;margin-bottom:12px;letter-spacing:-.02em}
+    .hero p{font-size:21px;opacity:.95;font-weight:400}
+    @media (max-width:768px){.hero{padding:40px 20px}.hero h1{font-size:32px}.hero p{font-size:17px}}
+    .search-bar{margin-bottom:30px}
+    .search-input{width:100%;padding:16px 20px 16px 48px;border:none;border-radius:var(--radius-sm);background:var(--bg);font-size:17px;transition:all .2s;box-shadow:var(--shadow)}
+    .search-wrapper{position:relative}
+    .search-icon{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--gray-400);pointer-events:none}
+    .search-input:focus{outline:none;box-shadow:0 0 0 4px rgba(0,122,255,0.3)}
+    .search-input::placeholder{color:var(--gray-400)}
+    .tabs{display:flex;gap:10px;margin-bottom:30px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{padding:10px 20px;border:none;background:var(--bg);border-radius:100px;cursor:pointer;font-size:15px;font-weight:500;white-space:nowrap;transition:all .2s;box-shadow:var(--shadow-sm);color:var(--text);font-family:inherit}
+    .tab:hover{transform:scale(1.05);box-shadow:var(--shadow)}
+    .tab.active{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(0,122,255,0.3)}
+    .tab .badge{display:inline-block;background:rgba(0,0,0,0.1);padding:2px 8px;border-radius:100px;font-size:12px;margin-left:6px;font-weight:600}
+    .tab.active .badge{background:rgba(255,255,255,0.3)}
+    .coupon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-bottom:60px}
+    @media (max-width:768px){.coupon-grid{grid-template-columns:1fr;gap:16px}}
+    .coupon-card{background:var(--bg);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow);transition:all .3s cubic-bezier(.25,.46,.45,.94);cursor:pointer;position:relative}
+    .coupon-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .coupon-card:focus{outline:2px solid var(--primary);outline-offset:2px}
+    .coupon-card img{width:100%;height:200px;object-fit:cover}
+    .expiry-badge{position:absolute;top:12px;right:12px;background:var(--danger);color:#fff;padding:6px 12px;border-radius:100px;font-size:13px;font-weight:600;box-shadow:var(--shadow)}
+    .coupon-body{padding:20px}
+    .coupon-title{font-size:22px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+    .coupon-offer{font-size:28px;color:var(--danger);font-weight:700;margin-bottom:12px}
+    .coupon-desc{font-size:15px;color:var(--text-secondary);margin-bottom:16px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+    .coupon-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--gray-100)}
+    .coupon-area{font-size:14px;color:var(--text-secondary);display:flex;align-items:center;gap:6px}
+    .save-btn{padding:8px 16px;border:none;background:var(--gray-100);border-radius:100px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s;display:flex;align-items:center;gap:4px;font-family:inherit}
+    .save-btn:hover{background:var(--gray-200);transform:scale(1.05)}
+    .save-btn.saved{background:var(--warning);color:#fff}
+    .save-btn.saved:hover{background:#FF8800}
+    .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:1000;padding:20px;overflow-y:auto}
+    .modal.show{display:flex;align-items:center;justify-content:center;animation:fadeIn .3s}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .modal-content{background:var(--bg);border-radius:var(--radius);width:100%;max-width:500px;max-height:90vh;overflow-y:auto;position:relative;animation:slideUp .3s;box-shadow:var(--shadow-lg)}
+    @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal-body{padding:30px}
+    .modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border:none;background:var(--gray-100);border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--text)}
+    .modal-close:hover{background:var(--gray-200);transform:scale(1.1)}
+    .modal-title{font-size:28px;font-weight:600;margin-bottom:8px;padding-right:40px;letter-spacing:-.02em}
+    .modal-offer{font-size:36px;color:var(--danger);font-weight:700;margin-bottom:24px}
+    .coupon-code-box{background:var(--surface);padding:24px;border-radius:var(--radius-sm);text-align:center;margin-bottom:24px}
+    .coupon-code{font-size:32px;font-family:'SF Mono','Monaco',monospace;font-weight:600;margin-bottom:16px;letter-spacing:.05em}
+    .btn{padding:12px 24px;border:none;border-radius:100px;font-size:17px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:120px}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-primary:hover{background:#0051D5;transform:scale(1.05)}
+    .btn-secondary{background:var(--gray-100);color:var(--text)}
+    .btn-secondary:hover{background:var(--gray-200);transform:scale(1.05)}
+    .btn.copied{background:var(--success);color:#fff}
+    .links-section{display:flex;flex-direction:column;gap:12px;margin:24px 0;padding:20px;background:var(--surface);border-radius:var(--radius-sm)}
+    .link-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg);border-radius:var(--radius-xs);text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--gray-100)}
+    .link-item:hover{background:var(--gray-50);transform:translateX(4px);box-shadow:var(--shadow-sm)}
+    .link-label{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500}
+    .link-arrow{color:var(--gray-400);font-size:14px}
+    .modal-section{margin-bottom:24px}
+    .modal-section h3{font-size:17px;font-weight:600;margin-bottom:12px;color:var(--text-secondary)}
+    .modal-section ul{list-style:none;padding:0}
+    .modal-section li{font-size:15px;color:var(--text);margin-bottom:8px;padding-left:20px;position:relative;line-height:1.5}
+    .modal-section li:before{content:"•";position:absolute;left:8px;color:var(--gray-400)}
+    .modal-info{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--text-secondary);margin-bottom:8px}
+    .close-modal-btn{width:100%;margin-top:24px}
+    .saved-info{background:linear-gradient(135deg,var(--warning),#FF8800);color:#fff;padding:16px 20px;border-radius:var(--radius-sm);margin-bottom:24px;display:none;font-weight:500;box-shadow:var(--shadow)}
+    .saved-info.show{display:block}
+    .no-results{text-align:center;padding:80px 20px;display:none}
+    .no-results.show{display:block}
+    .no-results-icon{font-size:72px;margin-bottom:20px;opacity:.5}
+    .no-results h3{font-size:24px;margin-bottom:12px;font-weight:600}
+    .no-results p{color:var(--text-secondary);font-size:17px}
+    .share-section{display:flex;gap:12px;margin:20px 0}
+    .share-btn{flex:1}
+    @media (max-width:640px){.modal-content{margin:20px;max-height:calc(100vh - 40px)}.tabs{padding:0 20px 10px;margin:0 -20px 30px}}
+    .demo-ribbon{position:fixed;left:-50px;top:20px;transform:rotate(-45deg);background:#111;color:#fff;padding:8px 60px;font-weight:700;opacity:.85;z-index:2000;box-shadow:var(--shadow-lg)}
   </style>
 </head>
 <body>
-
-  <!-- 헤더 -->
+  <div class="demo-ribbon">DEMO</div>
   <header>
     <div class="container">
       <div class="header-inner">
-        <a href="/" class="logo">
+        <a href="#" class="logo">
           <img src="https://japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="Japankuru">
           <span>Wallet</span>
         </a>
@@ -725,28 +146,21 @@
     </div>
   </header>
 
-  <!-- 메인 컨테이너 -->
   <div class="container">
-    
-    <!-- 히어로 섹션 -->
     <div class="hero">
       <h1 data-i18n="hero_title">일본 여행 할인 쿠폰</h1>
       <p data-i18n="hero_desc">인기 매장에서 바로 사용 가능한 할인 쿠폰</p>
     </div>
 
-    <!-- 검색바 -->
+    <div id="loadErrorBanner" style="display:none;margin:12px 0;padding:12px 16px;border-radius:12px;background:#ffe8e6;color:#b00020;font-weight:600;"></div>
+
     <div class="search-bar">
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="search" 
-               id="searchInput" 
-               class="search-input"
-               placeholder="매장명, 지역으로 검색..."
-               data-i18n-placeholder="search_placeholder">
+        <input type="search" id="searchInput" class="search-input" placeholder="매장명, 지역으로 검색..." data-i18n-placeholder="search_placeholder">
       </div>
     </div>
 
-    <!-- 카테고리 탭 -->
     <div class="tabs" id="categoryTabs">
       <button type="button" class="tab active" data-category="all">
         <span data-i18n="cat_all">전체</span> <span class="badge">0</span>
@@ -768,17 +182,12 @@
       </button>
     </div>
 
-    <!-- 저장된 쿠폰 정보 -->
     <div class="saved-info" id="savedInfo">
       <span data-i18n="saved_info">저장된 쿠폰</span> <strong id="savedCount">0</strong><span data-i18n="saved_unit">개</span>
     </div>
 
-    <!-- 쿠폰 그리드 -->
-    <div class="coupon-grid" id="couponGrid">
-      <!-- 쿠폰 카드들이 여기 동적 생성됨 -->
-    </div>
+    <div class="coupon-grid" id="couponGrid"></div>
 
-    <!-- 검색 결과 없음 -->
     <div class="no-results" id="noResults">
       <div class="no-results-icon">🔍</div>
       <h3 data-i18n="no_results">검색 결과가 없습니다</h3>
@@ -786,443 +195,100 @@
     </div>
   </div>
 
-  <!-- 모달 -->
-  <div class="modal" id="modal" aria-hidden="true">
+  <div class="modal" id="modal">
     <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button type="button" class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
-      <div class="modal-body" id="modalBody">
-        <!-- 모달 내용이 여기 동적 생성됨 -->
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
   <script>
-    // ====== WordPress 통합 가이드 ======
-    // PHP에서 이렇게 데이터를 주입합니다:
-    // const couponsData = <?php echo json_encode($wordpress_coupons); ?>;
-    
-    // ====== 개발용 샘플 데이터 (실제 운영시 WordPress에서 자동 주입) ======
+    // ===== DEMO: 하드코딩 샘플 데이터 (본番에는 사용하지 않음) =====
     const couponsData = [
       {
         id: 1,
-        // 다국어 매장명
-        store_ko: '코지마 x 빅카메라',
-        store_en: 'Kojima x BicCamera',
-        store_zh: '小岛 x Bic Camera',
-        store_zh_tw: '小島 x Bic Camera',
-        store_th: 'โคจิมะ x บิกคาเมร่า',
-        store_id: 'Kojima x BicCamera',
-        // 할인 정보
-        offer: '최대 17% OFF',
-        offer_en: 'Up to 17% OFF',
-        offer_zh: '最大17%折扣',
-        offer_zh_tw: '最大17%折扣',
-        offer_th: 'ลดสูงสุด 17%',
-        offer_id: 'Diskon hingga 17%',
-        // 설명
-        description_ko: '면세 10% + 추가 7% 할인! 최신 전자제품을 저렴하게.',
-        description_en: 'Tax-free 10% + Additional 7% discount!',
-        description_zh: '免税10% + 额外7%折扣！',
-        description_zh_tw: '免稅10% + 額外7%折扣！',
-        description_th: 'ปลอดภาษี 10% + ส่วนลดเพิ่ม 7%!',
-        description_id: 'Bebas pajak 10% + Diskon tambahan 7%!',
-        // 기본 정보
-        category: 'electronics',
-        expiry: '2025-12-31',
+        store_ko: '코지마 x 빅카메라', store_en: 'Kojima x BicCamera', store_zh: '小岛 x Bic Camera', store_zh_tw: '小島 x Bic Camera', store_th: 'โคจิมะ x บิกคาเมร่า', store_id: 'Kojima x BicCamera',
+        offer: '최대 17% OFF', offer_en: 'Up to 17% OFF',
+        description_ko: '면세 10% + 추가 7% 할인! 최신 전자제품을 저렴하게.', description_en: 'Tax-free 10% + Additional 7% discount!',
+        category: 'electronics', expiry: '2025-12-31',
         image: 'https://japankuru.com/gld-kanri/data/uploads/2023/11/kojima%E8%8B%B1%E8%AA%9E%E7%89%88%E4%BC%81%E6%A5%AD%E6%9C%89_kojima_EN_B-2.jpg',
-        code: 'JK-BIC2025',
-        // 지역
-        area_ko: '아키하바라',
-        area_en: 'Akihabara',
-        area_zh: '秋叶原',
-        area_zh_tw: '秋葉原',
-        area_th: 'อากิฮาบาระ',
-        area_id: 'Akihabara',
-        // 이용조건
-        terms_ko: '타 할인과 중복 불가|일부 품목 제외|계산 전 제시|1인 1회',
-        terms_en: 'Cannot combine|Some items excluded|Show before payment|Once per person',
-        terms_zh: '不可与其他优惠同时使用|部分商品除外|结账前出示|每人限一次',
-        terms_zh_tw: '不可與其他優惠同時使用|部分商品除外|結帳前出示|每人限一次',
-        terms_th: 'ไม่สามารถใช้ร่วมกับส่วนลดอื่น|ยกเว้นบางรายการ|แสดงก่อนชำระเงิน|หนึ่งครั้งต่อคน',
-        terms_id: 'Tidak dapat digabung dengan diskon lain|Beberapa item dikecualikan|Tunjukkan sebelum pembayaran|Sekali per orang',
-        // 링크들
-        article_url: 'https://www.japankuru.com/en/e2290.html',
-        official_url: 'https://www.biccamera.com',
-        maps_url: 'https://maps.google.com/?q=35.6909,139.7003'
+        code: 'JK-BIC2025', area_ko: '아키하바라', area_en: 'Akihabara',
+        terms_ko: '타 할인과 중복 불가|일부 품목 제외|계산 전 제시|1인 1회', terms_en: 'Cannot combine|Some items excluded|Show before payment|Once per person',
+        article_url: 'https://www.japankuru.com/en/e2290.html', official_url: 'https://www.biccamera.com', maps_url: 'https://maps.google.com/?q=35.6909,139.7003'
       },
       {
         id: 2,
-        store_ko: '진스 (JINS)',
-        store_en: 'JINS',
-        store_zh: 'JINS',
-        store_zh_tw: 'JINS',
-        store_th: 'จินส์',
-        store_id: 'JINS',
-        offer: '10% OFF',
-        offer_en: '10% OFF',
-        offer_zh: '10%折扣',
-        offer_zh_tw: '10%折扣',
-        offer_th: 'ลด 10%',
-        offer_id: 'Diskon 10%',
-        description_ko: '면세+할인 안경.',
-        description_en: 'Tax-free + discount glasses.',
-        description_zh: '免税+折扣眼镜。',
-        description_zh_tw: '免稅+折扣眼鏡。',
-        description_th: 'แว่นตาปลอดภาษี+ส่วนลด',
-        description_id: 'Kacamata bebas pajak + diskon.',
-        category: 'fashion',
-        expiry: '2025-02-05',
+        store_ko: '진스 (JINS)', store_en: 'JINS',
+        offer: '10% OFF', offer_en: '10% OFF',
+        description_ko: '면세+할인 안경.', description_en: 'Tax-free + discount glasses.',
+        category: 'fashion', expiry: '2025-10-05',
         image: 'https://japankuru.com/gld-kanri/data/uploads/2024/06/japankuru_1800-1200-1536x1024.jpg',
-        code: 'JK-JINS2025',
-        area_ko: '시부야',
-        area_en: 'Shibuya',
-        area_zh: '涩谷',
-        area_zh_tw: '澀谷',
-        area_th: 'ชิบูย่า',
-        area_id: 'Shibuya',
-        terms_ko: '타 할인과 중복 불가|일부 품목 제외',
-        terms_en: 'Cannot combine|Some items excluded',
-        terms_zh: '不可与其他优惠同时使用|部分商品除外',
-        terms_zh_tw: '不可與其他優惠同時使用|部分商品除外',
-        terms_th: 'ไม่สามารถใช้ร่วมกับส่วนลดอื่น|ยกเว้นบางรายการ',
-        terms_id: 'Tidak dapat digabung dengan diskon lain|Beberapa item dikecualikan',
-        article_url: 'https://www.japankuru.com/en/e2291.html',
-        official_url: 'https://www.jins.com',
-        maps_url: 'https://maps.google.com/?q=35.6581,139.6986'
+        code: 'JK-JINS2025', area_ko: '시부야', area_en: 'Shibuya',
+        terms_ko: '타 할인과 중복 불가|일부 품목 제외', terms_en: 'Cannot combine|Some items excluded',
+        article_url: 'https://www.japankuru.com/en/e2291.html', official_url: 'https://www.jins.com', maps_url: 'https://maps.google.com/?q=35.6581,139.6986'
       },
       {
         id: 3,
-        store_ko: 'BEAMS JAPAN',
-        store_en: 'BEAMS JAPAN',
-        store_zh: 'BEAMS JAPAN',
-        store_zh_tw: 'BEAMS JAPAN',
-        store_th: 'บีมส์ ญี่ปุ่น',
-        store_id: 'BEAMS JAPAN',
-        offer: '5% 추가 할인',
-        offer_en: '5% Extra OFF',
-        category: 'fashion',
-        expiry: '2025-09-30',
+        store_ko: 'BEAMS JAPAN', store_en: 'BEAMS JAPAN',
+        offer: '5% 추가 할인', offer_en: '5% Extra OFF',
+        category: 'fashion', expiry: '2025-09-30',
         image: 'https://img.japankuru.com/prg_img/img/img2024011517461371466800.jpg',
-        code: 'JK-BEAMS25',
-        area_ko: '신주쿠',
-        area_en: 'Shinjuku',
-        terms_ko: '타 할인과 중복 불가',
-        terms_en: 'Cannot combine with other discounts',
-        article_url: 'https://www.japankuru.com/en/e2292.html',
-        official_url: 'https://www.beams.co.jp',
-        maps_url: 'https://maps.google.com/?q=35.6702,139.7073'
+        code: 'JK-BEAMS25', area_ko: '신주쿠', area_en: 'Shinjuku',
+        terms_ko: '타 할인과 중복 불가', terms_en: 'Cannot combine with other discounts',
+        article_url: 'https://www.japankuru.com/en/e2292.html', official_url: 'https://www.beams.co.jp', maps_url: 'https://maps.google.com/?q=35.6702,139.7073'
       },
       {
         id: 4,
-        store_ko: '사무라이 레스토랑',
-        store_en: 'Samurai Restaurant',
-        offer: '음료 1잔 무료',
-        offer_en: '1 Free Drink',
-        category: 'dining',
-        expiry: '2026-03-31',
-        image: 'https://japankuru.com/gld-kanri/data/uploads/2024/06/%E4%BE%8D%E3%82%AF%E3%83%BC%E3%83%9D%E3%83%B3c-2_0_0-1536x864.jpeg',
-        code: 'JK-SAMURAI',
-        area_ko: '신주쿠',
-        area_en: 'Shinjuku',
-        terms_ko: '음료는 소프트드링크 한정',
-        terms_en: 'Soft drinks only',
-        article_url: '',
-        official_url: 'https://www.samurai-restaurant.com',
-        maps_url: 'https://maps.google.com/?q=35.6947,139.7006'
-      },
-      {
-        id: 5,
-        store_ko: '도큐선',
-        store_en: 'Tokyu Line',
-        offer: '1일 승차권',
-        offer_en: '1-Day Pass',
-        category: 'transport',
-        expiry: '9999-12-31',
+        store_ko: '도큐선', store_en: 'Tokyu Line',
+        offer: '1일 승차권', offer_en: '1-Day Pass',
+        category: 'transport', expiry: '9999-12-31',
         image: 'https://japankuru.com/gld-kanri/data/uploads/2025/03/tokyu-cover-16-9-1-1536x864.png',
-        code: 'JK-TOKYU',
-        area_ko: '시부야',
-        area_en: 'Shibuya',
-        terms_ko: '당일 한정 사용',
-        terms_en: 'Valid on day of use only',
-        article_url: '',
-        official_url: 'https://www.tokyu.co.jp',
-        maps_url: ''
-      },
-      {
-        id: 6,
-        store_ko: '요도바시카메라',
-        store_en: 'Yodobashi Camera',
-        offer: '최대 15% OFF',
-        offer_en: 'Up to 15% OFF',
-        category: 'electronics',
-        expiry: '2025-11-30',
-        image: 'https://img.japankuru.com/prg_img/thumbnail1/img2023112417190332724100.png',
-        code: 'JK-YODOBASHI',
-        area_ko: '아키하바라',
-        area_en: 'Akihabara',
-        terms_ko: 'VISA 카드 결제시만 적용',
-        terms_en: 'VISA card payment only',
-        article_url: '',
-        official_url: 'https://www.yodobashi.com',
-        maps_url: 'https://maps.google.com/?q=35.6938,139.7706'
+        code: 'JK-TOKYU', area_ko: '시부야', area_en: 'Shibuya',
+        terms_ko: '당일 한정 사용', terms_en: 'Valid on day of use only',
+        article_url: '', official_url: 'https://www.tokyu.co.jp', maps_url: ''
       }
     ];
 
-    // ====== 전역 변수 ======
+    // ===== 전역 상태 =====
     let currentLang = 'ko';
-    let savedCoupons = JSON.parse(localStorage.getItem('savedCoupons') || '[]');
+    let savedCoupons = JSON.parse(localStorage.getItem('savedCoupons_demo') || '[]');
     let filteredCoupons = [...couponsData];
     let currentCategory = 'all';
-    let _lastFocused = null;
-    let _trapHandler = null;
-    let _searchTimer = null;
 
-    // ====== 번역 (6개 언어) ======
+    // ===== 번역 =====
     const translations = {
-      ko: {
-        hero_title: '일본 여행 할인 쿠폰',
-        hero_desc: '인기 매장에서 바로 사용 가능한 할인 쿠폰',
-        search_placeholder: '매장명, 지역으로 검색...',
-        cat_all: '전체',
-        cat_electronics: '전자제품',
-        cat_fashion: '패션',
-        cat_dining: '맛집',
-        cat_transport: '교통',
-        cat_saved: '저장됨',
-        saved_info: '저장된 쿠폰',
-        saved_unit: '개',
-        no_results: '검색 결과가 없습니다',
-        no_results_desc: '다른 검색어를 시도해보세요',
-        save: '저장',
-        unsave: '저장 해제',
-        copy: '코드 복사',
-        copied: '복사완료!',
-        close: '닫기',
-        terms: '이용조건',
-        expiry: '유효기한',
-        no_expiry: '무제한',
-        share: '공유',
-        view_article: '관련 기사',
-        visit_website: '공식 홈페이지',
-        view_map: '지도 보기',
-        days_left: '일 남음',
-        expires_today: '오늘 마감'
-      },
-      en: {
-        hero_title: 'Japan Travel Discount Coupons',
-        hero_desc: 'Instant discounts at popular stores',
-        search_placeholder: 'Search by store or area...',
-        cat_all: 'All',
-        cat_electronics: 'Electronics',
-        cat_fashion: 'Fashion',
-        cat_dining: 'Dining',
-        cat_transport: 'Transport',
-        cat_saved: 'Saved',
-        saved_info: 'Saved coupons',
-        saved_unit: '',
-        no_results: 'No results found',
-        no_results_desc: 'Try different search terms',
-        save: 'Save',
-        unsave: 'Unsave',
-        copy: 'Copy Code',
-        copied: 'Copied!',
-        close: 'Close',
-        terms: 'Terms',
-        expiry: 'Expiry',
-        no_expiry: 'No expiry',
-        share: 'Share',
-        view_article: 'Related Article',
-        visit_website: 'Official Website',
-        view_map: 'View Map',
-        days_left: 'days left',
-        expires_today: 'Ends today'
-      },
-      zh: {
-        hero_title: '日本旅行优惠券',
-        hero_desc: '热门商店即时折扣',
-        search_placeholder: '按店名或地区搜索...',
-        cat_all: '全部',
-        cat_electronics: '电子产品',
-        cat_fashion: '时尚',
-        cat_dining: '美食',
-        cat_transport: '交通',
-        cat_saved: '已保存',
-        saved_info: '已保存的优惠券',
-        saved_unit: '张',
-        no_results: '没有找到结果',
-        no_results_desc: '尝试其他搜索词',
-        save: '保存',
-        unsave: '取消保存',
-        copy: '复制代码',
-        copied: '已复制！',
-        close: '关闭',
-        terms: '使用条款',
-        expiry: '有效期',
-        no_expiry: '无期限',
-        share: '分享',
-        view_article: '相关文章',
-        visit_website: '官方网站',
-        view_map: '查看地图',
-        days_left: '天剩余',
-        expires_today: '今天到期'
-      },
-      'zh-tw': {
-        hero_title: '日本旅行優惠券',
-        hero_desc: '熱門商店即時折扣',
-        search_placeholder: '按店名或地區搜索...',
-        cat_all: '全部',
-        cat_electronics: '電子產品',
-        cat_fashion: '時尚',
-        cat_dining: '美食',
-        cat_transport: '交通',
-        cat_saved: '已保存',
-        saved_info: '已保存的優惠券',
-        saved_unit: '張',
-        no_results: '沒有找到結果',
-        no_results_desc: '嘗試其他搜索詞',
-        save: '保存',
-        unsave: '取消保存',
-        copy: '複製代碼',
-        copied: '已複製！',
-        close: '關閉',
-        terms: '使用條款',
-        expiry: '有效期',
-        no_expiry: '無期限',
-        share: '分享',
-        view_article: '相關文章',
-        visit_website: '官方網站',
-        view_map: '查看地圖',
-        days_left: '天剩餘',
-        expires_today: '今天到期'
-      },
-      th: {
-        hero_title: 'คูปองส่วนลดการท่องเที่ยวญี่ปุ่น',
-        hero_desc: 'ส่วนลดทันทีที่ร้านค้ายอดนิยม',
-        search_placeholder: 'ค้นหาตามชื่อร้านหรือพื้นที่...',
-        cat_all: 'ทั้งหมด',
-        cat_electronics: 'อิเล็กทรอนิกส์',
-        cat_fashion: 'แฟชั่น',
-        cat_dining: 'อาหาร',
-        cat_transport: 'การเดินทาง',
-        cat_saved: 'บันทึกแล้ว',
-        saved_info: 'คูปองที่บันทึก',
-        saved_unit: 'ใบ',
-        no_results: 'ไม่พบผลลัพธ์',
-        no_results_desc: 'ลองคำค้นหาอื่น',
-        save: 'บันทึก',
-        unsave: 'ยกเลิกการบันทึก',
-        copy: 'คัดลอกโค้ด',
-        copied: 'คัดลอกแล้ว!',
-        close: 'ปิด',
-        terms: 'เงื่อนไข',
-        expiry: 'หมดอายุ',
-        no_expiry: 'ไม่มีกำหนด',
-        share: 'แชร์',
-        view_article: 'บทความที่เกี่ยวข้อง',
-        visit_website: 'เว็บไซต์อย่างเป็นทางการ',
-        view_map: 'ดูแผนที่',
-        days_left: 'วันที่เหลือ',
-        expires_today: 'หมดอายุวันนี้'
-      },
-      id: {
-        hero_title: 'Kupon Diskon Perjalanan Jepang',
-        hero_desc: 'Diskon instan di toko-toko populer',
-        search_placeholder: 'Cari berdasarkan nama toko atau area...',
-        cat_all: 'Semua',
-        cat_electronics: 'Elektronik',
-        cat_fashion: 'Fashion',
-        cat_dining: 'Kuliner',
-        cat_transport: 'Transportasi',
-        cat_saved: 'Tersimpan',
-        saved_info: 'Kupon tersimpan',
-        saved_unit: '',
-        no_results: 'Tidak ada hasil',
-        no_results_desc: 'Coba kata kunci lain',
-        save: 'Simpan',
-        unsave: 'Batal simpan',
-        copy: 'Salin Kode',
-        copied: 'Tersalin!',
-        close: 'Tutup',
-        terms: 'Syarat',
-        expiry: 'Berlaku hingga',
-        no_expiry: 'Tidak terbatas',
-        share: 'Bagikan',
-        view_article: 'Artikel Terkait',
-        visit_website: 'Situs Resmi',
-        view_map: 'Lihat Peta',
-        days_left: 'hari tersisa',
-        expires_today: 'Berakhir hari ini'
-      }
+      ko:{hero_title:'일본 여행 할인 쿠폰',hero_desc:'인기 매장에서 바로 사용 가능한 할인 쿠폰',search_placeholder:'매장명, 지역으로 검색...',cat_all:'전체',cat_electronics:'전자제품',cat_fashion:'패션',cat_dining:'맛집',cat_transport:'교통',cat_saved:'저장됨',saved_info:'저장된 쿠폰',saved_unit:'개',no_results:'검색 결과가 없습니다',no_results_desc:'다른 검색어를 시도해보세요',save:'저장',unsave:'저장 해제',copy:'코드 복사',copied:'복사완료!',close:'닫기',terms:'이용조건',expiry:'유효기한',no_expiry:'무제한',share:'공유',view_article:'관련 기사',visit_website:'공식 홈페이지',view_map:'지도 보기',days_left:'일 남음',no_data:'현재 언어의 쿠폰이 없습니다',no_data_desc:'관리자에서 쿠폰을 등록하거나 번역을 연결해주세요',load_error:'데이터 로딩 중 문제가 발생했습니다'},
+      en:{hero_title:'Japan Travel Discount Coupons',hero_desc:'Instant discounts at popular stores',search_placeholder:'Search by store or area...',cat_all:'All',cat_electronics:'Electronics',cat_fashion:'Fashion',cat_dining:'Dining',cat_transport:'Transport',cat_saved:'Saved',saved_info:'Saved coupons',saved_unit:'',no_results:'No results found',no_results_desc:'Try different search terms',save:'Save',unsave:'Unsave',copy:'Copy Code',copied:'Copied!',close:'Close',terms:'Terms',expiry:'Expiry',no_expiry:'No expiry',share:'Share',view_article:'Related Article',visit_website:'Official Website',view_map:'View Map',days_left:'days left',no_data:'No coupons for this language',no_data_desc:'Please add/translate coupons in the dashboard',load_error:'There was a problem loading data'},
+      zh:{hero_title:'日本旅行优惠券',hero_desc:'热门商店即时折扣',search_placeholder:'按店名或地区搜索...',cat_all:'全部',cat_electronics:'电子产品',cat_fashion:'时尚',cat_dining:'美食',cat_transport:'交通',cat_saved:'已保存',saved_info:'已保存的优惠券',saved_unit:'张',no_results:'没有找到结果',no_results_desc:'尝试其他搜索词',save:'保存',unsave:'取消保存',copy:'复制代码',copied:'已复制！',close:'关闭',terms:'使用条款',expiry:'有效期',no_expiry:'无期限',share:'分享',view_article:'相关文章',visit_website:'官方网站',view_map:'查看地图',days_left:'天剩余'},
+      'zh-tw':{hero_title:'日本旅行優惠券',hero_desc:'熱門商店即時折扣',search_placeholder:'按店名或地區搜索...',cat_all:'全部',cat_electronics:'電子產品',cat_fashion:'時尚',cat_dining:'美食',cat_transport:'交通',cat_saved:'已保存',saved_info:'已保存的優惠券',saved_unit:'張',no_results:'沒有找到結果',no_results_desc:'嘗試其他搜索詞',save:'保存',unsave:'取消保存',copy:'複製代碼',copied:'已複製！',close:'關閉',terms:'使用條款',expiry:'有效期',no_expiry:'無期限',share:'分享',view_article:'相關文章',visit_website:'官方網站',view_map:'查看地圖',days_left:'天剩餘'},
+      th:{hero_title:'คูปองส่วนลดการท่องเที่ยวญี่ปุ่น',hero_desc:'ส่วนลดทันทีที่ร้านค้ายอดนิยม',search_placeholder:'ค้นหาตามชื่อร้านหรือพื้นที่...',cat_all:'ทั้งหมด',cat_electronics:'อิเล็กทรอนิกส์',cat_fashion:'แฟชั่น',cat_dining:'อาหาร',cat_transport:'การเดินทาง',cat_saved:'บันทึกแล้ว',saved_info:'คูปองที่บันทึก',saved_unit:'ใบ',no_results:'ไม่พบผลลัพธ์',no_results_desc:'ลองคำค้นหาอื่น',save:'บันทึก',unsave:'ยกเลิกการบันทึก',copy:'คัดลอกโค้ด',copied:'คัดลอกแล้ว!',close:'ปิด',terms:'เงื่อนไข',expiry:'หมดอายุ',no_expiry:'ไม่มีกำหนด',share:'แชร์',view_article:'บทความที่เกี่ยวข้อง',visit_website:'เว็บไซต์อย่างเป็นทางการ',view_map:'ดูแผนที่',days_left:'วันที่เหลือ'},
+      id:{hero_title:'Kupon Diskon Perjalanan Jepang',hero_desc:'Diskon instan di toko-toko populer',search_placeholder:'Cari berdasarkan nama toko atau area...',cat_all:'Semua',cat_electronics:'Elektronik',cat_fashion:'Fashion',cat_dining:'Kuliner',cat_transport:'Transportasi',cat_saved:'Tersimpan',saved_info:'Kupon tersimpan',saved_unit:'',no_results:'Tidak ada hasil',no_results_desc:'Coba kata kunci lain',save:'Simpan',unsave:'Batal simpan',copy:'Salin Kode',copied:'Tersalin!',close:'Tutup',terms:'Syarat',expiry:'Berlaku hingga',no_expiry:'Tidak terbatas',share:'Bagikan',view_article:'Artikel Terkait',visit_website:'Situs Resmi',view_map:'Lihat Peta',days_left:'hari tersisa'}
     };
 
-    // ====== 유틸: 안전한 문자열 이스케이프 ======
-    function esc(s){
-      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-
-    // ====== 초기화 ======
+    // ===== 초기화 =====
     document.addEventListener('DOMContentLoaded', () => {
-      // 언어 감지
       detectLanguage();
       updateLanguage();
-
-      // 데이터 렌더링
       renderCoupons();
       updateSavedInfo();
       updateCategoryBadges();
-
-      // 이벤트 리스너
       setupEventListeners();
-
-      // 모달 접근성 설정
-      const modalContent = document.querySelector('.modal-content');
-      if (modalContent) {
-        modalContent.setAttribute('role', 'dialog');
-        modalContent.setAttribute('aria-modal', 'true');
-      }
-      
-      // ESC 키 닫기
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-      });
-
-      // 딥링크 적용 (?coupon=&lang=)
-      applyDeepLink();
     });
 
-    // ====== 언어 감지 ======
-    function detectLanguage() {
-      const saved = localStorage.getItem('selectedLang');
-      if (saved && ['ko', 'en', 'zh', 'zh-tw', 'th', 'id'].includes(saved)) {
-        currentLang = saved;
-      } else {
-        const browserLang = navigator.language.slice(0, 2);
-        if (['ko', 'en', 'zh', 'th', 'id'].includes(browserLang)) {
-          currentLang = browserLang;
-        }
-        if (navigator.language.toLowerCase().includes('zh-tw') || 
-            navigator.language.toLowerCase().includes('zh-hk')) {
-          currentLang = 'zh-tw';
-        }
+    function detectLanguage(){
+      const saved = localStorage.getItem('selectedLang_demo');
+      if (saved && ['ko','en','zh','zh-tw','th','id'].includes(saved)) currentLang = saved;
+      else {
+        const browserLang = navigator.language.slice(0,2);
+        if (['ko','en','zh','th','id'].includes(browserLang)) currentLang = browserLang;
+        if (navigator.language.toLowerCase().includes('zh-tw') || navigator.language.toLowerCase().includes('zh-hk')) currentLang = 'zh-tw';
       }
-      const select = document.getElementById('langSelect');
-      if (select) select.value = currentLang;
+      document.getElementById('langSelect').value = currentLang;
       document.documentElement.lang = currentLang;
     }
 
-    // ====== 이벤트 리스너 ======
-    function setupEventListeners() {
-      // 검색 (디바운스)
-      const input = document.getElementById('searchInput');
-      if (input) {
-        input.addEventListener('input', (e) => {
-          const val = e.target.value;
-          clearTimeout(_searchTimer);
-          _searchTimer = setTimeout(() => filterBySearch(val), 120);
-        });
-      }
-      
-      // 카테고리 탭
+    function setupEventListeners(){
+      document.getElementById('searchInput').addEventListener('input', e => filterBySearch(e.target.value));
       document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
           document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1231,468 +297,194 @@
           filterByCategory(currentCategory);
         });
       });
-      
-      // 언어 변경
-      document.getElementById('langSelect').addEventListener('change', (e) => {
+      document.getElementById('langSelect').addEventListener('change', e => {
         currentLang = e.target.value;
-        localStorage.setItem('selectedLang', currentLang);
+        localStorage.setItem('selectedLang_demo', currentLang);
         document.documentElement.lang = currentLang;
         updateLanguage();
         renderCoupons();
       });
-      
-      // 모달 외부 클릭시 닫기
-      document.getElementById('modal').addEventListener('click', (e) => {
-        if (e.target.id === 'modal') {
-          closeModal();
-        }
-      });
+      document.getElementById('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
     }
 
-    // ====== 언어 업데이트 ======
-    function updateLanguage() {
+    function updateLanguage(){
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-          el.textContent = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
       });
-      
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[currentLang][key]) {
-          el.placeholder = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
       });
     }
 
-    // ====== 날짜 계산 함수 (일본 시간 기준) ======
-    function getDaysLeft(expiryDate) {
+    // JST 기준 D-Day
+    function getDaysLeft(expiryDate){
       if (!expiryDate || expiryDate === '9999-12-31') return 999;
-      
-      // 일본 시간 기준 만료일 (23:59:59 JST)
       const expiry = new Date(`${expiryDate}T23:59:59+09:00`);
-      
-      // 현재 일본 시간 (로컬 -> JST 보정)
       const now = new Date();
-      const jstOffset = 9 * 60; // JST는 UTC+9
-      const localOffset = now.getTimezoneOffset(); // 분
-      const diff = (jstOffset + localOffset) * 60 * 1000;
+      const jstOffset = 9*60;
+      const localOffset = now.getTimezoneOffset();
+      const diff = (jstOffset + localOffset) * 60000;
       const nowJST = new Date(now.getTime() + diff);
-      
       const diffTime = expiry - nowJST;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      
+      const diffDays = Math.ceil(diffTime / (1000*60*60*24));
       return diffDays > 0 ? diffDays : 0;
     }
 
-    // ====== 카테고리 배지 업데이트 ======
-    function updateCategoryBadges() {
+    function updateCategoryBadges(){
       const counts = {
         all: couponsData.length,
-        electronics: couponsData.filter(c => c.category === 'electronics').length,
-        fashion: couponsData.filter(c => c.category === 'fashion').length,
-        dining: couponsData.filter(c => c.category === 'dining').length,
-        transport: couponsData.filter(c => c.category === 'transport').length,
+        electronics: couponsData.filter(c=>c.category==='electronics').length,
+        fashion: couponsData.filter(c=>c.category==='fashion').length,
+        dining: couponsData.filter(c=>c.category==='dining').length,
+        transport: couponsData.filter(c=>c.category==='transport').length,
         saved: savedCoupons.length
       };
-      
       Object.keys(counts).forEach(cat => {
         const el = document.querySelector(`.tab[data-category="${cat}"] .badge`);
         if (el) el.textContent = counts[cat];
       });
     }
 
-    // ====== 쿠폰 렌더링 ======
-    function renderCoupons() {
+    function renderCoupons(){
       const grid = document.getElementById('couponGrid');
       const noResults = document.getElementById('noResults');
-      
-      if (filteredCoupons.length === 0) {
-        grid.style.display = 'none';
+      if (!filteredCoupons.length){
+        grid.style.display='none';
         noResults.classList.add('show');
         return;
       }
-      
-      grid.style.display = 'grid';
+      grid.style.display='grid';
       noResults.classList.remove('show');
-      
       grid.innerHTML = filteredCoupons.map(coupon => {
         const isSaved = savedCoupons.includes(coupon.id);
         const store = coupon[`store_${currentLang}`] || coupon.store_ko || coupon.store_en || '店舗名';
         const offer = coupon[`offer_${currentLang}`] || coupon.offer || coupon.offer_en || 'Offer';
-        const desc  = coupon[`description_${currentLang}`] || coupon.description_ko || coupon.description_en || '';
-        const area  = coupon[`area_${currentLang}`] || coupon.area_ko || coupon.area_en || '';
+        const desc = coupon[`description_${currentLang}`] || coupon.description_ko || coupon.description_en || '';
+        const area = coupon[`area_${currentLang}`] || coupon.area_ko || coupon.area_en || '';
         const daysLeft = getDaysLeft(coupon.expiry);
-
-        const badgeText = (daysLeft === 0) ? translations[currentLang].expires_today
-                                           : `${daysLeft} ${translations[currentLang].days_left}`;
-        
-        // 만료 임박 배지
-        const expiryBadge = (daysLeft <= 7 && daysLeft !== 999) 
-          ? `<div class="expiry-badge">🔥 ${esc(badgeText)}</div>` : '';
-        
-        // onclick/keydown 접근성 + 안전한 출력
+        const expiryBadge = (daysLeft <= 7 && daysLeft !== 999) ? `<div class="expiry-badge">🔥 ${daysLeft} ${translations[currentLang].days_left}</div>` : '';
         return `
-          <div class="coupon-card" onclick="showModal(${coupon.id})" tabindex="0" role="button"
-               aria-label="${esc(store)} - ${esc(offer)}"
-               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showModal(${coupon.id});}">
-            ${expiryBadge}
-            <img src="${esc(coupon.image)}" alt="${esc(store)}" loading="lazy">
-            <div class="coupon-body">
-              <div class="coupon-title">${esc(store)}</div>
-              <div class="coupon-offer">${esc(offer)}</div>
-              <div class="coupon-desc">${esc(desc)}</div>
-              <div class="coupon-footer">
-                <span class="coupon-area">📍 ${esc(area)}</span>
-                <button type="button" class="save-btn ${isSaved ? 'saved' : ''}" 
-                        onclick="event.stopPropagation(); toggleSave(${coupon.id})">
-                  ${isSaved ? '⭐' : '☆'} ${translations[currentLang][isSaved ? 'unsave' : 'save']}
-                </button>
-              </div>
+        <div class="coupon-card" onclick="showModal(${coupon.id})" tabindex="0" role="button" aria-label="${store} - ${offer}">
+          ${expiryBadge}
+          <img src="${coupon.image}" alt="${store}" loading="lazy">
+          <div class="coupon-body">
+            <div class="coupon-title">${store}</div>
+            <div class="coupon-offer">${offer}</div>
+            <div class="coupon-desc">${desc}</div>
+            <div class="coupon-footer">
+              <span class="coupon-area">📍 ${area}</span>
+              <button type="button" class="save-btn ${isSaved ? 'saved':''}" onclick="event.stopPropagation(); toggleSave(${coupon.id})">
+                ${isSaved ? '⭐':'☆'} ${translations[currentLang][isSaved ? 'unsave':'save']}
+              </button>
             </div>
           </div>
-        `;
+        </div>`;
       }).join('');
-      
       updateCategoryBadges();
     }
 
-    // ====== 필터링 ======
-    function filterBySearch(query) {
-      query = String(query || '').toLowerCase();
-      
-      const matcher = (coupon) => {
+    function filterBySearch(query){
+      query = (query||'').toLowerCase();
+      const match = (coupon)=>{
         const store = (coupon[`store_${currentLang}`] || coupon.store_ko || coupon.store_en || '').toLowerCase();
-        const area  = (coupon[`area_${currentLang}`] || coupon.area_ko || coupon.area_en || '').toLowerCase();
+        const area  = (coupon[`area_${currentLang}`]  || coupon.area_ko  || coupon.area_en  || '').toLowerCase();
         const desc  = (coupon[`description_${currentLang}`] || coupon.description_ko || coupon.description_en || '').toLowerCase();
         return store.includes(query) || area.includes(query) || desc.includes(query);
       };
-
-      if (currentCategory === 'saved') {
-        filteredCoupons = couponsData.filter(c => savedCoupons.includes(c.id) && matcher(c));
-      } else if (currentCategory === 'all') {
-        filteredCoupons = couponsData.filter(matcher);
+      if (currentCategory === 'saved'){
+        filteredCoupons = couponsData.filter(c => savedCoupons.includes(c.id) && match(c));
+      } else if (currentCategory === 'all'){
+        filteredCoupons = couponsData.filter(match);
       } else {
-        filteredCoupons = couponsData.filter(c => c.category === currentCategory && matcher(c));
+        filteredCoupons = couponsData.filter(c => c.category === currentCategory && match(c));
       }
-      
       renderCoupons();
     }
 
-    function filterByCategory(category) {
-      const searchValue = document.getElementById('searchInput').value;
-      
-      if (category === 'all') {
-        filteredCoupons = [...couponsData];
-      } else if (category === 'saved') {
-        filteredCoupons = couponsData.filter(c => savedCoupons.includes(c.id));
-      } else {
-        filteredCoupons = couponsData.filter(c => c.category === category);
-      }
-      
-      if (searchValue) {
-        filterBySearch(searchValue);
-      } else {
-        renderCoupons();
-      }
+    function filterByCategory(category){
+      const q = document.getElementById('searchInput').value;
+      if (category === 'all') filteredCoupons = [...couponsData];
+      else if (category === 'saved') filteredCoupons = couponsData.filter(c => savedCoupons.includes(c.id));
+      else filteredCoupons = couponsData.filter(c => c.category === category);
+      if (q) filterBySearch(q); else renderCoupons();
     }
 
-    // ====== 저장 기능 ======
-    function toggleSave(id) {
-      if (savedCoupons.includes(id)) {
-        savedCoupons = savedCoupons.filter(sid => sid !== id);
-      } else {
-        savedCoupons.push(id);
-      }
-      localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
-      renderCoupons();
-      updateSavedInfo();
-      updateCategoryBadges();
+    function toggleSave(id){
+      if (savedCoupons.includes(id)) savedCoupons = savedCoupons.filter(sid => sid !== id);
+      else savedCoupons.push(id);
+      localStorage.setItem('savedCoupons_demo', JSON.stringify(savedCoupons));
+      renderCoupons(); updateSavedInfo(); updateCategoryBadges();
     }
 
-    function updateSavedInfo() {
+    function updateSavedInfo(){
       const info = document.getElementById('savedInfo');
       const count = document.getElementById('savedCount');
       const badge = document.getElementById('savedBadge');
-      
-      const savedCount = savedCoupons.length;
-      
-      if (savedCount > 0) {
-        info.classList.add('show');
-        count.textContent = savedCount;
-        badge.textContent = savedCount;
-      } else {
-        info.classList.remove('show');
-        badge.textContent = '0';
-      }
+      const n = savedCoupons.length;
+      if (n>0){ info.classList.add('show'); count.textContent = n; badge.textContent = n; }
+      else { info.classList.remove('show'); badge.textContent = '0'; }
     }
 
-    // ====== 모달 ======
-    function showModal(id) {
+    function showModal(id){
       const coupon = couponsData.find(c => c.id === id);
       if (!coupon) return;
-
-      _lastFocused = document.activeElement;
-
       const modal = document.getElementById('modal');
       const modalBody = document.getElementById('modalBody');
-      
       const store = coupon[`store_${currentLang}`] || coupon.store_ko || coupon.store_en || '店舗名';
       const offer = coupon[`offer_${currentLang}`] || coupon.offer || coupon.offer_en || 'Offer';
-      const termsRaw = (coupon[`terms_${currentLang}`] || coupon.terms_ko || coupon.terms_en || '');
-      const terms = termsRaw.split('|');
-      const area  = coupon[`area_${currentLang}`] || coupon.area_ko || coupon.area_en || '';
+      const terms = (coupon[`terms_${currentLang}`] || coupon.terms_ko || coupon.terms_en || '').split('|');
+      const area = coupon[`area_${currentLang}`] || coupon.area_ko || coupon.area_en || '';
       const daysLeft = getDaysLeft(coupon.expiry);
-      const badgeText = (daysLeft === 0) ? translations[currentLang].expires_today
-                                         : `${daysLeft} ${translations[currentLang].days_left}`;
-      const expiry = daysLeft === 999 ? translations[currentLang].no_expiry 
-                     : `${coupon.expiry} (${badgeText})`;
-      
-      // 모달 HTML (안전한 렌더링)
+      const expiry = daysLeft === 999 ? translations[currentLang].no_expiry : `${coupon.expiry} (${daysLeft} ${translations[currentLang].days_left})`;
       modalBody.innerHTML = `
-        <div class="modal-title" id="modalTitle">${esc(store)}</div>
-        <div class="modal-offer">${esc(offer)}</div>
-        
+        <div class="modal-title" id="modalTitle">${store}</div>
+        <div class="modal-offer">${offer}</div>
         <div class="coupon-code-box">
-          <div class="coupon-code">${esc(coupon.code)}</div>
-          <button type="button" class="btn btn-primary" id="copyBtn" onclick="copyCode('${String(coupon.code || '')}')">
-            📋 ${translations[currentLang].copy}
-          </button>
+          <div class="coupon-code">${coupon.code}</div>
+          <button type="button" class="btn btn-primary" id="copyBtn" onclick="copyCode('${coupon.code}')">📋 ${translations[currentLang].copy}</button>
         </div>
-        
         ${(coupon.article_url || coupon.official_url || coupon.maps_url) ? `
         <div class="links-section">
-          ${coupon.article_url ? `
-          <a href="${esc(coupon.article_url)}" target="_blank" rel="noopener noreferrer" class="link-item">
-            <span class="link-label">
-              <span>📰</span>
-              <span>${translations[currentLang].view_article}</span>
-            </span>
-            <span class="link-arrow">→</span>
-          </a>` : ''}
-          ${coupon.official_url ? `
-          <a href="${esc(coupon.official_url)}" target="_blank" rel="noopener noreferrer" class="link-item">
-            <span class="link-label">
-              <span>🌐</span>
-              <span>${translations[currentLang].visit_website}</span>
-            </span>
-            <span class="link-arrow">→</span>
-          </a>` : ''}
-          ${coupon.maps_url ? `
-          <a href="${esc(coupon.maps_url)}" target="_blank" rel="noopener noreferrer" class="link-item">
-            <span class="link-label">
-              <span>📍</span>
-              <span>${translations[currentLang].view_map}</span>
-            </span>
-            <span class="link-arrow">→</span>
-          </a>` : ''}
+          ${coupon.article_url ? `<a href="${coupon.article_url}" target="_blank" rel="noopener noreferrer" class="link-item"><span class="link-label"><span>📰</span><span>${translations[currentLang].view_article}</span></span><span class="link-arrow">→</span></a>`:''}
+          ${coupon.official_url ? `<a href="${coupon.official_url}" target="_blank" rel="noopener noreferrer" class="link-item"><span class="link-label"><span>🌐</span><span>${translations[currentLang].visit_website}</span></span><span class="link-arrow">→</span></a>`:''}
+          ${coupon.maps_url ? `<a href="${coupon.maps_url}" target="_blank" rel="noopener noreferrer" class="link-item"><span class="link-label"><span>📍</span><span>${translations[currentLang].view_map}</span></span><span class="link-arrow">→</span></a>`:''}
         </div>` : ''}
-        
-        <div class="share-section">
-          <button type="button" class="btn btn-secondary share-btn" onclick="shareCode('${coupon.id}')">
-            📤 ${translations[currentLang].share}
-          </button>
-        </div>
-        
-        <div class="modal-section">
-          <h3>${translations[currentLang].terms}</h3>
-          <ul id="termsList"></ul>
-        </div>
-        
-        <div class="modal-info">📍 ${esc(area)}</div>
-        <div class="modal-info">📅 ${translations[currentLang].expiry}: ${esc(expiry)}</div>
-        
-        <button type="button" class="btn btn-secondary close-modal-btn" onclick="closeModal()">
-          ${translations[currentLang].close}
-        </button>
+        <div class="share-section"><button type="button" class="btn btn-secondary share-btn" onclick="shareCode('${coupon.id}')">📤 ${translations[currentLang].share}</button></div>
+        <div class="modal-section"><h3>${translations[currentLang].terms}</h3><ul id="termsList"></ul></div>
+        <div class="modal-info">📍 ${area}</div>
+        <div class="modal-info">📅 ${translations[currentLang].expiry}: ${expiry}</div>
+        <button type="button" class="btn btn-secondary close-modal-btn" onclick="closeModal()">${translations[currentLang].close}</button>
       `;
-      
-      // 약관을 안전하게 추가 (XSS 방지)
       const termsList = modalBody.querySelector('#termsList');
-      if (termsList) {
-        terms.forEach(term => {
-          if (term.trim()) {
-            const li = document.createElement('li');
-            li.textContent = term.trim();
-            termsList.appendChild(li);
-          }
-        });
-      }
-
-      // 모달 표시 + 스크롤 잠금 + ARIA
+      if (termsList){ terms.forEach(t => { if (t.trim()){ const li=document.createElement('li'); li.textContent=t.trim(); termsList.appendChild(li); }}); }
       modal.classList.add('show');
-      modal.removeAttribute('aria-hidden');
-      document.body.style.overflow = 'hidden';
-
-      // 포커스 이동 및 간단 트랩
-      const focusables = modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
-      const first = focusables[0];
-      const last  = focusables[focusables.length - 1];
-      if (first) first.focus();
-
-      _trapHandler = function(e){
-        if (e.key !== 'Tab') return;
-        if (focusables.length === 0) return;
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault(); last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault(); first.focus();
-        }
-      };
-      modal.addEventListener('keydown', _trapHandler);
     }
+    function closeModal(){ document.getElementById('modal').classList.remove('show'); }
 
-    function closeModal() {
-      const modal = document.getElementById('modal');
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      if (_trapHandler) {
-        modal.removeEventListener('keydown', _trapHandler);
-        _trapHandler = null;
-      }
-      if (_lastFocused) _lastFocused.focus();
-    }
-
-    function copyCode(code) {
+    function copyCode(code){
       const btn = document.getElementById('copyBtn');
-      const text = String(code || '');
-      
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          showCopied();
-        }).catch(() => {
-          fallbackCopy(text);
-        });
-      } else {
-        fallbackCopy(text);
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(code).then(showCopied).catch(()=>fallbackCopy(code));
+      } else fallbackCopy(code);
+      function fallbackCopy(text){
+        const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showCopied();
       }
-      
-      function fallbackCopy(val) {
-        const textarea = document.createElement('textarea');
-        textarea.value = val;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        showCopied();
-      }
-      
-      function showCopied() {
-        if (!btn) return;
-        btn.classList.add('copied');
-        btn.textContent = '✅ ' + translations[currentLang].copied;
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.innerHTML = '📋 ' + translations[currentLang].copy;
-        }, 2000);
-      }
+      function showCopied(){ btn.classList.add('copied'); btn.textContent='✅ '+translations[currentLang].copied; setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML='📋 '+translations[currentLang].copy; },2000); }
     }
-    
-    // ====== 공유 기능 ======
-    async function shareCode(couponId) {
-      const coupon = couponsData.find(c => c.id === parseInt(couponId));
-      if (!coupon) return;
-      
+
+    async function shareCode(couponId){
+      const coupon = couponsData.find(c=>c.id===parseInt(couponId)); if (!coupon) return;
       const store = coupon[`store_${currentLang}`] || coupon.store_ko || coupon.store_en || '店舗名';
-      const shareUrl = `${window.location.origin}${window.location.pathname}?coupon=${couponId}&lang=${currentLang}`;
-      
-      const shareData = {
-        title: store,
-        text: `${store} - ${coupon.code}`,
-        url: shareUrl
-      };
-      
+      const shareUrl = location.href.split('#')[0] + '?demo=1&coupon=' + couponId + '&lang=' + currentLang;
+      const shareData = { title: store, text: `${store} - ${coupon.code}`, url: shareUrl };
       try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          // Fallback: URL 복사
-          await navigator.clipboard.writeText(shareUrl);
-          alert(translations[currentLang].copied);
-        }
-      } catch (err) {
-        console.log('Share failed:', err);
-      }
+        if (navigator.share) await navigator.share(shareData);
+        else { await navigator.clipboard.writeText(shareUrl); alert(translations[currentLang].copied); }
+      } catch(e){ console.log('Share failed:', e); }
     }
-
-    // ====== 딥링크 적용 ======
-    function applyDeepLink() {
-      const p = new URLSearchParams(location.search);
-      const lang = p.get('lang');
-      const couponId = parseInt(p.get('coupon'), 10);
-      if (lang && ['ko','en','zh','zh-tw','th','id'].includes(lang)) {
-        currentLang = lang;
-        localStorage.setItem('selectedLang', lang);
-        document.documentElement.lang = lang;
-        const select = document.getElementById('langSelect');
-        if (select) select.value = lang;
-        updateLanguage();
-      }
-      if (couponId) showModal(couponId);
-    }
-  </script>
-
-  <!-- WordPress 통합 안내 -->
-  <script>
-    // ====== WordPress 업체용 통합 가이드 ======
-    // 
-    // 1. Custom Post Type 생성
-    //    - Post Type: 'coupon'
-    //    - 지원: title, editor, thumbnail
-    //
-    // 2. ACF (Advanced Custom Fields) 필드 설정
-    //    필수 필드:
-    //    - store_name (텍스트)
-    //    - offer (텍스트)
-    //    - category (선택: electronics/fashion/dining/transport)
-    //    - expiry_date (날짜 선택기)
-    //    - coupon_code (텍스트)
-    //    - area (텍스트)
-    //    - terms (텍스트 영역, | 구분자 사용)
-    //    
-    //    링크 필드 (선택):
-    //    - article_url (URL)
-    //    - official_url (URL)
-    //    - maps_url (URL)
-    //
-    // 3. Polylang 설정
-    //    - 6개 언어 등록: ko, en, zh, zh-tw, th, id
-    //    - 각 필드별 번역 문자열 등록
-    //
-    // 4. PHP 템플릿 (page-coupons.php)
-    /*
-    <?php
-    $coupons = get_posts(['post_type' => 'coupon', 'numberposts' => -1]);
-    $coupons_json = [];
-    
-    foreach($coupons as $coupon) {
-        $fields = get_fields($coupon->ID);
-        $coupons_json[] = [
-            'id' => $coupon->ID,
-            'store_ko' => $fields['store_name'],
-            'store_en' => pll_translate_string($fields['store_name'], 'en'),
-            'store_zh' => pll_translate_string($fields['store_name'], 'zh'),
-            'store_zh_tw' => pll_translate_string($fields['store_name'], 'zh-tw'),
-            'store_th' => pll_translate_string($fields['store_name'], 'th'),
-            'store_id' => pll_translate_string($fields['store_name'], 'id'),
-            'offer' => $fields['offer'],
-            'category' => $fields['category'],
-            'expiry' => $fields['expiry_date'],
-            'code' => $fields['coupon_code'],
-            'area_ko' => $fields['area'],
-            'terms_ko' => $fields['terms'],
-            'article_url' => $fields['article_url'] ?? '',
-            'official_url' => $fields['official_url'] ?? '',
-            'maps_url' => $fields['maps_url'] ?? '',
-            'image' => get_the_post_thumbnail_url($coupon->ID, 'large')
-        ];
-    }
-    ?>
-    
   </script>
 </body>
 </html>
