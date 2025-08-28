@@ -200,68 +200,11 @@
             }
         }
         
-        /* ========== Mobile Dots Navigation ========== */
-        .mobile-dots-nav {
-            display: none;
-        }
         
-        @media (max-width: 768px) {
-            .mobile-dots-nav {
-                display: flex;
-                position: fixed;
-                right: 16px;
-                top: 50%;
-                transform: translateY(-50%);
-                flex-direction: column;
-                gap: 20px;
-                z-index: 99;
-            }
-            
-            .nav-dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: rgba(0, 0, 0, 0.2);
-                border: 2px solid rgba(255, 255, 255, 0.8);
-                cursor: pointer;
-                transition: all 0.3s ease;
-                position: relative;
-            }
-            
-            .nav-dot.active {
-                width: 12px;
-                height: 12px;
-                background: var(--accent);
-                border-color: var(--accent);
-                box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-            }
-            
-            .nav-dot::before {
-                content: attr(data-title);
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 4px 8px;
-                border-radius: 4px;
-                font-size: 12px;
-                white-space: nowrap;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s;
-            }
-            
-            .nav-dot:hover::before {
-                opacity: 1;
-            }
-        }
         
         /* ========== Progress Bar ========== */
         .progress-bar {
             position: fixed;
-            top: 60px;
             left: 0;
             width: 0%;
             height: 3px;
@@ -1205,7 +1148,7 @@
             margin-bottom: 40px;
             box-shadow: var(--shadow-medium);
         }
-        /* 모바일에서 월별 바 그리드로 변경 */
+    
         @media (max-width: 767px) {
             .month-bar {
                 display: grid;
@@ -1213,7 +1156,7 @@
                 grid-template-rows: repeat(3, 1fr);
                 height: auto;
                 gap: 2px;
-                overflow: visible;  /* 스크롤 제거 */
+                overflow: visible;
             }
             
             .month-segment {
@@ -1223,7 +1166,7 @@
             }
             
             .month-segment:hover {
-                transform: none;  /* 모바일에서 호버 효과 제거 */
+                transform: none;
             }
         }
         .month-segment {
@@ -1963,51 +1906,122 @@
           .slide.active{ transform: none; }
         }
 
-        /* 카테고리별 카드 태그 색상 */
+        /* カテゴリ別カード・タグ・カラー */
 .card-tag.food {
-    background: linear-gradient(135deg, #f59e0b, #f97316); /* 오렌지 - 음식 */
+    background: linear-gradient(135deg, #f59e0b, #f97316); /* Food */
 }
 
 .card-tag.season {
-    background: linear-gradient(135deg, #3b82f6, #06b6d4); /* 블루 - 계절/이벤트 */
+    background: linear-gradient(135deg, #3b82f6, #06b6d4); /*季節・イベント */
 }
 
 .card-tag.shopping {
-    background: linear-gradient(135deg, #ec4899, #f43f5e); /* 핑크 - 쇼핑 */
+    background: linear-gradient(135deg, #ec4899, #f43f5e); /* ショッピング */
 }
 
 .card-tag.culture {
-    background: linear-gradient(135deg, #6b46c1, #9333ea); /* 보라 - 문화체험 */
+    background: linear-gradient(135deg, #6b46c1, #9333ea); /* 文化体験 */
 }
 
 .card-tag.photo {
-    background: linear-gradient(135deg, #10b981, #14b8a6); /* 민트 - 포토스팟 */
+    background: linear-gradient(135deg, #10b981, #14b8a6); /* PHOTO SPOT */
 }
 
 .card-tag.beauty {
-    background: linear-gradient(135deg, #a855f7, #c084fc); /* 라벤더 - 뷰티 */
+    background: linear-gradient(135deg, #a855f7, #c084fc); /* BEAUTY */
 }
 
 .card-tag.special {
-    background: linear-gradient(135deg, #fbbf24, #fcd34d); /* 골드 - 특별 이벤트 */
+    background: linear-gradient(135deg, #fbbf24, #fcd34d); /* EVENT */
 }
 
 .card-tag.location {
-    background: linear-gradient(135deg, #6b7280, #9ca3af); /* 그레이 - 위치 정보 */
+    background: linear-gradient(135deg, #6b7280, #9ca3af); /* 位置情報 */
+}
+
+/* Mobile Navigation -  */
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    .mobile-nav {
+        position: sticky;
+        top: 60px; /* 헤더 높이 바로 아래에 위치 */
+        background: white;
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        z-index: 990;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        
+        transform: translateY(-100%); /* 처음에는 화면 위쪽으로 숨김 */
+        visibility: hidden; /* 완전히 숨겨서 상호작용 방지 */
+        transition: transform 0.3s ease-in-out, visibility 0.3s; /* 부드러운 애니메이션 */
+    }
+    /* ▼ 아래 클래스 선택자(.visible)가 새로 추가됨 ▼ */
+    /* JS가 이 클래스를 추가하면 내비게이션이 나타남 */
+    .mobile-nav.visible {
+        transform: translateY(0);
+        visibility: visible;
+    }
+    
+    .mobile-nav a {
+        text-decoration: none;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        transition: transform 0.2s;
+    }
+    
+    .mobile-nav a:active {
+        transform: scale(0.95);
+    }
+    
+    .nav-emoji {
+        font-size: 24px;
+    }
+    
+    .nav-text {
+        font-size: 10px;
+        color: var(--secondary-text);
+        font-weight: 500;
+    }
+    
+    .mobile-nav a.active .nav-text {
+        color: var(--japan-red);
+    }
+    
+    .mobile-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background: var(--japan-red);
+        border-radius: 50%;
+    }
+
+    .section {
+        scroll-margin-top: 120px; /* 헤더 + 모바일네비 높이 */
+    }
+}
+.expo-banner.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease-in-out, opacity 0.3s, visibility 0.3s;
 }
     </style>
 </head>
 <body>
-    <!-- Mobile Dots Navigation -->
-    <nav class="mobile-dots-nav" id="mobileDotsNav">
-        <span class="nav-dot" data-section="trend" data-title="Trend"></span>
-        <span class="nav-dot" data-section="trip" data-title="Trip"></span>
-        <span class="nav-dot" data-section="gourmet" data-title="Kuliner"></span>
-        <span class="nav-dot" data-section="shopping" data-title="Shopping"></span>
-        <span class="nav-dot" data-section="beauty" data-title="Beauty"></span>
-        <span class="nav-dot" data-section="checklist" data-title="Checklist"></span>
-        <span class="nav-dot" data-section="seasons" data-title="Musim"></span>
-    </nav>
+
 
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
@@ -2032,6 +2046,37 @@
             </nav>
         </div>
     </header>
+   <!-- Mobile Navigation  -->
+   <nav class="mobile-nav" id="mobileNav">
+    <a href="#trend">
+        <span class="nav-emoji">🔥</span>
+        <span class="nav-text">Trend</span>
+    </a>
+    <a href="#trip">
+        <span class="nav-emoji">✈️</span>
+        <span class="nav-text">Trip</span>
+    </a>
+    <a href="#gourmet">
+        <span class="nav-emoji">🍜</span>
+        <span class="nav-text">Kuliner</span>
+    </a>
+    <a href="#shopping">
+        <span class="nav-emoji">🛍️</span>
+        <span class="nav-text">Shopping</span>
+    </a>
+    <a href="#beauty">
+        <span class="nav-emoji">💄</span>
+        <span class="nav-text">Beauty</span>
+    </a>
+    <a href="#checklist">
+        <span class="nav-emoji">📋</span>
+        <span class="nav-text">Checklist</span>
+    </a>
+    <a href="#seasons">
+        <span class="nav-emoji">🌸</span>
+        <span class="nav-text">Musim</span>
+    </a>
+</nav>
 
     <!-- Expo Banner -->
     <div class="expo-banner" id="expoBanner">
@@ -2250,7 +2295,6 @@
             <p class="section-subtitle">Platform terpercaya untuk mencari restoran halal di seluruh Jepang</p>
         </div>
         
-        <!-- 메인 3대 플랫폼 -->
         <div class="halal-platforms-grid">
             <!-- Halal Gourmet Japan -->
             <a href="https://www.halalgourmet.jp" target="_blank" class="platform-card" rel="noopener">
@@ -2313,7 +2357,7 @@
             </a>
         </div>
 
-        <!-- Gourmet Section 내 추가 - 플랫폼 정보 다음에 삽입 -->
+        <!-- Gourmet Section  -->
 <div class="related-articles-section">
     <h3 class="section-subtitle" style="text-align: center; margin: 40px 0 24px;">
         Inspirasi Kuliner dari Tim Japankuru
@@ -2931,265 +2975,215 @@
     <div class="notification" id="notification" role="status" aria-live="polite"></div>
 
     <script>
-        // Initialize Mobile Dots Navigation
-        function initMobileDotsNav() {
-            const dots = document.querySelectorAll('.nav-dot');
-            const headerContent = document.querySelector('.header-content');
-            
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const section = document.getElementById(dot.dataset.section);
-                    if (section) {
-                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-            
-            function updateActiveDot() {
-                const sections = ['trend', 'trip', 'gourmet', 'shopping', 'beauty', 'checklist', 'seasons'];
-                const sectionNames = ['📍 Trend', '📍 Trip', '📍 Kuliner', '📍 Shopping', '📍 Beauty', '📍 Checklist', '📍 Musim'];
-                let currentSection = 0;
-                
-                sections.forEach((sectionId, index) => {
-                    const section = document.getElementById(sectionId);
-                    if (section) {
-                        const rect = section.getBoundingClientRect();
-                        if (rect.top <= 150 && rect.bottom >= 150) {
-                            currentSection = index;
-                        }
-                    }
-                });
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSection);
-                });
-                
-                if (window.innerWidth <= 768 && headerContent) {
-                    headerContent.setAttribute('data-current-section', sectionNames[currentSection]);
-                }
-            }
-            
-            window.addEventListener('scroll', updateActiveDot);
-            window.addEventListener('resize', updateActiveDot);
-            updateActiveDot();
-        }
-    
-        // Adjust layout for Expo Banner
-        function adjustLayoutForBanner() {
-            const progressBar = document.getElementById('progressBar');
-            const hero = document.querySelector('.hero');
-            const header = document.getElementById('header');
-            const expoBanner = document.getElementById('expoBanner');
-            
-            if (progressBar && header) {
-                let top = header.offsetHeight;
-                if (expoBanner && getComputedStyle(expoBanner).display !== 'none') {
-                    top += expoBanner.offsetHeight;
-                }
-                progressBar.style.top = top + 'px';
-            }
-            
-            if (hero && header) {
-                let paddingTop = header.offsetHeight + 80;
-                if (expoBanner && getComputedStyle(expoBanner).display !== 'none') {
-                    paddingTop += expoBanner.offsetHeight;
-                }
-                hero.style.paddingTop = paddingTop + 'px';
-            }
-        }
-    
-        // Progress Bar & Scroll Effects
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.getElementById('scrollTop');
-            const header = document.getElementById('header');
-            const progressBar = document.getElementById('progressBar');
-            
-            // Progress bar
-            const scrollPercent = (window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * 100;
-            if (progressBar) progressBar.style.width = scrollPercent + '%';
-            
-            // Header state
-            if (header && window.pageYOffset > 50) {
-                header.classList.add('scrolled');
-            } else if (header) {
-                header.classList.remove('scrolled');
-            }
-            
-            // Scroll to top button
-            if (scrollTop && window.pageYOffset > 300) {
-                scrollTop.classList.add('visible');
-            } else if (scrollTop) {
-                scrollTop.classList.remove('visible');
-            }
-            
-            updateActiveNav();
-        });
-    
-        // Update Active Navigation
-        function updateActiveNav() {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (window.pageYOffset >= sectionTop) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + currentSection) {
-                    link.classList.add('active');
-                }
-            });
-        }
-    
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href !== '#' && href.length > 1) {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
-            });
-        });
-    
-        // Scroll to Top
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    
-        // Checklist Toggle
-        function toggleChecklist(header) {
-            const content = header.nextElementSibling;
-            const checkbox = header.querySelector('.checklist-checkbox');
-            const label = header.querySelector('span').textContent;
-            
-            if (content.classList.contains('expanded')) {
-                content.classList.remove('expanded');
-                checkbox.classList.remove('checked');
-                localStorage.setItem('checklist_' + label, 'false');
-            } else {
-                content.classList.add('expanded');
-                checkbox.classList.add('checked');
-                localStorage.setItem('checklist_' + label, 'true');
-            }
-        }
-    
-        // Initialize Checklist from LocalStorage
-        function initChecklist() {
-            document.querySelectorAll('.checklist-item').forEach(item => {
-                const label = item.querySelector('.checklist-header span').textContent;
-                const isChecked = localStorage.getItem('checklist_' + label) === 'true';
-                if (isChecked) {
-                    item.querySelector('.checklist-checkbox').classList.add('checked');
-                    item.querySelector('.checklist-content').classList.add('expanded');
-                }
-            });
-        }
-    
-        // Season Panel Toggle
-        function showSeason(season) {
-            document.querySelectorAll('.season-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            const selectedPanel = document.getElementById(season + '-panel');
-            if (selectedPanel) {
-                selectedPanel.classList.add('active');
-            }
-        }
-    
-        // Show Notification
-        function showNotification(message, type = 'info') {
-            const notification = document.getElementById('notification');
-            if (notification) {
-                notification.textContent = message;
-                notification.className = `notification ${type}`;
-                notification.classList.add('show');
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
-            }
-        }
 
-        // Lazy load background images defined via data-bg
-        function initLazyBg(){
-            const io = new IntersectionObserver((entries, obs)=>{
-                entries.forEach(ent=>{
-                    if(ent.isIntersecting){
-                        const el = ent.target;
-                        const src = el.getAttribute('data-bg');
-                        if(src){
-                            el.style.backgroundImage = `url('${src}')`;
-                            el.style.backgroundSize = 'cover';
-                            el.style.backgroundPosition = 'center';
-                            el.removeAttribute('data-bg');
-                        }
-                        obs.unobserve(el);
-                    }
-                });
-            }, { rootMargin: "300px" });
-            document.querySelectorAll('[data-bg]').forEach(el=>io.observe(el));
+let slideIndex = 0;
+let sliderTimer;
+
+// 1. 배너 높이에 맞춰 레이아웃 조정
+function adjustLayoutForBanner() {
+    const progressBar = document.getElementById('progressBar');
+    const hero = document.querySelector('.hero');
+    const header = document.getElementById('header');
+    const expoBanner = document.getElementById('expoBanner');
+
+    if (progressBar && header) {
+        let top = header.offsetHeight;
+        if (expoBanner && getComputedStyle(expoBanner).display !== 'none') {
+            top += expoBanner.offsetHeight;
         }
+        progressBar.style.top = top + 'px';
+    }
     
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            initChecklist();
-            initMobileDotsNav();
-            updateActiveNav();
-            adjustLayoutForBanner();
-            showSeason('spring');
-            initLazyBg();
-            
-            // Welcome message
-            if (!sessionStorage.getItem('welcomed')) {
-                setTimeout(() => {
-                    showNotification('Selamat datang di Japankuru Indonesia!', 'success');
-                    sessionStorage.setItem('welcomed', 'true');
-                }, 2000);
+    if (hero && header) {
+        let paddingTop = header.offsetHeight + 80;
+        if (expoBanner && getComputedStyle(expoBanner).display !== 'none') {
+            paddingTop += expoBanner.offsetHeight;
+        }
+        hero.style.paddingTop = paddingTop + 'px';
+    }
+}
+
+// 2. 스크롤 위치에 따라 내비게이션 활성화
+function updateActiveNav() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    let currentSection = '';
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        if (window.pageYOffset >= sectionTop) {
+            currentSection = section.getAttribute('id');
+        }
+    });
+
+    const updateLinks = (links) => {
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href').substring(1);
+            link.classList.toggle('active', linkHref === currentSection);
+        });
+    };
+
+    updateLinks(navLinks);
+    updateLinks(mobileNavLinks);
+}
+
+// 3. 페이지 맨 위로 스크롤
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 4. 체크리스트 토글
+function toggleChecklist(header) {
+    const content = header.nextElementSibling;
+    const checkbox = header.querySelector('.checklist-checkbox');
+    const label = header.querySelector('span').textContent;
+    
+    const isExpanded = content.classList.toggle('expanded');
+    checkbox.classList.toggle('checked', isExpanded);
+    localStorage.setItem('checklist_' + label, isExpanded);
+}
+
+// 5. 체크리스트 초기 상태 설정
+function initChecklist() {
+    document.querySelectorAll('.checklist-item').forEach(item => {
+        const label = item.querySelector('.checklist-header span').textContent;
+        if (localStorage.getItem('checklist_' + label) === 'true') {
+            toggleChecklist(item.querySelector('.checklist-header'));
+        }
+    });
+}
+
+// 6. 계절 패널 표시
+function showSeason(season) {
+    document.querySelectorAll('.season-panel').forEach(panel => {
+        panel.classList.remove('active');
+    });
+    const selectedPanel = document.getElementById(season + '-panel');
+    if (selectedPanel) {
+        selectedPanel.classList.add('active');
+    }
+}
+
+// 7. 알림 메시지 표시
+function showNotification(message, type = 'info') {
+    const notification = document.getElementById('notification');
+    if (notification) {
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+}
+
+// 8. 슬라이드 쇼 기능
+function showAt(idx) {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    if (!slides.length) return;
+
+    slideIndex = (idx + slides.length) % slides.length;
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slides[slideIndex].classList.add('active');
+    if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+}
+
+function nextSlide() {
+    showAt(slideIndex + 1);
+}
+
+window.currentSlide = function(n) {
+    clearInterval(sliderTimer);
+    showAt(n - 1);
+    sliderTimer = setInterval(nextSlide, 4000);
+};
+
+// ----- 이벤트 리스너 설정 -----
+
+// 스크롤 이벤트 처리
+// 기존의 scroll 이벤트 리스너 전체를 아래 코드로 교체하세요.
+
+// 기존의 window.addEventListener('scroll', ...) 함수 전체를 이 코드로 교체하세요.
+
+window.addEventListener('scroll', function() {
+    // 1. 필요한 모든 요소를 가져옵니다.
+    const header = document.getElementById('header');
+    const progressBar = document.getElementById('progressBar');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const expoBanner = document.getElementById('expoBanner');
+    const mobileNav = document.getElementById('mobileNav');
+    const scrollPosition = window.pageYOffset;
+
+    // 2. (가장 중요) 스크롤 위치에 따라 배너와 모바일 내비의 클래스를 먼저 변경합니다.
+    if (scrollPosition > 50) {
+        if (expoBanner) expoBanner.classList.add('hidden');
+        if (mobileNav) mobileNav.classList.add('visible');
+    } else {
+        if (expoBanner) expoBanner.classList.remove('hidden');
+        if (mobileNav) mobileNav.classList.remove('visible');
+    }
+
+    // 3. 변경된 화면 상태를 기준으로 프로그레스 바의 위치를 정확하게 계산합니다.
+    if (progressBar && header) {
+        let currentTopOffset = header.offsetHeight;
+        
+        if (expoBanner && !expoBanner.classList.contains('hidden')) {
+            // 배너가 보일 때
+            currentTopOffset += expoBanner.offsetHeight;
+        } else if (mobileNav && mobileNav.classList.contains('visible')) {
+            // 모바일 내비가 보일 때
+            currentTopOffset += mobileNav.offsetHeight;
+        }
+        progressBar.style.top = currentTopOffset + 'px';
+    }
+
+    // 4. 나머지 스크롤 효과들을 처리합니다.
+    const scrollPercent = (scrollPosition / (document.body.scrollHeight - window.innerHeight)) * 100;
+    if (progressBar) progressBar.style.width = scrollPercent + '%';
+    
+    if (header) header.classList.toggle('scrolled', scrollPosition > 50);
+    if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', scrollPosition > 300);
+    
+    // 5. 내비게이션 활성화 상태를 업데이트합니다.
+    updateActiveNav();
+});
+
+// 페이지 로드 완료 시 실행
+document.addEventListener('DOMContentLoaded', () => {
+    // 부드러운 스크롤 링크 설정
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href.length > 1) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
-    
-        // Handle window resize
-        window.addEventListener('resize', adjustLayoutForBanner);
-    
-        /* ======= 슬라이드쇼 코드 (부드러운 페이드 + 타이머 리셋 지원) ======= */
-        let slideIndex = 0, sliderTimer;
+    });
 
-        function showAt(idx){
-            const slides = document.querySelectorAll('.slide');
-            const dots   = document.querySelectorAll('.dot');
-            if(!slides.length) return;
+    // 각종 기능 초기화
+    initChecklist();
+    updateActiveNav();
+    adjustLayoutForBanner();
+    showSeason('spring');
+    showAt(0);
+    sliderTimer = setInterval(nextSlide, 4000);
 
-            slideIndex = (idx + slides.length) % slides.length;
-            slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            slides[slideIndex].classList.add('active');
-            if(dots[slideIndex]) dots[slideIndex].classList.add('active');
-        }
+    // 환영 메시지
+    if (!sessionStorage.getItem('welcomed')) {
+        setTimeout(() => {
+            showNotification('Selamat datang di Japankuru Indonesia!', 'success');
+            sessionStorage.setItem('welcomed', 'true');
+        }, 2000);
+    }
+});
 
-        function nextSlide(){ showAt(slideIndex + 1); }
+// 창 크기 변경 시 레이아웃 조정
+window.addEventListener('resize', adjustLayoutForBanner);
 
-        document.addEventListener('DOMContentLoaded', ()=>{
-            showAt(0);
-            sliderTimer = setInterval(nextSlide, 4000);
-        });
-
-        // 점(도트) 클릭 시 수동 이동 + 타이머 리셋
-        window.currentSlide = function(n){
-            clearInterval(sliderTimer);
-            showAt(n - 1);
-            sliderTimer = setInterval(nextSlide, 4000);
-        };
-    
-        console.log('Japankuru Indonesia - Full version loaded successfully');
+console.log('Japankuru Indonesia - Fully corrected script loaded.');
     </script>
     
 </body>
