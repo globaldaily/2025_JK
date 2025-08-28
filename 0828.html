@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>企業体験プログラム - インバウンド広告の世界 (Apple Style)</title>
+    <title>企業体験プログラム - イン바ウンド広告の世界 (Apple Style)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
         
@@ -113,7 +113,7 @@
         .progress { width: 200px; height: 5px; background: #e5e5e5; border-radius: 2.5px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--accent-color); transition: width 0.3s; }
         
-        .hero { background: #1d1d1f; color: white; }
+        .hero { background: #1d1d1f; color: white; position: relative; }
         .hero h1, .hero h2, .hero h3 { color: white; }
         .hero p { color: #a1a1a6; }
         .hero .stat-label { color: #a1a1a6; }
@@ -123,94 +123,100 @@
         .stat-item { text-align: center; }
         .stat-number { font-size: 2.8em; font-weight: 700; color: var(--accent-color); }
         .stat-label { font-size: 1em; color: var(--text-secondary); margin-top: 5px; }
-        img { max-width: 100%; height: auto; border-radius: 12px; }
-
-        /* ▼▼▼ PDF 저장을 위한 새로운 스타일 ▼▼▼ */
-        @media print {
-            @page {
-                size: A4 landscape;
-                margin: 0;
-            }
-            body {
-                background: white; /* Print background */
-            }
-            .screen-view {
-                display: block;
-                width: 100%;
-                height: auto;
-            }
-            .container, .slide {
-                width: 100% !important;
-                height: 100vh !important;
-                max-height: none !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                position: relative !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                page-break-after: always; /* Each slide on a new page */
-            }
-            .header, .footer, .nav-btn {
-                display: none !important; /* Hide UI elements */
-            }
-            .main {
-                position: static !important;
-                overflow: visible !important;
-                height: auto !important;
-            }
+        img, .graph-placeholder { max-width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            z-index: 0;
         }
-        /* ▼▼▼ PDF 저장을 위한 새로운 스타일 ▼▼▼ */
+        .center { position: relative; z-index: 1; }
+        
+        /* ▼▼▼ [링크 추가됨] 외부 링크 스타일 ▼▼▼ */
+        .slide a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .slide a .split {
+            border-radius: 16px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .slide a:hover .split {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
         #printBtn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            background-color: var(--accent-color); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: background-color 0.2s;
         }
-        #printBtn:hover {
-            background-color: #0056b3;
-        }
+        #printBtn:hover { background-color: #0056b3; }
 
         @media print {
-    @page {
-        size: landscape;
-        margin: 0;
-    }
-    body {
-        background: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-    .container {
-        width: 100% !important; height: 100% !important;
-        box-shadow: none !important; border-radius: 0 !important;
-    }
-    .header, .footer, .nav-btn { display: none !important; }
-    .main { overflow: visible !important; }
-    .slide {
-        display: flex !important; opacity: 1 !important;
-        position: relative !important; width: 100% !important;
-        height: 100vh !important;
-    }
-    /* 마지막 슬라이드 뒤에서는 페이지를 나누지 않음 */
-    .slide:not(:last-child) {
-        page-break-after: always;
-    }
-    /* PDF에만 표시될 페이지 번호 스타일 */
-    .print-page-number {
-        position: absolute;
-        bottom: 20px;
-        right: 30px;
-        font-size: 14px;
-        color: #555;
-        font-weight: 500;
-    }
+            @page { size: A4 landscape; margin: 0; }
+            body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .screen-view { display: block; width: 100%; height: auto; }
+            .container, .slide { width: 100% !important; height: 100vh !important; max-height: none !important; display: flex !important; flex-direction: column !important; justify-content: center !important; opacity: 1 !important; visibility: visible !important; position: relative !important; box-shadow: none !important; border-radius: 0 !important; }
+            .slide:not(:last-child) { page-break-after: always; }
+            .header, .footer, .nav-btn, .hero-bg { display: none !important; }
+            .main { position: static !important; overflow: visible !important; height: auto !important; }
+            .print-page-number { display: block; position: absolute; bottom: 20px; right: 30px; font-size: 14px; color: #555; }
+        }
+        .print-page-number { display: none; }
+
+        /* ▼▼▼ [신규 추가] 팀 편성 보드용 스타일 ▼▼▼ */
+.team-islands {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    width: 100%;
+}
+.island-card {
+    background: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+}
+.island-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.island-header .team-name {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+.island-header .mission-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: right;
+}
+.island-body ul {
+    list-style: none;
+}
+.island-body li {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+/* ▼▼▼ [수정] 팀 편성 보드용 스타일 (2열 그리드 적용) ▼▼▼ */
+.island-body ul {
+    list-style: none;
+    padding: 0; /* 기본 패딩 제거 */
+    display: grid; /* 그리드 레이아웃 적용 */
+    grid-template-columns: 1fr 1fr; /* 1:1 비율의 2개 컬럼 생성 */
+    gap: 0 15px; /* 세로(0) 가로(15px) 간격 */
+}
+.island-body li {
+    font-size: 1.1em; /* 폰트 크기 미세 조정 */
+    margin-bottom: 12px; /* 줄 간격 조정 */
+    white-space: nowrap; /* 이름이 길 경우 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
 }
     </style>
 </head>
@@ -224,18 +230,20 @@
                 </div>
             </header>
             <main class="main">
+            
             <div class="slide active hero">
+                <img src="https://img.japankuru.com/prg_img/img/img2020020418034213236300.jpg" alt="Shibuya Crossing" class="hero-bg">
                 <div class="center">
                     <h1>インバウンド広告の世界へ<br>ようこそ</h1>
                     <p style="font-size: 1.3em;">株式会社グローバル・デイリー 企業体験プログラム</p>
                     <div class="stats">
                         <div class="stat-item">
                             <div class="stat-number">3,687万人</div>
-                            <div class="stat-label">2024年 訪日外客数</div>
+                            <div class="stat-label">2024年 訪日外客数<br><strong>(カナダの全人口に匹敵)</strong></div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">8.1兆円</div>
-                            <div class="stat-label">2024年 インバウンド消費額</div>
+                            <div class="stat-label">2024年 インバウンド消費額<br><strong>(日本の防衛予算を上回る規模)</strong></div>
                         </div>
                     </div>
                 </div>
@@ -245,15 +253,9 @@
                 <div class="center">
                     <h1>本日のファシリテーター</h1>
                     <div class="cards" style="grid-template-columns: repeat(3, 1fr); max-width: 800px; margin: 30px auto 0 auto;">
-                        <div class="card">
-                            <h3>金 (キム)</h3><p>戦略企画担当</p>
-                        </div>
-                        <div class="card">
-                            <h3>チェ</h3><p>JAPANKURU責任者</p>
-                        </div>
-                        <div class="card">
-                            <h3>ウィルケン</h3><p>korekoko責任者</p>
-                        </div>
+                        <div class="card"><h3>金 (キム)</h3><p>戦略企画担当</p></div>
+                        <div class="card"><h3>チェ</h3><p>JAPANKURU責任者</p></div>
+                        <div class="card"><h3>ウィルケン</h3><p>korekoko責任者</p></div>
                     </div>
                     <p style="margin-top: 30px;">私たちが皆さんをプロの世界へご案内します。</p>
                 </div>
@@ -297,7 +299,20 @@
                         皆さんも、そう感じることはありませんか？<br>街中で外国人観光客を見かける機会が確実に増えています。</p>
                     </div>
                     <div>
-                        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070" alt="Tokyo">
+                        <img src="https://img.japankuru.com/prg_img/img/img2019031815093371766200.jpg" alt="Tokyo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="center">
+                    <h1>世界が日本に惹かれる理由</h1>
+                    <p>歴史的な円安だけではない、複合的な魅力が世界中の人々を惹きつけています。</p>
+                    <div class="cards" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="card"><h3>💴 圧倒的な割安感</h3><p>歴史的な円安で旅行費用が大幅に低下</p></div>
+                        <div class="card"><h3>🌸 唯一無二の文化</h3><p>アニメ、食、伝統文化など多彩な体験</p></div>
+                        <div class="card"><h3>🏙️ 安全と清潔</h3><p>世界トップクラスの治安と衛生環境</p></div>
+                        <div class="card"><h3>🚅 優れた交通網</h3><p>全国を快適に旅できる交通インフラ</p></div>
                     </div>
                 </div>
             </div>
@@ -306,19 +321,16 @@
                 <div class="center">
                     <h1>そもそも「インバウンド」とは？</h1>
                     <div class="split" style="max-width: 800px; margin: 30px auto 0 auto; align-items: stretch;">
-                        
                         <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <h2 style="color: var(--accent-color);">インバウンド</h2>
                             <p style="font-size: 3em; margin: 10px 0; line-height: 1;">✈️ → 🇯🇵</p>
                             <p>外国から日本へ<br>旅行に来ること</p>
                         </div>
-
                         <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <h2 style="color: #f5576c;">アウトバウンド</h2>
                             <p style="font-size: 3em; margin: 10px 0; line-height: 1;">🇯🇵 → ✈️</p>
                             <p>日本から外国へ<br>旅行に行くこと</p>
                         </div>
-
                     </div>
                     <p style="margin-top: 30px;">本日のテーマは、この「インバウンド」ビジネスです。</p>
                 </div>
@@ -327,25 +339,8 @@
             <div class="slide">
                 <div class="center">
                     <h1>爆発的に成長する市場</h1>
-                    <p>コロナ禍を乗り越え、訪日外客数は過去最高を更新し続けています。</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-number">3,188万</div>
-                            <div class="stat-label">2019年</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">383万</div>
-                            <div class="stat-label">2022年</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" style="color: var(--accent-color);">3,687万</div>
-                            <div class="stat-label">2024年 (New Record)</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" style="color: #f5576c;">→</div>
-                            <div class="stat-label">更なる記録更新へ</div>
-                        </div>
-                    </div>
+                    <p>コロナ禍を経て、奇跡的なV字回復を遂げ、訪日外客数は過去最高を更新し続けています。</p>
+                    <img src="https://img.japankuru.com/prg_img/img/img2022102418152411925000.jpg" alt="Growth Graph" style="max-width: 600px; margin: 20px auto; display: block;">
                 </div>
             </div>
 
@@ -367,15 +362,15 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="slide">
                 <div class="center">
                     <h1>しかし、企業は課題を抱えています</h1>
                     <p>このチャンスを前に、多くの企業が効果的なアプローチを見つけられずにいます。</p>
                     <div class="cards" style="grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 20px auto 0 auto;">
-                        <div class="card"><h3>🌏 多様な顧客層</h3><p>200以上の国・地域から来る異なる文化・ニーズ</p></div>
-                        <div class="card"><h3>📱 効果的なPR</h3><p>どの媒体でどんなメッセージを伝えるべきか？</p></div>
-                        <div class="card"><h3>🗣️ 言語の壁</h3><p>サービスの魅力が正しく伝わらない</p></div>
+                        <div class="card"><h3>🌏 多様な顧客層</h3><p>200以上の国・地域から来る異なる文化・ニーズ<br><small><strong>(例：欧米客の「体験」重視 vs アジア客の「買い物」重視)</strong></small></p></div>
+                        <div class="card"><h3>📱 効果的なPR</h3><p>どの媒体でどんなメッセージを伝えるべきか？<br><small><strong>(例：中国市場ならWeibo, 欧米ならInstagram?)</strong></small></p></div>
+                        <div class="card"><h3>🗣️ 言語の壁</h3><p>サービスの魅力が正しく伝わらない<br><small><strong>(例：翻訳機では伝わらない「おもてなし」の心)</strong></small></p></div>
                     </div>
                 </div>
             </div>
@@ -393,40 +388,91 @@
             <div class="slide">
                 <div class="center">
                     <h1>私たちの事業</h1>
-                    <p>インバウンド広告の専門代理店として、4つの領域をカバーします。</p>
+                    <p>私たちは4つの専門領域を組み合わせ、訪日インバウンドの課題をワンストップで解決します。</p>
                     <div class="cards" style="grid-template-columns: repeat(4, 1fr);">
-                        <div class="card"><h3>📊 データ分析</h3><p>市場調査・顧客分析</p></div>
-                        <div class="card"><h3>🎯 戦略立案</h3><p>ターゲット設定</p></div>
-                        <div class="card"><h3>✨ コンテンツ制作</h3><p>多言語対応</p></div>
-                        <div class="card"><h3>📡 メディア運営</h3><p>配信・効果測定</p></div>
+                        
+                        <div class="card">
+                            <h3 style="font-size: 1.5em; margin-bottom: 10px;">📣</h3>
+                            <h3>プロモーション</h3>
+                            <p>データに基づく戦略から広告運用、日本企業の海外進出支援まで、一貫してサポートします。</p>
+                        </div>
+            
+                        <div class="card">
+                            <h3 style="font-size: 1.5em; margin-bottom: 10px;">✍️</h3>
+                            <h3>クリエイティブ</h3>
+                            <p>多言語に対応した質の高い記事、動画、デザインで、日本のブランド価値を最大化します。</p>
+                        </div>
+            
+                        <div class="card">
+                            <h3 style="font-size: 1.5em; margin-bottom: 10px;">メディア</h3>
+                            <h3>メディア</h3>
+                            <p>自社メディア運営に加え、有力インフルエンサーや海外現地メディアを組み合わせ、最適な戦略を構築します。</p>
+                        </div>
+            
+                        <div class="card">
+                            <h3 style="font-size: 1.5em; margin-bottom: 10px;">🤝</h3>
+                            <h3>コミュニティ</h3>
+                            <p>オンライン・オフラインのイベントを通じ熱量の高いファンを形成。自社PFはその中核です。</p>
+                        </div>
+            
                     </div>
                 </div>
             </div>
 
             <div class="slide">
-                <div class="split">
-                    <div>
-                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070" alt="JAPANKURU">
+                <a href="https://www.japankuru.com/" target="_blank" rel="noopener noreferrer">
+                    <div class="split">
+                        <div>
+                            <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2023/06/69166496_2319739331408151_3163022712314527744_n.jpeg" alt="JAPANKURU">
+                        </div>
+                        <div>
+                            <h2 style="color: #d94a38;">JAPANKURU</h2>
+                            <h3>日本の魅力を世界へ発信</h3>
+                            <p style="text-align: left;">月間200万ユーザーが利用する多言語メディア。質の高いコンテンツで日本のリアルな魅力を世界に届けています。<br><strong>実績：</strong>観光・交通・宿泊など多様なクライアントのコンテンツを制作・配信、前年比300%の外国人売上を達成など。</p>
+                            <p style="color: #888; text-align: left;">担当: チェ</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 style="color: #d94a38;">JAPANKURU</h2>
-                        <h3>日本の魅力を世界へ発信</h3>
-                        <p style="text-align: left;">月間500万ユーザーが利用する多言語メディア。質の高いコンテンツで日本のリアルな魅力を世界に届けています。</p>
-                        <p style="color: #888; text-align: left;">担当: チェ</p>
+                </a>
+            </div>
+            
+            <div class="slide">
+                 <a href="https://korekoko.jp/" target="_blank" rel="noopener noreferrer">
+                    <div class="split">
+                        <div>
+                            <h2 style="color: #00a9e0;">korekoko</h2>
+                            <h3>在留外国人のためのコミュニティ</h3>
+                            <p style="text-align: left;">日本全国の外国人コミュニティとつながっているイベント・コミュニティプラットフォーム。日本での生活をより豊かにする出会いを創出します。<br><strong>実績：</strong>地方自治体と連携し、在留外国人向け「観光体験ツアー」を企画、満員御礼など。</p>
+                            <p style="color: #888; text-align: left;">担当: ウィルケン</p>
+                        </div>
+                        <div>
+                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070" alt="korekoko">
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="slide">
-                <div class="split">
-                    <div>
-                        <h2 style="color: #00a9e0;">korekoko</h2>
-                        <h3>在留外国人のためのコミュニティ</h3>
-                        <p style="text-align: left;">10万人以上が登録するイベント・コミュニティプラットフォーム。日本での生活をより豊かにする出会いを創出します。</p>
-                        <p style="color: #888; text-align: left;">担当: ウィルケン</p>
-                    </div>
-                    <div>
-                        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070" alt="korekoko">
+                <div class="center" style="max-width: 900px;">
+                    <h2 style="color: #00a9e0; font-size: 2.2em; margin-bottom: 25px;">korekokoで特別な体験を始めよう！</h2>
+                    <p style="font-size: 1.1em; line-height: 1.9; margin-bottom: 30px;">
+                        日本での毎日が、もっと楽しく、豊かになる。korekokoは、<br> そんな出会いと体験が見つかる場所です。
+                        今すぐ登録して、新しい物語をスタートさせましょう！
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 50px; width: 100%;">
+                        <div style="text-align: center;">
+                            <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/korekoko_qr.png" alt="Korekoko Member Registration QR Code" style="max-width: 250px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                            <h3 style="color: var(--text-primary);">無料会員登録はこちら</h3>
+                            <p style="font-size: 0.95em; color: var(--text-secondary); margin-top: 5px;">
+                                イベント参加や限定情報ゲット！
+                            </p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/korekoko_insta.jpg" alt="Korekoko Instagram QR Code" style="max-width: 250px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                            <h3 style="color: var(--text-primary);">公式インスタグラムをフォロー</h3>
+                            <p style="font-size: 0.95em; color: var(--text-secondary); margin-top: 5px;">
+                                最新イベント情報や日本の魅力をチェック！
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -459,11 +505,11 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="slide">
                  <div class="center">
                     <h1>特別チーム編成</h1>
-                    <p>多様な文化の視点を活かすため、以下の4チームで進めます。</p>
+                    <p>多様な文化の視点を活かすため、以下の4チームで進めます。<br><strong>異文化の視点を掛け合わせることで、より革新的なアイデアが生まれます。</strong></p>
                     <div class="cards" style="grid-template-columns: repeat(4, 1fr);">
                         <div class="card"><h3>Aチーム</h3><p>ロシア・東欧</p></div>
                         <div class="card"><h3>Bチーム</h3><p>中国</p></div>
@@ -472,7 +518,80 @@
                     </div>
                 </div>
             </div>
+            
 
+            <div class="slide">
+                <div class="center">
+                    <h1>チーム編成 & ミッション</h1>
+                    <p>各チームの担当クライアントとメンバーはこちらです。最高のアイデアを期待しています！</p>
+                    <div class="team-islands" style="margin-top: 25px;">
+                        
+                        <div class="island-card">
+                            <div class="island-header">
+                                <span class="team-name">TEAM A</span>
+                                <span class="mission-name">♨️ 箱根観光協会</span>
+                            </div>
+                            <div class="island-body">
+                                <ul>
+                                    <li>🇷🇺 Mr. DEMCHENKO IVAN</li>
+                                    <li>🇷🇺 Ms. LAZARENKOVA OLGA</li>
+                                    <li>🇰🇿 Ms. ASSANOVA AIYM</li>
+                                    <li>🇮🇹 Mr. FABRIS RUBEN</li>
+                                    <li>🇷🇺 Mr. DMITRIEV STEPAN</li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <div class="island-card">
+                            <div class="island-header">
+                                <span class="team-name">TEAM B</span>
+                                <span class="mission-name">🛍️ ドン・キホーテ</span>
+                            </div>
+                            <div class="island-body">
+                                <ul>
+                                    <li>🇨🇳 Ms. 王 麗媛</li>
+                                    <li>🇨🇳 Ms. 斉 心可</li>
+                                    <li>🇨🇳 Mr. 秦 海波</li>
+                                    <li>🇭🇰 Mr. 鄭 博維</li>
+                                    <li>🇨🇳 Mr. 徐 敏虎</li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <div class="island-card">
+                            <div class="island-header">
+                                <span class="team-name">TEAM C</span>
+                                <span class="mission-name">🚄 成田エクスプレス</span>
+                            </div>
+                            <div class="island-body">
+                                <ul>
+                                    <li>🇺🇸 Mr. DELIA MICHAEL RAPHAEL</li>
+                                    <li>🇪🇸 Ms. JORNET ORTI MARIA DEL C.</li>
+                                    <li>🇨🇴 Ms. CASTRO RAMIREZ ANGIE J.</li>
+                                    <li>🇹🇭 Ms. KITTIPROMPONG PRAEPUN</li>
+                                    <li>🇨🇱 Mr. PONCE PONCE SANTIAGO F.</li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <div class="island-card">
+                            <div class="island-header">
+                                <span class="team-name">TEAM D</span>
+                                <span class="mission-name">🏨 アパホテル</span>
+                            </div>
+                            <div class="island-body">
+                                <ul>
+                                    <li>🇹🇷 Mr. DETISTOV ALEKSEI</li>
+                                    <li>🇬🇧 Mr. PARK CALLUM</li>
+                                    <li>🇨🇳 Ms. 韩 臻</li>
+                                    <li>🇳🇬 Ms. ADELEKE IDOWU OPEYEMI</li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
             <div class="slide">
                 <div class="split">
                     <div>
@@ -481,7 +600,12 @@
                             <strong>📋 ミッションカード:</strong> 各チームの具体的な課題<br>
                             <strong>📝 企画シート:</strong> アイデアを整理するテンプレート
                         </p>
-                        <p style="margin-top: 20px; text-align: left;"><strong>シートの空欄を埋めるだけで、プロの企画書が完成！</strong></p>
+                        <p style="margin-top: 20px; text-align: left;">
+                            <strong>シートの核心質問:</strong><br>
+                            1. Who? (私たちのターゲットは誰か？)<br>
+                            2. Why? (彼らはなぜ私たちを選ぶべきか？)<br>
+                            3. How? (どうやって彼らに魅力を伝えるか？)
+                        </p>
                     </div>
                     <div>
                         <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/127.0.0.1_3000_Users_jk_andy_Desktop_HTMLE8ABB8E38085_LP_company_profile_missionsheet.html-1.png" alt="Sheet">
@@ -561,12 +685,12 @@
         const nextBtn = document.getElementById('nextBtn');
         
         let currentSlide = 0;
-
+        
         const slideTitles = [
             'オープニング', 'イントロダクション', '本日のゴール', 'アジェンダ', '市場背景',
-            'インバウンドとは', '市場の成長', '経済インパクト', '企業の課題', '私たちの解決策',
-            '事業内容', 'JAPANKURU', 'korekoko', '休憩', 'ワークショップ',
-            'ミッション', 'チーム編成', 'ワークショップツール', 'タイムライン', '発表',
+            '世界が惹かれる理由', 'インバウンドとは', '市場の成長', '経済インパクト', '企業の課題', '私たちの解決策',
+            '事業内容', 'JAPANKURU', 'korekoko', 'korekoko登録のご案内','休憩', 'ワークショップ',
+            'ミッション', 'チーム編成', 'チーム編成 & ミッション','ワークショップツール', 'タイムライン', '発表',
             '総評', 'Q&A', 'クロージング'
         ];
 
@@ -579,10 +703,10 @@
             
             slides[currentSlide].classList.add('active');
             
-            slideTitleEl.textContent = slideTitles[currentSlide];
-            const pageInfo = `${currentSlide + 1} / ${totalSlides}`; // 공통 변수 생성
-            slideNumberEl.textContent = pageInfo; // 헤더 업데이트
-            pageNumEl.textContent = pageInfo; // 푸터 업데이트
+            slideTitleEl.textContent = slideTitles[currentSlide] || '';
+            const pageInfo = `${currentSlide + 1} / ${totalSlides}`;
+            slideNumberEl.textContent = pageInfo;
+            pageNumEl.textContent = pageInfo;
             
             const progress = ((currentSlide + 1) / totalSlides) * 100;
             progressBarEl.style.width = `${progress}%`;
@@ -592,64 +716,25 @@
         prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
         
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextBtn.click();
-            }
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                prevBtn.click();
-            }
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextBtn.click(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevBtn.click(); }
         });
         
         showSlide(0);
-    // ▼▼▼ [최종 수정본] PDF 저장을 위한 Javascript 코드 ▼▼▼
-const printBtn = document.getElementById('printBtn');
-printBtn.addEventListener('click', () => {
-    // 1. PDF에만 표시될 페이지 번호를 모든 슬라이드에 추가합니다.
-    slides.forEach((slide, index) => {
-        const pageNumDiv = document.createElement('div');
-        pageNumDiv.className = 'print-page-number';
-        pageNumDiv.textContent = `${index + 1} / ${totalSlides}`;
-        slide.appendChild(pageNumDiv);
-    });
 
-    // 2. 모든 슬라이드를 인쇄 가능하도록 잠시 활성화합니다.
-    const originalActiveIndex = currentSlide;
-    slides.forEach(slide => {
-        slide.style.display = 'flex';
-        slide.style.opacity = '1';
-        slide.style.position = 'relative';
-    });
-
-    // 3. 인쇄 대화상자를 엽니다.
-    window.print();
-
-    // 4. 인쇄가 끝나면 원래 상태로 복원합니다.
-    const restorePresentation = () => {
-        slides.forEach(slide => {
-            slide.style.position = 'absolute';
-            const pageNumDiv = slide.querySelector('.print-page-number');
-            if (pageNumDiv) {
-                slide.removeChild(pageNumDiv);
-            }
+        const printBtn = document.getElementById('printBtn');
+        printBtn.addEventListener('click', () => {
+            slides.forEach((slide, index) => {
+                let pageNumDiv = slide.querySelector('.print-page-number');
+                if (!pageNumDiv) {
+                    pageNumDiv = document.createElement('div');
+                    pageNumDiv.className = 'print-page-number';
+                    slide.appendChild(pageNumDiv);
+                }
+                pageNumDiv.textContent = `${index + 1} / ${totalSlides}`;
+            });
+            window.print();
         });
-        showSlide(originalActiveIndex); // 원래 보던 슬라이드로 복귀
-    };
-
-    // 인쇄 창을 닫으면 복원 함수가 실행되도록 합니다.
-    if (window.matchMedia) {
-        const mediaQueryList = window.matchMedia('print');
-        mediaQueryList.addListener(mql => {
-            if (!mql.matches) {
-                restorePresentation();
-            }
-        });
-    }
-    window.onafterprint = restorePresentation; // Fallback for some browsers
-
-});
-
     </script>
 </body>
 </html>
