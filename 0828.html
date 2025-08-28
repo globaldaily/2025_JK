@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>企業体験プログラム - イン바ウンド広告の世界 (Apple Style)</title>
+    <title>企業体験プログラム - インバウンド広告の世界 (Apple Style)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
         
@@ -134,24 +134,34 @@
         }
         .center { position: relative; z-index: 1; }
         
-        /* ▼▼▼ [링크 추가됨] 외부 링크 스타일 ▼▼▼ */
-        .slide a {
-            text-decoration: none;
-            color: inherit;
-        }
-        .slide a .split {
-            border-radius: 16px;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-        .slide a:hover .split {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        .slide a { text-decoration: none; color: inherit; }
+        .slide a .split { border-radius: 16px; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .slide a:hover .split { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
-        #printBtn {
-            background-color: var(--accent-color); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: background-color 0.2s;
-        }
+        #printBtn { background-color: var(--accent-color); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; }
         #printBtn:hover { background-color: #0056b3; }
+
+        .team-islands { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; width: 100%; }
+        .island-card { background: #fdfdfd; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; }
+        .island-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .island-header .team-name { font-size: 1.1em; font-weight: 700; color: var(--accent-color); }
+        .island-header .mission-name { font-size: 1.1em; font-weight: 600; text-align: right; }
+        .island-body ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px; }
+        .island-body li { font-size: 1.1em; margin-bottom: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* ▼▼▼ [신규 추가] 슬라이드 시간 표시 스타일 ▼▼▼ */
+        .slide-timestamp {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background-color: rgba(245, 245, 247, 0.85);
+            padding: 5px 12px;
+            border-radius: 10px;
+            z-index: 50;
+        }
 
         @media print {
             @page { size: A4 landscape; margin: 0; }
@@ -159,65 +169,11 @@
             .screen-view { display: block; width: 100%; height: auto; }
             .container, .slide { width: 100% !important; height: 100vh !important; max-height: none !important; display: flex !important; flex-direction: column !important; justify-content: center !important; opacity: 1 !important; visibility: visible !important; position: relative !important; box-shadow: none !important; border-radius: 0 !important; }
             .slide:not(:last-child) { page-break-after: always; }
-            .header, .footer, .nav-btn, .hero-bg { display: none !important; }
+            .header, .footer, .nav-btn, .hero-bg, .slide-timestamp { display: none !important; }
             .main { position: static !important; overflow: visible !important; height: auto !important; }
             .print-page-number { display: block; position: absolute; bottom: 20px; right: 30px; font-size: 14px; color: #555; }
         }
         .print-page-number { display: none; }
-
-        /* ▼▼▼ [신규 추가] 팀 편성 보드용 스타일 ▼▼▼ */
-.team-islands {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    width: 100%;
-}
-.island-card {
-    background: #fdfdfd;
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 20px;
-}
-.island-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-.island-header .team-name {
-    font-size: 1.1em;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-.island-header .mission-name {
-    font-size: 1.1em;
-    font-weight: 600;
-    text-align: right;
-}
-.island-body ul {
-    list-style: none;
-}
-.island-body li {
-    font-size: 1.2em;
-    margin-bottom: 8px;
-}
-/* ▼▼▼ [수정] 팀 편성 보드용 스타일 (2열 그리드 적용) ▼▼▼ */
-.island-body ul {
-    list-style: none;
-    padding: 0; /* 기본 패딩 제거 */
-    display: grid; /* 그리드 레이아웃 적용 */
-    grid-template-columns: 1fr 1fr; /* 1:1 비율의 2개 컬럼 생성 */
-    gap: 0 15px; /* 세로(0) 가로(15px) 간격 */
-}
-.island-body li {
-    font-size: 1.1em; /* 폰트 크기 미세 조정 */
-    margin-bottom: 12px; /* 줄 간격 조정 */
-    white-space: nowrap; /* 이름이 길 경우 줄바꿈 방지 */
-    overflow: hidden; /* 넘치는 텍스트 숨김 */
-    text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
-}
     </style>
 </head>
 <body>
@@ -250,18 +206,21 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:00 - 13:05</div>
                 <div class="center">
                     <h1>本日のファシリテーター</h1>
-                    <div class="cards" style="grid-template-columns: repeat(3, 1fr); max-width: 800px; margin: 30px auto 0 auto;">
+                    <div class="cards" style="grid-template-columns: repeat(4, 1fr); max-width: 900px; margin: 30px auto 0 auto;">
                         <div class="card"><h3>金 (キム)</h3><p>戦略企画担当</p></div>
                         <div class="card"><h3>チェ</h3><p>JAPANKURU責任者</p></div>
                         <div class="card"><h3>ウィルケン</h3><p>korekoko責任者</p></div>
+                        <div class="card"><h3>藤田 (フジタ)</h3><p>広報責任者</p></div>
                     </div>
                     <p style="margin-top: 30px;">私たちが皆さんをプロの世界へご案内します。</p>
                 </div>
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:00 - 13:05</div>
                 <div class="center">
                     <h1>本日のゴール</h1>
                     <p style="font-size: 1.3em; margin: 20px 0;">
@@ -292,6 +251,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="split">
                     <div>
                         <h1>なぜ今、世界は<br>日本を目指すのか？</h1>
@@ -305,6 +265,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>世界が日本に惹かれる理由</h1>
                     <p>歴史的な円安だけではない、複合的な魅力が世界中の人々を惹きつけています。</p>
@@ -318,6 +279,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>そもそも「インバウンド」とは？</h1>
                     <div class="split" style="max-width: 800px; margin: 30px auto 0 auto; align-items: stretch;">
@@ -337,6 +299,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>爆発的に成長する市場</h1>
                     <p>コロナ禍を経て、奇跡的なV字回復を遂げ、訪日外客数は過去最高を更新し続けています。</p>
@@ -345,6 +308,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>日本経済を動かす巨大な力</h1>
                     <p>2024年の訪日外国人旅行消費額は、日本経済全体に大きなインパクトを与えています。</p>
@@ -364,6 +328,7 @@
             </div>
             
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>しかし、企業は課題を抱えています</h1>
                     <p>このチャンスを前に、多くの企業が効果的なアプローチを見つけられずにいます。</p>
@@ -376,6 +341,7 @@
             </div>
 
             <div class="slide hero">
+                <div class="slide-timestamp">⏰ 13:05 - 13:25</div>
                 <div class="center">
                     <h1>その課題、<br>私たちが解決します</h1>
                     <p style="font-size: 1.2em; margin-top: 20px;">
@@ -386,40 +352,37 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:25 - 14:25</div>
                 <div class="center">
                     <h1>私たちの事業</h1>
                     <p>私たちは4つの専門領域を組み合わせ、訪日インバウンドの課題をワンストップで解決します。</p>
                     <div class="cards" style="grid-template-columns: repeat(4, 1fr);">
-                        
                         <div class="card">
                             <h3 style="font-size: 1.5em; margin-bottom: 10px;">📣</h3>
                             <h3>プロモーション</h3>
                             <p>データに基づく戦略から広告運用、日本企業の海外進出支援まで、一貫してサポートします。</p>
                         </div>
-            
                         <div class="card">
                             <h3 style="font-size: 1.5em; margin-bottom: 10px;">✍️</h3>
                             <h3>クリエイティブ</h3>
                             <p>多言語に対応した質の高い記事、動画、デザインで、日本のブランド価値を最大化します。</p>
                         </div>
-            
                         <div class="card">
                             <h3 style="font-size: 1.5em; margin-bottom: 10px;">メディア</h3>
                             <h3>メディア</h3>
                             <p>自社メディア運営に加え、有力インフルエンサーや海外現地メディアを組み合わせ、最適な戦略を構築します。</p>
                         </div>
-            
                         <div class="card">
                             <h3 style="font-size: 1.5em; margin-bottom: 10px;">🤝</h3>
                             <h3>コミュニティ</h3>
                             <p>オンライン・オフラインのイベントを通じ熱量の高いファンを形成。自社PFはその中核です。</p>
                         </div>
-            
                     </div>
                 </div>
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:25 - 14:25</div>
                 <a href="https://www.japankuru.com/" target="_blank" rel="noopener noreferrer">
                     <div class="split">
                         <div>
@@ -436,6 +399,7 @@
             </div>
             
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:25 - 14:25</div>
                  <a href="https://korekoko.jp/" target="_blank" rel="noopener noreferrer">
                     <div class="split">
                         <div>
@@ -452,6 +416,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 13:25 - 14:25</div>
                 <div class="center" style="max-width: 900px;">
                     <h2 style="color: #00a9e0; font-size: 2.2em; margin-bottom: 25px;">korekokoで特別な体験を始めよう！</h2>
                     <p style="font-size: 1.1em; line-height: 1.9; margin-bottom: 30px;">
@@ -486,6 +451,7 @@
             </div>
 
             <div class="slide hero">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                 <div class="center">
                     <h1>ワークショップ</h1>
                     <p>未来のアイデアを創造する時間</p>
@@ -494,6 +460,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                 <div class="center">
                     <h1>各チームへのミッション</h1>
                     <p>4つの異なるクライアントの課題に挑戦していただきます。</p>
@@ -507,6 +474,7 @@
             </div>
             
             <div class="slide">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                  <div class="center">
                     <h1>特別チーム編成</h1>
                     <p>多様な文化の視点を活かすため、以下の4チームで進めます。<br><strong>異文化の視点を掛け合わせることで、より革新的なアイデアが生まれます。</strong></p>
@@ -519,13 +487,12 @@
                 </div>
             </div>
             
-
             <div class="slide">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                 <div class="center">
                     <h1>チーム編成 & ミッション</h1>
                     <p>各チームの担当クライアントとメンバーはこちらです。最高のアイデアを期待しています！</p>
                     <div class="team-islands" style="margin-top: 25px;">
-                        
                         <div class="island-card">
                             <div class="island-header">
                                 <span class="team-name">TEAM A</span>
@@ -541,7 +508,6 @@
                                 </ul>
                             </div>
                         </div>
-            
                         <div class="island-card">
                             <div class="island-header">
                                 <span class="team-name">TEAM B</span>
@@ -557,7 +523,6 @@
                                 </ul>
                             </div>
                         </div>
-            
                         <div class="island-card">
                             <div class="island-header">
                                 <span class="team-name">TEAM C</span>
@@ -573,7 +538,6 @@
                                 </ul>
                             </div>
                         </div>
-            
                         <div class="island-card">
                             <div class="island-header">
                                 <span class="team-name">TEAM D</span>
@@ -588,11 +552,12 @@
                                 </ul>
                             </div>
                         </div>
-            
                     </div>
                 </div>
             </div>
+
             <div class="slide">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                 <div class="split">
                     <div>
                         <h1>最強のツール</h1>
@@ -614,6 +579,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 14:35 - 15:25</div>
                 <div class="center">
                     <h1>ワークショップの進め方 (50分)</h1>
                     <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
@@ -626,6 +592,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 15:25 - 15:55</div>
                 <div class="center">
                     <h1>グループ発表</h1>
                     <p>皆さんのアイデアを聞かせてください。</p>
@@ -639,6 +606,7 @@
             </div>
 
             <div class="slide">
+                <div class="slide-timestamp">⏰ 15:55 - 16:00</div>
                 <div class="center">
                     <h1>総評とまとめ</h1>
                     <p>皆さんのアイデアは、<strong>実際のビジネスでも通用する</strong>素晴らしい視点を持っていました。<br>この経験が、皆さんの<strong>未来の力</strong>になることを心から信じています。</p>
