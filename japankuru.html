@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAPANKURU - インバウンドマーケティングの統合ソリューション</title>
     <style>
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -12,225 +13,331 @@
         }
 
         :root {
+            /* Minimal Color Palette */
+            --black: #000000;
             --primary: #1a1a1a;
             --secondary: #666666;
+            --light-gray: #999999;
+            --border: #E5E5E5;
+            --gray-bg: #FAFAFA;
+            --white: #FFFFFF;
+            
+            /* Accent Colors (Used Sparingly) */
             --accent: #0066CC;
-            --success: #34C759;
+            --accent-light: #E8F2FF;
+            --success: #00C851;
             --warning: #FF9500;
             --danger: #FF3B30;
-            --background: #FFFFFF;
-            --gray-bg: #F5F5F7;
-            --border: #E5E5E7;
-            --max-width: 1200px;
-            --padding-desktop: 80px;
-            --padding-mobile: 20px;
-            --section-gap-desktop: 100px;
-            --section-gap-mobile: 60px;
+            
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Noto Sans JP', 'Segoe UI', sans-serif;
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-bold: 600;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+            --spacing-xxl: 6rem;
+            
+            /* Container */
+            --container-max: 1200px;
+            --container-narrow: 1000px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans JP', 'Segoe UI', sans-serif;
+            font-family: var(--font-primary);
             color: var(--primary);
-            background: var(--background);
+            background: var(--white);
             line-height: 1.6;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Typography */
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: var(--font-weight-medium);
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
         h1 {
-            font-size: clamp(2.2rem, 5vw, 4rem);
-            font-weight: 700;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: var(--font-weight-light);
             line-height: 1.1;
-            letter-spacing: -0.03em;
         }
 
         h2 {
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            font-weight: 600;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: var(--font-weight-light);
             margin-bottom: 1.5rem;
         }
 
         h3 {
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            font-weight: 600;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             margin-bottom: 1rem;
-            letter-spacing: -0.01em;
-        }
-
-        h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.8;
             color: var(--secondary);
         }
 
         .lead {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             line-height: 1.6;
-            font-weight: 500;
+            font-weight: var(--font-weight-light);
         }
 
-        .small-text {
-            font-size: 0.9rem;
-            color: var(--secondary);
+        .small {
+            font-size: 0.875rem;
+            color: var(--light-gray);
         }
 
-        /* Layout */
+        /* ===== LAYOUT ===== */
         .container {
-            max-width: var(--max-width);
+            max-width: var(--container-max);
             margin: 0 auto;
-            padding: 0 var(--padding-desktop);
+            padding: 0 var(--spacing-md);
+        }
+
+        .container-narrow {
+            max-width: var(--container-narrow);
         }
 
         section {
-            padding: var(--section-gap-desktop) 0;
-            opacity: 1;
-            transform: none;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: var(--spacing-xxl) 0;
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navigation (Fixed) */
+        /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1rem 0;
             border-bottom: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(-100%);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            transform: translateY(0);
         }
 
-        nav.show {
-            opacity: 1;
-            transform: translateY(0);
+        nav.hidden {
+            transform: translateY(-100%);
         }
 
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
 
         .nav-logo {
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover {
             color: var(--primary);
         }
 
         .nav-cta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
         }
 
-        /* Hero Section with Video */
+        .nav-cta:hover {
+            background: var(--black);
+            transform: translateY(-1px);
+        }
+
+        /* ===== HERO SECTION ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
-            overflow: hidden;
-            background: #0066CC;
+            padding-top: 80px;
+            background: var(--white);
         }
 
-        .hero-video-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .hero-container {
             width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .hero-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,20,40,0.85) 0%, rgba(0,40,80,0.9) 100%);
-            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 2;
-            color: white;
-            text-align: center;
-            padding: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
         }
 
         .hero h1 {
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: var(--spacing-md);
+            font-weight: var(--font-weight-light);
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 3rem;
-            opacity: 1;
-            animation: fadeInUp 1s ease 0.2s both;
-            color: white;
-            font-weight: 400;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-light);
+            color: var(--secondary);
+            margin-bottom: var(--spacing-lg);
             line-height: 1.6;
         }
 
         .hero-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            padding-top: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            animation: fadeInUp 1s ease 0.4s both;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border);
         }
 
         .hero-stat {
-            text-align: center;
+            text-align: left;
         }
 
         .hero-stat-number {
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: var(--font-weight-light);
             display: block;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: var(--primary);
+            margin-bottom: 0.25rem;
         }
 
         .hero-stat-label {
-            font-size: 0.9rem;
-            opacity: 1;
-            color: white;
-            font-weight: 400;
+            font-size: 0.875rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
+
+        /* Hero Visual - Mobile Mockup */
+        .hero-visual {
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .devices-mockup {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: -100px;
+        }
+
+        .device {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .device-laptop {
+            width: 500px;
+            height: 300px;
+            background: var(--black);
+            border: 8px solid var(--primary);
+            z-index: 1;
+        }
+
+        .device-phone {
+            width: 200px;
+            height: 400px;
+            background: var(--black);
+            border: 8px solid var(--primary);
+            position: absolute;
+            right: -50px;
+            bottom: -30px;
+            z-index: 2;
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--gray-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Content Carousel in Device */
+        .device-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .content-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .content-slide.active {
+            opacity: 1;
+        }
+
+        .content-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Real Image Placeholder */
+        .real-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .image-1 { background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/05/DSC03020.jpg'); }
+        .image-2 { background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/07/JINS_Kyoto_CC10-2048x1365.jpg'); }
+        .image-3 { background-image: url('https://img.japankuru.com/prg_img/img/img2020041516180060846400.jpg'); }
 
         .scroll-indicator {
             position: absolute;
@@ -238,96 +345,501 @@
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            color: white;
             animation: bounce 2s infinite;
-            z-index: 2;
         }
 
         .scroll-indicator span {
             display: block;
             margin-bottom: 10px;
             font-size: 0.9rem;
-            opacity: 0.8;
+            color: var(--light-gray);
         }
 
         .scroll-arrow {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             margin: 10px auto;
-            border-right: 2px solid white;
-            border-bottom: 2px solid white;
+            border-right: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
             transform: rotate(45deg);
-            animation: arrow-bounce 2s infinite;
         }
 
-        @keyframes arrow-bounce {
-            0%, 100% { transform: rotate(45deg) translateY(0); }
-            50% { transform: rotate(45deg) translateY(10px); }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* ===== PORTFOLIO GALLERY SECTION ===== */
+        /* Bridge Section - NEW */
+        .bridge-section {
+            background: var(--gray-bg);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        .bridge-content h2 {
+            font-size: 1.8rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .bridge-content p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .bridge-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-top: var(--spacing-md);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* ===== TRUST SECTION ===== */
+        .trust-section {
+            background: var(--gray-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header h2 {
+            color: var(--primary);
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .trust-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .trust-metric-card {
+            background: var(--white);
+            padding: var(--spacing-md);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .trust-metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .metric-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-light);
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-title {
+            font-size: 1rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 0.3rem;
+        }
+
+        .metric-detail {
+            font-size: 0.875rem;
+            color: var(--secondary);
+        }
+
+        /* Industry Coverage */
+        .industry-coverage {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .industry-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .industry-tag {
+            padding: 0.5rem 1.2rem;
+            background: var(--gray-bg);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .industry-tag:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem-section {
+            background: var(--white);
+        }
+
+        .check-points {
+            border-top: 1px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .point-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .point-item:hover {
+            background: var(--gray-bg);
+            padding-left: var(--spacing-sm);
+            margin-left: calc(-1 * var(--spacing-sm));
+            padding-right: var(--spacing-sm);
+            margin-right: calc(-1 * var(--spacing-sm));
+        }
+
+        .point-number {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-light);
+            color: var(--light-gray);
+        }
+
+        .point-question {
+            font-size: 1.2rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .point-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .comparison-bad {
+            color: var(--light-gray);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .comparison-bad::before {
+            content: '×';
+            position: absolute;
+            left: 0;
+            color: var(--light-gray);
+        }
+
+        .comparison-good {
+            color: var(--primary);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .comparison-good::before {
+            content: '○';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            text-align: center;
+            margin: var(--spacing-xl) 0;
+            position: relative;
+        }
+
+        .divider-line {
+            width: 1px;
+            height: 40px;
+            background: var(--border);
+            margin: 0 auto;
+        }
+
+        /* JAPANKURU Solution */
+        .japankuru-solution {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .solution-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .solution-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .solution-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-md);
+            align-items: start;
+        }
+
+        .solution-number {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-light);
+            color: var(--accent);
+        }
+
+        .solution-label {
+            font-weight: var(--font-weight-medium);
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-desc {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* Language Bar */
+        .language-bar {
+            padding: 1.2rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .language-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .language-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .language-flags {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .flag-item {
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        /* Result Box */
+        .result-section {
+            background: var(--gray-bg);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .result-main {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            color: var(--primary);
+            margin-bottom: var(--spacing-lg);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .result-highlight {
+            color: var(--accent);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .result-metrics {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .result-metric-item {
+            text-align: center;
+        }
+
+        .result-metric-value {
+            font-size: 2rem;
+            font-weight: var(--font-weight-light);
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .result-metric-label {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== UNIQUE VALUE SECTION ===== */
+        .unique-value {
+            background: var(--white);
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .value-card {
+            background: var(--gray-bg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .value-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            margin-bottom: var(--spacing-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ===== IMPACT VISUAL ===== */
+        .impact-visual {
+            padding: var(--spacing-xxl) 0;
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-visual h2 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, #FFFFFF 0%, #666666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .impact-number {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: var(--font-weight-bold);
+            display: block;
+            margin: var(--spacing-lg) 0;
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
         .portfolio-section {
-            background: white;
-            padding: var(--section-gap-desktop) 0;
+            background: var(--gray-bg);
         }
 
         .portfolio-filters {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: var(--spacing-lg);
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--gray-bg);
-            border: 2px solid transparent;
-            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 1rem;
-            color: var(--primary);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--secondary);
         }
 
         .filter-btn:hover {
-            border-color: var(--accent);
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .filter-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
         }
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
         }
 
         .portfolio-item {
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            background: var(--white);
+            aspect-ratio: 4/3;
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--gray-bg);
-            height: 300px;
+            transition: var(--transition);
         }
 
         .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: scale(1.02);
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .portfolio-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-            display: block;
+            transition: var(--transition);
+            background: var(--gray-bg);
         }
 
         .portfolio-item:hover .portfolio-image {
@@ -340,10 +852,10 @@
             left: 0;
             right: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            color: white;
-            padding: 2rem;
+            color: var(--white);
+            padding: var(--spacing-md);
             transform: translateY(100%);
-            transition: transform 0.3s ease;
+            transition: var(--transition);
         }
 
         .portfolio-item:hover .portfolio-overlay {
@@ -351,80 +863,141 @@
         }
 
         .portfolio-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-medium);
             margin-bottom: 0.5rem;
-            color: white;
         }
 
         .portfolio-stats {
-            display: flex;
-            gap: 1rem;
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.9);
+            opacity: 0.9;
         }
 
-        /* ===== CONTENT CALENDAR SECTION ===== */
+        /* ===== PROCESS SECTION ===== */
+        .process-section {
+            background: var(--white);
+        }
+
+        .process-timeline {
+            position: relative;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .process-line {
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-light);
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-content {
+            padding-top: 1rem;
+        }
+
+        .process-title {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .process-desc {
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .process-details {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .process-details li {
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== CONTENT CALENDAR ===== */
         .calendar-section {
-            background: white;
-            padding: var(--section-gap-desktop) 0;
+            background: var(--gray-bg);
         }
 
         .calendar-container {
-            background: var(--gray-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-top: 3rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
         }
 
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .calendar-header h3 {
-            margin: 0;
-            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border);
         }
 
         .calendar-legend {
             display: flex;
             gap: 1.5rem;
-            flex-wrap: wrap;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .legend-dot {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             display: inline-block;
         }
 
         .calendar-grid {
             display: grid;
-            gap: 2rem;
+            gap: var(--spacing-md);
         }
 
         .calendar-week {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-left: 2px solid var(--border);
+            padding-left: var(--spacing-md);
         }
 
         .calendar-week h4 {
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
             color: var(--secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .content-cards {
@@ -435,557 +1008,60 @@
 
         .content-card {
             padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            background: var(--white);
+            transition: var(--transition);
         }
 
         .content-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .content-card.article {
-            border-left-color: #FF6B6B;
+            border-left: 3px solid #FF6B6B;
         }
 
         .content-card.video {
-            border-left-color: #4ECDC4;
+            border-left: 3px solid #4ECDC4;
         }
 
         .content-card.sns {
-            border-left-color: #45B7D1;
-        }
-
-        .content-card.special {
-            border-left-color: #96CEB4;
-            background: linear-gradient(135deg, rgba(150,206,180,0.1) 0%, white 50%);
+            border-left: 3px solid #45B7D1;
         }
 
         .content-date {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--secondary);
             margin-bottom: 0.5rem;
-            font-weight: 600;
         }
 
         .content-title {
-            font-weight: 600;
+            font-weight: var(--font-weight-medium);
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
 
         .content-langs {
-            font-size: 1.2rem;
-            letter-spacing: 0.3rem;
-        }
-
-        .calendar-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .stat-box {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent);
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--secondary);
             font-size: 0.9rem;
         }
 
-        /* ===== CONTENT CREATION PROCESS SECTION ===== */
-        .process-showcase-section {
-            background: var(--gray-bg);
-            padding: var(--section-gap-desktop) 0;
-        }
-
-        .process-timeline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            position: relative;
-        }
-
-        .process-stage {
-            position: relative;
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            padding-top: 3rem;
-            transition: all 0.3s ease;
-        }
-
-        .process-stage:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .stage-number {
-            position: absolute;
-            top: -20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .stage-content h3 {
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        .stage-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            background: var(--gray-bg);
-        }
-
-        .stage-details ul {
-            list-style: none;
-            line-height: 2;
-            padding: 0;
-            margin: 0;
-        }
-
-        .stage-details li {
-            color: var(--secondary);
-            font-size: 0.95rem;
-            padding: 0.25rem 0;
-        }
-
-        /* Content Types Showcase */
-        .content-types-showcase {
-            margin-top: 4rem;
-        }
-
-        .content-type-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .content-type-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .content-type-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .content-type-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .content-type-card h4 {
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .content-type-card p {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            line-height: 1.5;
-        }
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L60,112C120,128,240,160,360,165.3C480,171,600,149,720,144C840,139,960,149,1080,170.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            color: white;
-        }
-
-        .hero h1 {
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            padding-top: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .hero-stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Trust Building Section */
-        .trust-section {
-            background: var(--gray-bg);
-        }
-
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .trust-badge {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .trust-badge-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        /* Trust Building Section - Redesigned */
-        .trust-metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .trust-metric-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .trust-metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .metric-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-detail {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            line-height: 1.5;
-        }
-
-        /* Industry Coverage */
-        .industry-coverage {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 3rem;
-        }
-
-        .industry-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .industry-tag {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: var(--gray-bg);
-            border-radius: 20px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .industry-tag:hover {
-            background: var(--accent);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* Certifications */
-        .certifications {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-        }
-
-        .certification-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .certification-item {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .cert-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Problem Deep Dive */
-        .problem-section {
-            background: white;
-        }
-
-        .problem-scenario {
-            background: var(--gray-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .search-simulation {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 1.5rem 0;
-        }
-
-        .search-bar-mock {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--gray-bg);
-            border-radius: 8px;
-            font-family: system-ui, -apple-system, sans-serif;
-            margin-bottom: 1rem;
-        }
-
-        .search-result-item {
-            padding: 1rem;
-            border-left: 3px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .search-result-item:hover {
-            border-left-color: var(--accent);
-            background: var(--gray-bg);
-            transform: translateX(5px);
-        }
-
-        .result-title {
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.3rem;
-        }
-
-        .result-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .update-badge {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .update-new {
-            background: var(--success);
-            color: white;
-        }
-
-        .update-old {
-            background: var(--danger);
-            color: white;
-        }
-
-        .update-medium {
-            background: var(--warning);
-            color: white;
-        }
-
-        /* Global Content Mechanism */
-        .mechanism-section {
-            background: white;
-        }
-
-        .mechanism-flow {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .mechanism-step {
-            text-align: center;
-            position: relative;
-        }
-
-        .mechanism-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--accent), #004499);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-        }
-
-        .mechanism-step:hover .mechanism-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .mechanism-arrow {
-            position: absolute;
-            top: 40px;
-            right: -30px;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        /* JAPANKURU Unique Value */
-        .unique-value {
-            background: var(--gray-bg);
-        }
-
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .value-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .value-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,102,204,0.1);
-        }
-
-        .value-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        /* Archive Power Visualization */
+        /* ===== ARCHIVE POWER ===== */
         .archive-power {
-            background: white;
-            padding: 4rem 0;
+            background: var(--white);
         }
 
         .archive-visual {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 3rem;
+            gap: var(--spacing-lg);
             align-items: center;
-            margin-top: 3rem;
+            margin-top: var(--spacing-lg);
         }
 
         .archive-stats {
             background: var(--gray-bg);
-            padding: 2rem;
-            border-radius: 16px;
+            padding: var(--spacing-md);
         }
 
         .archive-stat-item {
@@ -999,219 +1075,123 @@
             border-bottom: none;
         }
 
+        .archive-stat-item strong {
+            font-weight: var(--font-weight-medium);
+            color: var(--primary);
+        }
+
         .ecosystem-diagram {
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            padding: var(--spacing-md);
         }
 
-        /* Safety & Quality Assurance */
-        .quality-section {
-            background: var(--gray-bg);
-        }
-
-        .quality-process {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 3rem 0;
-            position: relative;
-        }
-
-        .quality-step {
-            flex: 1;
-            text-align: center;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            margin: 0 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .quality-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .quality-check {
-            color: var(--success);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Industry Solutions */
-        .industry-section {
-            background: white;
-        }
-
-        .industry-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .industry-tab {
-            padding: 0.8rem 1.5rem;
-            background: var(--gray-bg);
-            border: 2px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .industry-tab:hover {
-            border-color: var(--accent);
-        }
-
-        .industry-tab.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .industry-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .industry-content.active {
-            display: block;
-        }
-
-        .industry-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .industry-feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .feature-check {
-            color: var(--success);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        /* Success Metrics */
+        /* ===== METRICS SECTION ===== */
         .metrics-section {
             background: var(--gray-bg);
         }
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
         }
 
         .metric-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
+            background: var(--white);
+            padding: var(--spacing-lg) var(--spacing-md);
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--success));
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .metric-value {
             font-size: 3rem;
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: var(--font-weight-light);
+            color: var(--primary);
             display: block;
             margin-bottom: 0.5rem;
         }
 
         .metric-label {
+            font-size: 0.875rem;
             color: var(--secondary);
-            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .metric-change {
             display: inline-block;
             margin-top: 0.5rem;
             padding: 0.3rem 0.8rem;
-            background: rgba(52, 199, 89, 0.1);
-            color: var(--success);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: var(--font-weight-medium);
         }
 
-        /* Case Studies Link Section */
+        /* ===== CASES SECTION ===== */
         .cases-section {
-            background: white;
+            background: var(--white);
         }
 
         .cases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
         .case-link {
             display: block;
-            padding: 2rem;
+            padding: var(--spacing-md);
             background: var(--gray-bg);
-            border-radius: 12px;
             text-decoration: none;
             color: var(--primary);
-            transition: all 0.3s ease;
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
 
-        .case-link::before {
+        .case-link::after {
             content: '→';
             position: absolute;
             right: 1.5rem;
             top: 50%;
             transform: translateY(-50%) translateX(0);
             font-size: 1.5rem;
-            color: var(--accent);
-            transition: transform 0.3s ease;
+            color: var(--primary);
+            transition: var(--transition);
         }
 
         .case-link:hover {
-            background: var(--accent);
-            color: white;
+            background: var(--primary);
+            color: var(--white);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,102,204,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        .case-link:hover::before {
+        .case-link:hover::after {
             transform: translateY(-50%) translateX(5px);
-            color: white;
+            color: var(--white);
         }
 
         .case-industry {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.7;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .case-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-medium);
             margin-bottom: 0.5rem;
         }
 
@@ -1220,93 +1200,85 @@
             margin-top: 1rem;
         }
 
-        /* Service Plans */
-        .plans-section {
+        /* ===== PRICING SECTION ===== */
+        .pricing-section {
             background: var(--gray-bg);
         }
 
-        .plans-container {
+        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
-        .plan-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: var(--transition);
             position: relative;
         }
 
-        .plan-card.recommended {
+        .pricing-card.featured {
+            border-color: var(--primary);
             transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,102,204,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        .plan-header {
-            padding: 2rem;
-            background: linear-gradient(135deg, #f5f5f7, #ffffff);
-            border-bottom: 1px solid var(--border);
+        .pricing-card.featured::before {
+            content: '人気No.1';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            font-weight: var(--font-weight-medium);
         }
 
-        .plan-card.recommended .plan-header {
-            background: linear-gradient(135deg, var(--accent), #004499);
-            color: white;
+        .pricing-name {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
         }
 
-        .plan-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: var(--warning);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+        .pricing-desc {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: var(--spacing-md);
         }
 
-        .plan-name {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-description {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .plan-body {
-            padding: 2rem;
-        }
-
-        .plan-features {
+        .pricing-features {
             list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .plan-features li {
-            padding: 0.8rem 0;
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md) 0;
+            border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            text-align: left;
         }
 
-        .plan-features li:last-child {
-            border-bottom: none;
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            padding-left: 1.5rem;
+            position: relative;
         }
 
-        .feature-icon {
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
             color: var(--success);
-            font-size: 1.2rem;
         }
 
-        /* FAQ */
+        /* ===== FAQ SECTION ===== */
         .faq-section {
-            background: white;
+            background: var(--white);
         }
 
         .faq-container {
@@ -1315,16 +1287,13 @@
         }
 
         .faq-item {
-            background: var(--gray-bg);
-            border-radius: 12px;
+            border: 1px solid var(--border);
             margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .faq-item.active {
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .faq-question {
@@ -1333,29 +1302,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: var(--font-weight-medium);
+            font-size: 1.05rem;
         }
 
         .faq-question:hover {
-            color: var(--accent);
+            background: var(--gray-bg);
         }
 
         .faq-toggle {
             width: 30px;
             height: 30px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            transition: var(--transition);
             flex-shrink: 0;
         }
 
-        .faq-item.active .faq-toggle {
-            transform: rotate(45deg);
+        .faq-toggle::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-light);
+        }
+
+        .faq-item.active .faq-toggle::after {
+            content: '−';
         }
 
         .faq-answer {
@@ -1374,104 +1346,39 @@
             line-height: 1.8;
         }
 
-        /* CTA Section */
+        /* ===== CTA SECTION ===== */
         .cta-section {
-            background: linear-gradient(135deg, #0066CC 0%, #004499 100%);
-            color: white;
-            padding: 5rem 0;
+            background: var(--primary);
+            color: var(--white);
+            padding: var(--spacing-xxl) 0;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
         }
 
         .cta-section h2 {
-            color: white;
-            margin-bottom: 1rem;
+            color: var(--white);
+            margin-bottom: var(--spacing-md);
+            font-size: clamp(2rem, 5vw, 3.5rem);
         }
 
         .cta-subtitle {
             font-size: 1.3rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.9;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1.5rem;
+            gap: var(--spacing-md);
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: white;
-            color: var(--accent);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: var(--accent);
-        }
-
-        .btn-text {
-            color: white;
-            text-decoration: underline;
-            background: none;
-            border: none;
-            padding: 0.5rem 1rem;
-        }
-
-        .btn-text:hover {
-            opacity: 0.8;
-        }
-
-        /* Contact Options */
         .contact-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            padding-top: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
             border-top: 1px solid rgba(255,255,255,0.2);
         }
 
@@ -1486,33 +1393,94 @@
 
         .contact-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.8;
             margin-bottom: 0.5rem;
         }
 
         .contact-value {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: var(--font-weight-medium);
         }
 
-        /* Footer */
-        footer {
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-text {
+            background: transparent;
+            color: var(--white);
+            text-decoration: underline;
+            padding: 0.5rem 1rem;
+        }
+
+        .btn-text:hover {
+            opacity: 0.8;
+        }
+
+        .btn-dark {
             background: var(--primary);
-            color: white;
-            padding: 3rem 0 2rem;
+            color: var(--white);
+        }
+
+        .btn-dark:hover {
+            background: var(--black);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: var(--spacing-xl) 0 var(--spacing-md);
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .footer-section h4 {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: var(--font-weight-medium);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .footer-section ul {
@@ -1520,31 +1488,31 @@
         }
 
         .footer-section li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-section a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-size: 0.875rem;
+            transition: var(--transition);
         }
 
         .footer-section a:hover {
-            color: white;
+            color: var(--white);
         }
 
         .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.4);
+            font-size: 0.875rem;
         }
 
-        /* Animations */
+        /* ===== ANIMATIONS ===== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -1557,53 +1525,145 @@
             to { opacity: 1; }
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .hero-visual {
+                order: -1; /* ビジュアルを上に */
+                margin-bottom: var(--spacing-md);
+            }
+
+            .device-laptop {
+                width: 400px;
+                height: 240px;
+            }
+
+            .device-phone {
+                width: 160px;
+                height: 320px;
+                right: -30px;
+                bottom: -20px;
+            }
+
+            .hero-stats,
+            .trust-metrics-grid,
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .portfolio-grid,
+            .cases-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
+            :root {
+                --spacing-xxl: 4rem;
+            }
+
             .container {
-                padding: 0 var(--padding-mobile);
+                padding: 0 var(--spacing-sm);
             }
 
-            section {
-                padding: var(--section-gap-mobile) 0;
+            h1 {
+                font-size: 2rem;
             }
 
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            /* Hero Mobile Layout */
             .hero {
-                min-height: 90vh;
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+
+            .hero-container {
+                display: block;
+            }
+
+            .hero-visual {
+                margin: var(--spacing-lg) 0;
+                transform: scale(0.8);
+            }
+
+            .devices-mockup {
+                justify-content: center;
+            }
+
+            .device-laptop {
+                width: 280px;
+                height: 168px;
+                border-width: 4px;
+            }
+
+            .device-phone {
+                width: 100px;
+                height: 200px;
+                right: -20px;
+                bottom: -15px;
+                border-width: 4px;
             }
 
             .hero-stats {
                 grid-template-columns: repeat(2, 1fr);
+                gap: var(--spacing-sm);
+            }
+
+            .hero-stat-number {
+                font-size: 2rem;
+            }
+
+            /* Bridge Section Mobile */
+            .bridge-section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .bridge-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .bridge-content p {
+                font-size: 1rem;
+            }
+
+            /* Other Sections */
+            .hero-stats,
+            .trust-metrics-grid,
+            .solution-grid,
+            .metrics-grid,
+            .pricing-grid,
+            .footer-content,
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid,
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .point-comparison {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
             }
 
             .archive-visual {
                 grid-template-columns: 1fr;
-            }
-
-            .quality-process {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .quality-step {
-                margin: 0.5rem 0;
-            }
-
-            .industry-tabs {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .plans-container {
-                grid-template-columns: 1fr;
-            }
-
-            .plan-card.recommended {
-                transform: none;
             }
 
             .cta-buttons {
@@ -1616,134 +1676,201 @@
                 max-width: 300px;
             }
 
-            .contact-options {
-                grid-template-columns: 1fr;
-                text-align: left;
-            }
-
-            .contact-option {
-                display: flex;
-                align-items: center;
+            .language-content {
+                flex-direction: column;
                 gap: 1rem;
+                align-items: flex-start;
             }
 
-            .contact-icon {
+            .result-metrics {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra Small Devices */
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-visual {
+                transform: scale(0.7);
+                margin: var(--spacing-md) -20px; /* 横にはみ出させて大きく見せる */
+            }
+
+            .device-laptop {
+                width: 240px;
+                height: 144px;
+            }
+
+            .device-phone {
+                display: none; /* 小さい画面では非表示 */
+            }
+
+            .hero-stat-number {
                 font-size: 1.5rem;
-                margin-bottom: 0;
+            }
+
+            .hero-stat-label {
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation (appears on scroll) -->
+    <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
             <div class="nav-content">
-                <div class="nav-logo">JAPANKURU</div>
-                <div class="nav-cta">
-                    <a href="#contact" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;">お問い合わせ</a>
-                </div>
+                <a href="#" class="nav-logo">JAPANKURU</a>
+                <ul class="nav-menu">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+                <a href="#contact" class="nav-cta">お問い合わせ</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Video Background -->
+    <!-- Hero Section -->
     <section class="hero">
-        <!-- Background Video -->
-        <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source src="path-to-your-showreel.mp4" type="video/mp4">
-                <!-- Fallback image for mobile/unsupported -->
-                <img src="path-to-hero-image.jpg" alt="JAPANKURU Showreel">
-            </video>
-            <div class="hero-overlay"></div>
-        </div>
-        
         <div class="container">
-            <div class="hero-content">
-                <h1>貴社のサービスを<br>
-                世界7カ国180万人へ<br>
-                確実に届けます</h1>
-                
-                <p class="hero-subtitle">
-                    JAPANKURU - 7年間48,000コンテンツを蓄積した<br>
-                    インバウンドマーケティングの統合プラットフォーム
-                </p>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>貴社のサービスを<br>
+                    世界7カ国180万人へ<br>
+                    確実に届けます</h1>
+                    
+                    <p class="hero-subtitle">
+                        7年間48,000コンテンツを蓄積した<br>
+                        インバウンドマーケティングの統合プラットフォーム<br>
+                        <strong>私たちは、ビジュアルコンテンツで世界と日本をつなぎます</strong>
+                    </p>
 
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="hero-stat-number counter" data-target="180">0</span>
-                        <span class="hero-stat-label">万フォロワー</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-number counter" data-target="35">0</span>
-                        <span class="hero-stat-label">運営チャンネル</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-number counter" data-target="7">0</span>
-                        <span class="hero-stat-label">対応言語</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-number counter" data-target="48000">0</span>
-                        <span class="hero-stat-label">蓄積コンテンツ</span>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">180万</span>
+                            <span class="hero-stat-label">フォロワー</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">35</span>
+                            <span class="hero-stat-label">チャンネル</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">7</span>
+                            <span class="hero-stat-label">言語</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">48,000</span>
+                            <span class="hero-stat-label">コンテンツ</span>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Scroll indicator with animation -->
-                <div class="scroll-indicator">
-                    <span>Scroll</span>
-                    <div class="scroll-arrow"></div>
+
+                <div class="hero-visual">
+                    <div class="devices-mockup">
+                        <div class="device device-laptop">
+                            <div class="device-screen">
+                                <div class="device-content">
+                                    <div class="content-slide active">
+                                        <div class="real-image image-1"></div>
+                                    </div>
+                                    <div class="content-slide">
+                                        <div class="real-image image-2"></div>
+                                    </div>
+                                    <div class="content-slide">
+                                        <div class="real-image image-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device device-phone">
+                            <div class="device-screen">
+                                <div class="device-content">
+                                    <div class="content-slide active">
+                                        <div class="real-image image-2"></div>
+                                    </div>
+                                    <div class="content-slide">
+                                        <div class="real-image image-3"></div>
+                                    </div>
+                                    <div class="content-slide">
+                                        <div class="real-image image-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-arrow"></div>
             </div>
         </div>
     </section>
 
-    <!-- Trust Building with Numbers and Facts -->
+    <!-- Bridge Section - 連携部分 -->
+    <section class="bridge-section">
+        <div class="container">
+            <div class="bridge-content">
+                <h2>しかし、素晴らしいサービスも<br>
+                見つけてもらえなければ意味がありません</h2>
+                <p>
+                    外国人観光客は今この瞬間も、日本の情報を探しています。<br>
+                    でも、貴社の情報は本当に届いているでしょうか？
+                </p>
+                <div class="bridge-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
     <section class="trust-section">
         <div class="container">
-            <h2 style="text-align: center;">信頼の実績</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">数字で見るJAPANKURUの実力</p>
+            <div class="section-header">
+                <h2>信頼の実績</h2>
+                <p>数字で見るJAPANKURUの実力</p>
+            </div>
             
-            <!-- Trust Metrics Grid -->
             <div class="trust-metrics-grid">
                 <div class="trust-metric-card">
-                    <div class="metric-icon">
-                        <span>🏢</span>
-                    </div>
+                    <div class="metric-icon">🏢</div>
                     <div class="metric-number">500+</div>
                     <div class="metric-title">導入企業数</div>
-                    <div class="metric-detail">大手企業から個人店舗まで幅広く対応</div>
+                    <div class="metric-detail">大手企業から個人店舗まで</div>
                 </div>
                 
                 <div class="trust-metric-card">
-                    <div class="metric-icon">
-                        <span>🌏</span>
-                    </div>
+                    <div class="metric-icon">🌏</div>
                     <div class="metric-number">7年</div>
                     <div class="metric-title">運営実績</div>
                     <div class="metric-detail">2016年から継続的に成長</div>
                 </div>
                 
                 <div class="trust-metric-card">
-                    <div class="metric-icon">
-                        <span>👥</span>
-                    </div>
+                    <div class="metric-icon">👥</div>
                     <div class="metric-number">45名</div>
                     <div class="metric-title">専門チーム</div>
-                    <div class="metric-detail">7カ国のネイティブスタッフ在籍</div>
+                    <div class="metric-detail">7カ国のネイティブスタッフ</div>
                 </div>
                 
                 <div class="trust-metric-card">
-                    <div class="metric-icon">
-                        <span>📊</span>
-                    </div>
+                    <div class="metric-icon">📊</div>
                     <div class="metric-number">89%</div>
                     <div class="metric-title">継続率</div>
                     <div class="metric-detail">高い顧客満足度を維持</div>
                 </div>
             </div>
             
-            <!-- Industry Coverage -->
             <div class="industry-coverage">
                 <h3 style="text-align: center; margin-bottom: 2rem;">対応実績のある業界</h3>
                 <div class="industry-tags">
@@ -1757,162 +1884,179 @@
                     <span class="industry-tag">エンターテイメント</span>
                     <span class="industry-tag">教育機関</span>
                     <span class="industry-tag">不動産</span>
-                    <span class="industry-tag">製造業</span>
-                    <span class="industry-tag">テクノロジー</span>
-                </div>
-            </div>
-            
-            <!-- Certifications and Partnerships -->
-            <div class="certifications">
-                <h3 style="text-align: center; margin-bottom: 2rem;">公式認定・パートナーシップ</h3>
-                <div class="certification-grid">
-                    <div class="certification-item">
-                        <div class="cert-icon">🏛️</div>
-                        <h4>政府機関連携</h4>
-                        <p>日本政府観光局（JNTO）公式パートナー</p>
-                    </div>
-                    <div class="certification-item">
-                        <div class="cert-icon">🏆</div>
-                        <h4>受賞歴</h4>
-                        <p>国際的な広告賞を複数受賞</p>
-                    </div>
-                    <div class="certification-item">
-                        <div class="cert-icon">📜</div>
-                        <h4>認証取得</h4>
-                        <p>各種セキュリティ・品質認証取得済み</p>
-                    </div>
-                    <div class="certification-item">
-                        <div class="cert-icon">🤝</div>
-                        <h4>業界団体</h4>
-                        <p>主要観光・マーケティング団体加盟</p>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Problem Deep Dive -->
+    <!-- Problem Section -->
     <section class="problem-section">
-        <div class="container">
-            <h2 style="text-align: center;">外国人観光客は、どうやって貴社を見つけますか？</h2>
-            
-            <div class="problem-scenario">
-                <h3>実際の検索行動をシミュレーション</h3>
-                
-                <div class="search-simulation">
-                    <div class="search-bar-mock">
-                        <span>🔍</span>
-                        <span>Tokyo restaurant 2024 best</span>
+        <div class="container container-narrow">
+            <div class="section-header">
+                <h2>外国人観光客が情報を探すとき</h2>
+                <p>4つのチェックポイントで判断されています</p>
+            </div>
+
+            <div class="check-points">
+                <div class="point-item">
+                    <div class="point-number">01</div>
+                    <div class="point-content">
+                        <div class="point-question">いつ更新された情報か</div>
+                        <div class="point-comparison">
+                            <div class="comparison-bad">1年以上前の情報はスキップ</div>
+                            <div class="comparison-good">最近更新された情報を信頼</div>
+                        </div>
                     </div>
-                    
-                    <div class="search-results-mock">
-                        <div class="search-result-item">
-                            <div class="result-title">Tokyo's Best Restaurants - TripAdvisor</div>
-                            <div class="result-meta">
-                                <span class="update-badge update-old">2年前更新</span>
-                                <span>英語のみ</span>
+                </div>
+
+                <div class="point-item">
+                    <div class="point-number">02</div>
+                    <div class="point-content">
+                        <div class="point-question">ビジュアル情報の充実度</div>
+                        <div class="point-comparison">
+                            <div class="comparison-bad">テキストのみでは不安</div>
+                            <div class="comparison-good">豊富な写真・動画で安心</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="point-item">
+                    <div class="point-number">03</div>
+                    <div class="point-content">
+                        <div class="point-question">母国語での読みやすさ</div>
+                        <div class="point-comparison">
+                            <div class="comparison-bad">自動翻訳では理解困難</div>
+                            <div class="comparison-good">ネイティブ翻訳で完璧に理解</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="point-item">
+                    <div class="point-number">04</div>
+                    <div class="point-content">
+                        <div class="point-question">実用情報の完全性</div>
+                        <div class="point-comparison">
+                            <div class="comparison-bad">基本情報のみでは不十分</div>
+                            <div class="comparison-good">詳細情報でスムーズに行動</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="japankuru-solution">
+                <div class="solution-header">
+                    <h3>JAPANKURUで<br>
+                    体系的な多言語コンテンツを構築</h3>
+                    <p>4つのチェックポイントをすべてクリアする情報発信</p>
+                </div>
+
+                <div class="solution-grid">
+                    <div class="solution-item">
+                        <div class="solution-number">1.</div>
+                        <div class="solution-content">
+                            <div class="solution-label">定期更新システム</div>
+                            <div class="solution-desc">
+                                毎月新規コンテンツを制作・配信<br>
+                                常に最新の情報を維持
                             </div>
                         </div>
-                        
-                        <div class="search-result-item">
-                            <div class="result-title">東京レストランガイド - Blog</div>
-                            <div class="result-meta">
-                                <span class="update-badge update-medium">6ヶ月前更新</span>
-                                <span>自動翻訳</span>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="solution-number">2.</div>
+                        <div class="solution-content">
+                            <div class="solution-label">プロフェッショナル撮影</div>
+                            <div class="solution-desc">
+                                専門カメラマンによる20枚以上の写真<br>
+                                動画・360°ビューも対応
                             </div>
                         </div>
-                        
-                        <div class="search-result-item">
-                            <div class="result-title">JAPANKURU: Hidden Gems in Tokyo</div>
-                            <div class="result-meta">
-                                <span class="update-badge update-new">1週間前更新</span>
-                                <span>ネイティブ翻訳・7言語対応</span>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="solution-number">3.</div>
+                        <div class="solution-content">
+                            <div class="solution-label">ネイティブ翻訳</div>
+                            <div class="solution-desc">
+                                7カ国語のネイティブスタッフが常駐<br>
+                                文化的ニュアンスまで正確に伝達
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-item">
+                        <div class="solution-number">4.</div>
+                        <div class="solution-content">
+                            <div class="solution-label">包括的情報提供</div>
+                            <div class="solution-desc">
+                                アクセス、営業時間、予約方法<br>
+                                すべての実用情報を網羅
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 2rem;">
-                    <h4>外国人観光客の判断基準：</h4>
-                    <ul style="line-height: 2;">
-                        <li>✓ <strong>更新日の新しさ</strong> - 「Last updated」を最初に確認（73%）</li>
-                        <li>✓ <strong>母国語での情報</strong> - 自動翻訳は信頼されない（68%）</li>
-                        <li>✓ <strong>ビジュアルの充実度</strong> - 写真・動画で判断（81%）</li>
-                        <li>✓ <strong>クロスチェック</strong> - 複数サイトで確認（65%）</li>
-                    </ul>
-                    <p class="small-text" style="margin-top: 1rem;">※JNTO外国人観光客調査2024より</p>
+                <div class="language-bar">
+                    <div class="language-content">
+                        <div class="language-label">主要5言語で訪日外国人の70%以上をカバー</div>
+                        <div class="language-flags">
+                            <span class="flag-item">🇰🇷 韓国語</span>
+                            <span class="flag-item">🇹🇼 中国語</span>
+                            <span class="flag-item">🇺🇸 英語</span>
+                            <span class="flag-item">🇹🇭 タイ語</span>
+                            <span class="flag-item">🇫🇷 フランス語</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="result-section">
+                <div class="result-title">結果</div>
+                
+                <div class="result-main">
+                    訪日観光客がJAPANKURUを通じて<br>
+                    貴社の<span class="result-highlight">正確で鮮明で有用な情報</span>に<br>
+                    出会う可能性が飛躍的に高まります
+                </div>
+
+                <div class="result-metrics">
+                    <div class="result-metric-item">
+                        <span class="result-metric-value">3.2x</span>
+                        <span class="result-metric-label">検索露出</span>
+                    </div>
+                    <div class="result-metric-item">
+                        <span class="result-metric-value">89%</span>
+                        <span class="result-metric-label">信頼度向上</span>
+                    </div>
+                    <div class="result-metric-item">
+                        <span class="result-metric-value">150万</span>
+                        <span class="result-metric-label">リーチ</span>
+                    </div>
+                </div>
+
+                <a href="#contact" class="btn btn-dark">詳細を確認する</a>
             </div>
         </div>
     </section>
 
-    <!-- Global Content Mechanism -->
-    <section class="mechanism-section">
-        <div class="container">
-            <h2 style="text-align: center;">なぜ今、グローバルコンテンツが必要なのか</h2>
-            
-            <div class="mechanism-flow">
-                <div class="mechanism-step">
-                    <div class="mechanism-icon">1</div>
-                    <h4>情報の鮮度</h4>
-                    <p>6ヶ月更新なし = 存在しないのと同じ</p>
-                    <span class="mechanism-arrow">→</span>
-                </div>
-                
-                <div class="mechanism-step">
-                    <div class="mechanism-icon">2</div>
-                    <h4>言語の壁</h4>
-                    <p>自動翻訳では伝わらない魅力</p>
-                    <span class="mechanism-arrow">→</span>
-                </div>
-                
-                <div class="mechanism-step">
-                    <div class="mechanism-icon">3</div>
-                    <h4>文化的配慮</h4>
-                    <p>各国の習慣に合わせた表現</p>
-                    <span class="mechanism-arrow">→</span>
-                </div>
-                
-                <div class="mechanism-step">
-                    <div class="mechanism-icon">✓</div>
-                    <h4>信頼獲得</h4>
-                    <p>選ばれる情報源になる</p>
-                </div>
-            </div>
-
-            <div style="background: var(--gray-bg); padding: 2rem; border-radius: 12px; margin-top: 3rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem;">JAPANKURUが提供する解決策</h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                    <div>
-                        <h4 style="color: var(--accent);">✓ 継続的な更新</h4>
-                        <p>毎月新規コンテンツ制作・既存情報の更新</p>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--accent);">✓ ネイティブ翻訳</h4>
-                        <p>7カ国のネイティブスタッフが常駐</p>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--accent);">✓ 文化的最適化</h4>
-                        <p>各国の習慣・嗜好に合わせたローカライズ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- JAPANKURU Unique Value -->
+    <!-- Unique Value Section -->
     <section class="unique-value">
         <div class="container">
-            <h2 style="text-align: center;">JAPANKURUだけの統合ソリューション</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">自社メディア × 制作チーム × グローバルネットワーク</p>
+            <div class="section-header">
+                <h2>JAPANKURUだけの統合ソリューション</h2>
+                <p>自社メディア × 制作チーム × グローバルネットワーク</p>
+            </div>
             
             <div class="value-grid">
                 <div class="value-card">
                     <span class="value-number">1</span>
                     <h3>メディアパワー</h3>
                     <p><strong>180万フォロワーの自社メディア</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2;">
+                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
                         <li>• JAPANKURU.com（月間250万PV）</li>
                         <li>• 35チャンネル直接運営</li>
                         <li>• 広告費なしで永続的露出</li>
@@ -1924,7 +2068,7 @@
                     <span class="value-number">2</span>
                     <h3>制作力</h3>
                     <p><strong>45名のインハウスチーム</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2;">
+                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
                         <li>• プロカメラマン・ライター</li>
                         <li>• 7カ国ネイティブスタッフ</li>
                         <li>• 月300コンテンツ制作能力</li>
@@ -1936,7 +2080,7 @@
                     <span class="value-number">3</span>
                     <h3>ネットワーク</h3>
                     <p><strong>グローバルビジネス連携</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2;">
+                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
                         <li>• JNTO公式パートナー</li>
                         <li>• 海外旅行博出展実績</li>
                         <li>• 150+インフルエンサー連携</li>
@@ -1947,13 +2091,28 @@
         </div>
     </section>
 
-    <!-- Portfolio Gallery Section (NEW) -->
-    <section class="portfolio-section">
+    <!-- Impact Visual -->
+    <section class="impact-visual">
         <div class="container">
-            <h2 style="text-align: center;">制作実績ギャラリー</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">このクオリティでお届けします</p>
+            <h2>48,000</h2>
+            <p class="lead" style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                蓄積されたコンテンツが生み出す
+            </p>
+            <span class="impact-number">永続的価値</span>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 2rem;">
+                SEO価値が複利で成長し続ける唯一のプラットフォーム
+            </p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>制作実績ギャラリー</h2>
+                <p>このクオリティでお届けします</p>
+            </div>
             
-            <!-- Filter Buttons -->
             <div class="portfolio-filters">
                 <button class="filter-btn active" data-filter="all">すべて</button>
                 <button class="filter-btn" data-filter="photo">写真</button>
@@ -1962,70 +2121,193 @@
                 <button class="filter-btn" data-filter="article">記事</button>
             </div>
             
-            <!-- Portfolio Grid -->
             <div class="portfolio-grid">
                 <div class="portfolio-item" data-category="photo">
-                    <img src="path-to-portfolio1.jpg" alt="Portfolio 1" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">富士山撮影プロジェクト</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 125K views</span>
-                            <span>❤️ 8.5K likes</span>
-                        </div>
+                        <div class="portfolio-stats">👁 125K views | ❤️ 8.5K likes</div>
                     </div>
                 </div>
                 
                 <div class="portfolio-item" data-category="video">
-                    <img src="path-to-portfolio2.jpg" alt="Portfolio 2" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">東京グルメツアー動画</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 340K views</span>
-                            <span>❤️ 15K likes</span>
-                        </div>
+                        <div class="portfolio-stats">👁 340K views | ❤️ 15K likes</div>
                     </div>
                 </div>
                 
                 <div class="portfolio-item" data-category="sns">
-                    <img src="path-to-portfolio3.jpg" alt="Portfolio 3" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">Instagram Reels キャンペーン</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 520K views</span>
-                            <span>❤️ 42K likes</span>
-                        </div>
+                        <div class="portfolio-stats">👁 520K views | ❤️ 42K likes</div>
                     </div>
                 </div>
                 
                 <div class="portfolio-item" data-category="article">
-                    <img src="path-to-portfolio4.jpg" alt="Portfolio 4" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">京都観光ガイド記事</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 89K views</span>
-                            <span>💾 12K saves</span>
-                        </div>
+                        <div class="portfolio-stats">👁 89K views | 💾 12K saves</div>
                     </div>
                 </div>
                 
                 <div class="portfolio-item" data-category="photo">
-                    <img src="path-to-portfolio5.jpg" alt="Portfolio 5" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">日本料理撮影</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 67K views</span>
-                            <span>❤️ 5.2K likes</span>
-                        </div>
+                        <div class="portfolio-stats">👁 67K views | ❤️ 5.2K likes</div>
                     </div>
                 </div>
                 
                 <div class="portfolio-item" data-category="video">
-                    <img src="path-to-portfolio6.jpg" alt="Portfolio 6" class="portfolio-image">
+                    <div class="portfolio-image"></div>
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">温泉旅館プロモーション</h3>
-                        <div class="portfolio-stats">
-                            <span>👁 185K views</span>
-                            <span>❤️ 9.8K likes</span>
+                        <div class="portfolio-stats">👁 185K views | ❤️ 9.8K likes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section" id="process">
+        <div class="container container-narrow">
+            <div class="section-header">
+                <h2>コンテンツ制作プロセス</h2>
+                <p>素材から完成まで、プロフェッショナルな制作フロー</p>
+            </div>
+
+            <div class="process-timeline">
+                <div class="process-line"></div>
+                
+                <div class="process-step">
+                    <div class="process-number">01</div>
+                    <div class="process-content">
+                        <h3 class="process-title">企画・取材</h3>
+                        <p class="process-desc">
+                            ターゲット分析とコンテンツ企画<br>
+                            現地取材と撮影の実施
+                        </p>
+                        <ul class="process-details">
+                            <li>ターゲット分析</li>
+                            <li>コンテンツ企画</li>
+                            <li>取材・撮影</li>
+                            <li>インタビュー</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">02</div>
+                    <div class="process-content">
+                        <h3 class="process-title">制作・編集</h3>
+                        <p class="process-desc">
+                            プロによる写真編集と動画制作<br>
+                            記事執筆とデザイン制作
+                        </p>
+                        <ul class="process-details">
+                            <li>写真編集・補正</li>
+                            <li>動画編集・カラーグレーディング</li>
+                            <li>記事執筆</li>
+                            <li>デザイン制作</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">03</div>
+                    <div class="process-content">
+                        <h3 class="process-title">ローカライズ</h3>
+                        <p class="process-desc">
+                            7カ国語へのネイティブ翻訳<br>
+                            文化的最適化とSEO対策
+                        </p>
+                        <ul class="process-details">
+                            <li>7カ国語ネイティブ翻訳</li>
+                            <li>文化的最適化</li>
+                            <li>SEO最適化</li>
+                            <li>各国規制対応</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-number">04</div>
+                    <div class="process-content">
+                        <h3 class="process-title">配信・拡散</h3>
+                        <p class="process-desc">
+                            35チャンネルへの同時配信<br>
+                            インフルエンサー連携
+                        </p>
+                        <ul class="process-details">
+                            <li>35チャンネル同時配信</li>
+                            <li>最適時間投稿</li>
+                            <li>クロスプロモーション</li>
+                            <li>インフルエンサー連携</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Calendar Section -->
+    <section class="calendar-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>コンテンツ発信スケジュール</h2>
+                <p>計画的で継続的なコンテンツ発信</p>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3>2024年12月 発信予定</h3>
+                    <div class="calendar-legend">
+                        <span class="legend-item"><span class="legend-dot" style="background: #FF6B6B;"></span> 記事</span>
+                        <span class="legend-item"><span class="legend-dot" style="background: #4ECDC4;"></span> 動画</span>
+                        <span class="legend-item"><span class="legend-dot" style="background: #45B7D1;"></span> SNS</span>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-week">
+                        <h4>第1週</h4>
+                        <div class="content-cards">
+                            <div class="content-card article">
+                                <div class="content-date">12/2</div>
+                                <div class="content-title">東京イルミネーション特集</div>
+                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷</div>
+                            </div>
+                            <div class="content-card video">
+                                <div class="content-date">12/4</div>
+                                <div class="content-title">クリスマスマーケット動画</div>
+                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
+                            </div>
+                            <div class="content-card sns">
+                                <div class="content-date">12/5</div>
+                                <div class="content-title">Instagram Reels - 冬の味覚</div>
+                                <div class="content-langs">ALL</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-week">
+                        <h4>第2週</h4>
+                        <div class="content-cards">
+                            <div class="content-card article">
+                                <div class="content-date">12/10</div>
+                                <div class="content-title">年末年始特別企画</div>
+                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷</div>
+                            </div>
+                            <div class="content-card article">
+                                <div class="content-date">12/12</div>
+                                <div class="content-title">初詣ガイド2025</div>
+                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2033,153 +2315,13 @@
         </div>
     </section>
 
-    <!-- Content Creation Process Section (Replacing Before/After) -->
-    <section class="process-showcase-section">
-        <div class="container">
-            <h2 style="text-align: center;">コンテンツ制作プロセス</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">素材から完成まで、プロフェッショナルな制作フロー</p>
-            
-            <!-- Process Timeline -->
-            <div class="process-timeline">
-                <!-- Stage 1 -->
-                <div class="process-stage">
-                    <div class="stage-number">01</div>
-                    <div class="stage-content">
-                        <h3>企画・取材</h3>
-                        <div class="stage-details">
-                            <img src="path-to-planning-image.jpg" alt="企画" class="stage-image">
-                            <ul>
-                                <li>✓ ターゲット分析</li>
-                                <li>✓ コンテンツ企画</li>
-                                <li>✓ 取材・撮影</li>
-                                <li>✓ インタビュー</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stage 2 -->
-                <div class="process-stage">
-                    <div class="stage-number">02</div>
-                    <div class="stage-content">
-                        <h3>制作・編集</h3>
-                        <div class="stage-details">
-                            <img src="path-to-editing-image.jpg" alt="編集" class="stage-image">
-                            <ul>
-                                <li>✓ 写真編集・補正</li>
-                                <li>✓ 動画編集・カラーグレーディング</li>
-                                <li>✓ 記事執筆</li>
-                                <li>✓ デザイン制作</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stage 3 -->
-                <div class="process-stage">
-                    <div class="stage-number">03</div>
-                    <div class="stage-content">
-                        <h3>ローカライズ</h3>
-                        <div class="stage-details">
-                            <img src="path-to-localization-image.jpg" alt="翻訳" class="stage-image">
-                            <ul>
-                                <li>✓ 7カ国語ネイティブ翻訳</li>
-                                <li>✓ 文化的最適化</li>
-                                <li>✓ SEO最適化</li>
-                                <li>✓ 各国規制対応</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stage 4 -->
-                <div class="process-stage">
-                    <div class="stage-number">04</div>
-                    <div class="stage-content">
-                        <h3>配信・拡散</h3>
-                        <div class="stage-details">
-                            <img src="path-to-distribution-image.jpg" alt="配信" class="stage-image">
-                            <ul>
-                                <li>✓ 35チャンネル同時配信</li>
-                                <li>✓ 最適時間投稿</li>
-                                <li>✓ クロスプロモーション</li>
-                                <li>✓ インフルエンサー連携</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Content Types Showcase -->
-            <div class="content-types-showcase">
-                <h3 style="text-align: center; margin-bottom: 2rem;">制作コンテンツの種類</h3>
-                
-                <div class="content-type-grid">
-                    <div class="content-type-card">
-                        <div class="content-type-icon">📝</div>
-                        <h4>記事コンテンツ</h4>
-                        <p>SEO最適化された詳細記事<br>平均2,000字、15-20枚の写真</p>
-                    </div>
-                    
-                    <div class="content-type-card">
-                        <div class="content-type-icon">📸</div>
-                        <h4>写真コンテンツ</h4>
-                        <p>プロカメラマンによる撮影<br>商品、料理、施設、風景</p>
-                    </div>
-                    
-                    <div class="content-type-card">
-                        <div class="content-type-icon">🎬</div>
-                        <h4>動画コンテンツ</h4>
-                        <p>YouTube、Reels、TikTok<br>4K撮影、プロ編集</p>
-                    </div>
-                    
-                    <div class="content-type-card">
-                        <div class="content-type-icon">📱</div>
-                        <h4>SNSコンテンツ</h4>
-                        <p>各プラットフォーム最適化<br>ストーリー、カルーセル、投稿</p>
-                    </div>
-                    
-                    <div class="content-type-card">
-                        <div class="content-type-icon">🎨</div>
-                        <h4>グラフィック</h4>
-                        <p>インフォグラフィック<br>バナー、ポスター、地図</p>
-                    </div>
-                    
-                    <div class="content-type-card">
-                        <div class="content-type-icon">📊</div>
-                        <h4>データコンテンツ</h4>
-                        <p>ランキング、比較記事<br>統計、調査レポート</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Quality Metrics -->
-            <div style="background: var(--gray-bg); padding: 2rem; border-radius: 12px; margin-top: 3rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem;">品質基準</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">72時間</div>
-                        <div>初稿提出まで</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">3段階</div>
-                        <div>品質チェック</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">100%</div>
-                        <div>ネイティブチェック</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">永続的</div>
-                        <div>アーカイブ保存</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Archive Power Section -->
     <section class="archive-power">
         <div class="container">
-            <h2 style="text-align: center;">48,000コンテンツが生み出すエコシステム</h2>
+            <div class="section-header">
+                <h2>48,000コンテンツが生み出すエコシステム</h2>
+                <p>蓄積された資産が複利で価値を生み出す</p>
+            </div>
             
             <div class="archive-visual">
                 <div class="archive-stats">
@@ -2202,42 +2344,40 @@
                     </div>
                 </div>
                 
-                <div class="archive-ecosystem">
-                    <div class="ecosystem-diagram">
-                        <h3>コンテンツ循環システム</h3>
-                        <p style="margin-bottom: 2rem;">一度制作したコンテンツが永続的に価値を生み出す</p>
+                <div class="ecosystem-diagram">
+                    <h3>コンテンツ循環システム</h3>
+                    <p style="margin-bottom: 2rem;">一度制作したコンテンツが永続的に価値を生み出す</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</span>
+                            <div>
+                                <strong>新規コンテンツ制作</strong>
+                                <p class="small">貴社の最新情報を取材・制作</p>
+                            </div>
+                        </div>
                         
-                        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="background: var(--accent); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</span>
-                                <div>
-                                    <strong>新規コンテンツ制作</strong>
-                                    <p class="small-text">貴社の最新情報を取材・制作</p>
-                                </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</span>
+                            <div>
+                                <strong>既存コンテンツと連携</strong>
+                                <p class="small">関連記事から自動的にリンク</p>
                             </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="background: var(--accent); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</span>
-                                <div>
-                                    <strong>既存コンテンツと連携</strong>
-                                    <p class="small-text">関連記事から自動的にリンク</p>
-                                </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</span>
+                            <div>
+                                <strong>特集記事に組み込み</strong>
+                                <p class="small">エリア別・テーマ別特集で再露出</p>
                             </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="background: var(--accent); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</span>
-                                <div>
-                                    <strong>特集記事に組み込み</strong>
-                                    <p class="small-text">エリア別・テーマ別特集で再露出</p>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <span style="background: var(--success); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">∞</span>
-                                <div>
-                                    <strong>永続的な価値創出</strong>
-                                    <p class="small-text">SEO価値が時間とともに向上</p>
-                                </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="background: var(--success); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">∞</span>
+                            <div>
+                                <strong>永続的な価値創出</strong>
+                                <p class="small">SEO価値が時間とともに向上</p>
                             </div>
                         </div>
                     </div>
@@ -2246,376 +2386,49 @@
         </div>
     </section>
 
-    <!-- Safety & Quality Assurance -->
-    <section class="quality-section">
-        <div class="container">
-            <h2 style="text-align: center;">安心・安全なグローバル発信</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">貴社ブランドを守りながら、世界へ正確に伝えます</p>
-            
-            <div class="quality-process">
-                <div class="quality-step">
-                    <div class="quality-check">✓</div>
-                    <h4>企画確認</h4>
-                    <p>貴社と詳細すり合わせ</p>
-                </div>
-                
-                <div class="quality-step">
-                    <div class="quality-check">✓</div>
-                    <h4>事実確認</h4>
-                    <p>情報の正確性を検証</p>
-                </div>
-                
-                <div class="quality-step">
-                    <div class="quality-check">✓</div>
-                    <h4>文化的配慮</h4>
-                    <p>各国の習慣・タブーチェック</p>
-                </div>
-                
-                <div class="quality-step">
-                    <div class="quality-check">✓</div>
-                    <h4>ネイティブチェック</h4>
-                    <p>各言語での最終確認</p>
-                </div>
-                
-                <div class="quality-step">
-                    <div class="quality-check">✓</div>
-                    <h4>法的確認</h4>
-                    <p>表現・権利関係の確認</p>
-                </div>
-            </div>
-            
-            <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 3rem;">
-                <h3 style="text-align: center;">品質保証体制</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                    <div style="text-align: center;">
-                        <strong style="font-size: 2rem; color: var(--accent);">3段階</strong>
-                        <p>レビュープロセス</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <strong style="font-size: 2rem; color: var(--accent);">7カ国</strong>
-                        <p>ネイティブスタッフ</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <strong style="font-size: 2rem; color: var(--accent);">24時間</strong>
-                        <p>緊急対応体制</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <strong style="font-size: 2rem; color: var(--accent);">100%</strong>
-                        <p>責任保証</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Industry Solutions -->
-    <section class="industry-section">
-        <div class="container">
-            <h2 style="text-align: center;">業界別ソリューション</h2>
-            
-            <div class="industry-tabs">
-                <button class="industry-tab active" data-industry="accommodation">宿泊施設</button>
-                <button class="industry-tab" data-industry="restaurant">飲食店</button>
-                <button class="industry-tab" data-industry="retail">小売・商業施設</button>
-                <button class="industry-tab" data-industry="tourism">観光施設・地域</button>
-                <button class="industry-tab" data-industry="transport">交通・運輸</button>
-            </div>
-            
-            <div class="industry-content active" id="accommodation">
-                <h3>宿泊施設向けソリューション</h3>
-                <p>ホテル・旅館・ゲストハウスの魅力を世界へ</p>
-                
-                <div class="industry-features">
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>施設紹介コンテンツ</strong>
-                            <p class="small-text">客室・設備・アメニティを詳細に紹介</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>シーズンプロモーション</strong>
-                            <p class="small-text">季節ごとの魅力・イベント情報発信</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>宿泊プラン訴求</strong>
-                            <p class="small-text">特別プラン・限定オファーの告知</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>アクセス情報最適化</strong>
-                            <p class="small-text">空港・駅からの詳細なアクセス方法</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>周辺観光情報</strong>
-                            <p class="small-text">エリアの魅力と合わせて訴求</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>多言語予約サポート</strong>
-                            <p class="small-text">予約方法・注意事項の説明</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="industry-content" id="restaurant">
-                <h3>飲食店向けソリューション</h3>
-                <p>日本の食文化を正しく、魅力的に伝える</p>
-                
-                <div class="industry-features">
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>メニュー紹介</strong>
-                            <p class="small-text">料理の説明・食べ方・アレルギー情報</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>店舗の雰囲気</strong>
-                            <p class="small-text">内装・席タイプ・収容人数</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>予約システム案内</strong>
-                            <p class="small-text">予約方法・キャンセルポリシー</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>季節限定メニュー</strong>
-                            <p class="small-text">旬の食材・期間限定商品の訴求</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>食文化の説明</strong>
-                            <p class="small-text">日本独自の食文化・マナー紹介</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>口コミ管理</strong>
-                            <p class="small-text">レビューへの多言語対応</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="industry-content" id="retail">
-                <h3>小売・商業施設向けソリューション</h3>
-                <p>ショッピング体験を事前に訴求</p>
-                
-                <div class="industry-features">
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>商品紹介</strong>
-                            <p class="small-text">人気商品・限定品・お土産の紹介</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>免税手続き案内</strong>
-                            <p class="small-text">免税条件・手続き方法の説明</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>決済方法</strong>
-                            <p class="small-text">利用可能な決済手段の案内</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>サイズ・規格説明</strong>
-                            <p class="small-text">各国のサイズ換算表提供</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>配送サービス</strong>
-                            <p class="small-text">海外配送・ホテル配送の案内</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>セール情報</strong>
-                            <p class="small-text">期間限定セール・クーポン配布</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="industry-content" id="tourism">
-                <h3>観光施設・地域向けソリューション</h3>
-                <p>地域の魅力を総合的にプロモーション</p>
-                
-                <div class="industry-features">
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>観光スポット紹介</strong>
-                            <p class="small-text">見どころ・歴史・文化背景</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>モデルコース提案</strong>
-                            <p class="small-text">滞在日数別の観光ルート</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>イベント情報</strong>
-                            <p class="small-text">祭り・季節行事の詳細案内</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>交通アクセス</strong>
-                            <p class="small-text">公共交通機関の利用方法</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>体験プログラム</strong>
-                            <p class="small-text">文化体験・アクティビティ紹介</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>観光案内所情報</strong>
-                            <p class="small-text">多言語対応・サービス内容</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="industry-content" id="transport">
-                <h3>交通・運輸向けソリューション</h3>
-                <p>移動手段の利用方法を分かりやすく</p>
-                
-                <div class="industry-features">
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>利用方法ガイド</strong>
-                            <p class="small-text">切符購入・乗車方法の詳細説明</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>路線・時刻表案内</strong>
-                            <p class="small-text">主要路線・運行スケジュール</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>パス・割引券情報</strong>
-                            <p class="small-text">観光パス・お得な切符の案内</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>空港アクセス</strong>
-                            <p class="small-text">空港から市内への移動方法</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>手荷物サービス</strong>
-                            <p class="small-text">配送・一時預かりサービス</p>
-                        </div>
-                    </div>
-                    <div class="industry-feature">
-                        <span class="feature-check">✓</span>
-                        <div>
-                            <strong>多言語サポート</strong>
-                            <p class="small-text">駅員対応・案内表示の説明</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Success Metrics -->
+    <!-- Metrics Section -->
     <section class="metrics-section">
         <div class="container">
-            <h2 style="text-align: center;">導入企業の平均成果</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">2023-2024年実績データ</p>
+            <div class="section-header">
+                <h2>導入企業の平均成果</h2>
+                <p>2023-2024年実績データ</p>
+            </div>
             
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <span class="metric-value counter" data-target="240">0</span>
-                    <span class="metric-label">インバウンド問い合わせ</span>
+                    <span class="metric-value">240%</span>
+                    <span class="metric-label">問い合わせ増加</span>
                     <span class="metric-change">+240%</span>
                 </div>
                 
                 <div class="metric-card">
-                    <span class="metric-value counter" data-target="380">0</span>
-                    <span class="metric-label">ブランド検索数</span>
+                    <span class="metric-value">380%</span>
+                    <span class="metric-label">ブランド検索</span>
                     <span class="metric-change">+380%</span>
                 </div>
                 
                 <div class="metric-card">
-                    <span class="metric-value counter" data-target="350">0</span>
-                    <span class="metric-label">投資対効果（ROI）</span>
+                    <span class="metric-value">350%</span>
+                    <span class="metric-label">ROI</span>
                     <span class="metric-change">350%</span>
                 </div>
                 
                 <div class="metric-card">
-                    <span class="metric-value counter" data-target="89">0</span>
-                    <span class="metric-label">リピート率</span>
+                    <span class="metric-value">89%</span>
+                    <span class="metric-label">継続率</span>
                     <span class="metric-change">89%</span>
                 </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 3rem;">
-                <p class="small-text">※効果には個別差があります。詳細は導入事例をご覧ください。</p>
             </div>
         </div>
     </section>
 
-    <!-- Case Studies Links -->
+    <!-- Case Studies Section -->
     <section class="cases-section">
         <div class="container">
-            <h2 style="text-align: center;">導入事例</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">業界別の成功事例をご紹介</p>
+            <div class="section-header">
+                <h2>導入事例</h2>
+                <p>業界別の成功事例をご紹介</p>
+            </div>
             
             <div class="cases-grid">
                 <a href="#" class="case-link">
@@ -2654,322 +2467,56 @@
                     <div class="case-result">稼働率60%向上</div>
                 </a>
             </div>
-            
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="#" class="btn btn-secondary" style="display: inline-block;">すべての事例を見る</a>
-            </div>
         </div>
     </section>
 
-    <!-- Content Calendar Section (Replacing Live Dashboard) -->
-    <section class="calendar-section">
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
         <div class="container">
-            <h2 style="text-align: center;">コンテンツ発信スケジュール</h2>
-            <p style="text-align: center;">計画的で継続的なコンテンツ発信</p>
-            
-            <div class="calendar-container">
-                <!-- Month Selector -->
-                <div class="calendar-header">
-                    <h3>2024年12月 発信予定</h3>
-                    <div class="calendar-legend">
-                        <span class="legend-item"><span class="legend-dot" style="background: #FF6B6B;"></span> 記事</span>
-                        <span class="legend-item"><span class="legend-dot" style="background: #4ECDC4;"></span> 動画</span>
-                        <span class="legend-item"><span class="legend-dot" style="background: #45B7D1;"></span> SNS</span>
-                        <span class="legend-item"><span class="legend-dot" style="background: #96CEB4;"></span> 特集</span>
-                    </div>
-                </div>
-                
-                <!-- Calendar Grid -->
-                <div class="calendar-grid">
-                    <!-- Week 1 -->
-                    <div class="calendar-week">
-                        <h4>第1週</h4>
-                        <div class="content-cards">
-                            <div class="content-card article">
-                                <div class="content-date">12/2</div>
-                                <div class="content-title">東京イルミネーション特集</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷</div>
-                            </div>
-                            <div class="content-card video">
-                                <div class="content-date">12/4</div>
-                                <div class="content-title">クリスマスマーケット動画</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
-                            </div>
-                            <div class="content-card sns">
-                                <div class="content-date">12/5</div>
-                                <div class="content-title">Instagram Reels - 冬の味覚</div>
-                                <div class="content-langs">ALL</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Week 2 -->
-                    <div class="calendar-week">
-                        <h4>第2週</h4>
-                        <div class="content-cards">
-                            <div class="content-card special">
-                                <div class="content-date">12/10</div>
-                                <div class="content-title">年末年始特別企画</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷 🇪🇸 🇨🇳</div>
-                            </div>
-                            <div class="content-card article">
-                                <div class="content-date">12/12</div>
-                                <div class="content-title">初詣ガイド2025</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Week 3 -->
-                    <div class="calendar-week">
-                        <h4>第3週</h4>
-                        <div class="content-cards">
-                            <div class="content-card video">
-                                <div class="content-date">12/16</div>
-                                <div class="content-title">日本のクリスマス文化</div>
-                                <div class="content-langs">🇺🇸 🇫🇷 🇪🇸</div>
-                            </div>
-                            <div class="content-card article">
-                                <div class="content-date">12/18</div>
-                                <div class="content-title">冬の温泉TOP10</div>
-                                <div class="content-langs">🇹🇭 🇹🇼 🇰🇷</div>
-                            </div>
-                            <div class="content-card sns">
-                                <div class="content-date">12/20</div>
-                                <div class="content-title">TikTok - おせち料理紹介</div>
-                                <div class="content-langs">ALL</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Week 4 -->
-                    <div class="calendar-week">
-                        <h4>第4週</h4>
-                        <div class="content-cards">
-                            <div class="content-card special">
-                                <div class="content-date">12/25</div>
-                                <div class="content-title">2024年振り返り特集</div>
-                                <div class="content-langs">ALL</div>
-                            </div>
-                            <div class="content-card article">
-                                <div class="content-date">12/28</div>
-                                <div class="content-title">カウントダウンイベント</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Statistics Summary -->
-                <div class="calendar-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">28</div>
-                        <div class="stat-label">今月の発信数</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">対応言語</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">12</div>
-                        <div class="stat-label">特集企画</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">35</div>
-                        <div class="stat-label">配信チャンネル</div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h2>サービスプラン</h2>
+                <p>貴社のニーズに合わせて選べる3つのプラン</p>
             </div>
             
-            <!-- Value Proposition -->
-            <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 3rem; text-align: center;">
-                <h3>継続的な露出が信頼を生む</h3>
-                <p style="margin-top: 1rem;">一度きりの広告ではなく、計画的で継続的なコンテンツ発信により、<br>
-                外国人観光客の記憶に残り、選ばれるブランドになります。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Behind the Scenes Section (NEW) -->
-    <section class="behind-scenes-section">
-        <div class="container">
-            <h2 style="text-align: center;">制作の舞台裏</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">プロフェッショナルチームと最新設備</p>
-            
-            <div class="behind-scenes-grid">
-                <!-- Video Side -->
-                <div class="video-container">
-                    <video poster="path-to-video-thumbnail.jpg" controls>
-                        <source src="path-to-behind-scenes.mp4" type="video/mp4">
-                    </video>
-                    <div class="play-button">▶</div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-name">ライトプラン</h3>
+                    <p class="pricing-desc">まずは試してみたい企業様向け</p>
+                    <ul class="pricing-features">
+                        <li>単発コンテンツ制作（1-3本）</li>
+                        <li>3カ国語翻訳・配信</li>
+                        <li>基本的な成果レポート</li>
+                        <li>1ヶ月間のサポート</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
                 </div>
                 
-                <!-- Equipment List -->
-                <div class="equipment-list">
-                    <h3>使用機材・設備</h3>
-                    
-                    <div class="equipment-item">
-                        <div class="equipment-icon">
-                            <img src="path-to-camera-icon.png" alt="Camera">
-                        </div>
-                        <div class="equipment-details">
-                            <h4>プロ仕様カメラ</h4>
-                            <p>Sony α7S III, Canon R5など最新機材</p>
-                        </div>
-                    </div>
-                    
-                    <div class="equipment-item">
-                        <div class="equipment-icon">
-                            <img src="path-to-drone-icon.png" alt="Drone">
-                        </div>
-                        <div class="equipment-details">
-                            <h4>ドローン撮影</h4>
-                            <p>DJI Mavic 3 Proで空撮対応</p>
-                        </div>
-                    </div>
-                    
-                    <div class="equipment-item">
-                        <div class="equipment-icon">
-                            <img src="path-to-studio-icon.png" alt="Studio">
-                        </div>
-                        <div class="equipment-details">
-                            <h4>撮影スタジオ</h4>
-                            <p>商品撮影用の完全制御環境</p>
-                        </div>
-                    </div>
-                    
-                    <div class="equipment-item">
-                        <div class="equipment-icon">
-                            <img src="path-to-edit-icon.png" alt="Edit">
-                        </div>
-                        <div class="equipment-details">
-                            <h4>編集環境</h4>
-                            <p>4K編集対応のハイスペック環境</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Team Photos Grid -->
-            <div style="margin-top: 4rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem;">制作風景</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                    <img src="path-to-team1.jpg" alt="Team 1" style="width: 100%; border-radius: 8px;">
-                    <img src="path-to-team2.jpg" alt="Team 2" style="width: 100%; border-radius: 8px;">
-                    <img src="path-to-team3.jpg" alt="Team 3" style="width: 100%; border-radius: 8px;">
-                    <img src="path-to-team4.jpg" alt="Team 4" style="width: 100%; border-radius: 8px;">
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="plans-section">
-        <div class="container">
-            <h2 style="text-align: center;">サービスプラン</h2>
-            <p style="text-align: center; margin-bottom: 3rem;">貴社のニーズに合わせて選べる3つのプラン</p>
-            
-            <div class="plans-container">
-                <div class="plan-card">
-                    <div class="plan-header">
-                        <h3 class="plan-name">ライトプラン</h3>
-                        <p class="plan-description">まずは試してみたい企業様向け</p>
-                    </div>
-                    <div class="plan-body">
-                        <ul class="plan-features">
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>単発コンテンツ制作（1-3本）</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>3カ国語翻訳・配信</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>基本的な成果レポート</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>1ヶ月間のサポート</span>
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">詳細を問い合わせる</button>
-                    </div>
+                <div class="pricing-card featured">
+                    <h3 class="pricing-name">スタンダードプラン</h3>
+                    <p class="pricing-desc">継続的な情報発信を行いたい企業様向け</p>
+                    <ul class="pricing-features">
+                        <li>定期コンテンツ制作（月3-5本）</li>
+                        <li>5カ国語翻訳・配信</li>
+                        <li>SNS運用・コミュニティ管理</li>
+                        <li>詳細な分析レポート（月次）</li>
+                        <li>3-6ヶ月契約</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
                 </div>
                 
-                <div class="plan-card recommended">
-                    <div class="plan-header">
-                        <span class="plan-badge">人気No.1</span>
-                        <h3 class="plan-name">スタンダードプラン</h3>
-                        <p class="plan-description">継続的な情報発信を行いたい企業様向け</p>
-                    </div>
-                    <div class="plan-body">
-                        <ul class="plan-features">
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>定期コンテンツ制作（月3-5本）</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>5カ国語翻訳・配信</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>SNS運用・コミュニティ管理</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>詳細な分析レポート（月次）</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>3-6ヶ月契約</span>
-                            </li>
-                        </ul>
-                        <button class="btn btn-primary" style="width: 100%; background: white; color: var(--accent);">詳細を問い合わせる</button>
-                    </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-name">エンタープライズ</h3>
+                    <p class="pricing-desc">戦略的パートナーシップをご希望の企業様向け</p>
+                    <ul class="pricing-features">
+                        <li>無制限コンテンツ制作</li>
+                        <li>7カ国語フルカバレッジ</li>
+                        <li>専任チーム配置</li>
+                        <li>KPI設計・戦略立案</li>
+                        <li>イベント・オフライン施策</li>
+                        <li>年間契約</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
                 </div>
-                
-                <div class="plan-card">
-                    <div class="plan-header">
-                        <h3 class="plan-name">エンタープライズ</h3>
-                        <p class="plan-description">戦略的パートナーシップをご希望の企業様向け</p>
-                    </div>
-                    <div class="plan-body">
-                        <ul class="plan-features">
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>無制限コンテンツ制作</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>7カ国語フルカバレッジ</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>専任チーム配置</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>KPI設計・戦略立案</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>イベント・オフライン施策</span>
-                            </li>
-                            <li>
-                                <span class="feature-icon">✓</span>
-                                <span>年間契約</span>
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">詳細を問い合わせる</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--gray-bg); border-radius: 12px;">
-                <p><strong>ご予算・ご要望に応じてカスタマイズも可能です</strong></p>
-                <p class="small-text">まずはお気軽にご相談ください</p>
             </div>
         </div>
     </section>
@@ -2977,13 +2524,15 @@
     <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
-            <h2 style="text-align: center;">よくあるご質問</h2>
+            <div class="section-header">
+                <h2>よくあるご質問</h2>
+            </div>
             
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>導入までにどのくらいの期間が必要ですか？</span>
-                        <span class="faq-toggle">+</span>
+                        <span class="faq-toggle"></span>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
@@ -3000,7 +2549,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>どのような業種・規模の企業が利用していますか？</span>
-                        <span class="faq-toggle">+</span>
+                        <span class="faq-toggle"></span>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
@@ -3019,7 +2568,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>効果測定はどのように行いますか？</span>
-                        <span class="faq-toggle">+</span>
+                        <span class="faq-toggle"></span>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
@@ -3037,44 +2586,8 @@
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>既に他の施策を行っていますが、連携は可能ですか？</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            もちろん可能です。既存の施策を最大限活かしながら、相乗効果を生み出します。<br>
-                            連携例：<br>
-                            • 既存のSNSアカウントとの連動<br>
-                            • 自社ウェブサイトへの誘導強化<br>
-                            • 既存の広告キャンペーンとの統合<br>
-                            • PRイベントとの連携<br>
-                            • OTA（予約サイト）との相互送客<br>
-                            まずは現在の施策をお聞かせください。最適な連携プランをご提案します。
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>コンテンツの修正や更新は可能ですか？</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            配信前の修正は何度でも可能です。配信後も以下の対応が可能です：<br>
-                            • 営業時間・価格などの基本情報更新<br>
-                            • 季節情報の追加・更新<br>
-                            • 新サービス・商品情報の追加<br>
-                            • 緊急時の臨時休業などのお知らせ<br>
-                            定期的な情報更新により、常に最新の情報を維持することが、信頼獲得の鍵となります。
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
                         <span>料金体系について教えてください</span>
-                        <span class="faq-toggle">+</span>
+                        <span class="faq-toggle"></span>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
@@ -3084,8 +2597,6 @@
                             • 年間契約：個別見積もり<br><br>
                             料金に含まれるもの：<br>
                             取材・撮影・制作・翻訳・配信・基本的なレポート<br><br>
-                            オプション：<br>
-                            動画制作・インフルエンサー連携・イベント実施など<br><br>
                             詳細は無料相談でご説明いたします。
                         </div>
                     </div>
@@ -3097,44 +2608,47 @@
     <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="container">
-            <div class="cta-content">
-                <h2>インバウンドマーケティングを<br>次のステージへ</h2>
-                <p class="cta-subtitle">7年間の実績と180万フォロワーのパワーで<br>貴社のグローバル展開を加速させます</p>
-                
-                <div class="cta-buttons">
-                    <a href="#" class="btn btn-primary">資料請求</a>
-                    <a href="#" class="btn btn-secondary">無料相談を予約</a>
-                    <a href="#" class="btn btn-text">メールで問い合わせ</a>
+            <h2>インバウンドマーケティングを<br>
+            次のステージへ</h2>
+            
+            <p class="cta-subtitle">
+                7年間の実績と180万フォロワーのパワーで<br>
+                貴社のグローバル展開を加速させます
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">資料請求</a>
+                <a href="#" class="btn btn-secondary">無料相談を予約</a>
+                <a href="#" class="btn btn-text">メールで問い合わせ</a>
+            </div>
+            
+            <div class="contact-options">
+                <div class="contact-option">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <span class="contact-label">お電話でのお問い合わせ</span>
+                        <span class="contact-value">03-XXXX-XXXX</span>
+                    </div>
                 </div>
-                
-                <div class="contact-options">
-                    <div class="contact-option">
-                        <div class="contact-icon">📞</div>
-                        <div>
-                            <span class="contact-label">お電話でのお問い合わせ</span>
-                            <span class="contact-value">03-XXXX-XXXX</span>
-                        </div>
+                <div class="contact-option">
+                    <div class="contact-icon">⏰</div>
+                    <div>
+                        <span class="contact-label">営業時間</span>
+                        <span class="contact-value">平日 9:00-18:00</span>
                     </div>
-                    <div class="contact-option">
-                        <div class="contact-icon">⏰</div>
-                        <div>
-                            <span class="contact-label">営業時間</span>
-                            <span class="contact-value">平日 9:00-18:00</span>
-                        </div>
+                </div>
+                <div class="contact-option">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <span class="contact-label">メール</span>
+                        <span class="contact-value">business@japankuru.com</span>
                     </div>
-                    <div class="contact-option">
-                        <div class="contact-icon">✉️</div>
-                        <div>
-                            <span class="contact-label">メール</span>
-                            <span class="contact-value">business@japankuru.com</span>
-                        </div>
-                    </div>
-                    <div class="contact-option">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <span class="contact-label">オフィス</span>
-                            <span class="contact-value">東京都渋谷区</span>
-                        </div>
+                </div>
+                <div class="contact-option">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <span class="contact-label">オフィス</span>
+                        <span class="contact-value">東京都渋谷区</span>
                     </div>
                 </div>
             </div>
@@ -3153,7 +2667,6 @@
                         <li><a href="#">翻訳・ローカライズ</a></li>
                         <li><a href="#">SNS運用</a></li>
                         <li><a href="#">インフルエンサーマーケティング</a></li>
-                        <li><a href="#">イベント・PR</a></li>
                     </ul>
                 </div>
                 
@@ -3187,7 +2700,6 @@
                         <li><a href="#">採用情報</a></li>
                         <li><a href="#">プレスリリース</a></li>
                         <li><a href="#">お問い合わせ</a></li>
-                        <li><a href="#">プライバシーポリシー</a></li>
                     </ul>
                 </div>
             </div>
@@ -3199,177 +2711,25 @@
     </footer>
 
     <script>
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Trigger counter animation for metrics
-                    if (entry.target.classList.contains('metrics-section') || 
-                        entry.target.classList.contains('hero')) {
-                        const counters = entry.target.querySelectorAll('.counter');
-                        counters.forEach(counter => {
-                            animateCounter(counter);
-                        });
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Counter animation function
-        function animateCounter(counter) {
-            const target = parseInt(counter.getAttribute('data-target'));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-            
-            const updateCounter = () => {
-                current += step;
-                if (current < target) {
-                    counter.textContent = Math.ceil(current).toLocaleString();
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.textContent = target.toLocaleString();
-                }
-            };
-            
-            updateCounter();
-        }
-
-        // Show navigation on scroll
-        let lastScroll = 0;
-        const navbar = document.getElementById('navbar');
+        // Auto-slide for device content
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.device-laptop .content-slide');
+        const phoneSlides = document.querySelectorAll('.device-phone .content-slide');
         
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
+        setInterval(() => {
+            // Remove active from current
+            slides[currentSlide].classList.remove('active');
+            phoneSlides[currentSlide].classList.remove('active');
             
-            if (currentScroll > 100) {
-                navbar.classList.add('show');
-            } else {
-                navbar.classList.remove('show');
-            }
+            // Move to next slide
+            currentSlide = (currentSlide + 1) % slides.length;
             
-            lastScroll = currentScroll;
-        });
-
-        // Portfolio Filter
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                const filter = button.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 10);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Before/After Slider
-        const slider = document.getElementById('comparison-slider');
-        const sliderHandle = document.getElementById('slider-handle');
-        const overlay = document.getElementById('comparison-overlay');
-        
-        if (slider && sliderHandle && overlay) {
-            let isDown = false;
-            
-            const moveSlider = (x) => {
-                const rect = slider.getBoundingClientRect();
-                let position = ((x - rect.left) / rect.width) * 100;
-                position = Math.max(0, Math.min(100, position));
-                
-                overlay.style.width = position + '%';
-                sliderHandle.style.left = position + '%';
-            };
-            
-            sliderHandle.addEventListener('mousedown', () => isDown = true);
-            
-            document.addEventListener('mouseup', () => isDown = false);
-            
-            document.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                moveSlider(e.clientX);
-            });
-            
-            // Touch support
-            sliderHandle.addEventListener('touchstart', () => isDown = true);
-            
-            document.addEventListener('touchend', () => isDown = false);
-            
-            document.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                moveSlider(e.touches[0].clientX);
-            });
-        }
-
-        // Industry tabs functionality
-        const industryTabs = document.querySelectorAll('.industry-tab');
-        const industryContents = document.querySelectorAll('.industry-content');
-        
-        industryTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const industry = tab.getAttribute('data-industry');
-                
-                // Remove active class from all tabs and contents
-                industryTabs.forEach(t => t.classList.remove('active'));
-                industryContents.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab and corresponding content
-                tab.classList.add('active');
-                document.getElementById(industry).classList.add('active');
-            });
-        });
-
-        // FAQ toggle functionality
-        const faqItems = document.querySelectorAll('.faq-question');
-        
-        faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const faqItem = item.parentElement;
-                const isActive = faqItem.classList.contains('active');
-                
-                // Close all FAQ items
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Open clicked item if it wasn't active
-                if (!isActive) {
-                    faqItem.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
+            // Add active to new slide
+            slides[currentSlide].classList.add('active');
+            // Phone shows different slide for variety
+            const phoneIndex = (currentSlide + 1) % phoneSlides.length;
+            phoneSlides[phoneIndex].classList.add('active');
+        }, 3000);
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -3383,62 +2743,132 @@
             });
         });
 
-        // Add parallax effect to hero section
+        // Show/hide navigation on scroll
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                if (currentScroll > lastScroll) {
+                    navbar.classList.add('hidden');
+                } else {
+                    navbar.classList.remove('hidden');
+                }
             }
+            
+            lastScroll = currentScroll;
         });
 
-        // Simulate live feed updates
-        const liveFeed = document.querySelector('.live-feed');
-        if (liveFeed) {
-            const feedItems = [
-                { country: '🇺🇸', action: '新記事公開', content: 'Hidden Cafes in Shibuya' },
-                { country: '🇹🇭', action: 'Instagram投稿', content: 'Mount Fuji Sunrise' },
-                { country: '🇹🇼', action: 'YouTube公開', content: 'Japanese Street Food Tour' },
-                { country: '🇫🇷', action: 'Facebook更新', content: 'Kyoto Temple Guide' },
-                { country: '🇰🇷', action: 'ブログ投稿', content: 'Osaka Shopping Guide' }
-            ];
-            
-            setInterval(() => {
-                const randomItem = feedItems[Math.floor(Math.random() * feedItems.length)];
-                const newFeedItem = document.createElement('div');
-                newFeedItem.className = 'feed-item';
-                newFeedItem.innerHTML = `
-                    <div class="feed-time">たった今</div>
-                    <div class="feed-content">${randomItem.country} ${randomItem.action}「${randomItem.content}」</div>
-                    <div class="feed-stats">
-                        <span>👁 ${Math.floor(Math.random() * 1000)} views</span>
-                        <span>❤️ ${Math.floor(Math.random() * 100)} likes</span>
-                    </div>
-                `;
-                
-                liveFeed.insertBefore(newFeedItem, liveFeed.children[1]);
-                
-                // Remove old items if too many
-                if (liveFeed.children.length > 10) {
-                    liveFeed.removeChild(liveFeed.lastChild);
-                }
-            }, 10000); // Update every 10 seconds
-        }
-
-        // Play button for video
-        const playButton = document.querySelector('.play-button');
-        const video = document.querySelector('.video-container video');
+        // Portfolio Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
         
-        if (playButton && video) {
-            playButton.addEventListener('click', () => {
-                video.play();
-                playButton.style.display = 'none';
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
+        });
+
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-question');
+        
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const faqItem = item.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.trust-metric-card, .point-item, .solution-item, .metric-card, .pricing-card, .case-link, .value-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Number counter animation
+        const animateCounter = (element) => {
+            const text = element.textContent;
+            const hasPlus = text.includes('+');
+            const hasPercent = text.includes('%');
+            const hasX = text.includes('x');
+            const hasMan = text.includes('万');
             
-            video.addEventListener('pause', () => {
-                playButton.style.display = 'flex';
+            let target = parseInt(text.replace(/[^0-9]/g, ''));
+            if (!target) return;
+            
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    let display = Math.ceil(current);
+                    if (hasMan) display = display + '万';
+                    if (hasPlus) display = display + '+';
+                    if (hasPercent) display = display + '%';
+                    if (hasX) display = display + 'x';
+                    element.textContent = display;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = text;
+                }
+            };
+            
+            updateCounter();
+        };
+
+        // Trigger counter animation when visible
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
             });
-        }
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.hero-stat-number, .metric-number, .metric-value, .trust-number, .result-metric-value').forEach(el => {
+            counterObserver.observe(el);
+        });
     </script>
 </body>
 </html>
