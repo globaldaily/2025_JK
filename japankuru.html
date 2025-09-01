@@ -707,7 +707,7 @@
             border-radius: 4px;
         }
         .step-metrics .metric-item .metric-value {
-            font-size: 1.2rem;
+            font-size: 0.85rem;
             font-weight: var(--font-weight-bold);
             color: var(--accent);
             display: block;
@@ -922,6 +922,102 @@
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: var(--font-weight-medium);
+        }
+
+        /* ===== PROCESS SECTION ===== */
+        .process-section {
+            background: var(--white);
+        }
+        .process-timeline {
+            position: relative;
+            padding-top: var(--spacing-md);
+        }
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+        .process-step {
+            display: flex;
+            gap: var(--spacing-lg);
+            position: relative;
+            padding-bottom: var(--spacing-xl);
+        }
+        .process-step:last-of-type {
+            padding-bottom: 0;
+        }
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: var(--font-weight-light);
+            color: var(--primary);
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .process-content {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1fr 250px;
+            gap: var(--spacing-lg);
+            padding-top: 1.5rem;
+        }
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 1rem;
+        }
+        .process-desc {
+            font-size: 1rem;
+            color: var(--secondary);
+        }
+        .process-visual {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: var(--gray-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .process-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .visual-caption {
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(0,0,0,0.02);
+            color: var(--secondary);
+        }
+        .process-finish {
+            position: relative;
+            left: 40px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 2;
+            margin-top: var(--spacing-xl);
         }
 
         /* ===== PLANS SECTION ===== */
@@ -1281,6 +1377,31 @@
             }
             .arrow {
                 transform: rotate(90deg);
+            }
+            /* Process Section Mobile */
+            .process-timeline::before {
+                left: 25px;
+            }
+            .process-step {
+                gap: var(--spacing-md);
+            }
+            .process-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .process-content {
+                grid-template-columns: 1fr;
+            }
+            .process-visual {
+                margin-top: var(--spacing-md);
+                aspect-ratio: 16/9;
+            }
+            .process-finish {
+                left: 25px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
 
@@ -1860,6 +1981,124 @@
         </div>
     </section>
 
+    <!-- Process Section -->
+    <section id="process" class="process-section">
+        <div class="container container-narrow">
+            <div class="section-head-unified">
+                <div class="section-label">Our Process</div>
+                <h2>結果を出すための6ステップ</h2>
+                <p class="lead">私たちは、企画から成果報告、そして次の戦略提案までをワンストップで提供するパートナーです。</p>
+            </div>
+    
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-number">01</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">企画提案</h3>
+                            <p class="process-desc">
+                                外国人クリエイターチームがターゲット国の文化やトレンドを分析し、クライアントの目的達成に最適なコンテンツ戦略を企画・提案します。
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800" alt="企画提案">
+                            <div class="visual-caption">データに基づいた戦略会議</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="process-step">
+                    <div class="process-number">02</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">撮影・取材</h3>
+                            <p class="process-desc">
+                                外国人クリエイターが実際に現地でサービスを体験しながら、彼らの視点で「リアルな魅力」を発見し、写真や映像に収めます。
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d54?w=800" alt="撮影・取材">
+                            <div class="visual-caption">外国人視点での体験取材</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="process-step">
+                    <div class="process-number">03</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">多言語コンテンツ制作</h3>
+                            <p class="process-desc">
+                                단순 번역이 아닌, 5개 언어 원어민 팀이 문화적 뉘앙스와 SEO까지 고려하여 타겟의 마음에 와닿는 기사, SNS 콘텐츠, 영상을 제작합니다.
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1583344654332-2423c7205128?w=800" alt="多言語コンテンツ制作">
+                            <div class="visual-caption">문화적 배경까지 고려한 현지화</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="process-step">
+                    <div class="process-number">04</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">配信・拡散</h3>
+                            <p class="process-desc">
+                                180만 팬을 보유한 35개의 자사 채널은 물론, Yahoo!, NAVER 등 각국의 유력 미디어와 페이스북 커뮤니티 네트워크를 통해 콘텐츠를 확산시킵니다.
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1585144860136-2a1e0a8a3a9b?w=800" alt="配信・拡散">
+                            <div class="visual-caption">자체 채널과 해외 미디어를 통한 확산</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">05</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">成果報告</h3>
+                            <p class="process-desc">
+                                캠페인 종료 후, 기사의 PV, SNS 도달률 등 정량적 데이터와 함께, 해외 유저들의 생생한 코멘트 등 정성적인 반응까지 분석한 상세 리포트를 제공합니다.
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="成果報告">
+                            <div class="visual-caption">데이터로 증명하는 성과 리포트</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="process-step">
+                    <div class="process-number">06</div>
+                    <div class="process-content">
+                        <div class="process-text">
+                            <h3 class="process-title">次期戦略提案</h3>
+                            <p class="process-desc">
+                                리포트 분석을 통해 얻은 인사이트를 바탕으로, 브랜드를 성장시키기 위한 다음 단계의 전략을 제안합니다. JAPANKURU는 지속적인 성공을 함께 만드는 파트너입니다.
+                            </p>
+                        </div>
+                        <div class="process-visual">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800" alt="次期戦略提案">
+                            <div class="visual-caption">장기적 성공을 위한 파트너십</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="process-finish">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+            </div> <div class="process-conclusion">
+                <p>
+                    そして、このサイクルは繰り返されます。<br>
+                    一度きりの施策で終わらせず、分析と改善を通じて貴社のコンテンツ資産を永続的に成長させることが、JAPANKURUのパートナーシップです。
+                </p>
+            </div>
+    
+        </div> </section>
+
     <!-- Plans Section -->
     <section id="plans" class="plans-section">
         <div class="container">
@@ -2101,19 +2340,34 @@
         }
     
         // FAQ Section
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        if (faqQuestions.length > 0) {
-            faqQuestions.forEach(item => {
-                item.addEventListener('click', () => {
-                    const faqItem = item.parentElement;
-                    const isActive = faqItem.classList.contains('active');
-                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                    if (!isActive) {
-                        faqItem.classList.add('active');
-                    }
-                });
+       // FAQ Section
+const faqQuestions = document.querySelectorAll('.faq-question');
+if (faqQuestions.length > 0) {
+    faqQuestions.forEach(item => {
+        item.addEventListener('click', () => {
+            const faqItem = item.parentElement;
+            const faqAnswer = faqItem.querySelector('.faq-answer');
+            const isActive = faqItem.classList.contains('active');
+            
+            // 모든 FAQ 닫기
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                const answer = i.querySelector('.faq-answer');
+                if (answer) {
+                    answer.style.maxHeight = '0';  // 추가
+                }
             });
-        }
+            
+            // 클릭한 FAQ 열기
+            if (!isActive) {
+                faqItem.classList.add('active');
+                if (faqAnswer) {
+                    faqAnswer.style.maxHeight = faqAnswer.scrollHeight + 'px';  // 추가
+                }
+            }
+        });
+    });
+}
     
         // Intersection Observer for animations
         document.addEventListener('DOMContentLoaded', () => {
