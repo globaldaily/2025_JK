@@ -371,7 +371,7 @@
         }
         
         /* ===== 8. PROOF SECTION ===== */
-        /* ===== IMPROVED OUR PROOF SECTION CSS ===== */
+/* ===== IMPROVED OUR PROOF SECTION CSS ===== */
 .proof-section {
     background: var(--gray-bg);
     padding: var(--spacing-xxl) 0;
@@ -454,44 +454,51 @@
     line-height: 1.4;
 }
 
-/* Before/After Change Section - レイアウト改善 */
+/* Before/After Change Section - 컴팩트 디자인 */
 .result-change {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: var(--gray-bg);
-    border-radius: 8px;
+    gap: 0.8rem;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
 }
 
 .before, .after {
     flex: 1;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
     text-align: center;
-    font-weight: var(--font-weight-medium);
-    line-height: 1.4;
+    font-weight: 500;
+    line-height: 1.3;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .before {
-    background: #fff3f3;
-    color: #d32f2f;
-    border: 1px solid #ffcdd2;
+    background: #fdf2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
 }
 
 .after {
-    background: #f3f9ff;
-    color: var(--accent);
-    border: 1px solid #bbdefb;
+    background: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bfdbfe;
 }
 
 .arrow {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--accent);
     font-weight: bold;
     flex-shrink: 0;
+    width: 20px;
+    text-align: center;
 }
 
 /* Description - 自動的に残りスペースを埋める */
@@ -620,16 +627,126 @@
         grid-template-columns: 1fr;
     }
 }
-        /* Ecosystem Section */
-        .ecosystem-section {
+        /* ===== 9. TRANSITION SECTION ===== */
+        .transition-section { background: var(--primary); padding: 5rem 0; text-align: center; }
+        .transition-section h2 { color: var(--white); font-size: 2rem; font-weight: 500; }
+        .transition-section span { color: #69b1ff; }
+
+        /* ===== 10. ECOSYSTEM SECTION ===== */
+         /* Ecosystem Section */
+         .ecosystem-section {
             background: var(--gray-bg);
+            padding: var(--spacing-xxl) 0;
         }
 
+        .section-head-unified {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding-top: var(--spacing-xxl);
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .section-head-unified h2 {
+            font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--secondary);
+        }
+
+        /* Platform Overview Styles */
+        .platform-overview {
+            background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%) !important;
+            padding: var(--spacing-lg) !important;
+            border-radius: 12px !important;
+            margin-bottom: var(--spacing-xl) !important;
+            text-align: center !important;
+            border: 1px solid #e3f2fd;
+        }
+
+        .platform-overview h3 {
+            margin-bottom: 1rem !important;
+            color: var(--primary) !important;
+            font-size: 1.4rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .platform-overview p {
+            color: var(--secondary) !important;
+            font-size: 0.9rem !important;
+            margin-bottom: var(--spacing-md) !important;
+        }
+
+        .scale-highlights {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: var(--spacing-md) !important;
+            margin-bottom: var(--spacing-md) !important;
+        }
+
+        .scale-item {
+            background: var(--white) !important;
+            padding: 1.5rem !important;
+            border-radius: 8px !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .scale-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .scale-item i {
+            font-size: 2rem !important;
+            color: var(--accent) !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .scale-number {
+            font-size: 1.8rem !important;
+            font-weight: var(--font-weight-bold) !important;
+            color: var(--primary) !important;
+            margin-bottom: 0.3rem !important;
+        }
+
+        .scale-label {
+            color: var(--secondary) !important;
+            font-size: 0.9rem !important;
+        }
+
+        .scale-quote {
+            color: var(--secondary) !important;
+            font-size: 0.95rem !important;
+            font-style: italic;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* System Flow Styles */
         .system-flow {
             background: var(--white);
             padding: var(--spacing-lg) var(--spacing-md);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            margin-top: var(--spacing-lg);
         }
 
         .flow-step {
@@ -707,8 +824,8 @@
         }
 
         .impact-value {
-            font-size: 3rem;
-            font-weight: var(--font-weight-light);
+            font-size: 2.5rem;
+            font-weight: 300;
             color: #FFD700;
             margin-bottom: 0.5rem;
         }
@@ -718,72 +835,45 @@
             font-size: 0.9rem;
         }
 
+        .impact-description small {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
         /* Responsive */
-        @media (max-width: 768px) {
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .result-change {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            
-            .arrow {
-                transform: rotate(90deg);
+        @media (max-width: 1024px) {
+            .scale-highlights {
+                grid-template-columns: repeat(2, 1fr) !important;
             }
             
             .flow-step {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
+        }
+
+        @media (max-width: 768px) {
+            .ecosystem-section {
+                padding: var(--spacing-xl) 0;
+            }
+            
+            .scale-highlights {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .platform-overview {
+                padding: var(--spacing-md) !important;
+            }
             
             .metrics-grid {
                 grid-template-columns: 1fr;
             }
             
-            .trust-metrics {
-                flex-direction: column;
-                gap: 0.5rem;
+            .container {
+                padding: 0 var(--spacing-sm);
             }
         }
-}
-.kpi-icon { font-size: 2.5rem; color: var(--accent); }
-.kpi-text h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; }
-.kpi-text p { font-size: 0.95rem; line-height: 1.7; }
-
-        /* ===== 9. TRANSITION SECTION ===== */
-        .transition-section { background: var(--primary); padding: 5rem 0; text-align: center; }
-        .transition-section h2 { color: var(--white); font-size: 2rem; font-weight: 500; }
-        .transition-section span { color: #69b1ff; }
-
-        /* ===== 10. ECOSYSTEM SECTION ===== */
-        .bg-ecosystem { background-size: cover; background-position: center; background-attachment: fixed; }
-        .main-flow { background: var(--white); padding: 3rem 2rem; border: 1px solid var(--border); border-radius: 8px; }
-        .step-production { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: center; }
-        .step-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 1rem; }
-        .production-left { text-align: right; }
-        .production-title { font-size: 1.8rem; font-weight: 500; }
-        .creators { display: flex; gap: 1rem; justify-content: flex-end; font-size: 1.8rem; }
-        .production-right { background: var(--gray-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
-        .production-phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
-        .phase-icon { width: 40px; height: 40px; margin: 0 auto 1rem; border: 1px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; }
-        .flow-arrow-down { height: 60px; display: flex; align-items: center; justify-content: center; }
-        .flow-arrow-down::after { content: ''; display: block; width: 1px; height: 30px; background-color: var(--border); }
-        .step-channels { border-radius: 8px; padding: 2rem; margin: 0; text-align: center; }
-        .channels-title { font-size: 1.8rem; font-weight: 500; }
-        .channels-content { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 2rem; align-items: center; }
-        .metric-item { text-align: center; }
-        .channel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; justify-items: center; }
-        .channel-item { background: var(--white); color: var(--primary); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 1px solid var(--border); }
-        .step-spread { text-align: center; }
-        .spread-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); text-align: center; }
-        .spread-card { border: 1px solid var(--border); padding: 1.5rem; background: var(--white); }
-        .spread-icon { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
-        .spread-card-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
-        .final-impact { background: none; padding: 0; text-align: center; }
-        .impact-title { color: var(--secondary); }
-        .impact-main { font-size: 4rem; font-weight: var(--font-weight-light); }
 
         /* ===== 11. PORTFOLIO SECTION ===== */
         .portfolio-section { background: var(--gray-bg); }
@@ -1514,7 +1604,6 @@
     </section>
 
     <!-- Our Proof Section -->
-    <!-- Our Proof Section -->
 <section id="proof" class="proof-section">
     <div class="container container-narrow">
         <div class="section-head-unified">
@@ -1628,95 +1717,128 @@
     </section>
 
      <!-- ecosystem Section -->
-     <section id="ecosystem" class="ecosystem-section">
-        <div class="container container-narrow">
-            <div class="section-head-unified">
-                <div class="section-label">Our System</div>
-                <h2>どうやってこの成果を生み出すのか？</h2>
-                <p class="lead">13年間で完成した統合制作・配信・拡散システム。</p>
+<section id="ecosystem" class="ecosystem-section">
+    <div class="container container-narrow">
+        <div class="section-head-unified">
+            <div class="section-label">Our System</div>
+            <h2>どうやってこの成果を生み出すのか？</h2>
+            <p class="lead">13年間で完成した統合制作・配信・拡散システム。</p>
+        </div>
+
+        <!-- Platform Scale Overview -->
+        <div class="platform-overview">
+            <h3>JAPANKURUメディアネットワーク規模</h3>
+            <p>※2024年12月現在</p>
+            
+            <div class="scale-highlights">
+                <div class="scale-item">
+                    <i class="fa-solid fa-broadcast-tower"></i>
+                    <div class="scale-number">30+</div>
+                    <div class="scale-label">自社運営チャンネル</div>
+                </div>
+
+                <div class="scale-item">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="scale-number">180万+</div>
+                    <div class="scale-label">総フォロワー数</div>
+                </div>
+
+                <div class="scale-item">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="scale-number">7言語</div>
+                    <div class="scale-label">グローバル対応</div>
+                </div>
             </div>
+            
+            <p class="scale-quote">
+                「数百万規模のリーチネットワークで、貴社のコンテンツを確実に届けます」
+            </p>
+        </div>
 
-            <div class="system-flow">
-                <div class="flow-step">
-                    <div class="step-info">
-                        <h3>Step 01: 多国籍制作チーム</h3>
-                        <p>外国人クリエイターが直接企画・取材・制作する体制</p>
-                    </div>
-                    
-                    <div class="step-metrics">
-                        <div class="metrics-grid">
-                            <div class="metric-item">
-                                <span class="metric-value">7カ国</span>
-                                <div class="metric-label">ネイティブチーム</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">10+名</span>
-                                <div class="metric-label">コアメンバー</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">4週間</span>
-                                <div class="metric-label">平均制作期間</div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="system-flow">
+            <div class="flow-step">
+                <div class="step-info">
+                    <h3>Step 01: 多国籍制作チーム</h3>
+                    <p>外国人クリエイターが直接企画・取材・制作する体制</p>
                 </div>
-
-                <div class="flow-step">
-                    <div class="step-info">
-                        <h3>Step 02: 自社配信ネットワーク</h3>
-                        <p>広告費なしで大規模露出が可能な直営チャンネル群</p>
-                    </div>
-                    
-                    <div class="step-metrics">
-                        <div class="metrics-grid">
-                            <div class="metric-item">
-                                <span class="metric-value">35個</span>
-                                <div class="metric-label">運営チャンネル</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">180万+</span>
-                                <div class="metric-label">総フォロワー</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">月250万</span>
-                                <div class="metric-label">オーガニックPV</div>
-                            </div>
+                
+                <div class="step-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-value">7カ国</span>
+                            <div class="metric-label">ネイティブチーム</div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="flow-step">
-                    <div class="step-info">
-                        <h3>Step 03: 外部拡散ネットワーク</h3>
-                        <p>海外主要メディア・コミュニティとの連携による二次拡散</p>
-                    </div>
-                    
-                    <div class="step-metrics">
-                        <div class="metrics-grid">
-                            <div class="metric-item">
-                                <span class="metric-value">60+</span>
-                                <div class="metric-label">パートナーメディア</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">500万+</span>
-                                <div class="metric-label">コミュニティメンバー</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">48,000+</span>
-                                <div class="metric-label">SEOリンク資産</div>
-                            </div>
+                        <div class="metric-item">
+                            <span class="metric-value">専属</span>
+                            <div class="metric-label">コアクリエイター</div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">迅速</span>
+                            <div class="metric-label">制作対応</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="final-impact">
-                <div class="impact-subtitle">統合システムの最終月間到達規模</div>
-                <div class="impact-value">6,000万+</div>
-                <div class="impact-description">直接配信＋二次拡散による総リーチ規模</div>
+            <div class="flow-step">
+                <div class="step-info">
+                    <h3>Step 02: 自社配信ネットワーク</h3>
+                    <p>上記の規模で広告費なしで大規模露出が可能</p>
+                </div>
+                
+                <div class="step-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-value">30+</span>
+                            <div class="metric-label">運営チャンネル</div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">オーガニック</span>
+                            <div class="metric-label">大規模リーチ</div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">継続的</span>
+                            <div class="metric-label">露出保証</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-step">
+                <div class="step-info">
+                    <h3>Step 03: 外部拡散ネットワーク</h3>
+                    <p>海外主要メディア・コミュニティとの連携による二次拡散</p>
+                </div>
+                
+                <div class="step-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-value">多数</span>
+                            <div class="metric-label">パートナーメディア</div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">大規模</span>
+                            <div class="metric-label">コミュニティ連携</div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">48,000+</span>
+                            <div class="metric-label">SEOリンク資産</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="final-impact">
+            <div class="impact-subtitle">統合システムによる月間到達可能規模</div>
+            <div class="impact-value">数千万レベル</div>
+            <div class="impact-description">
+                直接配信＋二次拡散による総合リーチ力<br>
+                <small>※具体的な数値は貴社との打ち合わせでご説明いたします</small>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Portfolio Section -->
     <section class="portfolio-section" id="portfolio">
