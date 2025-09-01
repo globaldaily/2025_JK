@@ -5,2731 +5,2076 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAPANKURU - インバウンドマーケティングの統合ソリューション</title>
     <style>
-        /* ===== RESET & BASE STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ===== 1. RESET & VARIABLES ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            /* Minimal Color Palette */
-            --black: #000000;
-            --primary: #1a1a1a;
-            --secondary: #666666;
-            --light-gray: #999999;
-            --border: #E5E5E5;
-            --gray-bg: #FAFAFA;
-            --white: #FFFFFF;
-            
-            /* Accent Colors (Used Sparingly) */
-            --accent: #0066CC;
-            --accent-light: #E8F2FF;
-            --success: #00C851;
-            --warning: #FF9500;
-            --danger: #FF3B30;
-            
-            /* Typography */
+            --primary: #1a1a1a; --secondary: #666666; --light-gray: #999999;
+            --border: #E5E5E5; --gray-bg: #FAFAFA; --white: #FFFFFF;
+            --accent: #0066CC; --success: #00C851; --danger: #FF3B30;
             --font-primary: -apple-system, BlinkMacSystemFont, 'Noto Sans JP', 'Segoe UI', sans-serif;
-            --font-weight-light: 300;
-            --font-weight-regular: 400;
-            --font-weight-medium: 500;
-            --font-weight-bold: 600;
-            
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 2rem;
-            --spacing-lg: 3rem;
-            --spacing-xl: 4rem;
-            --spacing-xxl: 6rem;
-            
-            /* Container */
-            --container-max: 1200px;
-            --container-narrow: 1000px;
-            
-            /* Transitions */
+            --font-weight-light: 300; --font-weight-medium: 500; --font-weight-bold: 600;
+            --spacing-sm: 1rem; --spacing-md: 2rem; --spacing-lg: 3rem; --spacing-xl: 4rem; --spacing-xxl: 6rem;
+            --container-max: 1200px; --container-narrow: 1000px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ===== 2. TYPOGRAPHY & BASE ===== */
         body {
-            font-family: var(--font-primary);
-            color: var(--primary);
-            background: var(--white);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: var(--font-primary); color: var(--primary); background: var(--white);
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 { font-weight: var(--font-weight-medium); line-height: 1.3; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: var(--font-weight-light); line-height: 1.2; }
+        h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: var(--font-weight-medium); margin-bottom: 1rem; color: var(--primary); }
+        h3 { font-size: clamp(1.5rem, 3vw, 1.8rem); margin-bottom: 1rem; }
+        p { font-size: 1rem; line-height: 1.8; color: var(--secondary); }
+        .lead { font-size: 1.15rem; line-height: 1.7; font-weight: var(--font-weight-light); max-width: 800px; margin-left: auto; margin-right: auto; }
+        .small { font-size: 0.875rem; color: var(--light-gray); }
+
+        /* ===== 3. LAYOUT & HELPERS ===== */
+        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--spacing-md); }
+        .container-narrow { max-width: var(--container-narrow); }
+        section { padding: var(--spacing-xxl) 0; }
+        .btn { display: inline-block; padding: 0.875rem 2rem; text-decoration: none; font-weight: var(--font-weight-medium); font-size: 1rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; border-radius: 4px; letter-spacing: 0.02em; }
+        .btn-dark { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .btn-dark:hover { background: var(--black); border-color: var(--black); transform: translateY(-2px); }
+        .btn-secondary { background: var(--white); color: var(--primary); border-color: var(--border); }
+        .btn-secondary:hover { border-color: var(--primary); transform: translateY(-2px); }
+
+        /* ===== 4. UNIFIED SECTION HEADER ===== */
+        .section-head-unified { text-align: center; margin-bottom: var(--spacing-xl); padding-top: var(--spacing-xxl); border-top: 1px solid var(--border); }
+        .why-us-section .section-head-unified, .hero + section .section-head-unified { border-top: none; padding-top: 0; } /* 페이지 첫 섹션은 선 제외 */
+        .section-label { display: inline-block; margin-bottom: 1rem; color: var(--accent); font-size: 0.8rem; font-weight: var(--font-weight-bold); letter-spacing: 0.15em; text-transform: uppercase; }
+        .subsection-title { font-size: 1.3rem; font-weight: var(--font-weight-medium); text-align: center; margin-bottom: 2rem; color: var(--primary); }
+        .subsection-title::before, .subsection-title::after { content: '—'; margin: 0 1rem; color: var(--light-gray); font-weight: var(--font-weight-light); }
+
+        /* ===== 5. STICKY SUB-NAVIGATION ===== */
+        .sub-nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 999; border-bottom: 1px solid var(--border); padding: 0.75rem 0; transform: translateY(-200%); transition: transform 0.4s ease; visibility: hidden; }
+        .sub-nav.visible { transform: translateY(0); visibility: visible; }
+        .sub-nav-menu { display: flex; list-style: none; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .sub-nav-menu a { text-decoration: none; color: var(--secondary); font-size: 0.9rem; font-weight: 500; transition: var(--transition); padding: 0.5rem; }
+        .sub-nav-menu a:hover, .sub-nav-menu a.active { color: var(--primary); }
+
+        /* ===== 6. HERO SECTION ===== */
+.new-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #f8f9fa; /* 연한 배경색 추가 */
+    overflow: hidden;
+}
+.hero-container-new {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: var(--spacing-xl);
+}
+.hero-content-new {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease 0.2s forwards;
+}
+.hero-tagline {
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+.new-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+}
+.new-hero h1 .highlight {
+    color: var(--accent);
+}
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+}
+
+.hero-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+.hero-feature {
+    text-align: center;
+}
+.hero-feature i {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+}
+.hero-feature span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+
+.hero-visual-new {
+    perspective: 1500px;
+    opacity: 0;
+    transform: translateX(50px);
+    animation: fadeInUp 1s ease 0.5s forwards;
+}
+/* img 선택자를 video로 변경 */
+.hero-visual-new video { 
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    transform: rotateY(-15deg) rotateX(5deg);
+    transition: var(--transition);
+}
+/* img:hover 선택자를 video:hover로 변경 */
+.hero-visual-new video:hover { 
+    transform: rotateY(0) rotateX(0) scale(1.05);
+}
+.hero-visual-new img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    transform: rotateY(-15deg) rotateX(5deg);
+    transition: var(--transition);
+}
+.hero-visual-new img:hover {
+    transform: rotateY(0) rotateX(0) scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .hero-container-new {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-visual-new {
+        margin-top: 3rem;
+        perspective: none;
+    }
+    .hero-visual-new img, .hero-visual-new img:hover {
+        transform: none;
+    }
+}
+
+        /* ===== 7. WHY-US SECTION (INTERACTIVE LIST) ===== */
+        /* Why Us Section - 컴팩트 버전 */
+        .why-us-section {
+            background: var(--gray-bg);
         }
 
-        /* ===== TYPOGRAPHY ===== */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: var(--font-weight-medium);
-            line-height: 1.3;
-            letter-spacing: -0.02em;
+        .points-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: var(--font-weight-light);
-            line-height: 1.1;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: var(--font-weight-light);
-            margin-bottom: 1.5rem;
-        }
-
-        h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--secondary);
-        }
-
-        .lead {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            font-weight: var(--font-weight-light);
-        }
-
-        .small {
-            font-size: 0.875rem;
-            color: var(--light-gray);
-        }
-
-        /* ===== LAYOUT ===== */
-        .container {
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        .container-narrow {
-            max-width: var(--container-narrow);
-        }
-
-        section {
-            padding: var(--spacing-xxl) 0;
-        }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-            transform: translateY(0);
-        }
-
-        nav.hidden {
-            transform: translateY(-100%);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: var(--font-weight-bold);
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
+        .point-item-compact {
+            display: grid;
+            grid-template-columns: 1fr 350px;
             gap: var(--spacing-lg);
-            list-style: none;
-        }
-
-        .nav-menu a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .nav-menu a:hover {
-            color: var(--primary);
-        }
-
-        .nav-cta {
-            padding: 0.5rem 1.5rem;
-            background: var(--primary);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            font-weight: var(--font-weight-medium);
-            transition: var(--transition);
-        }
-
-        .nav-cta:hover {
-            background: var(--black);
-            transform: translateY(-1px);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
             align-items: center;
-            position: relative;
-            padding-top: 80px;
-            background: var(--white);
-        }
-
-        .hero-container {
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-            align-items: center;
-        }
-
-        .hero-content {
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .hero h1 {
-            margin-bottom: var(--spacing-md);
-            font-weight: var(--font-weight-light);
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            font-weight: var(--font-weight-light);
-            color: var(--secondary);
-            margin-bottom: var(--spacing-lg);
-            line-height: 1.6;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-md);
-            padding-top: var(--spacing-lg);
-            border-top: 1px solid var(--border);
-        }
-
-        .hero-stat {
-            text-align: left;
-        }
-
-        .hero-stat-number {
-            font-size: 2.5rem;
-            font-weight: var(--font-weight-light);
-            display: block;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .hero-stat-label {
-            font-size: 0.875rem;
-            color: var(--light-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Hero Visual - Mobile Mockup */
-        .hero-visual {
-            position: relative;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
-        }
-
-        .devices-mockup {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: -100px;
-        }
-
-        .device {
-            position: relative;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        .device-laptop {
-            width: 500px;
-            height: 300px;
-            background: var(--black);
-            border: 8px solid var(--primary);
-            z-index: 1;
-        }
-
-        .device-phone {
-            width: 200px;
-            height: 400px;
-            background: var(--black);
-            border: 8px solid var(--primary);
-            position: absolute;
-            right: -50px;
-            bottom: -30px;
-            z-index: 2;
-        }
-
-        .device-screen {
-            width: 100%;
-            height: 100%;
-            background: var(--gray-bg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Content Carousel in Device */
-        .device-content {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .content-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .content-slide.active {
-            opacity: 1;
-        }
-
-        .content-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .content-slide video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Real Image Placeholder */
-        .real-image {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .image-1 { background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/05/DSC03020.jpg'); }
-        .image-2 { background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/07/JINS_Kyoto_CC10-2048x1365.jpg'); }
-        .image-3 { background-image: url('https://img.japankuru.com/prg_img/img/img2020041516180060846400.jpg'); }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            color: var(--light-gray);
-        }
-
-        .scroll-arrow {
-            width: 20px;
-            height: 20px;
-            margin: 10px auto;
-            border-right: 1px solid var(--light-gray);
-            border-bottom: 1px solid var(--light-gray);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* Bridge Section - NEW */
-        .bridge-section {
-            background: var(--gray-bg);
-            padding: var(--spacing-xl) 0;
-            text-align: center;
-        }
-
-        .bridge-content h2 {
-            font-size: 1.8rem;
-            font-weight: var(--font-weight-medium);
-            color: var(--primary);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .bridge-content p {
-            font-size: 1.1rem;
-            color: var(--secondary);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .bridge-arrow {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-top: var(--spacing-md);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        /* ===== TRUST SECTION ===== */
-        .trust-section {
-            background: var(--gray-bg);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .section-header h2 {
-            color: var(--primary);
-        }
-
-        .section-header p {
-            color: var(--secondary);
-            font-size: 1.1rem;
-        }
-
-        .trust-metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .trust-metric-card {
-            background: var(--white);
-            padding: var(--spacing-md);
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .trust-metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .metric-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: var(--font-weight-light);
-            color: var(--primary);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-title {
-            font-size: 1rem;
-            font-weight: var(--font-weight-medium);
-            margin-bottom: 0.3rem;
-        }
-
-        .metric-detail {
-            font-size: 0.875rem;
-            color: var(--secondary);
-        }
-
-        /* Industry Coverage */
-        .industry-coverage {
             background: var(--white);
             padding: var(--spacing-md);
             border-radius: 8px;
-            margin-bottom: var(--spacing-lg);
+            border-left: 3px solid var(--accent);
         }
 
-        .industry-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
+        .point-item-compact:nth-child(even) {
+            grid-template-columns: 350px 1fr;
         }
 
-        .industry-tag {
-            padding: 0.5rem 1.2rem;
-            background: var(--gray-bg);
-            border-radius: 4px;
-            font-size: 0.95rem;
-            transition: var(--transition);
+        .point-item-compact:nth-child(even) .point-content {
+            order: 2;
         }
 
-        .industry-tag:hover {
-            background: var(--primary);
-            color: var(--white);
-            transform: scale(1.05);
+        .point-item-compact:nth-child(even) .point-visual {
+            order: 1;
         }
 
-        /* ===== PROBLEM SECTION ===== */
-        .problem-section {
-            background: var(--white);
-        }
-
-        .check-points {
-            border-top: 1px solid var(--border);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .point-item {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: var(--spacing-md);
-            padding: var(--spacing-md) 0;
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .point-item:hover {
-            background: var(--gray-bg);
-            padding-left: var(--spacing-sm);
-            margin-left: calc(-1 * var(--spacing-sm));
-            padding-right: var(--spacing-sm);
-            margin-right: calc(-1 * var(--spacing-sm));
+        .point-content h3 {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary);
         }
 
         .point-number {
-            font-size: 1.5rem;
-            font-weight: var(--font-weight-light);
-            color: var(--light-gray);
-        }
-
-        .point-question {
-            font-size: 1.2rem;
-            font-weight: var(--font-weight-medium);
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-        }
-
-        .point-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-md);
-        }
-
-        .comparison-bad {
-            color: var(--light-gray);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .comparison-bad::before {
-            content: '×';
-            position: absolute;
-            left: 0;
-            color: var(--light-gray);
-        }
-
-        .comparison-good {
-            color: var(--primary);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .comparison-good::before {
-            content: '○';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        /* Section Divider */
-        .section-divider {
-            text-align: center;
-            margin: var(--spacing-xl) 0;
-            position: relative;
-        }
-
-        .divider-line {
-            width: 1px;
-            height: 40px;
-            background: var(--border);
-            margin: 0 auto;
-        }
-
-        /* JAPANKURU Solution */
-        .japankuru-solution {
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .solution-header {
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .solution-header h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            font-weight: var(--font-weight-medium);
-        }
-
-        .solution-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .solution-item {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: var(--spacing-md);
-            align-items: start;
-        }
-
-        .solution-number {
-            font-size: 1.5rem;
-            font-weight: var(--font-weight-light);
-            color: var(--accent);
-        }
-
-        .solution-label {
-            font-weight: var(--font-weight-medium);
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .solution-desc {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            line-height: 1.6;
-        }
-
-        /* Language Bar */
-        .language-bar {
-            padding: 1.2rem 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .language-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .language-label {
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .language-flags {
-            display: flex;
-            gap: 1.2rem;
-        }
-
-        .flag-item {
-            font-size: 0.85rem;
-            color: var(--secondary);
-        }
-
-        /* Result Box */
-        .result-section {
-            background: var(--gray-bg);
-            padding: var(--spacing-xl) var(--spacing-lg);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .result-title {
-            font-size: 1rem;
-            color: var(--secondary);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: var(--font-weight-medium);
-        }
-
-        .result-main {
-            font-size: 1.8rem;
-            line-height: 1.6;
-            color: var(--primary);
-            margin-bottom: var(--spacing-lg);
-            font-weight: var(--font-weight-medium);
-        }
-
-        .result-highlight {
-            color: var(--accent);
-            font-weight: var(--font-weight-bold);
-        }
-
-        .result-metrics {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .result-metric-item {
-            text-align: center;
-        }
-
-        .result-metric-value {
-            font-size: 2rem;
-            font-weight: var(--font-weight-light);
-            color: var(--primary);
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-
-        .result-metric-label {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* ===== UNIQUE VALUE SECTION ===== */
-        .unique-value {
-            background: var(--white);
-        }
-
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
-        }
-
-        .value-card {
-            background: var(--gray-bg);
-            padding: var(--spacing-lg);
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .value-number {
             display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            background: var(--primary);
+            background: var(--accent);
             color: var(--white);
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            margin-bottom: var(--spacing-sm);
-            font-weight: var(--font-weight-medium);
-        }
-
-        /* ===== IMPACT VISUAL ===== */
-        .impact-visual {
-            padding: var(--spacing-xxl) 0;
-            background: var(--black);
-            color: var(--white);
             text-align: center;
+            line-height: 24px;
+            font-size: 0.8rem;
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .point-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Before/After 비교 이미지 */
+        .comparison-container {
             position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 6px;
             overflow: hidden;
-        }
-
-        .impact-visual h2 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-md);
-            background: linear-gradient(135deg, #FFFFFF 0%, #666666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .impact-number {
-            font-size: clamp(4rem, 10vw, 8rem);
-            font-weight: var(--font-weight-bold);
-            display: block;
-            margin: var(--spacing-lg) 0;
-        }
-
-        /* ===== PORTFOLIO SECTION ===== */
-        .portfolio-section {
-            background: var(--gray-bg);
-        }
-
-        .portfolio-filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: var(--spacing-lg);
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.2rem;
-            background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 4px;
             cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.95rem;
-            font-weight: var(--font-weight-medium);
-            color: var(--secondary);
         }
 
-        .filter-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-        }
-
-        .portfolio-item {
+        .comparison-split {
             position: relative;
-            overflow: hidden;
-            background: var(--white);
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.02);
-            z-index: 10;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .portfolio-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            overflow: hidden;
+        }
+
+        .before-side, .after-side {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
             transition: var(--transition);
-            background: var(--gray-bg);
         }
 
-        .portfolio-item:hover .portfolio-image {
-            transform: scale(1.1);
+        .before-side {
+            left: 0;
+            width: 50%;
+            border-right: 2px solid var(--white);
         }
 
-        .portfolio-overlay {
+        .after-side {
+            right: 0;
+            width: 50%;
+        }
+
+        .comparison-container:hover .before-side {
+            width: 25%;
+        }
+
+        .comparison-container:hover .after-side {
+            width: 75%;
+        }
+
+        .comparison-labels {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            color: var(--white);
-            padding: var(--spacing-md);
-            transform: translateY(100%);
-            transition: var(--transition);
+            display: flex;
+            z-index: 2;
         }
 
-        .portfolio-item:hover .portfolio-overlay {
-            transform: translateY(0);
-        }
-
-        .portfolio-title {
-            font-size: 1.1rem;
+        .label-before, .label-after {
+            flex: 1;
+            padding: var(--spacing-xs);
+            text-align: center;
+            font-size: 0.75rem;
             font-weight: var(--font-weight-medium);
-            margin-bottom: 0.5rem;
+            color: var(--white);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        .portfolio-stats {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        .label-before {
+            background: linear-gradient(to top, rgba(255,61,48,0.8), transparent);
         }
 
-        /* ===== PROCESS SECTION ===== */
-        .process-section {
-            background: var(--white);
+        .label-after {
+            background: linear-gradient(to top, rgba(0,102,204,0.8), transparent);
         }
 
-        .process-timeline {
-            position: relative;
-            padding: var(--spacing-lg) 0;
-        }
-
-        .process-line {
+        /* Hover 인터랙션 아이콘 */
+        .hover-hint {
             position: absolute;
-            left: 40px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--border);
-        }
-
-        .process-step {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-            position: relative;
-        }
-
-        .process-number {
-            width: 80px;
-            height: 80px;
-            background: var(--white);
-            border: 1px solid var(--border);
+            top: var(--spacing-xs);
+            right: var(--spacing-xs);
+            background: rgba(0,0,0,0.6);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: var(--font-weight-light);
-            position: relative;
-            z-index: 2;
+            font-size: 0.8rem;
+            z-index: 3;
+            opacity: 0.7;
+            transition: var(--transition);
         }
 
-        .process-content {
-            padding-top: 1rem;
+        .comparison-container:hover .hover-hint {
+            transform: scale(1.1);
+            opacity: 1;
         }
 
-        .process-title {
+        /* CTA 버튼 */
+        .section-cta {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.8rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: var(--font-weight-medium);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            section { padding: var(--spacing-md) 0; }
+            
+            .point-item-compact,
+            .point-item-compact:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .point-item-compact:nth-child(even) .point-content,
+            .point-item-compact:nth-child(even) .point-visual {
+                order: unset;
+            }
+            
+            .comparison-container {
+                height: 180px;
+            }
+        }
+        
+        /* ===== 8. PROOF SECTION ===== */
+        /* ===== IMPROVED OUR PROOF SECTION CSS ===== */
+.proof-section {
+    background: var(--gray-bg);
+    padding: var(--spacing-xxl) 0;
+}
+
+/* Results Grid - 3열 고정, 레스포ン시브 대응 */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Result Cards - 高さを統一し、ホバーエフェクトを改善 */
+.result-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* 高さを統一 */
+}
+
+.result-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Image Wrapper - アスペクト比を安定化 */
+.result-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10; /* よりバランスの良いアスペクト比 */
+    overflow: hidden;
+    background: var(--gray-bg);
+}
+
+.result-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.result-card:hover .result-image {
+    transform: scale(1.08);
+}
+
+/* Content Area - パディングと間隔を調整 */
+.result-content {
+    padding: var(--spacing-md);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tag Styling - より目立つデザイン */
+.result-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), #0052a3);
+    color: var(--white);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Title - フォントサイズと間隔を調整 */
+.result-title {
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+    color: var(--primary);
+    line-height: 1.4;
+}
+
+/* Before/After Change Section - レイアウト改善 */
+.result-change {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--gray-bg);
+    border-radius: 8px;
+}
+
+.before, .after {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+}
+
+.before {
+    background: #fff3f3;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+}
+
+.after {
+    background: #f3f9ff;
+    color: var(--accent);
+    border: 1px solid #bbdefb;
+}
+
+.arrow {
+    font-size: 1.2rem;
+    color: var(--accent);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Description - 自動的に残りスペースを埋める */
+.result-description {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-top: auto; /* 下に押し下げて高さを統一 */
+}
+
+/* Trust Foundation - デザイン改善 */
+.trust-foundation {
+    background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%);
+    padding: var(--spacing-xl) var(--spacing-md);
+    border-radius: 12px;
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    border: 1px solid #e3f2fd;
+}
+
+.trust-foundation h3 {
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+/* Trust Metrics - グリッドレイアウト改善 */
+.trust-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.trust-metric {
+    text-align: center;
+}
+
+.trust-number {
+    font-size: 1.8rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.trust-label {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.3;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .result-change {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .proof-section {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .result-image-wrapper {
+        aspect-ratio: 16/9; /* モバイルでは横長比率 */
+    }
+    
+    .result-content {
+        padding: var(--spacing-sm);
+    }
+    
+    .result-title {
+        font-size: 1.1rem;
+    }
+    
+    .trust-foundation {
+        padding: var(--spacing-md);
+        margin-top: var(--spacing-md);
+    }
+    
+    .trust-metrics {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .trust-number {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .result-tag {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+    }
+    
+    .before, .after {
+        font-size: 0.85rem;
+        padding: 0.8rem;
+    }
+    
+    .trust-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+        /* Ecosystem Section */
+        .ecosystem-section {
+            background: var(--gray-bg);
+        }
+
+        .system-flow {
+            background: var(--white);
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-radius: 8px;
+            margin-top: var(--spacing-lg);
+        }
+
+        .flow-step {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .flow-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-info h3 {
             font-size: 1.3rem;
             font-weight: var(--font-weight-medium);
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
 
-        .process-desc {
+        .step-info p {
             color: var(--secondary);
-            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
-        .process-details {
-            margin-top: 1rem;
-            padding-left: 1.5rem;
-        }
-
-        .process-details li {
-            color: var(--secondary);
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-        }
-
-        /* ===== CONTENT CALENDAR ===== */
-        .calendar-section {
+        .step-metrics {
             background: var(--gray-bg);
-        }
-
-        .calendar-container {
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: var(--spacing-lg);
-            margin-top: var(--spacing-lg);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .calendar-legend {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .legend-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .calendar-grid {
-            display: grid;
-            gap: var(--spacing-md);
-        }
-
-        .calendar-week {
-            border-left: 2px solid var(--border);
-            padding-left: var(--spacing-md);
-        }
-
-        .calendar-week h4 {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .content-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .content-card {
-            padding: 1rem;
-            border: 1px solid var(--border);
-            background: var(--white);
-            transition: var(--transition);
-        }
-
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .content-card.article {
-            border-left: 3px solid #FF6B6B;
-        }
-
-        .content-card.video {
-            border-left: 3px solid #4ECDC4;
-        }
-
-        .content-card.sns {
-            border-left: 3px solid #45B7D1;
-        }
-
-        .content-date {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .content-title {
-            font-weight: var(--font-weight-medium);
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .content-langs {
-            font-size: 0.9rem;
-        }
-
-        /* ===== ARCHIVE POWER ===== */
-        .archive-power {
-            background: var(--white);
-        }
-
-        .archive-visual {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: var(--spacing-lg);
-            align-items: center;
-            margin-top: var(--spacing-lg);
-        }
-
-        .archive-stats {
-            background: var(--gray-bg);
-            padding: var(--spacing-md);
-        }
-
-        .archive-stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .archive-stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .archive-stat-item strong {
-            font-weight: var(--font-weight-medium);
-            color: var(--primary);
-        }
-
-        .ecosystem-diagram {
-            padding: var(--spacing-md);
-        }
-
-        /* ===== METRICS SECTION ===== */
-        .metrics-section {
-            background: var(--gray-bg);
+            padding: 1.25rem;
+            border-radius: 6px;
         }
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--spacing-md);
-        }
-
-        .metric-card {
-            background: var(--white);
-            padding: var(--spacing-lg) var(--spacing-md);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
             text-align: center;
-            border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        .metric-item {
+            padding: 0.75rem 0.5rem;
+            background: var(--white);
+            border-radius: 4px;
         }
 
         .metric-value {
-            font-size: 3rem;
-            font-weight: var(--font-weight-light);
-            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--accent);
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .metric-label {
-            font-size: 0.875rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .metric-change {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 0.3rem 0.8rem;
-            background: var(--accent-light);
-            color: var(--accent);
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: var(--font-weight-medium);
-        }
-
-        /* ===== CASES SECTION ===== */
-        .cases-section {
-            background: var(--white);
-        }
-
-        .cases-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
-        }
-
-        .case-link {
-            display: block;
-            padding: var(--spacing-md);
-            background: var(--gray-bg);
-            text-decoration: none;
-            color: var(--primary);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .case-link::after {
-            content: '→';
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%) translateX(0);
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .case-link:hover {
-            background: var(--primary);
-            color: var(--white);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .case-link:hover::after {
-            transform: translateY(-50%) translateX(5px);
-            color: var(--white);
-        }
-
-        .case-industry {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .case-title {
-            font-size: 1.1rem;
-            font-weight: var(--font-weight-medium);
-            margin-bottom: 0.5rem;
-        }
-
-        .case-result {
-            font-size: 0.95rem;
-            margin-top: 1rem;
-        }
-
-        /* ===== PRICING SECTION ===== */
-        .pricing-section {
-            background: var(--gray-bg);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
-        }
-
-        .pricing-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            padding: var(--spacing-lg);
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .pricing-card.featured::before {
-            content: '人気No.1';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            background: var(--primary);
-            color: var(--white);
-            padding: 0.5rem;
             font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            font-weight: var(--font-weight-medium);
-        }
-
-        .pricing-name {
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-sm);
-            color: var(--primary);
-        }
-
-        .pricing-desc {
-            font-size: 0.9rem;
             color: var(--secondary);
-            margin-bottom: var(--spacing-md);
+            line-height: 1.3;
         }
 
-        .pricing-features {
-            list-style: none;
-            margin-bottom: var(--spacing-md);
-            padding: var(--spacing-md) 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-        }
-
-        .pricing-features li {
-            padding: 0.5rem 0;
-            color: var(--secondary);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-        }
-
-        /* ===== FAQ SECTION ===== */
-        .faq-section {
-            background: var(--white);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-            transition: var(--transition);
-        }
-
-        .faq-item.active {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: var(--font-weight-medium);
-            font-size: 1.05rem;
-        }
-
-        .faq-question:hover {
-            background: var(--gray-bg);
-        }
-
-        .faq-toggle {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-
-        .faq-toggle::after {
-            content: '+';
-            font-size: 1.5rem;
-            font-weight: var(--font-weight-light);
-        }
-
-        .faq-item.active .faq-toggle::after {
-            content: '−';
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-
-        .faq-answer-content {
-            padding: 0 1.5rem 1.5rem;
-            color: var(--secondary);
-            line-height: 1.8;
-        }
-
-        /* ===== CTA SECTION ===== */
-        .cta-section {
+        /* Final Impact */
+        .final-impact {
             background: var(--primary);
             color: var(--white);
-            padding: var(--spacing-xxl) 0;
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-radius: 8px;
             text-align: center;
+            margin-top: var(--spacing-lg);
         }
 
-        .cta-section h2 {
-            color: var(--white);
-            margin-bottom: var(--spacing-md);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-        }
-
-        .cta-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: var(--spacing-lg);
+        .impact-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1rem;
             opacity: 0.9;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .contact-options {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
-            padding-top: var(--spacing-lg);
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .contact-option {
-            text-align: center;
-        }
-
-        .contact-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-label {
-            display: block;
-            font-size: 0.85rem;
-            opacity: 0.8;
+        .impact-value {
+            font-size: 3rem;
+            font-weight: var(--font-weight-light);
+            color: #FFD700;
             margin-bottom: 0.5rem;
         }
 
-        .contact-value {
-            font-size: 1rem;
-            font-weight: var(--font-weight-medium);
-        }
-
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-block;
-            padding: 0.875rem 2rem;
-            text-decoration: none;
-            font-weight: var(--font-weight-medium);
-            font-size: 1rem;
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            letter-spacing: 0.02em;
-        }
-
-        .btn-primary {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-primary:hover {
-            background: var(--gray-bg);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 1px solid var(--white);
-        }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-text {
-            background: transparent;
-            color: var(--white);
-            text-decoration: underline;
-            padding: 0.5rem 1rem;
-        }
-
-        .btn-text:hover {
+        .impact-description {
             opacity: 0.8;
+            font-size: 0.9rem;
         }
 
-        .btn-dark {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-dark:hover {
-            background: var(--black);
-            transform: translateY(-2px);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--black);
-            color: var(--white);
-            padding: var(--spacing-xl) 0 var(--spacing-md);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-            padding-bottom: var(--spacing-lg);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .footer-section h4 {
-            margin-bottom: var(--spacing-sm);
-            font-weight: var(--font-weight-medium);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: var(--transition);
-        }
-
-        .footer-section a:hover {
-            color: var(--white);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.875rem;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero-container {
+        /* Responsive */
+        @media (max-width: 768px) {
+            .results-grid {
                 grid-template-columns: 1fr;
-                gap: var(--spacing-lg);
-            }
-
-            .hero-visual {
-                order: -1; /* ビジュアルを上に */
-                margin-bottom: var(--spacing-md);
-            }
-
-            .device-laptop {
-                width: 400px;
-                height: 240px;
-            }
-
-            .device-phone {
-                width: 160px;
-                height: 320px;
-                right: -30px;
-                bottom: -20px;
-            }
-
-            .hero-stats,
-            .trust-metrics-grid,
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
             
-            .portfolio-grid,
-            .cases-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .value-grid {
+            .result-change {
                 grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
-        }
-
-        @media (max-width: 768px) {
-            :root {
-                --spacing-xxl: 4rem;
+            
+            .arrow {
+                transform: rotate(90deg);
             }
-
-            .container {
-                padding: 0 var(--spacing-sm);
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.75rem;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            /* Hero Mobile Layout */
-            .hero {
-                min-height: auto;
-                padding: 100px 0 60px;
-            }
-
-            .hero-container {
-                display: block;
-            }
-
-            .hero-visual {
-                margin: var(--spacing-lg) 0;
-                transform: scale(0.8);
-            }
-
-            .devices-mockup {
-                justify-content: center;
-            }
-
-            .device-laptop {
-                width: 280px;
-                height: 168px;
-                border-width: 4px;
-            }
-
-            .device-phone {
-                width: 100px;
-                height: 200px;
-                right: -20px;
-                bottom: -15px;
-                border-width: 4px;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--spacing-sm);
-            }
-
-            .hero-stat-number {
-                font-size: 2rem;
-            }
-
-            /* Bridge Section Mobile */
-            .bridge-section {
-                padding: var(--spacing-lg) 0;
-            }
-
-            .bridge-content h2 {
-                font-size: 1.5rem;
-            }
-
-            .bridge-content p {
-                font-size: 1rem;
-            }
-
-            /* Other Sections */
-            .hero-stats,
-            .trust-metrics-grid,
-            .solution-grid,
-            .metrics-grid,
-            .pricing-grid,
-            .footer-content,
-            .contact-options {
+            
+            .flow-step {
                 grid-template-columns: 1fr;
-            }
-
-            .portfolio-grid,
-            .cases-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .point-comparison {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-sm);
-            }
-
-            .archive-visual {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .language-content {
-                flex-direction: column;
                 gap: 1rem;
-                align-items: flex-start;
             }
-
-            .result-metrics {
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trust-metrics {
                 flex-direction: column;
-                gap: var(--spacing-md);
+                gap: 0.5rem;
             }
         }
+}
+.kpi-icon { font-size: 2.5rem; color: var(--accent); }
+.kpi-text h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 0.5rem; }
+.kpi-text p { font-size: 0.95rem; line-height: 1.7; }
 
-        @media (max-width: 480px) {
-            /* Extra Small Devices */
-            .hero h1 {
-                font-size: 1.75rem;
-            }
+        /* ===== 9. TRANSITION SECTION ===== */
+        .transition-section { background: var(--primary); padding: 5rem 0; text-align: center; }
+        .transition-section h2 { color: var(--white); font-size: 2rem; font-weight: 500; }
+        .transition-section span { color: #69b1ff; }
 
-            .hero-subtitle {
-                font-size: 1rem;
-            }
+        /* ===== 10. ECOSYSTEM SECTION ===== */
+        .bg-ecosystem { background-size: cover; background-position: center; background-attachment: fixed; }
+        .main-flow { background: var(--white); padding: 3rem 2rem; border: 1px solid var(--border); border-radius: 8px; }
+        .step-production { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: center; }
+        .step-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 1rem; }
+        .production-left { text-align: right; }
+        .production-title { font-size: 1.8rem; font-weight: 500; }
+        .creators { display: flex; gap: 1rem; justify-content: flex-end; font-size: 1.8rem; }
+        .production-right { background: var(--gray-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
+        .production-phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
+        .phase-icon { width: 40px; height: 40px; margin: 0 auto 1rem; border: 1px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+        .flow-arrow-down { height: 60px; display: flex; align-items: center; justify-content: center; }
+        .flow-arrow-down::after { content: ''; display: block; width: 1px; height: 30px; background-color: var(--border); }
+        .step-channels { border-radius: 8px; padding: 2rem; margin: 0; text-align: center; }
+        .channels-title { font-size: 1.8rem; font-weight: 500; }
+        .channels-content { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 2rem; align-items: center; }
+        .metric-item { text-align: center; }
+        .channel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; justify-items: center; }
+        .channel-item { background: var(--white); color: var(--primary); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 1px solid var(--border); }
+        .step-spread { text-align: center; }
+        .spread-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); text-align: center; }
+        .spread-card { border: 1px solid var(--border); padding: 1.5rem; background: var(--white); }
+        .spread-icon { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
+        .spread-card-title { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .final-impact { background: none; padding: 0; text-align: center; }
+        .impact-title { color: var(--secondary); }
+        .impact-main { font-size: 4rem; font-weight: var(--font-weight-light); }
 
-            .hero-visual {
-                transform: scale(0.7);
-                margin: var(--spacing-md) -20px; /* 横にはみ出させて大きく見せる */
-            }
+        /* ===== 11. PORTFOLIO SECTION ===== */
+        .portfolio-section { background: var(--gray-bg); }
+        .portfolio-filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: var(--spacing-lg); flex-wrap: wrap; }
+        .filter-btn { padding: 0.6rem 1.2rem; background: var(--white); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; transition: var(--transition); font-size: 0.95rem; font-weight: var(--font-weight-medium); color: var(--secondary); }
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); background: none; }
+        .portfolio-item-new { text-decoration: none; color: var(--primary); display: block; border: 1px solid var(--border); transition: var(--transition); background: var(--white); }
+        .portfolio-item-new:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .portfolio-image-wrapper { overflow: hidden; aspect-ratio: 4/3; background: var(--gray-bg); }
+        .portfolio-image { width: 100%; height: 100%; background-size: cover; background-position: center; transition: var(--transition); }
+        .portfolio-item-new:hover .portfolio-image { transform: scale(1.05); }
+        .portfolio-info { padding: var(--spacing-sm); }
+        .portfolio-title-new { font-size: 1rem; font-weight: var(--font-weight-medium); margin-bottom: 0.25rem; }
+        .portfolio-category-new { font-size: 0.85rem; color: var(--secondary); }
+        
+        /* ===== 12. DIFFERENCE SECTION ===== */
+        .difference-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); }
+        .difference-card { padding: var(--spacing-lg); border: 1px solid var(--border); background: var(--white); text-align: center; }
+        .difference-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .difference-card h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary); font-weight: 500; }
 
-            .device-laptop {
-                width: 240px;
-                height: 144px;
-            }
+        /* ===== 13. CASES SECTION ===== */
+        /* ===== 13. CASES SECTION (Upgraded) ===== */
+.cases-section { background: var(--gray-bg); }
+.cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); }
+.case-link-new {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background: var(--white);
+    text-decoration: none;
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+.case-link-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.case-header {
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border);
+}
+.case-theme {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    background-color: #f2f8ff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+.case-header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+.case-description {
+    font-size: 0.95rem;
+    flex-grow: 1; /* 카드의 높이를 같게 만듬 */
+}
+.case-result-new {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: var(--primary);
+}
 
-            .device-phone {
-                display: none; /* 小さい画面では非表示 */
-            }
+        /* ===== 14. PROCESS SECTION ===== */
+.process-section-new {
+    background: var(--white);
+}
+.process-timeline-new {
+    position: relative;
+    padding-top: var(--spacing-md);
+}
+.process-timeline-new::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    z-index: 1;
+}
+.process-step-new {
+    display: flex;
+    gap: var(--spacing-lg);
+    position: relative;
+    padding-bottom: var(--spacing-xl);
+}
+.process-step-new:last-of-type {
+    padding-bottom: 0;
+}
+.process-number-new {
+    width: 80px;
+    height: 80px;
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: var(--font-weight-light);
+    color: var(--primary);
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+.process-content-new {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: var(--spacing-lg);
+    padding-top: 1.5rem;
+}
+.process-title-new {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.process-desc-new {
+    font-size: 1rem;
+    color: var(--secondary);
+}
+.process-visual {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: var(--gray-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.process-visual img { width: 100%; height: 100%; object-fit: cover; }
+.visual-caption { font-size: 0.8rem; text-align: center; padding: 0.5rem; background: rgba(0,0,0,0.02); color: var(--secondary); }
+.process-finish {
+    position: relative;
+    left: 40px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    z-index: 2;
+    margin-top: var(--spacing-xl);
+}
 
-            .hero-stat-number {
-                font-size: 1.5rem;
-            }
+/* ===== 15. PLANS & CTA SECTION ===== */
+/* ===== 15. PLANS SECTION (NEW Impactful 3-Card UI) ===== */
+.plans-section-impact {
+    background-color: var(--gray-bg);
+}
+.plan-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    align-items: stretch; /* 카드 높이를 같게 만듬 */
+}
+.plan-card-impact {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+.plan-card-impact:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
 
-            .hero-stat-label {
-                font-size: 0.75rem;
-            }
-        }
+.plan-card-header {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+    border-bottom: 1px solid var(--border);
+}
+.plan-card-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.plan-price-label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    min-height: 2.5em; 
+}
+
+.plan-card-body {
+    padding: var(--spacing-md) var(--spacing-lg);
+    flex-grow: 1;
+}
+.plan-description {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-lg);
+    min-height: 5em;
+}
+
+.plan-features-impact {
+    list-style: none;
+    padding-bottom: var(--spacing-lg); /* 푸터 대신 여백 추가 */
+}
+.plan-features-impact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+.plan-features-impact i {
+    color: var(--accent);
+    margin-top: 4px;
+}
+
+/* Recommended Plan Highlight */
+.plan-card-impact.recommended {
+    border-color: var(--accent);
+    position: relative;
+    /* transform 제거하여 레이아웃 깨짐 방지 */
+}
+.recommend-badge-impact {
+    position: absolute;
+    top: -1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ===== FINAL CTA SECTION STYLES ===== */
+.final-cta-section {
+    background-color: var(--gray-bg);
+}
+
+.cta-buttons-final {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.btn-large {
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+.btn-large span {
+    display: block;
+    font-weight: 600;
+}
+.btn-large small {
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.client-logos {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--border);
+}
+.client-logos p {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    margin-bottom: var(--spacing-md);
+}
+.logos-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+.logos-grid img {
+    max-height: 40px;
+}
+
+@media(max-width: 768px) {
+    .cta-buttons-final {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===== RESPONSIVE for Process & Plans ===== */
+@media (max-width: 768px) {
+    .process-timeline-new::before { left: 25px; }
+    .process-step-new { gap: var(--spacing-md); }
+    .process-number-new { width: 50px; height: 50px; font-size: 1.2rem; }
+    .process-content-new { grid-template-columns: 1fr; }
+    .process-visual { margin-top: var(--spacing-md); aspect-ratio: 16/9; }
+    .process-finish { left: 25px; width: 50px; height: 50px; font-size: 1.5rem; }
+}
+/* ===== 16. FAQ SECTION ===== */
+
+.faq-section-new {
+    background: var(--white);
+}
+.faq-interactive-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--spacing-xl);
+}
+.faq-nav {
+    position: sticky;
+    top: 100px; /* 스티키 네비게이션 아래에 위치 */
+    align-self: start;
+}
+.faq-nav ul {
+    list-style: none;
+}
+.faq-nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: var(--transition);
+}
+.faq-nav-link:hover {
+    color: var(--primary);
+    background: var(--gray-bg);
+}
+.faq-nav-link.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: #f2f8ff;
+}
+.faq-group h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+}
+.faq-group + .faq-group {
+    margin-top: var(--spacing-xl);
+}
+.faq-item-new {
+    border-bottom: 1px solid var(--border);
+}
+.faq-question-new {
+    padding: 1.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.faq-toggle-new {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+.faq-toggle-new::before, .faq-toggle-new::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 2px;
+    background-color: var(--secondary);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+.faq-toggle-new::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+.faq-item-new.active .faq-toggle-new::after {
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+.faq-item-new.active .faq-toggle-new::before {
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+.faq-answer-new {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+.faq-answer-new p, .faq-answer-new ul {
+    padding-bottom: 1.5rem;
+    color: var(--secondary);
+}
+
+        /* ===== 17. ANIMATIONS ===== */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+        
+        /* ===== 18. RESPONSIVE ===== */
+/* ===================================================================
+   18. RESPONSIVE MEDIA QUERIES (FINAL)
+   =================================================================== */
+
+/* --- Tablet & Smaller Laptops (1024px 이하) --- */
+@media (max-width: 1024px) {
+    /* Layout */
+    .container-narrow {
+        max-width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-container-new {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-visual-new {
+        margin-top: 3rem;
+        perspective: none;
+    }
+    .hero-visual-new video, .hero-visual-new video:hover,
+    .hero-visual-new img, .hero-visual-new img:hover {
+        transform: none;
+    }
+    
+    /* Grids */
+    .trust-metrics-grid,
+    .metrics-grid,
+    .creators-grid-new {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .portfolio-grid, 
+    .cases-grid, 
+    .difference-grid, 
+    .pricing-grid,
+    .plan-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Ecosystem */
+    .step-production, .channels-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .production-left {
+        text-align: center;
+    }
+    .creators {
+        justify-content: center;
+    }
+
+    /* FAQ */
+    .faq-interactive-container {
+        grid-template-columns: 200px 1fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+
+/* --- Mobile Devices (768px 이하) --- */
+@media (max-width: 768px) {
+    /* Base */
+    section {
+        padding: var(--spacing-xl) 0;
+    }
+    .section-head-unified {
+        padding-top: var(--spacing-xl);
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    /* Sub-Navigation */
+    .sub-nav {
+        display: none; /* 모바일에서는 숨김 처리 */
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: auto;
+        padding: 100px 0 60px;
+    }
+
+    /* Why-us Section */
+    .point-item-interactive {
+        grid-template-columns: 1fr;
+    }
+
+    /* Grids (1열로 변경) */
+    .trust-metrics-grid, 
+    .portfolio-grid, 
+    .difference-grid, 
+    .cases-grid, 
+    .metrics-grid, 
+    .pricing-grid,
+    .plan-cards-grid,
+    .spread-grid,
+    .people-grid,
+    .creators-grid-new {
+        grid-template-columns: 1fr;
+    }
+
+    /* Plan Cards */
+    .plan-card-impact.recommended {
+        transform: scale(1); /* 모바일에서 확대 효과 제거 */
+    }
+    .plan-price-label, .plan-description {
+        min-height: 0; /* 모바일에서 높이 고정 해제 */
+    }
+
+    /* CTA Buttons */
+    .cta-buttons-final {
+        grid-template-columns: 1fr;
+    }
+
+    /* FAQ */
+    .faq-interactive-container {
+        grid-template-columns: 1fr;
+    }
+    .faq-nav {
+        position: static;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: var(--spacing-md);
+    }
+    .faq-nav ul {
+        display: flex;
+        justify-content: space-around;
+    }
+    .faq-nav-link {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        padding: 0.5rem;
+        text-align: center;
+    }
+    .faq-nav-link.active {
+        border-bottom-color: var(--accent);
+        background: none;
+    }
+}
+
+
+.audience-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--spacing-lg); align-items: center; }
+.audience-data h3, .audience-creators h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 1.5rem; }
+.creators-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.creator-item { display: flex; align-items: center; gap: 1rem; }
+.creator-item img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+.creator-item h4 { font-size: 1rem; font-weight: 500; margin-bottom: 0.2rem; }
+.creator-item p { font-size: 0.85rem; line-height: 1.4; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav id="navbar">
+
+
+    <div class="sub-nav" id="subNav">
         <div class="container">
-            <div class="nav-content">
-                <a href="#" class="nav-logo">JAPANKURU</a>
-                <ul class="nav-menu">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#process">Process</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                </ul>
-                <a href="#contact" class="nav-cta">お問い合わせ</a>
-            </div>
+            <ul class="sub-nav-menu">
+                <li><a href="#why-us">Why JAPANKURU?</a></li>
+                <li><a href="#proof">信頼と実績</a></li>
+                <li><a href="#ecosystem">エコシステム</a></li>
+                <li><a href="#portfolio">制作実績</a></li>
+                <li><a href="#process">プロセス</a></li>
+                <li><a href="#plans">プラン</a></li>
+            </ul>
         </div>
-    </nav>
+    </div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero new-hero">
         <div class="container">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1>貴社のサービスを<br>
-                    世界7カ国180万人へ<br>
-                    確実に届けます</h1>
-                    
-                    <p class="hero-subtitle">
-                        7年間48,000コンテンツを蓄積した<br>
-                        インバウンドマーケティングの統合プラットフォーム<br>
-                        <strong>私たちは、ビジュアルコンテンツで世界と日本をつなぎます</strong>
+            <div class="hero-container-new">
+                <div class="hero-content-new">
+                    <p class="hero-tagline">外国人目線で、リアルな日本を伝えるプロフェッショナル</p>
+                    <h1>「見せる」だけで終わらない。<br>心を<span class="highlight">“動かす”</span>コンテンツを。</h1>
+                    <p class="hero-description">
+                        JAPANKURUは、日本を愛する多国籍クリエイターチームが「本物の体験」を届けるインバウンドメディアです。
+                        13年間の実績とデータに基づき、貴社の価値が世界に「正しく、深く」伝わるストーリーを設計します。
                     </p>
-
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">180万</span>
-                            <span class="hero-stat-label">フォロワー</span>
+    
+                    <div class="hero-features-grid">
+                        <div class="hero-feature">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>徹底的な<br>外国人目線</span>
                         </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">35</span>
-                            <span class="hero-stat-label">チャンネル</span>
+                        <div class="hero-feature">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>心を動かす<br>制作クオリティ</span>
                         </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">7</span>
-                            <span class="hero-stat-label">言語</span>
+                        <div class="hero-feature">
+                            <i class="fa-solid fa-users"></i>
+                            <span>180万人の<br>グローバルファン</span>
                         </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-number">48,000</span>
-                            <span class="hero-stat-label">コンテンツ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-visual">
-                    <div class="devices-mockup">
-                        <div class="device device-laptop">
-                            <div class="device-screen">
-                                <div class="device-content">
-                                    <div class="content-slide active">
-                                        <div class="real-image image-1"></div>
-                                    </div>
-                                    <div class="content-slide">
-                                        <div class="real-image image-2"></div>
-                                    </div>
-                                    <div class="content-slide">
-                                        <div class="real-image image-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device device-phone">
-                            <div class="device-screen">
-                                <div class="device-content">
-                                    <div class="content-slide active">
-                                        <div class="real-image image-2"></div>
-                                    </div>
-                                    <div class="content-slide">
-                                        <div class="real-image image-3"></div>
-                                    </div>
-                                    <div class="content-slide">
-                                        <div class="real-image image-1"></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="hero-feature">
+                            <i class="fa-solid fa-satellite-dish"></i>
+                            <span>多角的な<br>メディア拡散力</span>
                         </div>
                     </div>
+    
+                    <a href="#why-us" class="btn btn-dark" style="margin-top: 2rem;">JAPANKURUの強みを詳しく見る</a>
                 </div>
-            </div>
-
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <div class="scroll-arrow"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bridge Section - 連携部分 -->
-    <section class="bridge-section">
-        <div class="container">
-            <div class="bridge-content">
-                <h2>しかし、素晴らしいサービスも<br>
-                見つけてもらえなければ意味がありません</h2>
-                <p>
-                    外国人観光客は今この瞬間も、日本の情報を探しています。<br>
-                    でも、貴社の情報は本当に届いているでしょうか？
-                </p>
-                <div class="bridge-arrow">↓</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trust Section -->
-    <section class="trust-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>信頼の実績</h2>
-                <p>数字で見るJAPANKURUの実力</p>
-            </div>
-            
-            <div class="trust-metrics-grid">
-                <div class="trust-metric-card">
-                    <div class="metric-icon">🏢</div>
-                    <div class="metric-number">500+</div>
-                    <div class="metric-title">導入企業数</div>
-                    <div class="metric-detail">大手企業から個人店舗まで</div>
-                </div>
-                
-                <div class="trust-metric-card">
-                    <div class="metric-icon">🌏</div>
-                    <div class="metric-number">7年</div>
-                    <div class="metric-title">運営実績</div>
-                    <div class="metric-detail">2016年から継続的に成長</div>
-                </div>
-                
-                <div class="trust-metric-card">
-                    <div class="metric-icon">👥</div>
-                    <div class="metric-number">45名</div>
-                    <div class="metric-title">専門チーム</div>
-                    <div class="metric-detail">7カ国のネイティブスタッフ</div>
-                </div>
-                
-                <div class="trust-metric-card">
-                    <div class="metric-icon">📊</div>
-                    <div class="metric-number">89%</div>
-                    <div class="metric-title">継続率</div>
-                    <div class="metric-detail">高い顧客満足度を維持</div>
-                </div>
-            </div>
-            
-            <div class="industry-coverage">
-                <h3 style="text-align: center; margin-bottom: 2rem;">対応実績のある業界</h3>
-                <div class="industry-tags">
-                    <span class="industry-tag">宿泊施設</span>
-                    <span class="industry-tag">飲食店</span>
-                    <span class="industry-tag">小売店</span>
-                    <span class="industry-tag">観光施設</span>
-                    <span class="industry-tag">地方自治体</span>
-                    <span class="industry-tag">交通機関</span>
-                    <span class="industry-tag">美容・ヘルスケア</span>
-                    <span class="industry-tag">エンターテイメント</span>
-                    <span class="industry-tag">教育機関</span>
-                    <span class="industry-tag">不動産</span>
+    
+                <div class="hero-visual-new">
+                    <video autoplay loop muted playsinline src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/09/1221_GLD03.m4v">
+                        お使いのブラウザは動画タグをサポートしていません。
+                    </video>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="problem-section">
+     <!-- why-us Section -->
+     <section class="why-us-section">
         <div class="container container-narrow">
-            <div class="section-header">
-                <h2>外国人観光客が情報を探すとき</h2>
-                <p>4つのチェックポイントで判断されています</p>
+            <div class="section-head-unified">
+                <div class="section-label">Why JAPANKURU?</div>
+                <h2>JAPANKURUが選ばれる4つの理由</h2>
+                <p class="lead">海外観光客が情報を判断する際の厳しい基準を、私たちはすべてクリアしています。</p>
             </div>
 
-            <div class="check-points">
-                <div class="point-item">
-                    <div class="point-number">01</div>
+            <div class="points-grid">
+                <div class="point-item-compact">
                     <div class="point-content">
-                        <div class="point-question">いつ更新された情報か</div>
-                        <div class="point-comparison">
-                            <div class="comparison-bad">1年以上前の情報はスキップ</div>
-                            <div class="comparison-good">最近更新された情報を信頼</div>
+                        <h3><span class="point-number">01</span>情報の鮮度</h3>
+                        <p>観光情報において「古い」は「間違い」と同じ。JAPANKURUは定期的な更新で、常に信頼できる最新情報を提供します。</p>
+                    </div>
+                    
+                    <div class="point-visual">
+                        <div class="comparison-container">
+                            <div class="comparison-split">
+                                <div class="before-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Metropolitan_Tokyo_Haneda_CC38-1-2048x1365.jpg');"></div>
+                                <div class="after-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC19-2048x1365.jpg');"></div>
+                            </div>
+                            <div class="comparison-labels">
+                                <div class="label-before">× 古い情報</div>
+                                <div class="label-after">✓ 最新情報</div>
+                            </div>
+                            <div class="hover-hint">⟷</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="point-item">
-                    <div class="point-number">02</div>
+                <div class="point-item-compact">
                     <div class="point-content">
-                        <div class="point-question">ビジュアル情報の充実度</div>
-                        <div class="point-comparison">
-                            <div class="comparison-bad">テキストのみでは不安</div>
-                            <div class="comparison-good">豊富な写真・動画で安心</div>
+                        <h3><span class="point-number">02</span>ビジュアルの質</h3>
+                        <p>テキストだけでは魅力は半分も伝わりません。プロのフォトグラファーが、心を動かす高品質なビジュアルを制作します。</p>
+                    </div>
+                    
+                    <div class="point-visual">
+                        <div class="comparison-container">
+                            <div class="comparison-split">
+                                <div class="before-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC19-2048x1365.jpg');"></div>
+                                <div class="after-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC16-2048x1365.jpg');"></div>
+                            </div>
+                            <div class="comparison-labels">
+                                <div class="label-before">× テキストのみ</div>
+                                <div class="label-after">✓ プロ撮影</div>
+                            </div>
+                            <div class="hover-hint">⟷</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="point-item">
-                    <div class="point-number">03</div>
+                <div class="point-item-compact">
                     <div class="point-content">
-                        <div class="point-question">母国語での読みやすさ</div>
-                        <div class="point-comparison">
-                            <div class="comparison-bad">自動翻訳では理解困難</div>
-                            <div class="comparison-good">ネイティブ翻訳で完璧に理解</div>
+                        <h3><span class="point-number">03</span>言語の壁</h3>
+                        <p>不自然な自動翻訳はブランドの信頼を損ないます。7言語のネイティブ専門チームが、文化的なニュアンスまで完璧に翻訳します。</p>
+                    </div>
+                    
+                    <div class="point-visual">
+                        <div class="comparison-container">
+                            <div class="comparison-split">
+                                <div class="before-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC19-2048x1365.jpg');"></div>
+                                <div class="after-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC16-2048x1365.jpg');"></div>
+                            </div>
+                            <div class="comparison-labels">
+                                <div class="label-before">× 機械翻訳</div>
+                                <div class="label-after">✓ ネイティブ翻訳</div>
+                            </div>
+                            <div class="hover-hint">⟷</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="point-item">
-                    <div class="point-number">04</div>
+                <div class="point-item-compact">
                     <div class="point-content">
-                        <div class="point-question">実用情報の完全性</div>
-                        <div class="point-comparison">
-                            <div class="comparison-bad">基本情報のみでは不十分</div>
-                            <div class="comparison-good">詳細情報でスムーズに行動</div>
-                        </div>
+                        <h3><span class="point-number">04</span>情報の完全性</h3>
+                        <p>情報が断片的では、読者は次の行動に移せません。アクセス、営業時間、予約方法まで、必要な情報を網羅的に提供します。</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="section-divider">
-                <div class="divider-line"></div>
-            </div>
-
-            <div class="japankuru-solution">
-                <div class="solution-header">
-                    <h3>JAPANKURUで<br>
-                    体系的な多言語コンテンツを構築</h3>
-                    <p>4つのチェックポイントをすべてクリアする情報発信</p>
-                </div>
-
-                <div class="solution-grid">
-                    <div class="solution-item">
-                        <div class="solution-number">1.</div>
-                        <div class="solution-content">
-                            <div class="solution-label">定期更新システム</div>
-                            <div class="solution-desc">
-                                毎月新規コンテンツを制作・配信<br>
-                                常に最新の情報を維持
+                    
+                    <div class="point-visual">
+                        <div class="comparison-container">
+                            <div class="comparison-split">
+                                <div class="before-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC19-2048x1365.jpg');"></div>
+                                <div class="after-side" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC16-2048x1365.jpg');"></div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-item">
-                        <div class="solution-number">2.</div>
-                        <div class="solution-content">
-                            <div class="solution-label">プロフェッショナル撮影</div>
-                            <div class="solution-desc">
-                                専門カメラマンによる20枚以上の写真<br>
-                                動画・360°ビューも対応
+                            <div class="comparison-labels">
+                                <div class="label-before">× 住所のみ</div>
+                                <div class="label-after">✓ 完全情報</div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-item">
-                        <div class="solution-number">3.</div>
-                        <div class="solution-content">
-                            <div class="solution-label">ネイティブ翻訳</div>
-                            <div class="solution-desc">
-                                7カ国語のネイティブスタッフが常駐<br>
-                                文化的ニュアンスまで正確に伝達
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="solution-item">
-                        <div class="solution-number">4.</div>
-                        <div class="solution-content">
-                            <div class="solution-label">包括的情報提供</div>
-                            <div class="solution-desc">
-                                アクセス、営業時間、予約方法<br>
-                                すべての実用情報を網羅
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="language-bar">
-                    <div class="language-content">
-                        <div class="language-label">主要5言語で訪日外国人の70%以上をカバー</div>
-                        <div class="language-flags">
-                            <span class="flag-item">🇰🇷 韓国語</span>
-                            <span class="flag-item">🇹🇼 中国語</span>
-                            <span class="flag-item">🇺🇸 英語</span>
-                            <span class="flag-item">🇹🇭 タイ語</span>
-                            <span class="flag-item">🇫🇷 フランス語</span>
+                            <div class="hover-hint">⟷</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="result-section">
-                <div class="result-title">結果</div>
-                
-                <div class="result-main">
-                    訪日観光客がJAPANKURUを通じて<br>
-                    貴社の<span class="result-highlight">正確で鮮明で有用な情報</span>に<br>
-                    出会う可能性が飛躍的に高まります
-                </div>
-
-                <div class="result-metrics">
-                    <div class="result-metric-item">
-                        <span class="result-metric-value">3.2x</span>
-                        <span class="result-metric-label">検索露出</span>
-                    </div>
-                    <div class="result-metric-item">
-                        <span class="result-metric-value">89%</span>
-                        <span class="result-metric-label">信頼度向上</span>
-                    </div>
-                    <div class="result-metric-item">
-                        <span class="result-metric-value">150万</span>
-                        <span class="result-metric-label">リーチ</span>
-                    </div>
-                </div>
-
-                <a href="#contact" class="btn btn-dark">詳細を確認する</a>
+            <div class="section-cta">
+                <a href="#proof" class="btn">JAPANKURUの実績を見る</a>
             </div>
         </div>
     </section>
 
-    <!-- Unique Value Section -->
-    <section class="unique-value">
-        <div class="container">
-            <div class="section-header">
-                <h2>JAPANKURUだけの統合ソリューション</h2>
-                <p>自社メディア × 制作チーム × グローバルネットワーク</p>
+    <!-- Our Proof Section -->
+    <!-- Our Proof Section -->
+<section id="proof" class="proof-section">
+    <div class="container container-narrow">
+        <div class="section-head-unified">
+            <div class="section-label">Our Proof</div>
+            <h2>実際に達成した具体的な成果</h2>
+            <p class="lead">システム説明ではなく、実現した変化そのものをお見せします。</p>
+            <p class="small" style="margin-top: 1rem; color: var(--light-gray);">※以下は代表的な成功事例の一部です</p>
+        </div>
+
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-image-wrapper">
+                    <img src="https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC18-2048x1365.jpg" alt="浅草の老舗旅館" class="result-image">
+                </div>
+                <div class="result-content">
+                    <span class="result-tag">浅草の老舗旅館</span>
+                    <h3 class="result-title">伝統からグローバルブランドへ</h3>
+                    
+                    <div class="result-change">
+                        <div class="before">日本人団体客<br>中心の運営</div>
+                        <div class="arrow">→</div>
+                        <div class="after">個人海外観光客の<br>直接予約が急増</div>
+                    </div>
+                    
+                    <p class="result-description">
+                        JAPANKURU記事発信後、英語HPへの問い合わせが月5件から50件に増加。特に東南アジア市場での認知度が大幅向上。
+                    </p>
+                </div>
             </div>
-            
-            <div class="value-grid">
-                <div class="value-card">
-                    <span class="value-number">1</span>
-                    <h3>メディアパワー</h3>
-                    <p><strong>180万フォロワーの自社メディア</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
-                        <li>• JAPANKURU.com（月間250万PV）</li>
-                        <li>• 35チャンネル直接運営</li>
-                        <li>• 広告費なしで永続的露出</li>
-                        <li>• SEO最適化済みプラットフォーム</li>
-                    </ul>
+
+            <div class="result-card">
+                <div class="result-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&h=400&fit=crop" alt="渋谷のラーメン店" class="result-image">
                 </div>
-                
-                <div class="value-card">
-                    <span class="value-number">2</span>
-                    <h3>制作力</h3>
-                    <p><strong>45名のインハウスチーム</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
-                        <li>• プロカメラマン・ライター</li>
-                        <li>• 7カ国ネイティブスタッフ</li>
-                        <li>• 月300コンテンツ制作能力</li>
-                        <li>• 即日対応可能な機動力</li>
-                    </ul>
+                <div class="result-content">
+                    <span class="result-tag">渋谷のラーメン店</span>
+                    <h3 class="result-title">隠れた名店から観光スポットへ</h3>
+                    
+                    <div class="result-change">
+                        <div class="before">地元民だけが知る<br>街の名店</div>
+                        <div class="arrow">→</div>
+                        <div class="after">外国人観光客の<br>必訪スポット化</div>
+                    </div>
+                    
+                    <p class="result-description">
+                        多言語コンテンツ配信後、外国人客の比率が20%から65%に上昇。現在は待ち行列の大半が海外観光客。
+                    </p>
                 </div>
-                
-                <div class="value-card">
-                    <span class="value-number">3</span>
-                    <h3>ネットワーク</h3>
-                    <p><strong>グローバルビジネス連携</strong></p>
-                    <ul style="margin-top: 1rem; line-height: 2; list-style: none;">
-                        <li>• JNTO公式パートナー</li>
-                        <li>• 海外旅行博出展実績</li>
-                        <li>• 150+インフルエンサー連携</li>
-                        <li>• B2B直接マッチング</li>
-                    </ul>
+            </div>
+
+            <div class="result-card">
+                <div class="result-image-wrapper">
+                    <img src="https://www.japankuru.com/gld-kanri/data/uploads/2025/08/Anone_CC18-2048x1365.jpg" alt="伝統工芸品店" class="result-image">
+                </div>
+                <div class="result-content">
+                    <span class="result-tag">伝統工芸品店</span>
+                    <h3 class="result-title">国内限定から海外直販へ</h3>
+                    
+                    <div class="result-change">
+                        <div class="before">日本国内売上<br>のみに依存</div>
+                        <div class="arrow">→</div>
+                        <div class="after">海外直接注文が<br>新たな収益源に</div>
+                    </div>
+                    
+                    <p class="result-description">
+                        商品ストーリーテリングにより海外コレクターの関心獲得。現在売上の40%が米国・欧州への直接販売。
+                    </p>
                 </div>
             </div>
         </div>
+
+        <div class="trust-foundation">
+            <h3>こうした成果を可能にする基盤</h3>
+            <div class="trust-metrics">
+                <div class="trust-metric">
+                    <span class="trust-number">2012年</span>
+                    <div class="trust-label">サービス開始</div>
+                </div>
+                <div class="trust-metric">
+                    <span class="trust-number">500+</span>
+                    <div class="trust-label">協業企業数</div>
+                </div>
+                <div class="trust-metric">
+                    <span class="trust-number">89%</span>
+                    <div class="trust-label">顧客継続率</div>
+                </div>
+                <div class="trust-metric">
+                    <span class="trust-number">JNTO</span>
+                    <div class="trust-label">公式パートナー</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 더 많은 사례를 보여주는 CTA -->
+        <div class="more-cases-cta" style="text-align: center; margin-top: 3rem;">
+            <p style="margin-bottom: 1.5rem; color: var(--secondary);">
+                他にも数多くの成功事例があります
+            </p>
+            <a href="#cases" class="btn btn-secondary">
+                全ての導入事例を見る
+            </a>
+        </div>
+    </div>
+</section>
+    <section style="background: var(--primary); padding: 5rem 0; text-align: center;">
+        <div class="container">
+            <h2 style="color: var(--white); font-size: 2rem; font-weight: 500;">
+                では、具体的に<span style="color: var(--accent);">どのように</span>して、その成果を生み出すのか？
+            </h2>
+        </div>
     </section>
 
-    <!-- Impact Visual -->
-    <section class="impact-visual">
-        <div class="container">
-            <h2>48,000</h2>
-            <p class="lead" style="color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
-                蓄積されたコンテンツが生み出す
-            </p>
-            <span class="impact-number">永続的価値</span>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 2rem;">
-                SEO価値が複利で成長し続ける唯一のプラットフォーム
-            </p>
+     <!-- ecosystem Section -->
+     <section id="ecosystem" class="ecosystem-section">
+        <div class="container container-narrow">
+            <div class="section-head-unified">
+                <div class="section-label">Our System</div>
+                <h2>どうやってこの成果を生み出すのか？</h2>
+                <p class="lead">13年間で完成した統合制作・配信・拡散システム。</p>
+            </div>
+
+            <div class="system-flow">
+                <div class="flow-step">
+                    <div class="step-info">
+                        <h3>Step 01: 多国籍制作チーム</h3>
+                        <p>外国人クリエイターが直接企画・取材・制作する体制</p>
+                    </div>
+                    
+                    <div class="step-metrics">
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-value">7カ国</span>
+                                <div class="metric-label">ネイティブチーム</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">10+名</span>
+                                <div class="metric-label">コアメンバー</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">4週間</span>
+                                <div class="metric-label">平均制作期間</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-info">
+                        <h3>Step 02: 自社配信ネットワーク</h3>
+                        <p>広告費なしで大規模露出が可能な直営チャンネル群</p>
+                    </div>
+                    
+                    <div class="step-metrics">
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-value">35個</span>
+                                <div class="metric-label">運営チャンネル</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">180万+</span>
+                                <div class="metric-label">総フォロワー</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">月250万</span>
+                                <div class="metric-label">オーガニックPV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-info">
+                        <h3>Step 03: 外部拡散ネットワーク</h3>
+                        <p>海外主要メディア・コミュニティとの連携による二次拡散</p>
+                    </div>
+                    
+                    <div class="step-metrics">
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-value">60+</span>
+                                <div class="metric-label">パートナーメディア</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">500万+</span>
+                                <div class="metric-label">コミュニティメンバー</div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">48,000+</span>
+                                <div class="metric-label">SEOリンク資産</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-impact">
+                <div class="impact-subtitle">統合システムの最終月間到達規模</div>
+                <div class="impact-value">6,000万+</div>
+                <div class="impact-description">直接配信＋二次拡散による総リーチ規模</div>
+            </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
     <section class="portfolio-section" id="portfolio">
-        <div class="container">
-            <div class="section-header">
+        <div class="container"> 
+            <div class="section-head-unified">
+                <div class="section-label">Our Works</div>
                 <h2>制作実績ギャラリー</h2>
-                <p>このクオリティでお届けします</p>
+                <p class="lead">JAPANKURUが実現するクリエイティブの品質をご覧ください。</p>
             </div>
             
             <div class="portfolio-filters">
                 <button class="filter-btn active" data-filter="all">すべて</button>
-                <button class="filter-btn" data-filter="photo">写真</button>
-                <button class="filter-btn" data-filter="video">動画</button>
-                <button class="filter-btn" data-filter="sns">SNS</button>
-                <button class="filter-btn" data-filter="article">記事</button>
+                <button class="filter-btn" data-filter="lodging">宿泊施設</button>
+                <button class="filter-btn" data-filter="restaurant">飲食店</button>
+                <button class="filter-btn" data-filter="shopping-brand">ショッピング・ブランド</button>
+                <button class="filter-btn" data-filter="health-beauty">美容・ヘルスケア</button>
+                <button class="filter-btn" data-filter="tourism-gov">観光地・自治体</button>
             </div>
             
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="photo">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">富士山撮影プロジェクト</h3>
-                        <div class="portfolio-stats">👁 125K views | ❤️ 8.5K likes</div>
+                <a href="https://www.youtube.com/watch?v=VIDEO_ID_HERE" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://i.ytimg.com/vi/VIDEO_ID_HERE/hqdefault.jpg');"></div>
                     </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="video">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">東京グルメツアー動画</h3>
-                        <div class="portfolio-stats">👁 340K views | ❤️ 15K likes</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">東京グルメツアー動画</h3>
+                        <p class="portfolio-category-new">YouTube Video</p>
                     </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="sns">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">Instagram Reels キャンペーン</h3>
-                        <div class="portfolio-stats">👁 520K views | ❤️ 42K likes</div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="article">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">京都観光ガイド記事</h3>
-                        <div class="portfolio-stats">👁 89K views | 💾 12K saves</div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="photo">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">日本料理撮影</h3>
-                        <div class="portfolio-stats">👁 67K views | ❤️ 5.2K likes</div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="video">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-overlay">
-                        <h3 class="portfolio-title">温泉旅館プロモーション</h3>
-                        <div class="portfolio-stats">👁 185K views | ❤️ 9.8K likes</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section" id="process">
-        <div class="container container-narrow">
-            <div class="section-header">
-                <h2>コンテンツ制作プロセス</h2>
-                <p>素材から完成まで、プロフェッショナルな制作フロー</p>
-            </div>
-
-            <div class="process-timeline">
-                <div class="process-line"></div>
-                
-                <div class="process-step">
-                    <div class="process-number">01</div>
-                    <div class="process-content">
-                        <h3 class="process-title">企画・取材</h3>
-                        <p class="process-desc">
-                            ターゲット分析とコンテンツ企画<br>
-                            現地取材と撮影の実施
-                        </p>
-                        <ul class="process-details">
-                            <li>ターゲット分析</li>
-                            <li>コンテンツ企画</li>
-                            <li>取材・撮影</li>
-                            <li>インタビュー</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-number">02</div>
-                    <div class="process-content">
-                        <h3 class="process-title">制作・編集</h3>
-                        <p class="process-desc">
-                            プロによる写真編集と動画制作<br>
-                            記事執筆とデザイン制作
-                        </p>
-                        <ul class="process-details">
-                            <li>写真編集・補正</li>
-                            <li>動画編集・カラーグレーディング</li>
-                            <li>記事執筆</li>
-                            <li>デザイン制作</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-number">03</div>
-                    <div class="process-content">
-                        <h3 class="process-title">ローカライズ</h3>
-                        <p class="process-desc">
-                            7カ国語へのネイティブ翻訳<br>
-                            文化的最適化とSEO対策
-                        </p>
-                        <ul class="process-details">
-                            <li>7カ国語ネイティブ翻訳</li>
-                            <li>文化的最適化</li>
-                            <li>SEO最適化</li>
-                            <li>各国規制対応</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-number">04</div>
-                    <div class="process-content">
-                        <h3 class="process-title">配信・拡散</h3>
-                        <p class="process-desc">
-                            35チャンネルへの同時配信<br>
-                            インフルエンサー連携
-                        </p>
-                        <ul class="process-details">
-                            <li>35チャンネル同時配信</li>
-                            <li>最適時間投稿</li>
-                            <li>クロスプロモーション</li>
-                            <li>インフルエンサー連携</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Content Calendar Section -->
-    <section class="calendar-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>コンテンツ発信スケジュール</h2>
-                <p>計画的で継続的なコンテンツ発信</p>
-            </div>
+                </a>
             
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <h3>2024年12月 発信予定</h3>
-                    <div class="calendar-legend">
-                        <span class="legend-item"><span class="legend-dot" style="background: #FF6B6B;"></span> 記事</span>
-                        <span class="legend-item"><span class="legend-dot" style="background: #4ECDC4;"></span> 動画</span>
-                        <span class="legend-item"><span class="legend-dot" style="background: #45B7D1;"></span> SNS</span>
+                <a href="https://www.japankuru.com/en/culture/e2417.html" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2025/07/DJI_0002-2-800x450.jpg');"></div>
                     </div>
-                </div>
-                
-                <div class="calendar-grid">
-                    <div class="calendar-week">
-                        <h4>第1週</h4>
-                        <div class="content-cards">
-                            <div class="content-card article">
-                                <div class="content-date">12/2</div>
-                                <div class="content-title">東京イルミネーション特集</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷</div>
-                            </div>
-                            <div class="content-card video">
-                                <div class="content-date">12/4</div>
-                                <div class="content-title">クリスマスマーケット動画</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
-                            </div>
-                            <div class="content-card sns">
-                                <div class="content-date">12/5</div>
-                                <div class="content-title">Instagram Reels - 冬の味覚</div>
-                                <div class="content-langs">ALL</div>
-                            </div>
-                        </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">京都観光ガイド記事</h3>
+                        <p class="portfolio-category-new">Web Article</p>
                     </div>
-                    
-                    <div class="calendar-week">
-                        <h4>第2週</h4>
-                        <div class="content-cards">
-                            <div class="content-card article">
-                                <div class="content-date">12/10</div>
-                                <div class="content-title">年末年始特別企画</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼 🇰🇷 🇫🇷</div>
-                            </div>
-                            <div class="content-card article">
-                                <div class="content-date">12/12</div>
-                                <div class="content-title">初詣ガイド2025</div>
-                                <div class="content-langs">🇺🇸 🇹🇭 🇹🇼</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Archive Power Section -->
-    <section class="archive-power">
-        <div class="container">
-            <div class="section-header">
-                <h2>48,000コンテンツが生み出すエコシステム</h2>
-                <p>蓄積された資産が複利で価値を生み出す</p>
-            </div>
+                </a>
             
-            <div class="archive-visual">
-                <div class="archive-stats">
-                    <h3>蓄積された資産価値</h3>
-                    <div class="archive-stat-item">
-                        <span>総コンテンツ数</span>
-                        <strong>48,000+</strong>
+                <a href="https://www.instagram.com/p/POST_ID_HERE/" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/11/Tokyo_Megaillumi_CC04-1-2048x1365.jpg');"></div>
                     </div>
-                    <div class="archive-stat-item">
-                        <span>月間オーガニック流入</span>
-                        <strong>250万PV</strong>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">Instagram Reels キャンペーン</h3>
+                        <p class="portfolio-category-new">Instagram Reel</p>
                     </div>
-                    <div class="archive-stat-item">
-                        <span>平均滞在時間</span>
-                        <strong>4分32秒</strong>
-                    </div>
-                    <div class="archive-stat-item">
-                        <span>内部リンク網</span>
-                        <strong>15万+</strong>
-                    </div>
-                </div>
-                
-                <div class="ecosystem-diagram">
-                    <h3>コンテンツ循環システム</h3>
-                    <p style="margin-bottom: 2rem;">一度制作したコンテンツが永続的に価値を生み出す</p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</span>
-                            <div>
-                                <strong>新規コンテンツ制作</strong>
-                                <p class="small">貴社の最新情報を取材・制作</p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</span>
-                            <div>
-                                <strong>既存コンテンツと連携</strong>
-                                <p class="small">関連記事から自動的にリンク</p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</span>
-                            <div>
-                                <strong>特集記事に組み込み</strong>
-                                <p class="small">エリア別・テーマ別特集で再露出</p>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <span style="background: var(--success); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">∞</span>
-                            <div>
-                                <strong>永続的な価値創出</strong>
-                                <p class="small">SEO価値が時間とともに向上</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Metrics Section -->
-    <section class="metrics-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>導入企業の平均成果</h2>
-                <p>2023-2024年実績データ</p>
-            </div>
+                </a>
             
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-value">240%</span>
-                    <span class="metric-label">問い合わせ増加</span>
-                    <span class="metric-change">+240%</span>
-                </div>
-                
-                <div class="metric-card">
-                    <span class="metric-value">380%</span>
-                    <span class="metric-label">ブランド検索</span>
-                    <span class="metric-change">+380%</span>
-                </div>
-                
-                <div class="metric-card">
-                    <span class="metric-value">350%</span>
-                    <span class="metric-label">ROI</span>
-                    <span class="metric-change">350%</span>
-                </div>
-                
-                <div class="metric-card">
-                    <span class="metric-value">89%</span>
-                    <span class="metric-label">継続率</span>
-                    <span class="metric-change">89%</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section class="cases-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>導入事例</h2>
-                <p>業界別の成功事例をご紹介</p>
-            </div>
+                <a href="#" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://images.unsplash.com/photo-1578637387934-0516a4a155fb?w=800');"></div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">富士山撮影プロジェクト</h3>
+                        <p class="portfolio-category-new">Photography</p>
+                    </div>
+                </a>
             
+                <a href="#" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/08/Meitetsu_Okagaki_CC29-2048x1365.jpg');"></div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">日本料理撮影</h3>
+                        <p class="portfolio-category-new">Photography</p>
+                    </div>
+                </a>
+            
+                <a href="https://www.youtube.com/watch?v=VIDEO_ID_HERE" target="_blank" class="portfolio-item-new">
+                    <div class="portfolio-image-wrapper">
+                        <div class="portfolio-image" style="background-image: url('https://www.japankuru.com/gld-kanri/data/uploads/2024/07/Sunflower_CC13-2048x1365.jpg');"></div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title-new">温泉旅館プロモーション</h3>
+                        <p class="portfolio-category-new">YouTube Video</p>
+                    </div>
+                </a>
+            </div>
+        </div> </section>
+
+    <!-- Case Section -->
+    <section id="cases" class="cases-section">
+        <div class="container">
+            <div class="section-head-unified">
+                <div class="section-label">Success Stories</div>
+                <h2>導入事例と、その成果</h2>
+                <p class="lead">JAPANKURUがもたらす、具体的なビジネス成長をご覧ください。</p>
+            </div>
+    
             <div class="cases-grid">
-                <a href="#" class="case-link">
-                    <div class="case-industry">宿泊施設</div>
-                    <div class="case-title">地方旅館の事例</div>
-                    <div class="case-result">外国人宿泊者3倍増</div>
+                <a href="#" class="case-link-new">
+                    <div class="case-header">
+                        <span class="case-theme">モデルコース紹介</span>
+                        <h4>首都圏鉄道会社様</h4>
+                    </div>
+                    <p class="case-description">観光パスの魅力を伝えるモデルコース記事を制作し、継続的な検索流入と購買導線を確保。</p>
+                    <div class="case-result-new">→ 商品検索数が大幅に増加</div>
                 </a>
-                
-                <a href="#" class="case-link">
-                    <div class="case-industry">飲食店</div>
-                    <div class="case-title">ラーメン店の事例</div>
-                    <div class="case-result">行列のできる人気店に</div>
+                <a href="#" class="case-link-new">
+                    <div class="case-header">
+                        <span class="case-theme">観光動画シリーズ</span>
+                        <h4>地方観光団体様</h4>
+                    </div>
+                    <p class="case-description">シーズンと連動した縦型ショート動画をシリーズで展開。地域のブランド認知度を飛躍的に向上。</p>
+                    <div class="case-result-new">→ 最大100万回再生を記録</div>
                 </a>
-                
-                <a href="#" class="case-link">
-                    <div class="case-industry">小売店</div>
-                    <div class="case-title">伝統工芸品店の事例</div>
-                    <div class="case-result">海外売上が全体の40%に</div>
+                <a href="#" class="case-link-new">
+                    <div class="case-header">
+                        <span class="case-theme">コスメ体験レビュー</span>
+                        <h4>大手コスメブランド様</h4>
+                    </div>
+                    <p class="case-description">外国人クリエイターが全製品ラインを体験ベースでレビュー。各国のZ世代から高い共感反応を獲得。</p>
+                    <div class="case-result-new">→ Instagram保存率が平均の3倍</div>
                 </a>
-                
-                <a href="#" class="case-link">
-                    <div class="case-industry">観光地</div>
-                    <div class="case-title">地方都市の事例</div>
-                    <div class="case-result">観光客数が前年比200%</div>
-                </a>
-                
-                <a href="#" class="case-link">
-                    <div class="case-industry">テーマパーク</div>
-                    <div class="case-title">体験施設の事例</div>
-                    <div class="case-result">予約が3ヶ月先まで満席</div>
-                </a>
-                
-                <a href="#" class="case-link">
-                    <div class="case-industry">交通機関</div>
-                    <div class="case-title">観光バスの事例</div>
-                    <div class="case-result">稼働率60%向上</div>
-                </a>
+            </div>
+    
+            <div class="average-results" style="margin-top: 5rem;">
+                <h3 class="subsection-title">導入企業の平均成果 (2023-2024年)</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-value">240%</span>
+                        <span class="metric-label">外国語での問い合わせ増加</span>
+                        <span class="metric-change">+240%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">380%</span>
+                        <span class="metric-label">海外でのブランド指名検索</span>
+                        <span class="metric-change">+380%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">350%</span>
+                        <span class="metric-label">マーケティング投資収益率(ROI)</span>
+                        <span class="metric-change">350%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">89%</span>
+                        <span class="metric-label">クライアント継続率</span>
+                        <span class="metric-change">89%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-guarantee-box">
+                <div class="kpi-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div class="kpi-text">
+                    <h3>「資産」になるオーガニックな成果へ</h3>
+                    <p>JAPANKURUは、短期的な広告ブーストで達成する数字だけを追い求めません。良質なコンテンツが自然に読まれ続けることで生まれる**オーガニックな成果**を重視し、貴社の持続可能なブランド資産となる指標をお約束します。</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing-section" id="pricing">
+    <!-- Plan Section -->
+    <section id="plans" class="plans-section-impact">
         <div class="container">
-            <div class="section-header">
-                <h2>サービスプラン</h2>
-                <p>貴社のニーズに合わせて選べる3つのプラン</p>
+            <div class="section-head-unified">
+                <div class="section-label">Our Solutions</div>
+                <h2>貴社に合わせたパートナーシッププラン</h2>
+                <p class="lead">私たちは３つのコアプランを軸に、貴社の目標達成までをワンストップでサポートします。</p>
             </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="pricing-name">ライトプラン</h3>
-                    <p class="pricing-desc">まずは試してみたい企業様向け</p>
-                    <ul class="pricing-features">
-                        <li>単発コンテンツ制作（1-3本）</li>
-                        <li>3カ国語翻訳・配信</li>
-                        <li>基本的な成果レポート</li>
-                        <li>1ヶ月間のサポート</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
+    
+            <div class="plan-cards-grid">
+                <div class="plan-card-impact">
+                    <div class="plan-card-header">
+                        <h3>ベーシックプラン</h3>
+                        <p class="plan-price-label">まずは海外市場での認知度向上を目指すなら</p>
+                    </div>
+                    <div class="plan-card-body">
+                        <p class="plan-description">
+                            JAPANKURUのプラットフォームを活用し、高品質な記事コンテンツで海外に向けた第一歩を踏み出します。
+                        </p>
+                        <ul class="plan-features-impact">
+                            <li><i class="fa-solid fa-check"></i> <span>高品質な記事制作 (1-2本)</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>主要SNSでの配信</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>基本パフォーマンスレポート</span></li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <div class="pricing-card featured">
-                    <h3 class="pricing-name">スタンダードプラン</h3>
-                    <p class="pricing-desc">継続的な情報発信を行いたい企業様向け</p>
-                    <ul class="pricing-features">
-                        <li>定期コンテンツ制作（月3-5本）</li>
-                        <li>5カ国語翻訳・配信</li>
-                        <li>SNS運用・コミュニティ管理</li>
-                        <li>詳細な分析レポート（月次）</li>
-                        <li>3-6ヶ月契約</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
+    
+                <div class="plan-card-impact recommended">
+                    <div class="plan-card-header">
+                        <span class="recommend-badge-impact">人気No.1</span>
+                        <h3>エンゲージプラン</h3>
+                        <p class="plan-price-label">単なる認知を超え、熱心なファンを獲得するなら</p>
+                    </div>
+                    <div class="plan-card-body">
+                        <p class="plan-description">
+                            記事、SNSに加え、ショート動画やメディア連携を活用。ターゲットとの深い関係性を構築し、ファンを創造します。
+                        </p>
+                        <ul class="plan-features-impact">
+                            <li><i class="fa-solid fa-check"></i> <span>高品質な記事制作 (最大5本)</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>戦略的SNS運用 & コミュニティ管理</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>ショート動画制作・配信</strong></span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>海外メディア転載</strong></span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>詳細分析 & 月次レポーティング</span></li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <div class="pricing-card">
-                    <h3 class="pricing-name">エンタープライズ</h3>
-                    <p class="pricing-desc">戦略的パートナーシップをご希望の企業様向け</p>
-                    <ul class="pricing-features">
-                        <li>無制限コンテンツ制作</li>
-                        <li>7カ国語フルカバレッジ</li>
-                        <li>専任チーム配置</li>
-                        <li>KPI設計・戦略立案</li>
-                        <li>イベント・オフライン施策</li>
-                        <li>年間契約</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-dark">詳細を問い合わせる</a>
+    
+                <div class="plan-card-impact">
+                    <div class="plan-card-header">
+                        <h3>プレミアムプラン</h3>
+                        <p class="plan-price-label">圧倒的なコンテンツで市場のリーダーを目指すなら</p>
+                    </div>
+                    <div class="plan-card-body">
+                        <p class="plan-description">
+                            JAPANKURUの全てのリソースを投入。長期的な戦略に基づき、持続可能なブランド資産を海外市場に構築します。
+                        </p>
+                        <ul class="plan-features-impact">
+                            <li><i class="fa-solid fa-check"></i> <span><strong>無制限レベルの記事・動画制作</strong></span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>専属のグローバルチームを配置</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>年間インバウンド戦略の共同立案</strong></span></li>
+                            <li><i class="fa-solid fa-check"></i> <span>定性・定量分析 & 戦略会議</span></li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
+    
+            <div class="plans-final-cta">
+                <p>上記は代表的なプランです。貴社のご予算と目標に合わせた最適なプランを個別にご提案します。</p>
+                <a href="#contact" class="btn btn-dark btn-large">まずは無料相談から</a>
             </div>
         </div>
     </section>
-
+    
     <!-- FAQ Section -->
-    <section class="faq-section">
+    <section id="faq" class="faq-section-new">
         <div class="container">
-            <div class="section-header">
+            <div class="section-head-unified">
+                <div class="section-label">Q&A</div>
                 <h2>よくあるご質問</h2>
+                <p class="lead">JAPANKURUについてご不明な点は、こちらで解決いただけます。</p>
             </div>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>導入までにどのくらいの期間が必要ですか？</span>
-                        <span class="faq-toggle"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            初回のお打ち合わせから最初のコンテンツ配信まで、通常2-3週間程度です。<br>
-                            具体的なスケジュール：<br>
-                            • 1週目：ヒアリング・企画立案<br>
-                            • 2週目：取材・撮影・制作<br>
-                            • 3週目：翻訳・配信開始<br>
-                            緊急案件の場合は、最短1週間での対応も可能です。
+    
+            <div class="faq-interactive-container">
+                <nav class="faq-nav">
+                    <ul>
+                        <li><a href="#faq-group-service" class="faq-nav-link active">サービスについて</a></li>
+                        <li><a href="#faq-group-results" class="faq-nav-link">成果と効果測定</a></li>
+                        <li><a href="#faq-group-process" class="faq-nav-link">料金と進行</a></li>
+                    </ul>
+                </nav>
+    
+                <div class="faq-content">
+                    <div id="faq-group-service" class="faq-group">
+                        <h3>サービスについて</h3>
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>他のインバウンド会社との決定的な違いは何ですか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>JAPANKURUの最大の違いは、<strong>「外国人クリエイターによるリアルな体験・共感視点」</strong>にあります。私たちは単なる情報編集やSEO最適化に留まりません。実体験に基づく共感型のストーリーを企画・制作し、独自の多角的な拡散ネットワークを通じて「心を動かす」成果を追求します。</p>
+                            </div>
+                        </div>
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>どのような業種・規模の企業が利用していますか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>大手ナショナルクライアントから地方自治体、個人経営の店舗まで、規模や業種を問わず500以上のパートナーと協業してきました。特に宿泊、飲食、小売、美容・ヘルスケア、観光施設などの分野で豊富な実績があります。</p>
+                            </div>
+                        </div>
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>制作したコンテンツは二次利用できますか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>はい。Web上で公開された記事やSNS投稿の素材は、貴社のSNSなどで自由にご活用いただけます。パンフレットや広告など、他の媒体での二次活用をご希望の場合は、別途ご案内可能ですのでお気軽にご相談ください。</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>どのような業種・規模の企業が利用していますか？</span>
-                        <span class="faq-toggle"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            大手企業から個人経営まで、規模を問わず500社以上にご利用いただいています。<br>
-                            主な業種：<br>
-                            • 宿泊施設（ホテル・旅館・ゲストハウス）<br>
-                            • 飲食店（レストラン・カフェ・居酒屋）<br>
-                            • 小売店（百貨店・専門店・土産物店）<br>
-                            • 観光施設（テーマパーク・美術館・体験施設）<br>
-                            • 地方自治体・観光協会<br>
-                            • 交通機関（鉄道・バス・航空会社）
+    
+                    <div id="faq-group-results" class="faq-group">
+                        <h3>成果と効果測定</h3>
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>効果測定はどのように行いますか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>記事のPV数、SNSのリーチ・エンゲージメント率、動画再生数などの「定量データ」と、世界中のユーザーから寄せられたリアルなコメントや反応をまとめた「定性データ」を組み合わせた、詳細な月次レポートをご提出します。</p>
+                            </div>
+                        </div>
+                         <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>具体的な成果指標（KPI）は保証されますか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>私たちは短期的な広告ブーストで作る数字ではなく、良質なコンテンツが生み出す持続的なオーガニック成果を重視します。ご契約いただく全てのプランにおいて、この考え方に基づいた具体的なKPIを設定し、その達成に向けてパートナーとして伴走することをお約束します。</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>効果測定はどのように行いますか？</span>
-                        <span class="faq-toggle"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            月次レポートで以下の指標を詳細に報告します：<br>
-                            • リーチ数・インプレッション数<br>
-                            • エンゲージメント率（いいね・コメント・シェア）<br>
-                            • ウェブサイトへの流入数<br>
-                            • 検索順位の変動<br>
-                            • 国別・言語別の反応分析<br>
-                            • 競合他社との比較分析<br>
-                            また、実際の来店・予約数などの追跡も、専用コードやアンケートで可能です。
+    
+                    <div id="faq-group-process" class="faq-group">
+                        <h3>料金と進行</h3>
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>料金体系について教えてください。</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>プロジェクトの規模や期間、目標に応じて個別に見積もりを算出いたします。各プランページでご紹介した内容をベースに、貴社に最適なご提案をいたしますので、まずはお気軽にご相談ください。大まかな目安として、単発プロジェクトは150万円〜、中長期のパートナーシップは月額100万円〜の事例が多くなっております。</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>料金体系について教えてください</span>
-                        <span class="faq-toggle"></span>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            お客様のニーズに応じて、柔軟な料金プランをご用意しています：<br>
-                            • 単発プロジェクト：150万円〜<br>
-                            • 3ヶ月パッケージ：400万円〜<br>
-                            • 年間契約：個別見積もり<br><br>
-                            料金に含まれるもの：<br>
-                            取材・撮影・制作・翻訳・配信・基本的なレポート<br><br>
-                            詳細は無料相談でご説明いたします。
+                        <div class="faq-item-new">
+                            <div class="faq-question-new">
+                                <span>導入までにどのくらいの期間が必要ですか？</span>
+                                <div class="faq-toggle-new"></div>
+                            </div>
+                            <div class="faq-answer-new">
+                                <p>標準的なプロジェクトの場合、初回のお打ち合わせから最初のコンテンツ配信まで2〜3週間程度です。もちろん、ご要望に応じて柔軟にスケジュールを調整いたします。</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" id="contact">
-        <div class="container">
-            <h2>インバウンドマーケティングを<br>
-            次のステージへ</h2>
-            
-            <p class="cta-subtitle">
-                7年間の実績と180万フォロワーのパワーで<br>
-                貴社のグローバル展開を加速させます
-            </p>
-            
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">資料請求</a>
-                <a href="#" class="btn btn-secondary">無料相談を予約</a>
-                <a href="#" class="btn btn-text">メールで問い合わせ</a>
+    
+    <section id="contact" class="final-cta-section">
+        <div class="container container-narrow">
+            <div class="section-head-unified" style="border-top: none; padding-top: 0;">
+                 <div class="section-label">Contact Us</div>
+                 <h2>JAPANKURUと、<br>新しいサクセスストーリーを始めませんか？</h2>
+                 <p class="lead">
+                     13年間の経験と48,000のコンテンツ資産、そして世界を理解するチームが、貴社だけの成功戦略を描きます。まずはお気軽にご相談ください。
+                 </p>
             </div>
-            
-            <div class="contact-options">
-                <div class="contact-option">
-                    <div class="contact-icon">📞</div>
-                    <div>
-                        <span class="contact-label">お電話でのお問い合わせ</span>
-                        <span class="contact-value">03-XXXX-XXXX</span>
-                    </div>
-                </div>
-                <div class="contact-option">
-                    <div class="contact-icon">⏰</div>
-                    <div>
-                        <span class="contact-label">営業時間</span>
-                        <span class="contact-value">平日 9:00-18:00</span>
-                    </div>
-                </div>
-                <div class="contact-option">
-                    <div class="contact-icon">✉️</div>
-                    <div>
-                        <span class="contact-label">メール</span>
-                        <span class="contact-value">business@japankuru.com</span>
-                    </div>
-                </div>
-                <div class="contact-option">
-                    <div class="contact-icon">📍</div>
-                    <div>
-                        <span class="contact-label">オフィス</span>
-                        <span class="contact-value">東京都渋谷区</span>
-                    </div>
+            <div class="cta-buttons-final">
+                <a href="#" class="btn btn-dark btn-large">
+                    <span>媒体資料ダウンロード</span>
+                    <small>JAPANKURUの全てがわかる</small>
+                </a>
+                <a href="#" class="btn btn-secondary btn-large">
+                    <span>無料相談を予約する</span>
+                    <small>専門プロデューサーと話す</small>
+                </a>
+            </div>
+            <div class="client-logos">
+                <p>JAPANKURUを信頼するパートナー企業</p>
+                <div class="logos-grid">
+                    <img src="https://via.placeholder.com/150x50/cccccc/999999?text=Client+A" alt="Client A Logo">
+                    <img src="https://via.placeholder.com/150x50/cccccc/999999?text=Client+B" alt="Client B Logo">
+                    <img src="https://via.placeholder.com/150x50/cccccc/999999?text=Client+C" alt="Client C Logo">
+                    <img src="https://via.placeholder.com/150x50/cccccc/999999?text=Client+D" alt="Client D Logo">
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>サービス</h4>
-                    <ul>
-                        <li><a href="#">メディア運営</a></li>
-                        <li><a href="#">コンテンツ制作</a></li>
-                        <li><a href="#">翻訳・ローカライズ</a></li>
-                        <li><a href="#">SNS運用</a></li>
-                        <li><a href="#">インフルエンサーマーケティング</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>導入事例</h4>
-                    <ul>
-                        <li><a href="#">宿泊施設の事例</a></li>
-                        <li><a href="#">飲食店の事例</a></li>
-                        <li><a href="#">小売店の事例</a></li>
-                        <li><a href="#">観光地の事例</a></li>
-                        <li><a href="#">交通機関の事例</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>リソース</h4>
-                    <ul>
-                        <li><a href="#">インバウンドトレンドレポート</a></li>
-                        <li><a href="#">成功事例集</a></li>
-                        <li><a href="#">料金プラン</a></li>
-                        <li><a href="#">よくある質問</a></li>
-                        <li><a href="#">お役立ちコラム</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>会社情報</h4>
-                    <ul>
-                        <li><a href="#">会社概要</a></li>
-                        <li><a href="#">JAPANKURUについて</a></li>
-                        <li><a href="#">採用情報</a></li>
-                        <li><a href="#">プレスリリース</a></li>
-                        <li><a href="#">お問い合わせ</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>© 2024 JAPANKURU. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // Auto-slide for device content
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.device-laptop .content-slide');
-        const phoneSlides = document.querySelectorAll('.device-phone .content-slide');
-        
-        setInterval(() => {
-            // Remove active from current
-            slides[currentSlide].classList.remove('active');
-            phoneSlides[currentSlide].classList.remove('active');
-            
-            // Move to next slide
-            currentSlide = (currentSlide + 1) % slides.length;
-            
-            // Add active to new slide
-            slides[currentSlide].classList.add('active');
-            // Phone shows different slide for variety
-            const phoneIndex = (currentSlide + 1) % phoneSlides.length;
-            phoneSlides[phoneIndex].classList.add('active');
-        }, 3000);
+    
+        // --- SMOOTH SCROLL ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2742,133 +2087,117 @@
                 }
             });
         });
-
-        // Show/hide navigation on scroll
-        let lastScroll = 0;
-        const navbar = document.getElementById('navbar');
-        
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                if (currentScroll > lastScroll) {
-                    navbar.classList.add('hidden');
-                } else {
-                    navbar.classList.remove('hidden');
-                }
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Portfolio Filter
+    
+        // --- PORTFOLIO FILTER (UPDATED) ---
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        // portfolio-item-new 로 클래스 이름이 변경되었습니다.
+        const portfolioItems = document.querySelectorAll('.portfolio-item-new'); 
         
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                const filter = button.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
+        if (filterButtons.length > 0 && portfolioItems.length > 0) {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filter = button.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+    
+        // --- FAQ SECTION ---
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        if (faqQuestions.length > 0) {
+            faqQuestions.forEach(item => {
+                item.addEventListener('click', () => {
+                    const faqItem = item.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!isActive) {
+                        faqItem.classList.add('active');
                     }
                 });
             });
-        });
-
-        // FAQ Toggle
-        const faqItems = document.querySelectorAll('.faq-question');
-        
-        faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const faqItem = item.parentElement;
-                const isActive = faqItem.classList.contains('active');
-                
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    item.classList.remove('active');
+        }
+    
+        // --- DYNAMIC ANIMATIONS (FADE-IN & NUMBER COUNTER) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        scrollObserver.unobserve(entry.target);
+                    }
                 });
-                
-                if (!isActive) {
-                    faqItem.classList.add('active');
-                }
-            });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(target => scrollObserver.observe(target));
+    
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        if (!target || counter.classList.contains('animated')) return;
+                        
+                        counter.classList.add('animated');
+                        let start = null;
+                        const duration = 2000;
+    
+                        const step = (timestamp) => {
+                            if (!start) start = timestamp;
+                            const progress = Math.min((timestamp - start) / duration, 1);
+                            const currentNumber = Math.floor(progress * target);
+                            counter.innerText = currentNumber.toLocaleString('ja-JP');
+                            if (progress < 1) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                counter.innerText = target.toLocaleString('ja-JP');
+                            }
+                        };
+                        window.requestAnimationFrame(step);
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('[data-target]').forEach(counter => counterObserver.observe(counter));
         });
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    // --- STICKY SUB-NAVIGATION ---
+const subNav = document.getElementById('subNav');
+const heroSection = document.querySelector('.hero');
+const sections = document.querySelectorAll('section[id]');
+const subNavLinks = document.querySelectorAll('.sub-nav-menu a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+window.addEventListener('scroll', () => {
+    // Show/hide sub-nav
+    if (window.scrollY > heroSection.offsetHeight) {
+        subNav.classList.add('visible');
+    } else {
+        subNav.classList.remove('visible');
+    }
 
-        // Observe elements
-        document.querySelectorAll('.trust-metric-card, .point-item, .solution-item, .metric-card, .pricing-card, .case-link, .value-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
+    // Highlight active link
+    let currentSectionId = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 100) {
+            currentSectionId = section.getAttribute('id');
+        }
+    });
 
-        // Number counter animation
-        const animateCounter = (element) => {
-            const text = element.textContent;
-            const hasPlus = text.includes('+');
-            const hasPercent = text.includes('%');
-            const hasX = text.includes('x');
-            const hasMan = text.includes('万');
-            
-            let target = parseInt(text.replace(/[^0-9]/g, ''));
-            if (!target) return;
-            
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-            
-            const updateCounter = () => {
-                current += step;
-                if (current < target) {
-                    let display = Math.ceil(current);
-                    if (hasMan) display = display + '万';
-                    if (hasPlus) display = display + '+';
-                    if (hasPercent) display = display + '%';
-                    if (hasX) display = display + 'x';
-                    element.textContent = display;
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = text;
-                }
-            };
-            
-            updateCounter();
-        };
-
-        // Trigger counter animation when visible
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounter(entry.target);
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.hero-stat-number, .metric-number, .metric-value, .trust-number, .result-metric-value').forEach(el => {
-            counterObserver.observe(el);
-        });
+    subNavLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSectionId) {
+            link.classList.add('active');
+        }
+    });
+});
     </script>
 </body>
 </html>
