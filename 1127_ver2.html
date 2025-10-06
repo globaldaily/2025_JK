@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAPANKURUインバウンドマーケティングセミナー | 11月27日開催</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease-in-out, transform 8s ease-out;
+            transform: scale(1.1);
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.88) 0%, rgba(44, 62, 80, 0.82) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 1000px;
+            padding: 40px;
+        }
+
+        .hero-label {
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 25px;
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            line-height: 1.7;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 15px;
+        }
+
+        .hero-new-service {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .new-badge {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .new-service-text {
+            font-size: 16px;
+            opacity: 0.98;
+            font-weight: 500;
+        }
+
+        .hero-event-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px 40px;
+            border-radius: 16px;
+            margin: 30px auto 35px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+        }
+
+        .hero-event-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .hero-info-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-info-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-info-label {
+            font-size: 11px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .hero-info-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .hero-capacity {
+            color: #ffc107; /* 눈에 띄는 색으로 변경 */
+            font-weight: 700;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 18px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 60px;
+            transition: all 0.3s;
+            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.4);
+            margin-top: 10px;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 45px rgba(231, 76, 60, 0.5);
+        }
+
+        /* 공통 섹션 스타일 */
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        /* 現場力ビジュアル (수정됨) */
+        .field-visual { padding: 100px 20px; background: #fff; }
+        .field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
+        .field-card {
+            position: relative;
+            height: 380px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: transform 0.4s;
+        }
+        .field-card:hover { transform: translateY(-12px); }
+        .field-card-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s;
+        }
+        .field-card:hover .field-card-bg { transform: scale(1.08); }
+        .field-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            color: white;
+        }
+        .field-card h3 { font-size: 22px; margin-bottom: 10px; font-weight: 600; }
+        .field-card p { font-size: 15px; opacity: 0.9; }
+
+        /* 問題提起 */
+        .problem-section { padding: 100px 20px; background: #f8f9fa; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+        .problem-card {
+            background: #fff;
+            padding: 38px;
+            border-radius: 14px;
+            border-left: 5px solid #e74c3c;
+            font-size: 17px;
+            transition: all 0.3s;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .problem-card:hover { transform: translateY(-8px); box-shadow: 0 18px 45px rgba(0,0,0,0.1); }
+
+        /* こんな方におすすめ */
+        .recommend-section { padding: 80px 20px; background: #fff; }
+        .recommend-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 50px auto 0;
+        }
+        .recommend-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 17px;
+            font-weight: 500;
+            color: #333;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            transition: transform 0.3s;
+        }
+        .recommend-item:hover { transform: translateY(-5px); }
+        .recommend-item svg { color: #e74c3c; min-width: 24px; min-height: 24px; }
+
+        /* 強みセクション (수정됨) */
+        .strength-section { padding: 120px 20px; background: #fff; }
+        .strength-showcase { max-width: 1200px; margin: 80px auto 0; }
+        .strength-item { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; margin-bottom: 110px; align-items: center; }
+        .strength-item:nth-child(even) { direction: rtl; }
+        .strength-item:nth-child(even) > * { direction: ltr; }
+        .strength-image {
+            position: relative;
+            height: 480px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 28px 75px rgba(0,0,0,0.2);
+        }
+        .strength-image-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s;
+        }
+        .strength-image:hover .strength-image-bg { transform: scale(1.1); }
+        .strength-image::after {
+            content:''; position: absolute; top:0; left:0; right:0; bottom:0;
+            background-color: #e74c3c;
+            mix-blend-mode: multiply;
+            opacity: 0.6;
+        }
+        .strength-text h3 { font-size: 32px; margin-bottom: 22px; color: #1a1a1a; font-weight: 700; line-height: 1.3; }
+        .strength-text p { font-size: 17px; line-height: 1.9; color: #495057; margin-bottom: 25px; }
+        .strength-number { display: inline-block; width: 65px; height: 65px; background: #e74c3c; color: white; border-radius: 50%; text-align: center; line-height: 65px; font-size: 30px; font-weight: 700; margin-bottom: 28px; }
+        .strength-stats { display: flex; gap: 55px; margin-top: 35px; }
+        .strength-stat-value { font-size: 36px; font-weight: 700; color: #e74c3c; margin-bottom: 8px; }
+        .strength-stat-label { font-size: 14px; color: #6c757d; }
+
+        /* 講師プロフィール */
+        .speaker-section { padding: 100px 20px; background: #f8f9fa; }
+        .speaker-card {
+            max-width: 800px;
+            margin: 60px auto 0;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .speaker-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .speaker-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .speaker-info h3 { font-size: 28px; margin-bottom: 8px; color: #1a1a1a; }
+        .speaker-info p.title { font-size: 18px; color: #e74c3c; margin-bottom: 20px; font-weight: 600; }
+        .speaker-info p.bio { font-size: 16px; line-height: 1.8; color: #495057; }
+
+        /* JAPANKURUの次なる進化 (新規セクション) */
+        .evolution-section { padding: 120px 20px; background: #fff; text-align: center; }
+        .evolution-section .section-subtitle { max-width: 850px; margin-bottom: 80px; }
+        .evolution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        .evolution-text { text-align: left; }
+        .evolution-text h3 { font-size: 32px; margin-bottom: 25px; color: #1a1a1a; font-weight: 700; line-height: 1.4; }
+        .evolution-text p { font-size: 17px; line-height: 1.9; color: #495057; margin-bottom: 25px; }
+        .evolution-image-wrap {
+            max-width: 550px;
+            margin: 0 auto;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .evolution-image-wrap img { width: 100%; height: auto; display: block; }
+        .evolution-highlight {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-top: 30px;
+            display: block;
+        }
+
+        /* プログラム */
+        .program-section { padding: 100px 20px; background: #f8f9fa; }
+        .program-timeline { max-width: 950px; margin: 70px auto 0; position: relative; }
+        .program-timeline::before {
+            content: '';
+            position: absolute;
+            left: 150px;
+            top: 20px;
+            bottom: 20px;
+            width: 3px;
+            background: linear-gradient(to bottom, #e74c3c, #c0392b);
+            border-radius: 3px;
+        }
+        .program-item { display: grid; grid-template-columns: 140px 1fr; gap: 60px; margin-bottom: 45px; position: relative; }
+        .program-time { font-weight: 700; color: #e74c3c; font-size: 19px; text-align: right; padding-top: 10px; }
+        .program-content { background: white; padding: 35px; border-radius: 16px; position: relative; border-left: 5px solid #e74c3c; box-shadow: 0 10px 30px rgba(0,0,0,0.07); }
+        .program-content::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            background: #e74c3c;
+            border-radius: 50%;
+            border: 4px solid #f8f9fa;
+            box-shadow: 0 0 0 3px #e74c3c;
+            z-index: 1;
+        }
+        .program-content h4 { font-size: 22px; color: #1a1a1a; margin-bottom: 16px; font-weight: 600; }
+        .program-content p { color: #6c757d; font-size: 16px; line-height: 1.8; }
+        
+        /* 中間CTA */
+        .mid-cta-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: #fff;
+        }
+        .mid-cta-section .section-title { margin-bottom: 30px; }
+
+        /* 参加特典 */
+        .benefits-section { padding: 100px 20px; background: #f8f9fa; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; max-width: 1100px; margin: 70px auto 0; }
+        .benefit-card {
+            background: white;
+            padding: 45px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .benefit-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(0,0,0,0.12); border-color: #e74c3c; }
+        .benefit-icon {
+            width: 80px; height: 80px;
+            margin: 0 auto 28px;
+            display: flex; align-items: center; justify-content: center;
+            color: #e74c3c;
+        }
+        .benefit-card h3 { font-size: 24px; margin-bottom: 18px; color: #1a1a1a; }
+        .benefit-card p { color: #6c757d; line-height: 1.8; font-size: 16px; }
+
+        /* よくある質問 */
+        .faq-section { padding: 100px 20px; background: #fff; }
+        .faq-list { max-width: 800px; margin: 60px auto 0; }
+        .faq-item {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 25px;
+        }
+        .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .faq-question::before {
+            content: "Q.";
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .faq-answer {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            padding-left: 35px; /* Q. 글자와 정렬 맞추기 */
+        }
+        .faq-answer::before {
+            content: "A.";
+            color: #6c757d;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 15px;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: -3px; /* 미세 조정 */
+        }
+
+        /* 最終CTA */
+        .cta-section { padding: 130px 20px; background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%); color: white; text-align: center; }
+        .cta-section h2 { font-size: 40px; margin-bottom: 28px; font-weight: 700; }
+        .cta-date-highlight { font-size: 30px; margin-bottom: 20px; color: #e74c3c; font-weight: 700; }
+        .cta-section p { font-size: 18px; margin-bottom: 45px; opacity: 0.95; }
+        .cta-button-large {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 28px 85px;
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 70px;
+            transition: all 0.3s;
+            box-shadow: 0 18px 55px rgba(231, 76, 60, 0.45);
+        }
+        .cta-button-large:hover { transform: translateY(-6px); box-shadow: 0 25px 70px rgba(231, 76, 60, 0.55); }
+
+        /* 푸터 */
+        footer { background: #1a1a1a; color: white; padding: 70px 20px; text-align: center; }
+        footer p { opacity: 0.75; margin: 10px 0; font-size: 15px; }
+
+        /* 반응형 */
+        @media (max-width: 992px) {
+            .hero-event-info {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            .hero-info-item:nth-child(2n)::after {
+                display: none;
+            }
+            .speaker-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+                padding: 40px;
+            }
+            .speaker-info h3 { font-size: 24px; }
+            .speaker-info p.title { font-size: 16px; }
+            .evolution-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .evolution-text { text-align: center; }
+            .evolution-image-wrap { margin-top: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 34px; }
+            .hero-subtitle { font-size: 16px; }
+            .field-grid, .strength-item { grid-template-columns: 1fr; }
+            .strength-item { gap: 45px; margin-bottom: 80px; }
+            .strength-item:nth-child(even) { direction: ltr; }
+            .strength-image { height: 320px; }
+            .hero-event-info {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .hero-info-item::after { display: none !important; }
+
+            .program-timeline { padding-left: 30px; }
+            .program-timeline::before { left: 10px; }
+            .program-item { grid-template-columns: 1fr; gap: 15px; margin-bottom: 30px; }
+            .program-time { text-align: left; padding-top: 0; margin-bottom: 5px; }
+            .program-content { padding: 25px; }
+            .program-content::before {
+                left: -26px;
+                top: 10px;
+                border-width: 4px;
+            }
+            .cta-section h2 { font-size: 32px; }
+            .cta-date-highlight { font-size: 24px; }
+            .cta-button-large { padding: 20px 45px; font-size: 22px; }
+            .faq-question { font-size: 16px; }
+            .faq-answer { font-size: 15px; padding-left: 20px; }
+            .faq-answer::before { margin-right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-slideshow" id="heroSlideshow">
+            </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-label">JAPANKURU Inbound Marketing Seminar</p>
+            <h1 class="hero-title">140万フォロワーと築いた現場力で<br>訪日外国人の心を掴む、コンテンツの作り方</h1>
+            <p class="hero-subtitle">写真・動画・記事からSNSまで。明日から使える実践的ノウハウを公開します。</p>
+            
+            <div class="hero-new-service">
+                <span class="new-badge">NEW</span>
+                <span class="new-service-text">外国人の本音を聞く新ツール「Ask Japan」も初公開</span>
+            </div>
+
+            <div class="hero-event-box">
+                <div class="hero-event-info">
+                    <div class="hero-info-item">
+                        <div class="hero-info-label">Date</div>
+                        <div class="hero-info-value">11月27日 (木)</div>
+                    </div>
+                    <div class="hero-info-item">
+                        <div class="hero-info-label">Time</div>
+                        <div class="hero-info-value">16:00 - 18:00</div>
+                    </div>
+                    <div class="hero-info-item">
+                        <div class="hero-info-label">Venue</div>
+                        <div class="hero-info-value">東京都内</div>
+                    </div>
+                    <div class="hero-info-item">
+                        <div class="hero-info-label">Capacity</div>
+                        <div class="hero-info-value hero-capacity">30名限定</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#apply" class="cta-primary">今すぐ申し込む (無料)</a>
+        </div>
+    </section>
+
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">こんなお悩み、ありませんか？</h2>
+            <p class="section-subtitle">インバウンドマーケティングのよくある課題。私たちと一緒に解決策を見つけましょう。</p>
+            <div class="problem-grid">
+                <div class="problem-card">良い商品・サービスなのに、外国人に知られていない。</div>
+                <div class="problem-card">SNSを頑張っているが、フォロワーも売上も伸び悩んでいる。</div>
+                <div class="problem-card">インバウンド対策を始めたいが、何から手をつければいいか分からない。</div>
+                <div class="problem-card">外国人観光客が「本当に」求めているものが何か、確信が持てない。</div>
+                <div class="problem-card">一過性のブームで終わらず、継続的に選ばれるブランドになりたい。</div>
+                <div class="problem-card">魅力的なコンテンツを作りたいが、社内にノウハウやリソースがない。</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="recommend-section">
+        <div class="container">
+            <h2 class="section-title">本セミナーはこんな方におすすめです</h2>
+            <div class="recommend-list">
+                <div class="recommend-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>ホテル、小売、飲食など訪日外国人誘致を強化したい担当者様</span>
+                </div>
+                <div class="recommend-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>地域の魅力を海外に発信したい地方自治体・観光協会のご担当者様</span>
+                </div>
+                <div class="recommend-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>データに基づいた効果的なSNS戦略を知りたいマーケターの方</span>
+                </div>
+                <div class="recommend-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>「Ask Japan」の活用事例や可能性に興味をお持ちの方</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="strength-section">
+        <div class="container">
+            <h2 class="section-title">このセミナーで学べること</h2>
+            <p class="section-subtitle">JAPANKURUが5年間、140万人のフォロワーと共に培ってきたインバウンドの「現場力」と「データ」を余すことなく共有します。</p>
+            <div class="strength-showcase">
+                <div class="strength-item">
+                    <div class="strength-image">
+                        <div class="strength-image-bg" style="background-image: url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&q=80&w=2070'); filter: grayscale(100%);"></div>
+                    </div>
+                    <div class="strength-text">
+                        <div class="strength-number">1</div>
+                        <h3>現場で磨いたコンテンツ制作術</h3>
+                        <p>日本全国を駆け巡る中で発見した「外国人が反応する瞬間の捉え方」。写真・動画・記事、それぞれの形式で効果的に伝える具体的な手法をお伝えします。</p>
+                        <div class="strength-stats">
+                            <div><div class="strength-stat-value">毎日</div><div class="strength-stat-label">全国各地で取材</div></div>
+                            <div><div class="strength-stat-value">47都道府県</div><div class="strength-stat-label">取材実績から学ぶこと</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-image">
+                        <div class="strength-image-bg" style="background-image: url('https://images.unsplash.com/photo-1521737852577-684822188711?auto=format&fit=crop&q=80&w=2070'); filter: grayscale(100%);"></div>
+                    </div>
+                    <div class="strength-text">
+                        <div class="strength-number">2</div>
+                        <h3>国別に最適化する発信戦略</h3>
+                        <p>韓国、台湾、香港、東南アジア...各国専用アカウント運営で培った「それぞれの国に刺さるコンテンツの違い」。同じ商品でも、国によって響くポイントが違います。その見極め方を解説します。</p>
+                        <div class="strength-stats">
+                            <div><div class="strength-stat-value">5カ国</div><div class="strength-stat-label">専用アカウント運営</div></div>
+                            <div><div class="strength-stat-value">140万+</div><div class="strength-stat-label">フォロワーデータ分析</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-image">
+                        <div class="strength-image-bg" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070'); filter: grayscale(100%);"></div>
+                    </div>
+                    <div class="strength-text">
+                        <div class="strength-number">3</div>
+                        <h3>データから導く改善のヒント</h3>
+                        <p>140万フォロワーの反応を日々分析してきた経験から、「どんなコンテンツが、どの国で、なぜ反応されるのか」のパターンを発見。データに基づいた継続的な改善方法をお伝えします。</p>
+                        <div class="strength-stats">
+                            <div><div class="strength-stat-value">5年間</div><div class="strength-stat-label">データ蓄積</div></div>
+                            <div><div class="strength-stat-value">日次</div><div class="strength-stat-label">効果測定のノウハウ</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="speaker-section">
+        <div class="container">
+            <h2 class="section-title">講師プロフィール</h2>
+            <div class="speaker-card">
+                <div class="speaker-photo">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1974" alt="講師名">
+                </div>
+                <div class="speaker-info">
+                    <h3>田中 太郎 <span style="font-size: 18px; font-weight: normal; color: #6c757d;">(Tanaka Taro)</span></h3>
+                    <p class="title">株式会社グローバル・デイリー / JAPANKURU コンテンツ戦略総括</p>
+                    <p class="bio">
+                        JAPANKURU立ち上げ当初から全国各地の取材現場を駆け巡り、これまで1,000本以上の訪日外国人向けコンテンツを企画・制作。
+                        インバウンド市場の最前線で培った経験と、140万フォロワーの膨大なデータ分析に基づき、
+                        外国人目線で「本当に響く」コンテンツの作り方を熟知。
+                        本セミナーでは、その実践的なノウハウと、訪日観光の新たなトレンドを語ります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="evolution-section">
+        <div class="container">
+            <h2 class="section-title">JAPANKURUの次なる進化: なぜ今「Ask Japan」なのか？</h2>
+            <p class="section-subtitle">
+                JAPANKURUはこれまで、訪日外国人へ「日本の魅力」を伝えることで、旅行の「きっかけ」を創出してきました。<br>
+                しかし、私たちには見えていました。彼らが**「見る」情報から「解決する」情報**を求めるフェーズへと進化していることを。
+            </p>
+            <div class="evolution-content">
+                <div class="evolution-text">
+                    <h3>一方通行から「双方向」へ。<br>現場の「知りたい」にリアルタイムで応える新体験</h3>
+                    <p>
+                        JAPANKURUが提供する高品質なコンテンツは、今も多くの外国人に日本の旅の「夢」を見せています。
+                        しかし、実際に日本を訪れた際に生まれる「今、どこで、何をすればいい？」といった**パーソナルでリアルタイムな質問**には、既存のメディアだけでは応えきれませんでした。
+                    </p>
+                    <p>
+                        そこで私たちは、140万フォロワーとの対話で得た知見を活かし、**外国人と日本企業・自治体を直接つなぐQ&Aプラットフォーム**を開発。
+                        旅の「きっかけ」だけでなく、**「困った」「知りたい」を即座に解決**する、全く新しいコミュニケーションの形を提供します。
+                    </p>
+                    <span class="evolution-highlight">JAPANKURUの豊富なコンテンツは「夢」を、Ask Japanは「現実」の旅を豊かにします。</span>
+                </div>
+                <div class="evolution-image-wrap">
+                    <img src="https://via.placeholder.com/550x700?text=Ask+Japan+Mockup+Image" alt="Ask Japanサービスイメージ">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="program-section">
+        <div class="container">
+            <h2 class="section-title">セミナープログラム</h2>
+            <p class="section-subtitle">インバウンドの「今」と「未来」がわかる120分。Ask Japanの初公開セッションも必見です。</p>
+            <div class="program-timeline">
+                <div class="program-item">
+                    <div class="program-time">16:00-16:10</div>
+                    <div class="program-content">
+                        <h4>オープニング</h4><p>本日のゴールとアジェンダ共有</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">16:10-16:40</div>
+                    <div class="program-content">
+                        <h4>Session 1: 訪日外国人ショッピングの真実</h4><p>データで見る2025年市場 / 国別・商品カテゴリー別トレンド / 外国人が店舗・ブランドを選ぶ本当の理由</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">16:40-17:20</div>
+                    <div class="program-content">
+                        <h4>Session 2: "バズる"コンテンツの法則</h4><p>140万人の反応から分析した「エンゲージメントが高い投稿」の共通点。写真・動画・記事、メディア別の制作ポイントを事例と共に解説。</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">17:20-17:40</div>
+                    <div class="program-content">
+                        <h4>Session 3: [初公開] 新ツール「Ask Japan」</h4><p>訪日外国人の「知りたい」と企業・自治体の「伝えたい」を繋ぐQ&Aサービスのデモと、マーケティング活用法をご紹介します。</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">17:40-18:00</div>
+                    <div class="program-content">
+                        <h4>Q&A・懇親会</h4><p>質疑応答と参加者間のネットワーキング</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mid-cta-section">
+        <div class="container">
+            <h2 class="section-title">インバウンド成功のヒントがここにあります</h2>
+            <a href="#apply" class="cta-primary">今すぐ席を確保する (無料)</a>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">参加者だけの3大特典</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <h3>セミナー資料</h3>
+                    <p>当日投影するスライド資料一式をPDFでご提供します。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>懇親会参加権</h3>
+                    <p>講師やインバウンド担当者仲間との貴重なネットワーキングの機会です。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    </div>
+                    <h3>実践的ノウハウ</h3>
+                    <p>明日からすぐに使える具体的なコンテンツ制作のヒントを持ち帰れます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">よくある質問</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">参加費はかかりますか？</div>
+                    <div class="faq-answer">本セミナーは無料でご参加いただけます。追加費用は一切ございません。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">オンラインでの参加は可能ですか？</div>
+                    <div class="faq-answer">今回は、講師や参加者様間のより深い交流を目的として、会場参加のみとさせていただきます。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">途中参加・途中退出は可能ですか？</div>
+                    <div class="faq-answer">可能です。ただし、プログラムの都合上、できる限り開始からのご参加をおすすめいたします。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">定員は何名ですか？</div>
+                    <div class="faq-answer">会場の都合上、30名様限定とさせていただきます。お早めにお申し込みください。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="apply">
+        <div class="container">
+            <h2>お申し込みはこちら</h2>
+            <div class="cta-date-highlight">2025年11月27日 (木) 16:00-18:00</div>
+            <p>会場参加限定 30名様 | 参加費無料</p>
+            <a href="#" class="cta-button-large">今すぐ申し込む</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>主催: 株式会社グローバル・デイリー</p>
+            <p>お問い合わせ: seminar@japankuru.com</p>
+            <p style="margin-top: 25px; opacity: 0.65;">外国人に響くコンテンツとは何か。一緒に探っていきましょう。</p>
+        </div>
+    </footer>
+
+    <script>
+        // ヒーロースライドショー
+        const slideshow = document.getElementById('heroSlideshow');
+        // TODO: 실제 JAPANKURU의 고품질 이미지 주소로 교체해주세요
+        const slides = [
+            'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/480327052_1002406851919164_5953894728693144004_n.jpg',
+            'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/482069503_1015690160590833_54219087534287721_n.jpg',
+            'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/492098105_1052432543583261_4966030045242197387_n.jpg'
+        ];
+
+        slides.forEach((bg, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'hero-slide';
+            slide.style.backgroundImage = `url('${bg}')`;
+            if (index === 0) slide.classList.add('active');
+            slideshow.appendChild(slide);
+        });
+
+        let currentSlide = 0;
+        const slideElements = document.querySelectorAll('.hero-slide');
+
+        setInterval(() => {
+            slideElements[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideElements.length;
+            slideElements[currentSlide].classList.add('active');
+        }, 5000);
+    </script>
+</body>
+</html>
