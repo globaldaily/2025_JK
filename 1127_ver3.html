@@ -23,7 +23,8 @@
         html { scroll-behavior: smooth; }
         body { 
             font-family: var(--font-primary);
-            line-height: 1.7; 
+            font-size: 16px;
+            line-height: 1.8; 
             color: var(--color-text); 
             background-color: #fff; 
             -webkit-font-smoothing: antialiased;
@@ -36,232 +37,51 @@
         .section-dark { background: var(--color-primary-dark); color: white; }
         
         .section-header { text-align: center; margin-bottom: 70px; }
-        .section-title { font-size: 36px; font-weight: 800; margin-bottom: 16px; color: #111827; line-height: 1.3; letter-spacing: -1px; }
+        .section-title { font-size: 34px; font-weight: 800; margin-bottom: 16px; color: #111827; line-height: 1.4; letter-spacing: -1px; }
         .section-dark .section-title { color: white; }
-        .section-subtitle { font-size: 16px; color: var(--color-text-light); max-width: 650px; margin: 0 auto; line-height: 1.7; }
+        .section-subtitle { font-size: 16px; color: var(--color-text-light); max-width: 700px; margin: 0 auto; line-height: 1.7; }
         .section-dark .section-subtitle { color: rgba(255,255,255,0.8); }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- HERO SECTION --- */
-        .hero { 
-            position: relative; 
-            min-height: 90vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden; 
-            color: white; 
-            text-align: center;
-        }
-        .hero-slideshow { position: absolute; width: 100%; height: 100%; z-index: 1; background: var(--color-primary); }
+        .hero { position: relative; min-height: 680px; height: auto; padding: 100px 0; display: flex; align-items: center; justify-content: center; overflow: hidden; color: white; text-align: center; }
+        .hero-slideshow { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; background: #333; }
         .hero-slide { position: absolute; width: 100%; height: 100%; opacity: 0; background-size: cover; background-position: center; transition: opacity 2s ease-in-out, transform 8s ease-out; transform: scale(1.15); }
         .hero-slide.active { opacity: 1; transform: scale(1); }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(30, 58, 138, 0.55) 0%, rgba(15, 23, 42, 0.9) 100%); z-index: 2; }
-        .hero-content { 
-            position: relative; 
-            z-index: 3; 
-            max-width: 900px; 
-            padding: 60px 20px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-        
-        /* --- MEDIA CREDIT --- */
-        .media-credit {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        .media-credit-logo {
-            max-width: 100px;
-            height: auto;
-        }
-        .media-credit-text {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,255,255,0.8);
-            letter-spacing: 0.5px;
-        }
-        .hero-badge { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            background: rgba(255,255,255,0.12); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.25); 
-            padding: 12px 24px; 
-            border-radius: 50px; 
-            font-size: 14px; 
-            font-weight: 600; 
-            margin-bottom: 50px; 
-            text-decoration: none; 
-            color: white; 
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .hero-badge:hover { 
-            background: rgba(255,255,255,0.18); 
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
-        }
-        .badge-new { 
-            background: var(--color-accent); 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 11px; 
-            font-weight: 700; 
-            letter-spacing: 0.5px; 
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* --- MAIN CONTENT --- */
-        .hero-main-content {
-            margin-bottom: 60px;
-        }
-        .hero-title { 
-            font-size: 48px; 
-            font-weight: 800; 
-            line-height: 1.25; 
-            letter-spacing: -1.5px; 
-            margin-bottom: 30px; 
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .hero-subtitle { 
-            font-size: 18px; 
-            line-height: 1.7; 
-            opacity: 0.9; 
-            margin-bottom: 0;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 400;
-        }
-        
-        /* --- EVENT INFO --- */
-        .hero-event-details { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 20px; 
-            background: rgba(255,255,255,0.08); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 25px; 
-            border-radius: 20px; 
-            margin-bottom: 50px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.85) 100%); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; max-width: 900px; padding: 40px; }
+        .media-credit { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 30px; opacity: 0.9; }
+        .media-credit-logo { max-width: 100px; height: auto; }
+        .media-credit-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.5px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25); padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; margin-bottom: 40px; text-decoration: none; color: white; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .hero-badge:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); box-shadow: 0 12px 35px rgba(0,0,0,0.25); }
+        .badge-new { background: var(--color-accent); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .hero-main-content { margin-bottom: 40px; }
+        .hero-title { font-size: 40px; font-weight: 800; line-height: 1.3; letter-spacing: -1.5px; margin-bottom: 25px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-subtitle { font-size: 17px; line-height: 1.7; opacity: 0.9; margin-bottom: 0; max-width: 700px; margin-left: auto; margin-right: auto; font-weight: 400; }
+        .hero-event-details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; background: rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.15); padding: 25px; border-radius: 20px; margin-bottom: 40px; }
         .event-detail { text-align: center; }
-        .event-label { 
-            font-size: 12px; 
-            opacity: 0.7; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            margin-bottom: 8px; 
-            font-weight: 500; 
-        }
-        .event-value { 
-            font-size: 16px; 
-            font-weight: 600;
-            color: white;
-        }
-        
-        /* --- CTA BUTTON --- */
-        .hero-cta { 
-            display: inline-block; 
-            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark)); 
-            color: white; 
-            padding: 18px 50px; 
-            font-size: 17px; 
-            font-weight: 700; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 12px 35px rgba(220, 38, 38, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .hero-cta:hover::before {
-            left: 100%;
-        }
-        .hero-cta:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 18px 45px rgba(220, 38, 38, 0.5); 
-        }
+        .event-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 500; }
+        .event-value { font-size: 16px; font-weight: 600; color: white; }
+        .hero-cta { display: inline-block; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark)); color: white; padding: 16px 45px; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 12px 35px rgba(220, 38, 38, 0.3); }
+        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 18px 45px rgba(220, 38, 38, 0.4); }
 
-        /* --- NAVIGATION SECTION --- */
-        .nav-section {
-            background: #fff;
-            border-bottom: 1px solid var(--color-border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 20px;
-            gap: 40px;
-        }
-        .nav-item {
-            color: var(--color-text);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .nav-item:hover {
-            background: var(--color-bg-light);
-            color: var(--color-primary);
-        }
-        .nav-item.active {
-            background: var(--color-primary);
-            color: white;
-        }
-        .nav-cta {
-            background: var(--color-accent);
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-        }
-        .nav-cta:hover {
-            background: var(--color-accent-dark);
-            transform: translateY(-1px);
-        }
+        .nav-section { background: #fff; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-container { display: flex; justify-content: center; align-items: center; padding: 15px 20px; gap: 30px; }
+        .nav-item { color: var(--color-text); text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 25px; transition: all 0.3s ease; }
+        .nav-item:hover { background: var(--color-bg-light); color: var(--color-primary); }
+        .nav-item.active { background: var(--color-primary); color: white; }
+        .nav-cta { background: var(--color-accent); color: white !important; padding: 10px 20px; border-radius: 25px; font-weight: 600; }
+        .nav-cta:hover { background: var(--color-accent-dark); transform: translateY(-1px); }
 
-        /* --- Problems & Target Section --- */
         .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
         .problem-card { background: white; padding: 25px; border-radius: 12px; font-size: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); display: flex; align-items: flex-start; gap: 15px; }
-        .problem-icon { color: var(--color-primary); font-size: 20px; line-height: 1.6; }
-        .problem-text { font-weight: 500; line-height: 1.6; }
+        .problem-icon { color: var(--color-primary); font-size: 20px; line-height: 1.7; }
+        .problem-text { font-weight: 500; line-height: 1.7; }
         .solution-box { text-align: center; margin-top: 50px; padding: 25px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: white; border-radius: 16px; font-size: 18px; font-weight: 700; box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25); }
+        
         .target-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
         .target-item { background: var(--color-bg-light); padding: 20px; border-radius: 12px; }
         .target-item::before { content: '✓'; display: inline-block; width: 20px; height: 20px; background: var(--color-primary); color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; font-weight: bold; margin-right: 12px; vertical-align: middle; }
@@ -276,15 +96,132 @@
         .role-number { display: inline-block; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: white; padding: 7px 18px; border-radius: 25px; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
         .role-title { font-size: 26px; font-weight: 700; margin-bottom: 16px; color: #111827; line-height: 1.4; letter-spacing: -0.5px;}
         .role-description { font-size: 16px; color: var(--color-text-light); line-height: 1.7; }
+        .role-description ul { list-style-type: none; padding-left: 0; margin-top: 15px; }
+        .role-description li { margin-bottom: 8px; }
+        .role-description li strong { color: var(--color-text); }
         
-        .askjapan-content { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
-        .askjapan-text h3 { font-size: 32px; font-weight: 800; margin-bottom: 24px; color: white; line-height: 1.4; letter-spacing: -1px;}
-        .askjapan-text p { font-size: 16px; margin-bottom: 20px; line-height: 1.7; color: rgba(255,255,255,0.85); }
-        .askjapan-definition { background: rgba(255,255,255, 0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.95); }
-        .askjapan-definition strong { display: block; font-size: 16px; color: white; margin-bottom: 10px; }
-        .askjapan-highlight { background: rgba(255,255,255,0.1); border-left: 4px solid var(--color-accent); padding: 25px; border-radius: 12px; font-size: 16px; font-weight: 500; margin-top: 30px; }
-        .askjapan-image { text-align: center; }
-        .askjapan-image img { max-width: 320px; width: 100%; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
+       /* --- Ask Japan Section (Redesigned for Impact) --- */
+.askjapan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+.askjapan-header {
+    text-align: center;
+    margin-bottom: 0;
+}
+.askjapan-logo {
+    font-size: 56px; /* 로고 크기 대폭 확대 */
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -2px;
+    text-shadow: 0 4px 25px rgba(0,0,0,0.4);
+}
+.askjapan-concept {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 500px;
+    margin: 15px auto 20px;
+    line-height: 1.6;
+}
+.askjapan-tagline {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.5px;
+}
+.askjapan-tagline strong {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+}
+.askjapan-visual {
+    text-align: center;
+}
+.askjapan-mockup img {
+    max-width: 450px; /* 목업 이미지 크기 대폭 확대 */
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+.askjapan-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    margin-top: 20px;
+}
+.askjapan-feature-card {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.askjapan-feature-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.feature-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+.feature-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.feature-description {
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+}
+.askjapan-synergy {
+    margin-top: 60px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 60px;
+}
+.synergy-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #fff;
+}
+.synergy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    text-align: left;
+}
+.synergy-item {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+}
+.synergy-item strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .askjapan-features {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .askjapan-mockup img {
+        max-width: 300px;
+    }
+}
         
         .program-timeline { max-width: 800px; margin: 0 auto; }
         .program-item { display: flex; position: relative; padding: 0 0 40px 40px; }
@@ -333,186 +270,62 @@
         .footer p { margin: 8px 0; opacity: 0.7; font-size: 14px; }
         .footer-note { margin-top: 30px; font-style: italic; opacity: 0.5; }
 
-        /* --- Responsive Design --- */
         @media (max-width: 992px) {
-            .hero-event-details { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .hero-title { font-size: 38px; line-height: 1.3; }
-            .hero-content { padding: 50px 20px; }
-            .nav-container { gap: 20px; overflow-x: auto; padding: 15px 10px; }
             .role-item, .role-item:nth-child(even) { grid-template-columns: 1fr; gap: 40px; }
             .role-item:nth-child(even) .role-content { order: 0; }
-            .askjapan-content { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+            .askjapan-features { grid-template-columns: 1fr; }
             .speakers-grid { grid-template-columns: 1fr; }
+            .hero-event-details { grid-template-columns: repeat(2, 1fr); }
+            .recommend-list { grid-template-columns: 1fr; }
+            .synergy-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
             .section { padding: 80px 0; }
-            .hero { min-height: 80vh; }
+            .hero { min-height: auto; padding: 100px 0; }
             .hero-title { font-size: 32px; }
             .hero-subtitle { font-size: 16px; }
-            .hero-content { padding: 40px 20px; }
-            .media-credit { 
-                flex-direction: column; 
-                gap: 8px; 
-                margin-bottom: 25px; 
-            }
-            .media-credit-logo { max-width: 80px; }
-            .media-credit-text { font-size: 12px; text-align: center; }
-            .hero-badge { padding: 10px 20px; font-size: 13px; margin-bottom: 40px; }
-            .hero-event-details { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 12px; 
-                padding: 20px; 
-                margin-bottom: 40px;
-            }
-            .event-value { font-size: 14px; }
-            .hero-cta { padding: 16px 40px; font-size: 16px; }
-            .nav-container { 
-                flex-wrap: wrap; 
-                gap: 10px; 
-                justify-content: flex-start;
-            }
-            .nav-item { 
-                font-size: 14px; 
-                padding: 6px 12px; 
-            }
             .section-title { font-size: 30px; }
+            .hero-event-details { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+            .event-value { font-size: 14px; }
             .problems-grid, .target-grid, .benefits-grid { grid-template-columns: 1fr; }
             .program-item { padding-left: 30px; }
             .program-item::before { left: 0; }
             .program-item::after { left: -6px; }
             .program-time { position: static; text-align: left; margin-bottom: 5px; width: auto;}
         }
-
-/* --- Ask Japan Section (Redesigned & Layout Fixed) --- */
-.askjapan-container {
-    display: grid;
-    grid-template-columns: 1fr 400px 1fr; /* 좌, 중앙(이미지), 우 */
-    grid-template-areas: 
-        "feature1 visual feature2"
-        "feature1 visual feature3";
-    gap: 40px;
-    align-items: center;
-}
-.askjapan-visual { 
-    grid-area: visual;
-    position: relative;
-    max-width: 400px;
-    margin: 0 auto;
-}
-.askjapan-visual img {
-    width: 100%;
-    border-radius: 24px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-}
-.askjapan-feature-card {
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.15);
-    text-align: left;
-    transition: all 0.3s ease;
-}
-#feature1 { grid-area: feature1; align-self: end; }
-#feature2 { grid-area: feature2; align-self: start; }
-#feature3 { grid-area: feature3; align-self: end; }
-
-.askjapan-feature-card:hover {
-    background: rgba(255,255,255,0.1);
-    transform: translateY(-5px);
-}
-.feature-icon {
-    font-size: 32px;
-    margin-bottom: 15px;
-}
-.feature-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #fff;
-}
-.feature-description {
-    font-size: 14px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
-}
-
-/* Responsive adjustments for the new Ask Japan section */
-@media (max-width: 992px) {
-    .askjapan-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "visual"
-            "feature1"
-            "feature2"
-            "feature3";
-        gap: 30px;
-    }
-    .askjapan-visual {
-        max-width: 350px; /* 모바일에서 이미지 크기 조정 */
-    }
-    .askjapan-feature-card {
-        text-align: center;
-    }
-    #feature1, #feature2, #feature3 {
-        align-self: auto;
-    }
-}
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-slideshow" id="heroSlideshow"></div>
         <div class="hero-overlay"></div>
         <div class="container">
-            <div class="hero-content">
-                <!-- Media Credit -->
-                <div class="media-credit">
-                    <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="JAPANKURU" class="media-credit-logo" />
-                    <span class="media-credit-text">訪日外国人向けメディア「JAPANKURU」主催 (2012年設立)</span>
+            <div class="hero-content reveal">
+                <div class="hero-logo">
+                    <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="JAPANKURU Logo">
                 </div>
-
-                <!-- NEW Badge -->
+                <h1 class="hero-title">訪日外国人の心に残り、<br>「選ばれる」瞬間を作る<br>インバウンドマーケティングセミナー</h1>
+                <p class="hero-subtitle">JAPANKURUの現場力と140万フォロワーのデータから導き出した、貴社のブランドが「買われ、訪れられ、体験される」ためのノウハウを全て公開します。</p>
+                
                 <a href="#ask-japan-section" class="hero-badge">
                     <span class="badge-new">NEW</span>
                     <span>外国人の本音を聞く新ツール「Ask Japan」も初公開</span>
                 </a>
 
-                <!-- Main Content -->
-                <div class="hero-main-content">
-                    <h1 class="hero-title">訪日外国人の心に残り、<br>「選ばれる」瞬間を作る<br>インバウンドマーケティングセミナー</h1>
-                    <p class="hero-subtitle">13年間、日本全国を取材しコンテンツ制作で築き上げたJAPANKURUの現場力と140万フォロワーのデータから導き出した、貴社のブランドが「買われ、訪れられ、体験される」ためのノウハウを全て公開します。</p>
-                </div>
-
-                <!-- Event Details -->
                 <div class="hero-event-details">
-                    <div class="event-detail">
-                        <div class="event-label">Date</div>
-                        <div class="event-value">11月27日 (木)</div>
-                    </div>
-                    <div class="event-detail">
-                        <div class="event-label">Time</div>
-                        <div class="event-value">16:00-18:00</div>
-                    </div>
-                    <div class="event-detail">
-                        <div class="event-label">Venue</div>
-                        <div class="event-value">台東区上野 TIX Tower</div>
-                    </div>
-                    <div class="event-detail">
-                        <div class="event-label">定員</div>
-                        <div class="event-value">30社限定</div>
-                    </div>
+                    <div class="event-detail"><div class="event-label">Date</div><div class="event-value">11月27日 (木)</div></div>
+                    <div class="event-detail"><div class="event-label">Time</div><div class="event-value">16:00-18:00</div></div>
+                    <div class="event-detail"><div class="event-label">Venue</div><div class="event-value">台東区上野 TIX Tower</div></div>
+                    <div class="event-detail"><div class="event-label">定員</div><div class="event-value">30社限定</div></div>
                 </div>
                 
-                <!-- CTA Button -->
                 <a href="#apply" class="hero-cta">今すぐ無料で申し込む</a>
             </div>
         </div>
     </header>
 
-    <!-- Navigation Section -->
     <nav class="nav-section">
         <div class="container">
             <div class="nav-container">
@@ -587,44 +400,67 @@
                         <div class="role-content">
                             <div class="role-number">ROLE 03</div>
                             <h3 class="role-title">「育てる資産」としてのコンテンツ</h3>
-                            <p class="role-description">JAPANKURUのコンテンツは、一度きりの「消費物」ではなく、オンラインとオフラインを横断して活用し続ける「資産」です。
-
-多様な活用: 貴社SNSやウェブサイトはもちろん、空港のサイネージ、海外の旅行博まで、あらゆる顧客接点でブランド価値を発信し続けます。
-価値の育成: 変化し続けるトレンドに合わせてコンテンツを更新し、「生きている資産」としてその価値を常に最大化。持続的に選ばれるブランドへと育てます。</p>
+                            <p class="role-description">
+                                JAPANKURUのコンテンツは、一度きりの「消費物」ではなく、オンラインとオフラインを横断して活用し続ける「資産」です。
+                                <ul>
+                                    <li><strong>多様な活用:</strong> 貴社SNSやウェブサイトはもちろん、空港のサイネージ、海外の旅行博まで、あらゆる顧客接点でブランド価値を発信し続けます。</li>
+                                    <li><strong>価値の育成:</strong> 変化し続けるトレンドに合わせてコンテンツを更新し、「生きている資産」としてその価値を常に最大化。持続的に選ばれるブランドへと育てます。</li>
+                                </ul>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-  <section class="section section-dark" id="ask-japan-section">
+        <section class="section section-dark" id="ask-japan-section">
     <div class="container">
         <div class="section-header reveal">
             <h2 class="section-title">JAPANKURUの次なる進化</h2>
             <p class="section-subtitle">ユーザーの「疑問」を、貴社の「ビジネスチャンス」に変える。</p>
         </div>
         <div class="askjapan-container reveal">
-    <div class="askjapan-visual">
-        <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan App Mockup">
-    </div>
-    <div class="askjapan-feature-card" id="feature1">
-        <div class="feature-icon">📊</div>
-        <h4 class="feature-title">リアルタイムなニーズを可視化</h4>
-        <p class="feature-description">訪日客が「今、何に困っているか」という生の声をデータとして蓄積。これまで見えなかった市場の声を可視化します。</p>
-    </div>
-    <div class="askjapan-feature-card" id="feature2">
-        <div class="feature-icon">🔗</div>
-        <h4 class="feature-title">直接的な顧客接点の創出</h4>
-        <p class="feature-description">質問への回答を通じて未来の顧客と直接コミュニケーション。貴社の店舗やサービスへ正確に誘導できます。</p>
-    </div>
-    <div class="askjapan-feature-card" id="feature3">
-        <div class="feature-icon">📈</div>
-        <h4 class="feature-title">未来のトレンドを予測</h4>
-        <p class="feature-description">蓄積されたQ&Aデータは次のヒット商品やサービス改善に繋がるインサイトの宝庫。未来を予測する羅針盤となります。</p>
-    </div>
-</div>
+            <div class="askjapan-header">
+                <h2 class="askjapan-logo">Ask Japan</h2>
+                <p class="askjapan-concept">
+                    訪日客の「リアルな質問」と日本の「魅力的な答え」を繋ぐQ&Aアプリ
+                </p>
+                <p class="askjapan-tagline">Powered by <strong>JAPANKURU</strong></p>
+            </div>
+            <div class="askjapan-visual">
+                <div class="askjapan-mockup">
+                    <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan App Mockup">
+                </div>
+            </div>
+            <div class="askjapan-features">
+                <div class="askjapan-feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4 class="feature-title">リアルな「旅行者の本音」がわかる</h4>
+                    <p class="feature-description">「このお土産、どこで買えますか？」といった具体的な質問から、AIでは絶対に拾えない、生々しいニーズを直接把握できます。</p>
+                </div>
+                <div class="askjapan-feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h4 class="feature-title">未来の顧客と「直接」繋がる</h4>
+                    <p class="feature-description">質問に答える、という自然な形でユーザーと関係を構築。次の来店や購買へと繋がる貴重な接点を創出します。</p>
+                </div>
+                <div class="askjapan-feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h4 class="feature-title">データに基づいた「次の戦略」が見える</h4>
+                    <p class="feature-description">蓄積された膨大なQ&Aは、新商品開発やサービス改善のヒントが詰まった宝庫。感覚ではない、データに基づいた意思決定を可能にします。</p>
+                </div>
+            </div>
+            <div class="askjapan-synergy">
+                <h4 class="synergy-title">JAPANKURUメディアとの「最強の連携」</h4>
+                <div class="synergy-grid">
+                    <div class="synergy-item"><strong>インスピレーション → アクション:</strong> JAPANKURUの記事で生まれた「行ってみたい！」を、Ask Japanの具体的な質問と行動に繋げます。</div>
+                    <div class="synergy-item"><strong>信頼性の最大化:</strong> Ask Japanの回答に信頼性の高いJAPANKURUの記事を添えることで、旅行者の満足度を最大化します。</div>
+                    <div class="synergy-item"><strong>データが次のコンテンツを創る:</strong> Ask JapanのQ&Aデータは、JAPANKURUが次に制作すべきコンテンツを示す羅針盤となります。</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+        
         <section class="section" id="program">
             <div class="container">
                 <div class="section-header reveal">
@@ -731,11 +567,9 @@
                     
                     const img = new Image();
                     img.onload = function() {
-                        console.log('Image loaded successfully:', bg);
                         slide.style.backgroundImage = `url('${bg}')`;
                     };
                     img.onerror = function() {
-                        console.error('Failed to load image:', bg);
                         const fallbackImages = [
                             'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&q=80&w=2070',
                             'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=2070',
