@@ -50,7 +50,7 @@
         .hero-slide { position: absolute; width: 100%; height: 100%; opacity: 0; background-size: cover; background-position: center; transition: opacity 2s ease-in-out, transform 8s ease-out; transform: scale(1.15); }
         .hero-slide.active { opacity: 1; transform: scale(1); }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.85) 100%); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; max-width: 900px; padding: 40px; }
+        .hero-content { position: relative; z-index: 3; max-width: 800px; padding: 40px; }
         .media-credit { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 30px; opacity: 0.9; }
         .media-credit-logo { max-width: 100px; height: auto; }
         .media-credit-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.5px; }
@@ -156,7 +156,7 @@
         .footer p { margin: 8px 0; opacity: 0.7; font-size: 14px; }
         .footer-note { margin-top: 30px; font-style: italic; opacity: 0.5; }
         
-        .mobile-share-buttons { position: fixed; bottom: 100px; right: 15px; display: none; flex-direction: column; gap: 10px; z-index: 1001; }
+        .mobile-share-buttons { position: fixed; bottom: 100px; right: 16px; display: flex; flex-direction: column; gap: 10px; z-index: 1001; }
         .mobile-share-btn { width: 50px; height: 50px; border-radius: 50%; border: none; background: #fff; color: var(--color-text); font-size: 14px; font-weight: 700; font-family: var(--font-primary); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.3s ease; }
         .mobile-share-btn:hover { transform: scale(1.1); }
         .mobile-share-btn.line { background: #06C755; color: white; font-size: 16px; }
@@ -169,7 +169,15 @@
         #toast-container { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 2000; display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .toast-message { background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 25px; font-size: 14px; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; }
         .toast-message.show { opacity: 1; transform: translateY(0); }
+        + /* 데스크탑에서 과도한 존재감 줄이기 */
+@media (min-width: 1024px) {
+.mobile-share-buttons { bottom: 120px; right: 24px; gap: 8px; }
+.mobile-share-btn { width: 44px; height: 44px; font-size: 13px; box-shadow: 0 3px 12px rgba(0,0,0,0.12); }
+.mobile-share-btn.native { font-size: 16px; }
+ }
 
+ /* 이미 있는 모바일 최적화는 유지 */
+ @media (max-width: 768px) {
         @media (max-width: 992px) {
             .role-item, .role-item:nth-child(even) { grid-template-columns: 1fr; gap: 40px; }
             .role-item:nth-child(even) .role-content { order: 0; }
@@ -428,9 +436,8 @@
                     <h2 class="section-title">よくある質問</h2>
                 </div>
                 <div class="faq-container reveal">
-                    <details class="faq-item"><summary class="faq-question">小規模な事業者でも参加できますか？</summary><div class="faq-answer">はい。規模に関わらず、インバウンド売上向上を目指す方であればどなたでもご参加いただけます。</div></details>
-                    <details class="faq-item"><summary class="faq-question">オンライン参加でも十分に学べますか？</summary><div class="faq-answer">はい。オンラインでも全てのコンテンツをご視聴いただけます。ただし、懇親会へのご参加は会場参加者限定となります。</div></details>
                     <details class="faq-item"><summary class="faq-question">Ask Japanについて詳しく知りたいのですが？</summary><div class="faq-answer">セミナー内で実際の画面や質問例をご紹介します。まだ始まったばかりのサービスですが、その可能性を一緒に探れればと思います。</div></details>
+                    <details class="faq-item"><summary class="faq-question">当日は何を持参すれば良いですか？</summary><div class="faq-answer">特に必要な持ち物はございませんが、名刺交換の時間がございますので、お名刺を少し多めにお持ちいただくことをお勧めします。</div></details>
                 </div>
             </div>
         </section>
@@ -457,188 +464,222 @@
     </footer>
 
     <div class="mobile-share-buttons">
-        <button class="mobile-share-btn native" title="シェア">📤</button>
-        <button class="mobile-share-btn line" title="LINEで送る">LINE</button>
-        <button class="mobile-share-btn url" title="URLをコピー">URL</button>
-    </div>
+    <button class="mobile-share-btn native" title="シェア">📤</button>
+    <button class="mobile-share-btn line" title="LINEで送る">LINE</button>
+    <button class="mobile-share-btn url" title="URLをコピー">URL</button>
+</div>
 
-    <div class="mobile-sticky-cta">
-        <a href="#apply">今すぐ無料で申し込む</a>
-    </div>
+<div class="mobile-sticky-cta">
+    <a href="#apply">今すぐ無料で申し込む</a>
+</div>
 
-    <div id="toast-container"></div>
+<div id="toast-container"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slideshow = document.getElementById('heroSlideshow');
-            if (slideshow) {
-                const slides = [
-                    'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/492098105_1052432543583261_4966030045242197387_n.jpg',
-                    'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/480327052_1002406851919164_5953894728693144004_n.jpg',
-                    'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/01/JK_Hokuriku_CC89.jpg'
-                ];
-                let currentSlide = 0;
-                
-                const slideElements = slides.map((bg, index) => {
-                    const slide = document.createElement('div');
-                    slide.className = 'hero-slide';
-                    
-                    const img = new Image();
-                    img.onload = function() {
-                        slide.style.backgroundImage = `url('${bg}')`;
-                    };
-                    img.onerror = function() {
-                        const fallbackImages = [
-                            'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&q=80&w=2070',
-                            'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=2070',
-                            'https://images.unsplash.com/photo-1503177119-9a0810793132?auto=format&fit=crop&q=80&w=2070'
-                        ];
-                        slide.style.backgroundImage = `url('${fallbackImages[index] || fallbackImages[0]}')`;
-                    };
-                    img.src = bg;
-                    
-                    if (index === 0) slide.classList.add('active');
-                    slideshow.appendChild(slide);
-                    return slide;
-                });
-                
-                setInterval(() => {
-                    slideElements[currentSlide].classList.remove('active');
-                    currentSlide = (currentSlide + 1) % slideElements.length;
-                    slideElements[currentSlide].classList.add('active');
-                }, 5000);
+  document.addEventListener('DOMContentLoaded', () => {
+    // ----------------------------
+    // Hero Slideshow
+    // ----------------------------
+    const slideshow = document.getElementById('heroSlideshow');
+    if (slideshow) {
+      const slides = [
+        'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/492098105_1052432543583261_4966030045242197387_n.jpg',
+        'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/08/480327052_1002406851919164_5953894728693144004_n.jpg',
+        'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/01/JK_Hokuriku_CC89.jpg'
+      ];
+      let currentSlide = 0;
+
+      const slideElements = slides.map((bg, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'hero-slide';
+
+        const img = new Image();
+        img.onload = function () {
+          slide.style.backgroundImage = `url('${bg}')`;
+        };
+        img.onerror = function () {
+          const fallbackImages = [
+            'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&q=80&w=2070',
+            'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=2070',
+            'https://images.unsplash.com/photo-1503177119-9a0810793132?auto=format&fit=crop&q=80&w=2070'
+          ];
+          slide.style.backgroundImage = `url('${fallbackImages[index] || fallbackImages[0]}')`;
+        };
+        img.src = bg;
+
+        if (index === 0) slide.classList.add('active');
+        slideshow.appendChild(slide);
+        return slide;
+      });
+
+      setInterval(() => {
+        slideElements[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slideElements.length;
+        slideElements[currentSlide].classList.add('active');
+      }, 5000);
+    }
+
+    // ----------------------------
+    // Reveal on scroll
+    // ----------------------------
+    const revealElements = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
             }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      revealElements.forEach(el => observer.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add('visible'));
+    }
 
-            const revealElements = document.querySelectorAll('.reveal');
-            if ("IntersectionObserver" in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, {
-                    threshold: 0.1
-                });
-                revealElements.forEach(el => {
-                    observer.observe(el);
-                });
-            } else {
-                revealElements.forEach(el => {
-                    el.classList.add('visible');
-                });
-            }
+    // ----------------------------
+    // Toast
+    // ----------------------------
+    const showToast = (message, duration = 2500) => {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'toast-message';
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 100);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (container.contains(toast)) container.removeChild(toast);
+        }, 300);
+      }, duration);
+    };
 
-            // --- START: 추가할 JavaScript 코드 ---
+    // ----------------------------
+    // Share Buttons (Desktop도 노출)
+    // ----------------------------
+    const shareContainer = document.querySelector('.mobile-share-buttons');
+    const btnNative = document.querySelector('.mobile-share-btn.native');
+    const btnLine = document.querySelector('.mobile-share-btn.line');
+    const btnUrl = document.querySelector('.mobile-share-btn.url');
+    const stickyCta = document.querySelector('.mobile-sticky-cta');
 
-            // Helper function to check if mobile
-            const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // 1) 컨테이너를 강제로 표시 (CSS 미수정 환경에서도 데스크탑에 노출)
+    if (shareContainer) {
+      shareContainer.style.display = 'flex';
+      shareContainer.style.flexDirection = 'column';
+      shareContainer.style.zIndex = '1001';
+      // 접근성 라벨
+      if (btnNative) btnNative.setAttribute('aria-label', '共有する');
+      if (btnLine) btnLine.setAttribute('aria-label', 'LINEで送る');
+      if (btnUrl) btnUrl.setAttribute('aria-label', 'URLをコピー');
+    }
 
-            // Toast Message Function
-            const showToast = (message, duration = 2500) => {
-                const container = document.getElementById('toast-container');
-                if (!container) return;
-                const toast = document.createElement('div');
-                toast.className = 'toast-message';
-                toast.textContent = message;
-                container.appendChild(toast);
-                setTimeout(() => toast.classList.add('show'), 100);
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                    setTimeout(() => {
-                        if(container.contains(toast)) {
-                            container.removeChild(toast);
-                        }
-                    }, 300);
-                }, duration);
-            };
+    // 2) 네이티브 공유: 데스크탑 Chrome/Edge도 지원 시 보이도록 isMobile 제한 제거
+    const shareData = {
+      title: document.title,
+      text:
+        'JAPANKURU主催のインバウンドマーケティングセミナーで、訪日客に選ばれるブランドになるためのヒントを見つけませんか？',
+      url: window.location.href
+    };
 
-            // --- Share Button Logic ---
-            const shareData = {
-                title: document.title,
-                text: 'JAPANKURU主催のインバウンドマーケティングセミナーで、訪日客に選ばれるブランドになるためのヒントを見つけませんか？',
-                url: window.location.href
-            };
-
-            const btnNative = document.querySelector('.mobile-share-btn.native');
-            const btnLine = document.querySelector('.mobile-share-btn.line');
-            const btnUrl = document.querySelector('.mobile-share-btn.url');
-
-            // Native Share
-            if (btnNative) {
-                if(navigator.share && isMobile()) {
-                    btnNative.addEventListener('click', async () => {
-                        try {
-                            await navigator.share(shareData);
-                        } catch (err) {
-                            console.log('Share failed:', err);
-                        }
-                    });
-                } else {
-                    btnNative.style.display = 'none';
-                }
-            }
-
-            // LINE Share
-            if(btnLine) {
-                btnLine.addEventListener('click', () => {
-                    const url = encodeURIComponent(window.location.href);
-                    const text = encodeURIComponent(shareData.text);
-                    window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank');
-                });
-            }
-
-            // URL Copy
-            if(btnUrl){
-                btnUrl.addEventListener('click', () => {
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        showToast('URLをコピーしました！');
-                        btnUrl.textContent = '✓';
-                        btnUrl.classList.add('copied');
-                        setTimeout(() => {
-                            btnUrl.textContent = 'URL';
-                            btnUrl.classList.remove('copied');
-                        }, 2000);
-                    }).catch(err => {
-                        showToast('コピーに失敗しました');
-                        console.error('Copy failed', err);
-                    });
-                });
-            }
-
-            // --- Sticky Nav Scroll Tracking Logic ---
-            const navLinks = document.querySelectorAll('.nav-item');
-            const sections = document.querySelectorAll('main > section[id], header.hero[id]');
-
-            const updateActiveNav = () => {
-                let currentSectionId = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 150) { // Offset for nav height
-                        currentSectionId = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    // href가 #top일 경우, 스크롤이 최상단 근처일 때 active
-                    if (link.getAttribute('href') === '#top' && !currentSectionId) {
-                         // Default to TOP if no other section is active
-                        link.classList.add('active');
-                    } 
-                    else if (link.getAttribute('href') === `#${currentSectionId}`) {
-                         // 다른 링크들은 해당 섹션에 있을 때 active
-                        link.classList.add('active');
-                    }
-                });
-            };
-
-            window.addEventListener('scroll', updateActiveNav);
-            updateActiveNav(); // Initial check on load
-
+    if (btnNative) {
+      if (navigator.share) {
+        btnNative.addEventListener('click', async () => {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.log('Share failed:', err);
+          }
         });
-    </script>
+        // 버튼 보이기 보장
+        btnNative.style.display = 'flex';
+      } else {
+        // 미지원 브라우저는 숨김
+        btnNative.style.display = 'none';
+      }
+    }
+
+    // 3) LINE 공유
+    if (btnLine) {
+      btnLine.addEventListener('click', () => {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(shareData.text);
+        window.open(
+          `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`,
+          '_blank',
+          'noopener,noreferrer'
+        );
+      });
+    }
+
+    // 4) URL 복사
+    if (btnUrl) {
+      btnUrl.addEventListener('click', () => {
+        navigator.clipboard
+          .writeText(window.location.href)
+          .then(() => {
+            showToast('URLをコピーしました！');
+            btnUrl.textContent = '✓';
+            btnUrl.classList.add('copied');
+            setTimeout(() => {
+              btnUrl.textContent = 'URL';
+              btnUrl.classList.remove('copied');
+            }, 2000);
+          })
+          .catch(err => {
+            showToast('コピーに失敗しました');
+            console.error('Copy failed', err);
+          });
+      });
+    }
+
+    // 5) 하단 CTA와 겹침 방지: CTA가 보이면 공유버튼 bottom을 올림
+    const positionShareButtons = () => {
+      if (!shareContainer) return;
+      let bottom = 100; // 기본
+      if (stickyCta) {
+        const display = window.getComputedStyle(stickyCta).display;
+        if (display && display !== 'none') bottom = 140; // CTA 노출 시 여유
+      }
+      shareContainer.style.bottom = `${bottom}px`;
+    };
+    positionShareButtons();
+    window.addEventListener('resize', positionShareButtons);
+
+    // ----------------------------
+    // Sticky Nav - 현재 섹션 하이라이트
+    // ----------------------------
+    const navLinks = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('main > section[id], header.hero[id]');
+
+    const updateActiveNav = () => {
+      let currentSectionId = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#top' && (pageYOffset < 400 || !currentSectionId)) {
+          link.classList.add('active');
+        } else if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav(); // 초기 상태 반영
+  });
+</script>
+
 </body>
 </html>
