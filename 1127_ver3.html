@@ -383,6 +383,81 @@
             .program-item::after { left: -6px; }
             .program-time { position: static; text-align: left; margin-bottom: 5px; width: auto;}
         }
+
+/* --- Ask Japan Section (Redesigned & Layout Fixed) --- */
+.askjapan-container {
+    display: grid;
+    grid-template-columns: 1fr 400px 1fr; /* 좌, 중앙(이미지), 우 */
+    grid-template-areas: 
+        "feature1 visual feature2"
+        "feature1 visual feature3";
+    gap: 40px;
+    align-items: center;
+}
+.askjapan-visual { 
+    grid-area: visual;
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.askjapan-visual img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+.askjapan-feature-card {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: left;
+    transition: all 0.3s ease;
+}
+#feature1 { grid-area: feature1; align-self: end; }
+#feature2 { grid-area: feature2; align-self: start; }
+#feature3 { grid-area: feature3; align-self: end; }
+
+.askjapan-feature-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+}
+.feature-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+.feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.feature-description {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+}
+
+/* Responsive adjustments for the new Ask Japan section */
+@media (max-width: 992px) {
+    .askjapan-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "visual"
+            "feature1"
+            "feature2"
+            "feature3";
+        gap: 30px;
+    }
+    .askjapan-visual {
+        max-width: 350px; /* 모바일에서 이미지 크기 조정 */
+    }
+    .askjapan-feature-card {
+        text-align: center;
+    }
+    #feature1, #feature2, #feature3 {
+        align-self: auto;
+    }
+}
     </style>
 </head>
 <body>
@@ -522,23 +597,34 @@
             </div>
         </section>
 
-        <section class="section section-dark" id="ask-japan-section">
-            <div class="container">
-                <div class="askjapan-content reveal">
-                    <div class="askjapan-text">
-                        <h3>JAPANKURUの次なる進化　→　<br>Ask Japan</h3>
-                        <div class="askjapan-definition">
-                            <strong>Ask Japanとは？</strong>
-                            訪日外国人の「今、知りたい！」というリアルな質問に、日本の企業や自治体が直接答えることでビジネスチャンスを創出する、新しいQ&Aプラットフォームです。
-                        </div>
-                        <p>JAPANKURUのコンテンツが旅行の「きっかけ(Inspiration)」を創る一方で、私たちは旅行者が現場で抱くリアルタイムの「疑問(Question)」に気づいていました。</p>
-                        <div class="askjapan-highlight">JAPANKURUがブランドの<strong>「認知・好意」</strong>を形成するなら、<strong>Ask Japan</strong>は旅行者の<strong>「現場での疑問」</strong>を解決し、貴社の店舗やサービスへの<strong>「訪問・購買」</strong>を直接促す、強力な一手となります。</div>
-                    </div>
-                    <div class="askjapan-image"><img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan App Mockup"></div>
-                </div>
-            </div>
-        </section>
-
+  <section class="section section-dark" id="ask-japan-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">JAPANKURUの次なる進化</h2>
+            <p class="section-subtitle">ユーザーの「疑問」を、貴社の「ビジネスチャンス」に変える。</p>
+        </div>
+        <div class="askjapan-container reveal">
+    <div class="askjapan-visual">
+        <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan App Mockup">
+    </div>
+    <div class="askjapan-feature-card" id="feature1">
+        <div class="feature-icon">📊</div>
+        <h4 class="feature-title">リアルタイムなニーズを可視化</h4>
+        <p class="feature-description">訪日客が「今、何に困っているか」という生の声をデータとして蓄積。これまで見えなかった市場の声を可視化します。</p>
+    </div>
+    <div class="askjapan-feature-card" id="feature2">
+        <div class="feature-icon">🔗</div>
+        <h4 class="feature-title">直接的な顧客接点の創出</h4>
+        <p class="feature-description">質問への回答を通じて未来の顧客と直接コミュニケーション。貴社の店舗やサービスへ正確に誘導できます。</p>
+    </div>
+    <div class="askjapan-feature-card" id="feature3">
+        <div class="feature-icon">📈</div>
+        <h4 class="feature-title">未来のトレンドを予測</h4>
+        <p class="feature-description">蓄積されたQ&Aデータは次のヒット商品やサービス改善に繋がるインサイトの宝庫。未来を予測する羅針盤となります。</p>
+    </div>
+</div>
+    </div>
+</section>
         <section class="section" id="program">
             <div class="container">
                 <div class="section-header reveal">
@@ -575,8 +661,8 @@
                     <h2 class="section-title">スピーカー紹介</h2>
                 </div>
                 <div class="speakers-grid">
-                    <div class="speaker-card reveal"><div class="speaker-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400" alt="スピーカー1"></div><div class="speaker-name">[名前]</div><div class="speaker-title">JAPANKURU メディア担当</div><div class="speaker-bio">韓国・台湾・東南アジア向けコンテンツ制作を担当。5年間で140万フォロワーと共にJAPANKURUメディアを成長させてきた経験から、外国人に響くコンテンツ作りの試行錯誤をお話しします。</div></div>
-                    <div class="speaker-card reveal"><div class="speaker-photo"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=400" alt="スピーカー2"></div><div class="speaker-name">[名前]</div><div class="speaker-title">コンテンツ制作担当</div><div class="speaker-bio">写真・動画・記事制作を担当。外国人フォロワーの反応を日々見ながら、試行錯誤しているコンテンツ作りのリアルな工夫をお伝えします。</div></div>
+                    <div class="speaker-card reveal"><div class="speaker-photo"><img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/DSC01179-のコピー-scaled.jpg" alt="スピーカー1"></div><div class="speaker-name">金 アンディ</div><div class="speaker-title">JAPANKURU メディア担当</div><div class="speaker-bio">韓国・台湾・東南アジア向けコンテンツ制作を担当。5年間で140万フォロワーと共にJAPANKURUメディアを成長させてきた経験から、外国人に響くコンテンツ作りの試行錯誤をお話しします。</div></div>
+                    <div class="speaker-card reveal"><div class="speaker-photo"><img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/07/スクリーンショット-2025-07-28-17.57.24.png" alt="スピーカー2"></div><div class="speaker-name">チェ　ひろゆき</div><div class="speaker-title">コンテンツ制作担当</div><div class="speaker-bio">写真・動画・記事制作を担当。外国人フォロワーの反応を日々見ながら、試行錯誤しているコンテンツ作りのリアルな工夫をお伝えします。</div></div>
                 </div>
             </div>
         </section>
