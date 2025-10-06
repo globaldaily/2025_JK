@@ -101,18 +101,19 @@
         .role-description li strong { color: var(--color-text); }
         
        /* --- Ask Japan Section (Redesigned for Impact) --- */
+　　　　/* --- Ask Japan Section (Asymmetrical Balance Layout) --- */
 .askjapan-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 40px;
 }
 .askjapan-header {
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 .askjapan-logo {
-    font-size: 56px; /* 로고 크기 대폭 확대 */
+    font-size: 56px;
     font-weight: 800;
     color: #fff;
     letter-spacing: -2px;
@@ -136,28 +137,36 @@
     font-weight: 700;
     color: rgba(255, 255, 255, 0.8);
 }
+.askjapan-main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+.askjapan-features-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
 .askjapan-visual {
     text-align: center;
 }
-.askjapan-mockup img {
-    max-width: 450px; /* 목업 이미지 크기 대폭 확대 */
+.askjapan-visual img {
+    max-width: 420px;
     width: 100%;
     border-radius: 24px;
     box-shadow: 0 30px 70px rgba(0,0,0,0.35);
 }
-.askjapan-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+.askjapan-feature-fullwidth {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .askjapan-feature-card {
     background: rgba(255,255,255,0.05);
     padding: 30px;
     border-radius: 16px;
     border: 1px solid rgba(255,255,255,0.15);
-    text-align: center;
     transition: all 0.3s ease;
 }
 .askjapan-feature-card:hover {
@@ -168,6 +177,7 @@
 .feature-icon {
     font-size: 32px;
     margin-bottom: 15px;
+    color: var(--color-accent);
 }
 .feature-title {
     font-size: 18px;
@@ -209,6 +219,17 @@
 .synergy-item strong {
     color: #fff;
     font-weight: 700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .askjapan-main-layout {
+        grid-template-columns: 1fr;
+    }
+    .askjapan-visual {
+        order: -1; /* 이미지를 위로 보냄 */
+        margin-bottom: 30px;
+    }
 }
 
 /* Responsive adjustments */
@@ -413,7 +434,7 @@
             </div>
         </section>
 
-        <section class="section section-dark" id="ask-japan-section">
+       <section class="section section-dark" id="ask-japan-section">
     <div class="container">
         <div class="section-header reveal">
             <h2 class="section-title">JAPANKURUの次なる進化</h2>
@@ -427,28 +448,32 @@
                 </p>
                 <p class="askjapan-tagline">Powered by <strong>JAPANKURU</strong></p>
             </div>
-            <div class="askjapan-visual">
-                <div class="askjapan-mockup">
+
+            <div class="askjapan-main-layout">
+                <div class="askjapan-features-col">
+                    <div class="askjapan-feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4 class="feature-title">リアルな「旅行者の本音」がわかる</h4>
+                        <p class="feature-description">「このお土産、どこで買えますか？」といった具体的な質問から、AIでは絶対に拾えない、生々しいニーズを直接把握できます。</p>
+                    </div>
+                    <div class="askjapan-feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h4 class="feature-title">未来の顧客と「直接」繋がる</h4>
+                        <p class="feature-description">質問に答える、という自然な形でユーザーと関係を構築。次の来店や購買へと繋がる貴重な接点を創出します。</p>
+                    </div>
+                </div>
+                <div class="askjapan-visual">
                     <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan App Mockup">
                 </div>
             </div>
-            <div class="askjapan-features">
-                <div class="askjapan-feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h4 class="feature-title">リアルな「旅行者の本音」がわかる</h4>
-                    <p class="feature-description">「このお土産、どこで買えますか？」といった具体的な質問から、AIでは絶対に拾えない、生々しいニーズを直接把握できます。</p>
-                </div>
-                <div class="askjapan-feature-card">
-                    <div class="feature-icon">🔗</div>
-                    <h4 class="feature-title">未来の顧客と「直接」繋がる</h4>
-                    <p class="feature-description">質問に答える、という自然な形でユーザーと関係を構築。次の来店や購買へと繋がる貴重な接点を創出します。</p>
-                </div>
-                <div class="askjapan-feature-card">
+            <div class="askjapan-feature-fullwidth">
+                 <div class="askjapan-feature-card">
                     <div class="feature-icon">📈</div>
                     <h4 class="feature-title">データに基づいた「次の戦略」が見える</h4>
                     <p class="feature-description">蓄積された膨大なQ&Aは、新商品開発やサービス改善のヒントが詰まった宝庫。感覚ではない、データに基づいた意思決定を可能にします。</p>
                 </div>
             </div>
+
             <div class="askjapan-synergy">
                 <h4 class="synergy-title">JAPANKURUメディアとの「最強の連携」</h4>
                 <div class="synergy-grid">
