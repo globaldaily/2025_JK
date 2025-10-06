@@ -29,6 +29,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
         .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
         .section { padding: 120px 0; }
         .section-alt { background: var(--color-bg-light); }
         .section-dark { background: var(--color-primary-dark); color: white; }
@@ -88,6 +89,8 @@
         .askjapan-content { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
         .askjapan-text h3 { font-size: 32px; font-weight: 800; margin-bottom: 24px; color: white; line-height: 1.4; letter-spacing: -1px;}
         .askjapan-text p { font-size: 16px; margin-bottom: 20px; line-height: 1.7; color: rgba(255,255,255,0.85); }
+        .askjapan-definition { background: rgba(255,255,255, 0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.95); }
+        .askjapan-definition strong { display: block; font-size: 16px; color: white; margin-bottom: 10px; }
         .askjapan-highlight { background: rgba(255,255,255,0.1); border-left: 4px solid var(--color-accent); padding: 25px; border-radius: 12px; font-size: 16px; font-weight: 500; margin-top: 30px; }
         .askjapan-image { text-align: center; }
         .askjapan-image img { max-width: 320px; width: 100%; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
@@ -161,22 +164,6 @@
             .program-item::after { left: -6px; }
             .program-time { position: static; text-align: left; margin-bottom: 5px; width: auto;}
         }
-        .askjapan-definition {
-    background: rgba(255,255,255, 0.05);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
-    font-size: 16px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.95);
-}
-.askjapan-definition strong {
-    display: block;
-    font-size: 18px;
-    color: white;
-    margin-bottom: 10px;
-}
     </style>
 </head>
 <body>
@@ -187,7 +174,7 @@
         <div class="container">
             <div class="hero-content reveal">
                 <div class="hero-logo">
-                    <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="JAPANKURU Logo">
+                    <img src="https://www.gldaily.com/gld-kanri/wp-content/themes/gld2021/images/logo.svg" alt="JAPANKURU Logo">
                 </div>
                 <h1 class="hero-title">訪日外国人の心に残り、<br>「選ばれる」瞬間を作る<br>インバウンドマーケティングセミナー</h1>
                 <p class="hero-subtitle">JAPANKURUの現場力と140万フォロワーのデータから導き出した、貴社のブランドが「買われ、訪れられ、体験される」ためのノウハウを全て公開します。</p>
@@ -249,7 +236,10 @@
                 <div class="roles-container">
                     <div class="role-item reveal">
                         <div class="role-image"><img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800" alt="Quality Standard"></div>
-                        <div class="role-content"><div class="role-number">ROLE 01</div><h3 class="role-title">公式素材となる「クオリティの基準」を創る</h3><p class="role-description">私たちが制作する写真や動画は、キャンペーンに参加する他のインフルエンサーやメディアが活用する「公式ガイド」となり、ブランドの第一印象とクオリティの基準を決定づけます。</p>
+                        <div class="role-content">
+                            <div class="role-number">ROLE 01</div>
+                            <h3 class="role-title">公式素材となる「クオリティの基準」を創る</h3>
+                            <p class="role-description">私たちが制作する写真や動画は、キャンペーンに参加する他のインフルエンサーやメディアが活用する「公式ガイド」となり、ブランドの第一印象とクオリティの基準を決定づけます。</p>
                             <ul class="role-deliverables">
                                 <li>公式ブランドアセットの構築</li>
                                 <li>多言語での統一されたメッセージング</li>
@@ -257,7 +247,10 @@
                         </div>
                     </div>
                     <div class="role-item reveal">
-                        <div class="role-content"><div class="role-number">ROLE 02</div><h3 class="role-title">ブランドの「グローバルデビュー」を飾る</h3><p class="role-description">多くのクライアントが、海外市場への「デビューの舞台」としてJAPANKURUを選びます。ブランドの価値を最も正確で魅力的なストーリーとして翻訳し、世界中の消費者が認識する最初の基準点を創ります。</p>
+                        <div class="role-content">
+                            <div class="role-number">ROLE 02</div>
+                            <h3 class="role-title">ブランドの「グローバルデビュー」を飾る</h3>
+                            <p class="role-description">多くのクライアントが、海外市場への「デビューの舞台」としてJAPANKURUを選びます。ブランドの価値を最も正確で魅力的なストーリーとして翻訳し、世界中の消費者が認識する最初の基準点を創ります。</p>
                             <ul class="role-deliverables">
                                 <li>ネイティブクリエイターによる文化背景の翻訳</li>
                                 <li>ターゲット国に最適化されたストーリーテリング</li>
@@ -267,8 +260,11 @@
                     </div>
                     <div class="role-item reveal">
                         <div class="role-image"><img src="https://images.unsplash.com/photo-1587825140708-df876c1d1838?auto=format&fit=crop&q=80&w=800" alt="Effect Amplifier"></div>
-                        <div class="role-content"><div class="role-number">ROLE 03</div><h3 class="role-title">多様なマーケティング活動の「効果増幅器」となる</h3><p class="role-description">私たちの高品質なコンテンツは、それ以降の全てのマーケティング活動の効果を最大化する「増幅器」です。JAPANKURUが築いた信頼の土台が、キャンペーン全体の成功を支えます。</p>
-                            <ul class="role-deliverables">
+                        <div class="role-content">
+                            <div class="role-number">ROLE 03</div>
+                            <h3 class="role-title">多様なマーケティング活動の「効果増幅器」となる</h3>
+                            <p class="role-description">私たちの高品質なコンテンツは、それ以降の全てのマーケティング活動の効果を最大化する「増幅器」です。JAPANKURUが築いた信頼の土台が、キャンペーン全体の成功を支えます。</p>
+                             <ul class="role-deliverables">
                                 <li>信頼性 있는 정보 기반 제공</li>
                                 <li>2次、3次 바이럴 확산을 위한 콘텐츠 허브 역할</li>
                             </ul>
@@ -278,28 +274,22 @@
             </div>
         </section>
 
-       <section class="section section-dark" id="ask-japan-section">
-    <div class="container">
-        <div class="askjapan-content reveal">
-            <div class="askjapan-text">
-                <h3>JAPANKURUの次なる進化:<br>Ask Japanの可能性</h3>
-                
-                <div class="askjapan-definition">
-                    <strong>Ask Japanとは？</strong>
-                    訪日外国人の「今、知りたい！」というリアルな質問に、日本の企業や自治体が直接答えることでビジネスチャンスを創出する、新しいQ&Aプラットフォームです。
-                </div>
-                <p>JAPANKURUのコンテンツが旅行の「きっかけ(Inspiration)」を創る一方で、私たちは旅行者が現場で抱くリアルタイムの「疑問(Question)」に気づいていました。</p>
-                
-                <div class="askjapan-highlight">
-                    JAPANKURUがブランドの<strong>「認知・好意」</strong>を形成するなら、<strong>Ask Japan</strong>は旅行者の<strong>「現場での疑問」</strong>を解決し、貴社の店舗やサービスへの<strong>「訪問・購買」</strong>を直接促す、強力な一手となります。
+        <section class="section section-dark" id="ask-japan-section">
+            <div class="container">
+                <div class="askjapan-content reveal">
+                    <div class="askjapan-text">
+                        <h3>JAPANKURUの次なる進化:<br>Ask Japanの可能性</h3>
+                        <div class="askjapan-definition">
+                            <strong>Ask Japanとは？</strong>
+                            訪日外国人の「今、知りたい！」というリアルな質問に、日本の企業や自治体が直接答えることでビジネスチャンスを創出する、新しいQ&Aプラットフォームです。
+                        </div>
+                        <p>JAPANKURUのコンテンツが旅行の「きっかけ(Inspiration)」を創る一方で、私たちは旅行者が現場で抱くリアルタイムの「疑問(Question)」に気づいていました。</p>
+                        <div class="askjapan-highlight">JAPANKURUがブランドの<strong>「認知・好意」</strong>を形成するなら、<strong>Ask Japan</strong>は旅行者の<strong>「現場での疑問」</strong>を解決し、貴社の店舗やサービスへの<strong>「訪問・購買」</strong>を直接促す、強力な一手となります。</div>
+                    </div>
+                    <div class="askjapan-image"><img src="https://via.placeholder.com/350x500/667eea/white?text=Ask+Japan+App" alt="Ask Japan App Mockup"></div>
                 </div>
             </div>
-            <div class="askjapan-image">
-                <img src="https://via.placeholder.com/350x500/667eea/white?text=Ask+Japan+App" alt="Ask Japan App Mockup">
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <section class="section">
             <div class="container">
@@ -390,7 +380,6 @@
         </footer>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                // Hero slideshow
                 const slideshow = document.getElementById('heroSlideshow');
                 if (slideshow) {
                     const slides = [
@@ -414,20 +403,26 @@
                     }, 5000);
                 }
 
-                // On-scroll reveal animations
                 const revealElements = document.querySelectorAll('.reveal');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
+                if ("IntersectionObserver" in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.1
                     });
-                }, {
-                    threshold: 0.1
-                });
-                revealElements.forEach(el => {
-                    observer.observe(el);
-                });
+                    revealElements.forEach(el => {
+                        observer.observe(el);
+                    });
+                } else {
+                    revealElements.forEach(el => {
+                        el.classList.add('visible');
+                    });
+                }
             });
         </script>
     </body>
