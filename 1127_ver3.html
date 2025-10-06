@@ -43,7 +43,18 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .hero { position: relative; height: 100vh; min-height: 800px; display: flex; align-items: center; justify-content: center; overflow: hidden; color: white; text-align: center; }
+        .hero { 
+    position: relative; 
+    /* height: 100vh; 삭제 */
+    /* min-height: 800px; 삭제 */
+    min-height: 650px; /* 화면 전체를 차지하지 않도록 높이를 대폭 줄여서 조정 */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    color: white; 
+    text-align: center;
+}
         .hero-slideshow { position: absolute; width: 100%; height: 100%; z-index: 1; background: var(--color-primary); }
         .hero-slide { position: absolute; width: 100%; height: 100%; opacity: 0; background-size: cover; background-position: center; transition: opacity 2s ease-in-out, transform 8s ease-out; transform: scale(1.15); }
 .hero-overlay { 
@@ -52,7 +63,6 @@
     left: 0; 
     width: 100%; 
     height: 100%; 
-    /* 파란색 오버레이 -> 블랙 톤의 반투명 오버레이로 변경 */
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%); 
     z-index: 2; 
 }
