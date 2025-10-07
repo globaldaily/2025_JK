@@ -542,7 +542,66 @@
     padding-top: 60px;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
-
+.process-slider {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+.slide img {
+    width: 100%;
+    display: block;
+    background-color: #f0f0f0;
+}
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 40px 25px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.3s;
+}
+.slide.active .slide-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(- ৫০%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+}
+.slider-nav:hover { background-color: white; }
+.slider-nav.prev { left: 15px; }
+.slider-nav.next { right: 15px; }
 </style>
 </head>
 <body>
@@ -696,6 +755,29 @@
             </div>
         </div>
 
+    </div>
+</section>
+
+<section class="section section-alt" style="padding-top: 0;">
+    <div class="container">
+        <div class="process-slider" id="process-slider-1">
+            <div class="slider-wrapper">
+                <div class="slide active">
+                    <img src="https://placehold.co/1000x500/1e3a8a/ffffff?text=Planning+Photo" alt="Planning session for a photoshoot">
+                    <div class="slide-caption">一枚の写真のために、戦略を練る。</div>
+                </div>
+                <div class="slide">
+                    <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/D4S_3004.jpg" alt="Director focusing on the shot">
+                    <div class="slide-caption">その場所にしかない、最高の光を見つける瞬間。</div>
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/1000x500/dc2626/ffffff?text=Final+Result" alt="The final impactful photograph">
+                    <div class="slide-caption">そして、心に響く一枚が生まれる。</div>
+                </div>
+            </div>
+            <button class="slider-nav prev">&lt;</button>
+            <button class="slider-nav next">&gt;</button>
+        </div>
     </div>
 </section>
 
@@ -1079,7 +1161,61 @@
             window.addEventListener('scroll', updateActiveNav);
             updateActiveNav();
         });
-    </script>
+    
+function initSlider(sliderId) {
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+    const slides = slider.querySelectorAll('.slide');
+    const wrapper = slider.querySelector('.slider-wrapper');
+    const prevBtn = slider.querySelector('.prev');
+    const nextBtn = slider.querySelector('.next');
+    let currentIndex = 0;
+    let autoSlideInterval;
 
+    function goToSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+        wrapper.style.transform = `translateX(-${index * 100}%)`;
+        currentIndex = index;
+    }
+
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % slides.length;
+        goToSlide(nextIndex);
+    }
+    
+    function prevSlide() {
+        const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+        goToSlide(prevIndex);
+    }
+
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoSlide();
+    });
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoSlide();
+    });
+    
+    slider.addEventListener('mouseenter', stopAutoSlide);
+    slider.addEventListener('mouseleave', startAutoSlide);
+
+    goToSlide(0);
+    startAutoSlide();
+}
+
+// 슬라이더 실행
+initSlider('process-slider-1');
+</script>
 </body>
 </html>
