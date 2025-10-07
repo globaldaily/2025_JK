@@ -602,6 +602,54 @@
 .slider-nav:hover { background-color: white; }
 .slider-nav.prev { left: 15px; }
 .slider-nav.next { right: 15px; }
+
+/* --- 참가 특전 섹션 (최종 수정) --- */
+.benefits-grid-revised {
+    display: grid;
+    /* 3단 그리드에서 2단으로 변경 */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 900px; /* 2단이므로 최대 너비를 약간 줄여 균형 맞춤 */
+    margin: 0 auto;
+}
+.benefit-item {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    padding: 35px 30px;
+    border-radius: 16px;
+    text-align: left;
+}
+.benefit-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.benefit-number {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.5;
+}
+.benefit-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.5;
+}
+.benefit-description-revised {
+    font-size: 15px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    padding-left: 35px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) { /* 모바일에서는 1단으로 */
+    .benefits-grid-revised {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
 <body>
@@ -862,18 +910,33 @@
         </section>
         
         <section class="section section-alt">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">参加特典</h2>
-                    <p class="section-subtitle">本セミナーにご参加いただいた皆様へ、感謝を込めて特典をご用意しました。</p>
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">参加者だけの「2つの特別な価値」</h2>
+            <p class="section-subtitle">セミナーでの学びを最大化し、未来のビジネスチャンスに繋げるための特別な機会をご提供します。</p>
+        </div>
+        <div class="benefits-grid-revised reveal">
+            <div class="benefit-item">
+                <div class="benefit-header">
+                    <span class="benefit-number">01</span>
+                    <h3 class="benefit-title">明日から使える「実践マニュアル」<br>セミナー全資料を提供</h3>
                 </div>
-                <div class="benefits-grid">
-                    <div class="benefit-card reveal"><div class="benefit-icon">📄</div><div class="benefit-title">セミナー資料一式</div><div class="benefit-description">当日投影する全ての資料をPDF形式でご提供。社内での共有や復習にご活用いただけます。</div></div>
-                    <div class="benefit-card reveal"><div class="benefit-icon">💡</div><div class="benefit-title">実践的ノウハウ</div><div class="benefit-description">明日からすぐに使える具体的なコンテンツ制作のヒントや、インサイトが詰まった資料をお持ち帰りいただけます。</div></div>
-                    <div class="benefit-card reveal"><div class="benefit-icon">🤝</div><div class="benefit-title">ネットワーキングの機会</div><div class="benefit-description">セミナー後の懇親会で、講師や同じ悩みを持つ他社の担当者様との貴重な交流の機会をご提供します。(会場参加者のみ)</div></div>
-                </div>
+                <p class="benefit-description-revised">
+                    当日投影する全ての資料をPDFでお渡しします。単なる記録ではなく、JAPANKURUの13年分のノウハウが凝縮された「実践マニュアル」です。貴社の会議や次の企画立案で、強力な武器となることをお約束します。
+                </p>
             </div>
-        </section>
+            <div class="benefit-item">
+                <div class="benefit-header">
+                    <span class="benefit-number">02</span>
+                    <h3 class="benefit-title">多様なプロと繋がるネットワーキング<br>新たなビジネスチャンスの創出</h3>
+                </div>
+                <p class="benefit-description-revised">
+                    懇親会は、セミナー運営者はもちろん、JAPANKURUの多国籍スタッフやグローバル・デイリーのコンサルタントとも直接対話できる貴重な時間です。意識の高い参加者の皆様との交流から、新たな協業のヒントが生まれる場となります。
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
         
         <section class="section" id="speakers">
             <div class="container">
