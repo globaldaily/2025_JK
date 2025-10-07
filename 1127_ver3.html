@@ -81,7 +81,37 @@
     /* --- 본문 폰트 크기 개선 --- */
     .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
     .problem-card { background: white; padding: 25px; border-radius: 12px; font-size: 16px; /* 15px -> 16px */ box-shadow: 0 8px 30px rgba(0,0,0,0.06); display: flex; align-items: flex-start; gap: 15px; }
-    .problem-icon { color: var(--color-primary); font-size: 20px; line-height: 1.7; }
+    .problem-card {
+    flex-direction: column; /* 아이템을 세로로 쌓음 */
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.problem-identifier {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--color-primary);
+    opacity: 0.7;
+}
+
+.problem-identifier .problem-label {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.problem-identifier .problem-count {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.problem-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+}
     .problem-text { font-weight: 500; line-height: 1.7; }
     .solution-box { text-align: center; margin-top: 50px; padding: 25px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: white; border-radius: 16px; font-size: 18px; font-weight: 700; box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25); }
     .target-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
@@ -89,18 +119,105 @@
     .target-item::before { content: '✓'; display: inline-block; width: 20px; height: 20px; background: var(--color-primary); color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; font-weight: bold; margin-right: 12px; vertical-align: middle; }
     .target-text { font-size: 16px; /* 15px -> 16px */ font-weight: 500; display: inline; }
     
-    .roles-container { display: grid; gap: 100px; }
-    .role-item { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .role-item:nth-child(even) .role-content { order: 2; }
-    .role-image { border-radius: 16px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.15); height: 400px; }
-    .role-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-    .role-item:hover .role-image img { transform: scale(1.05); }
-    .role-number { display: inline-block; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); color: white; padding: 7px 18px; border-radius: 25px; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
-    .role-title { font-size: 26px; font-weight: 700; margin-bottom: 16px; color: #111827; line-height: 1.4; letter-spacing: -0.5px;}
-    .role-description { font-size: 16px; color: var(--color-text-light); line-height: 1.7; }
-    .role-description ul { list-style-type: none; padding-left: 0; margin-top: 15px; }
-    .role-description li { margin-bottom: 10px; font-size: 16px; /* 15px -> 16px */ }
-    .role-description li strong { color: var(--color-text); }
+   .roles-container-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 그리드 */
+    gap: 30px;
+    max-width: 960px; /* 최대 너비 조정 */
+    margin: 0 auto;
+}
+
+.role-item-sub {
+    background: #fff; /* 밝은 섹션이므로 배경색을 흰색으로 */
+    padding: 35px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    border: 1px solid var(--color-border);
+}
+
+.role-item-main {
+    grid-column: 1 / -1; /* 메인 아이템이 2열을 모두 차지하도록 */
+    margin-top: 30px;
+    text-align: center;
+}
+.role-item-main .role-image {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px -15px rgba(0,0,0,0.2);
+    height: 450px; /* 메인 이미지 높이 강조 */
+    margin-bottom: 30px;
+}
+.role-item-main .role-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.role-item-main .role-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ROLE 03의 리스트 스타일 */
+.role-feature-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 20px;
+    font-size: 15px;
+}
+.role-feature-list li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.role-feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--color-primary);
+    font-weight: 900;
+}
+.role-feature-list li strong {
+    color: var(--color-text);
+}
+
+
+/* 공통 스타일 (기존 스타일 재활용 및 수정) */
+.role-number {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    padding: 7px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+.role-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #111827;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+.role-description {
+    font-size: 16px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .roles-container-featured {
+        grid-template-columns: 1fr; /* 1열로 변경 */
+    }
+    .role-item-main {
+        /* 모바일에서는 순서를 자연스럽게 마지막으로 */
+        order: 3;
+    }
+}
     
     /* --- ASK JAPAN SECTION 개선 --- */
 .askjapan-container { display: flex; flex-direction: column; align-items: center; gap: 40px; }
@@ -425,6 +542,7 @@
     padding-top: 60px;
     border-top: 1px solid rgba(255,255,255,0.2);
 }
+
 </style>
 </head>
 <body>
@@ -482,12 +600,51 @@
                     <h2 class="section-title">こんなお悩みありませんか？</h2>
                 </div>
                 <div class="problems-grid">
-                    <div class="problem-card reveal"><span class="problem-icon">🔎</span><div class="problem-text">「良いモノ」はあるのに、そもそも海外に知られていない、見つけられていない。</div></div>
-                    <div class="problem-card reveal"><span class="problem-icon">💔</span><div class="problem-text">翻訳はしたが、文化の違いからか、コンテンツが全く「響いていない」気がする。</div></div>
-                    <div class="problem-card reveal"><span class="problem-icon">📊</span><div class="problem-text">SNSの「いいね」は増えても、実際の来店や購買といったビジネス成果に繋がらない。</div></div>
-                   <div class="problem-card reveal"><span class="problem-icon">📈</span><div class="problem-text">施策の効果測定が曖昧で、社内での評価や次の予算確保に繋がらない。</div></div>
-                   <div class="problem-card reveal"><span class="problem-icon">⏳</span><div class="problem-text">一度は話題になったが、情報の鮮度が落ち、継続的な関心を引けていない。</div></div>
-                   <div class="problem-card reveal"><span class="problem-icon">🤷‍♂️</span><div class="problem-text">魅力的なコンテンツを作りたいが、社内にノウハウやリソースがない。</div></div>
+   
+                    <div class="problems-grid">
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">01</span>
+        </div>
+        <div class="problem-text">「良いモノ」はあるのに、そもそも海外に知られていない、見つけられていない。</div>
+    </div>
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">02</span>
+        </div>
+        <div class="problem-text">翻訳はしたが、文化の違いからか、コンテンツが全く「響いていない」気がする。</div>
+    </div>
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">03</span>
+        </div>
+        <div class="problem-text">SNSの「いいね」は増えても、実際の来店や購買といったビジネス成果に繋がらない。</div>
+    </div>
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">04</span>
+        </div>
+        <div class="problem-text">施策の効果測定が曖昧で、社内での評価や次の予算確保に繋がらない。</div>
+    </div>
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">05</span>
+        </div>
+        <div class="problem-text">一度は話題になったが、情報の鮮度が落ち、継続的な関心を引けていない。</div>
+    </div>
+    <div class="problem-card reveal">
+        <div class="problem-identifier">
+            <span class="problem-label">Problem</span>
+            <span class="problem-count">06</span>
+        </div>
+        <div class="problem-text">魅力的なコンテンツを作りたいが、社内にノウハウやリソースがない。</div>
+    </div>
+</div>
                 </div>
                 <div class="solution-box reveal">その課題解決の糸口、JAPANKURUの「現場力」と「データ」の中に、一緒に見つけませんか。</div>
             </div>
@@ -508,45 +665,39 @@
         </section>
 
         <section class="section section-alt" id="roles">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">なぜ、多くのグローバルキャンペーンは<br>JAPANKURUから始まるのか？</h2>
-                    <p class="section-subtitle">現代のインバウンドマーケティングは、様々なメディアやインフルエンサーが参加する「オーケストラ」です。その中でJAPANKURUは、キャンペーン全体の成功を左右する重要な役割を担っています。</p>
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">なぜ、多くのグローバルキャンペーンは<br>JAPANKURUから始まるのか？</h2>
+            <p class="section-subtitle">現代のインバウンドマーケティングは、様々なメディアやインフルエンサーが参加する「オーケストラ」です。その中でJAPANKURUは、キャンペーン全体の成功を左右する重要な役割を担っています。</p>
+        </div>
+
+        <div class="roles-container-featured reveal">
+            <div class="role-item-sub">
+                <div class="role-number">ROLE 02</div>
+                <h3 class="role-title">ブランドの「グローバルデビュー」を飾る</h3>
+                <p class="role-description">多くのクライアントが、海外市場への「デビューの舞台」としてJAPANKURUを選びます。ブランドの価値を最も正確で魅力的なストーリーとして翻訳し、世界中の消費者が認識する最初の基準点を創ります。</p>
+            </div>
+
+            <div class="role-item-sub">
+                <div class="role-number">ROLE 03</div>
+                <h3 class="role-title">「育てる資産」としてのコンテンツ</h3>
+                <p class="role-description">一度きりの「消費物」ではなく、SNSやサイネージなど多様な場面で活用し、トレンドに合わせて進化し続ける「生きている資産」。それがJAPANKURUのコンテンツです。貴社のブランド価値を、持続的に最大化します。</p>
+            </div>
+
+            <div class="role-item-main">
+                <div class="role-image">
+                    <img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/12/DSC05498.jpg" alt="Quality Standard">
                 </div>
-                <div class="roles-container">
-                    <div class="role-item reveal">
-                        <div class="role-image"><img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/12/DSC05498.jpg" alt="Quality Standard"></div>
-                        <div class="role-content">
-                            <div class="role-number">ROLE 01</div>
-                            <h3 class="role-title">公式素材となる「クオリティの基準」を創る</h3>
-                            <p class="role-description">私たちが制作する写真や動画は、キャンペーンに参加する他のインフルエンサーやメディアが活用する「公式ガイド」となり、ブランドの第一印象とクオリティの基準を決定づけます。</p>
-                        </div>
-                    </div>
-                    <div class="role-item reveal">
-                        <div class="role-content">
-                            <div class="role-number">ROLE 02</div>
-                            <h3 class="role-title">ブランドの「グローバルデビュー」を飾る</h3>
-                            <p class="role-description">多くのクライアントが、海外市場への「デビューの舞台」としてJAPANKURUを選びます。ブランドの価値を最も正確で魅力的なストーリーとして翻訳し、世界中の消費者が認識する最初の基準点を創ります。</p>
-                        </div>
-                        <div class="role-image"><img src="https://www.japankuru.com/gld-kanri/data/uploads/2024/11/Maehara_CC09-scaled.jpg" alt="Global Debut"></div>
-                    </div>
-                    <div class="role-item reveal">
-                        <div class="role-image"><img src="https://img.japankuru.com/prg_img/img/img2022031117354385929200.jpg" alt="Effect Amplifier"></div>
-                        <div class="role-content">
-                            <div class="role-number">ROLE 03</div>
-                            <h3 class="role-title">「育てる資産」としてのコンテンツ</h3>
-                            <p class="role-description">
-                                JAPANKURUのコンテンツは、一度きりの「消費物」ではなく、オンラインとオフラインを横断して活用し続ける「資産」です。
-                                <ul>
-                                    <li><strong>多様な活用:</strong> 貴社SNSやウェブサイトはもちろん、空港のサイネージ、海外の旅行博まで、あらゆる顧客接点でブランド価値を発信し続けます。</li>
-                                    <li><strong>価値の育成:</strong> 変化し続けるトレンドに合わせてコンテンツを更新し、「生きている資産」としてその価値を常に最大化。持続的に選ばれるブランドへと育てます。</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div>
+                <div class="role-content">
+                    <div class="role-number">ROLE 01</div>
+                    <h3 class="role-title">公式素材となる「クオリティの基準」を創る</h3>
+                    <p class="role-description">私たちが制作する写真や動画は、キャンペーンに参加する他のインフルエンサーやメディアが活用する「公式ガイド」となり、ブランドの第一印象とクオリティの基準を決定づけます。</p>
                 </div>
             </div>
-        </section>
+        </div>
+
+    </div>
+</section>
 
        <section class="section section-dark" id="ask-japan-section">
     <div class="container">
@@ -690,7 +841,7 @@
             <div class="container">
                 <div class="cta-content reveal">
                     <h2 class="cta-title">今すぐお申し込みを</h2>
-                    <p class="cta-subtitle">先着順・定員に達し次第締切となります。<br>JAPANKURUの5年間の経験と、Ask Japanという新しい試みをぜひ貴社のビジネスにお役立てください。</p>
+                    <p class="cta-subtitle">先着順・定員に達し次第締切となります。<br>JAPANKURUの12年間の経験と、Ask Japanという新しい試みをぜひ貴社のビジネスにお役立てください。</p>
                     <a href="#" class="hero-cta">今すぐ無料で申し込む</a>
                 </div>
             </div>
@@ -701,8 +852,8 @@
         <div class="container">
             <div class="footer-content">
                 <p><strong>主催: 株式会社グローバル・デイリー</strong></p>
-                <p>お問い合わせ: seminar@japankuru.com / 03-XXXX-XXXX</p>
-                <p class="footer-note">外国人に響くコンテンツとは何か。正解はないかもしれませんが、一緒に探っていきましょう。</p>
+                <p>お問い合わせ: info@japankuru.com / 03-6860-7011</p>
+                <p class="footer-note">変化し続けるインバウンド市場で、常に選ばれ続けるブランドへ。JAPANKURUが、貴社の最も信頼できるパートナーになります。</p>
             </div>
         </div>
     </footer>
