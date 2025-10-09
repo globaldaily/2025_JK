@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japankuru.com メディア運営部 組織改革計画書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'MS Gothic', sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #f8f9fa;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .logo {
+            width: 300px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 1.0em;
+            color: #6c757d;
+            font-weight: 400;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 16px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: #f8f9fa;
+            color: #495057;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .nav-tab:last-child {
+            border-right: none;
+        }
+        
+        .nav-tab.active {
+            background: #e8f4f8;
+            color: #2c3e50;
+            border-bottom: 3px solid #74b9ff;
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .card h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #74b9ff;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        
+        .card h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .card h4 {
+            color: #495057;
+            margin: 20px 0 10px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .problem-section {
+            background: #fdf2f2;
+            border-left: 4px solid #ff7675;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .solution-section {
+            background: #f0f9f4;
+            border-left: 4px solid #00b894;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .org-chart {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        
+        .org-level {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .org-box {
+            background: white;
+            border: 2px solid #74b9ff;
+            border-radius: 6px;
+            padding: 18px 22px;
+            min-width: 180px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            font-weight: 500;
+        }
+        
+        .org-box.executive {
+            background: #2d3436;
+            color: white;
+            border-color: #2d3436;
+        }
+        
+        .org-box.manager {
+            background: #74b9ff;
+            color: white;
+            border-color: #74b9ff;
+        }
+        
+        .org-box.team-lead {
+            background: #00b894;
+            color: white;
+            border-color: #00b894;
+        }
+        
+        .org-box.staff {
+            background: #fdcb6e;
+            color: #2d3436;
+            border-color: #fdcb6e;
+        }
+        
+        .org-box.vacant {
+            background: #ff7675;
+            color: white;
+            border-color: #ff7675;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .role-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 25px 0;
+            background: #fafbfc;
+        }
+        
+        .role-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .role-title {
+            flex: 1;
+        }
+        
+        .role-title h3 {
+            color: #2c3e50;
+            margin: 0 0 8px 0;
+            font-size: 1.3em;
+        }
+        
+        .promotion-badge {
+            background: #00b894;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .current-level {
+            background: #74b9ff;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .duties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .duty-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .duty-card h5 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.0em;
+            font-weight: 600;
+        }
+        
+        .duty-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .duty-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.9em;
+        }
+        
+        .duty-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .kpi-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .kpi-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .kpi-value {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #74b9ff;
+            margin-bottom: 5px;
+        }
+        
+        .kpi-label {
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+        
+        .benefits-section {
+            background: #fff8e1;
+            border-left: 4px solid #fdcb6e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .interview-process {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .process-step {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .process-step:before {
+            content: attr(data-step);
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #74b9ff;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #74b9ff;
+        }
+        
+        .timeline-item {
+            position: relative;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 20px;
+            width: 8px;
+            height: 8px;
+            background: #74b9ff;
+            border-radius: 50%;
+        }
+        
+        .warning-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning-section h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #a8dadc 0%, #457b9d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .detailed-duties {
+            margin: 20px 0;
+        }
+        
+        .duty-category {
+            margin-bottom: 25px;
+        }
+        
+        .duty-category h5 {
+            background: #e8f4f8;
+            padding: 10px 15px;
+            border-radius: 4px;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .duty-details {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        
+        .duty-details ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .duty-details li {
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .interview-process {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .duties-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .org-level {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://japankuru.com/wp-content/uploads/2023/01/japankuru-logo.png" alt="JAPANKURU" class="logo">
+            <h1>メディア運営部 組織改革計画書</h1>
+            <div class="subtitle">訪日外国人向けインバウンドメディア事業の戦略的変革</div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('current')">現状分析</button>
+            <button class="nav-tab" onclick="showTab('org')">組織体制</button>
+            <button class="nav-tab" onclick="showTab('roles')">職務詳細</button>
+            <button class="nav-tab" onclick="showTab('interview')">面談要領</button>
+            <button class="nav-tab" onclick="showTab('schedule')">実施計画</button>
+        </div>
+        
+        <!-- 現状分析タブ -->
+        <div id="current" class="tab-content active">
+            <div class="card">
+                <h2>現在の組織構成</h2>
+                <div class="org-chart">
+                    <div class="org-level">
+                        <div class="org-box executive">担当役員<br>Andy</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box manager">オペレーター<br>Fujita<br>(契約進行)</div>
+                        <div class="org-box vacant">メディア運営部<br>次長：チェ（他部署異動予定）<br>⚠️ 空席</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box team-lead">英語圏主任<br>Sophia</div>
+                        <div class="org-box team-lead">韓国係長<br>Hee won</div>
+                        <div class="org-box staff">タイ一般<br>Sarita</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box staff">台湾アルバイト<br>So</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>組織運営上の課題</h2>
+                
+                <h3>管理体制の問題</h3>
+                <div class="problem-section">
+                    <ul>
+                        <li><strong>統括管理機能の欠如：</strong>現マネージャーの能力不足により、チーム全体の戦略的方向性が不明確</li>
+                        <li><strong>業務標準化の未整備：</strong>各担当者が独自の方法で業務を進行し、品質にばらつきが発生</li>
+                        <li><strong>成果管理システムの不備：</strong>明確なKPIと評価基準が設定されておらず、責任の所在が曖昧</li>
+                        <li><strong>人材育成機能の不足：</strong>体系的な教育・研修制度がなく、スキル向上が個人任せ</li>
+                    </ul>
+                </div>
+                
+                <h3>最も深刻な問題：競合分析・市場理解の完全欠如</h3>
+                <div class="problem-section">
+                    <ul>
+                        <li><strong>競合メディアのベンチマーキング皆無：</strong>他のインバウンドメディアの戦略・手法を全く研究せず、独りよがりの制作のみ</li>
+                        <li><strong>市場インサイトへの無関心：</strong>担当国の観光客が実際に何を求めているか、データに基づいた分析を一切行わない</li>
+                        <li><strong>Japanknru強み（ツヨミ）の未活用：</strong>自社メディアの独自性・競争優位性を理解せず、強化する具体的アクションが皆無</li>
+                        <li><strong>営業支援の概念欠如：</strong>営業が苦労して獲得した案件を「ただ制作するだけ」で、営業力向上への貢献意識ゼロ</li>
+                        <li><strong>戦略的思考の放棄：</strong>「取材して制作して発信」で業務完了と考え、その先のビジネス貢献を考えない</li>
+                    </ul>
+                </div>
+                
+                <h3>組織構造・役割分担の根本的欠陥</h3>
+                <div class="problem-section">
+                    <ul>
+                        <li><strong>マーケター不在：</strong>各国担当者が「制作者」止まりで、「マーケター」として機能していない</li>
+                        <li><strong>制作業務への固執：</strong>自分で取材・制作することに固執し、アルバイトへの指示・管理ができない</li>
+                        <li><strong>営業との連携拒否：</strong>営業同行、企画書作成、メニュー開発等の営業支援業務を避ける</li>
+                        <li><strong>インフルエンサー活用の未開拓：</strong>各国のインフルエンサーとの協業提案・実行ができない</li>
+                        <li><strong>データドリブンの拒否：</strong>数値分析に基づく改善提案よりも、感覚的な制作を優先</li>
+                    </ul>
+                </div>
+                
+                <h3>事業基盤の問題</h3>
+                <div class="problem-section">
+                    <ul>
+                        <li><strong>営業依存体質：</strong>営業部が獲得した案件の制作・発信のみに留まり、自発的な企画提案が皆無</li>
+                        <li><strong>クリエイティブ力の低下：</strong>直接取材・制作のポテンシャルを活かした独自コンテンツの企画が不足</li>
+                        <li><strong>チャネル活用の非効率：</strong>複数の国別チャネルを運営しているが、相互連携と相乗効果の創出が不十分</li>
+                        <li><strong>インバウンド市場理解不足：</strong>訪日外国人のニーズ変化に対応した戦略的コンテンツ企画が不足</li>
+                        <li><strong>企業・自治体との関係構築力不足：</strong>クライアントの課題解決提案よりも依頼対応に終始</li>
+                        <li><strong>「一人だけが働く」状況：</strong>統括者のみが企画・営業支援を行い、他メンバーは受動的制作のみ</li>
+                    </ul>
+                </div>
+                
+                <div class="warning-section">
+                    <h4>経営陣からの根本的な方針転換</h4>
+                    <p><strong>「制作者」から「マーケター」への完全転換を求めます。</strong></p>
+                    <ul>
+                        <li>各国担当者は「マーケター」として市場分析・戦略立案を主業務とする</li>
+                        <li>制作業務はアルバイトに指示・管理し、自分は企画・分析・営業支援に集中</li>
+                        <li>競合分析、市場インサイト、Japankuru強化策の具体的アクション必須</li>
+                        <li>営業同行、企画書作成、インフルエンサー協業等の営業支援を評価対象とする</li>
+                    </ul>
+                    <p><strong>「取材して制作して終わり」の時代は完全に終了しました。ビジネスに貢献する戦略的思考を求めます。</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 組織体制タブ -->
+        <div id="org" class="tab-content">
+            <div class="card">
+                <h2>新組織体制</h2>
+                <div class="org-chart">
+                    <div class="org-level">
+                        <div class="org-box executive">担当役員<br>Andy</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box manager">オペレーター<br>Fujita<br>(契約進行)</div>
+                        <div class="org-box vacant">メディア運営部<br>統括マネージャー<br>❓ 候補者選定中</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box team-lead">英語圏<br>コンテンツマネージャー<br>Sophia (昇格)</div>
+                        <div class="org-box team-lead">韓国<br>コンテンツマネージャー<br>Hee won (昇格)</div>
+                        <div class="org-box team-lead">タイ<br>コンテンツマネージャー<br>Sarita (昇格)</div>
+                    </div>
+                    <div class="org-level">
+                        <div class="org-box staff">英語圏<br>アシスタント<br>(新規採用)</div>
+                        <div class="org-box staff">韓国<br>アシスタント<br>(新規採用)</div>
+                        <div class="org-box staff">タイ<br>アシスタント<br>(新規採用)</div>
+                        <div class="org-box staff">台湾<br>サポートスタッフ<br>So (契約社員化)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>組織改革の目的</h2>
+                <div class="solution-section">
+                    <ul>
+                        <li><strong>責任体制の明確化：</strong>各ポジションの役割と責任範囲を明確に定義</li>
+                        <li><strong>成長機会の提供：</strong>現職員のスキル向上とキャリア発展の道筋を構築</li>
+                        <li><strong>業務効率の向上：</strong>チーム間連携の強化と業務プロセスの最適化</li>
+                        <li><strong>事業競争力の強化：</strong>受動的運営から能動的な事業開発への転換</li>
+                        <li><strong>人材育成機能の強化：</strong>各マネージャーによる部下の採用・育成権限の付与</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>昇格・昇進の考え方</h2>
+                <div class="warning-section">
+                    <h4>現在のレベルと期待値</h4>
+                    <p>現在、皆さんは係長・主任レベルの職務に従事していますが、<strong>来年度には以下のレベルの業務遂行を期待</strong>しております：</p>
+                    <ul>
+                        <li>戦略的思考に基づく業務企画・実行</li>
+                        <li>チームマネジメントと人材育成</li>
+                        <li>事業成果に対する直接的責任</li>
+                        <li>部門を超えた協業とリーダーシップ</li>
+                    </ul>
+                    <p><strong>統括マネージャーへの昇進を希望する場合、</strong>上記に加えて部門全体の管理・運営責任を担う覚悟が必要です。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 職務詳細タブ -->
+        <div id="roles" class="tab-content">
+            <!-- 統括マネージャー -->
+            <div class="card">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-title">
+                            <h3>統括マネージャー（候補者選定中）</h3>
+                            <span class="promotion-badge">新設ポジション</span>
+                        </div>
+                    </div>
+                    
+                    <h4>職務概要</h4>
+                    <p>訪日外国人向けインバウンドメディア事業全体の戦略立案・実行管理を担当。民間企業・自治体のインバウンド課題解決を通じた事業拡大と、全職員の能動的業務転換を推進する。</p>
+                    
+                    <div class="detailed-duties">
+                        <div class="duty-category">
+                            <h5>インバウンド事業戦略・企画開発</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>訪日外国人市場のトレンド分析と事業機会の発掘</li>
+                                    <li>民間企業・自治体のインバウンド課題分析とソリューション企画</li>
+                                    <li>直接取材・制作力を活かした独自コンテンツ戦略の立案</li>
+                                    <li>国別チャネル間の連携強化と相乗効果創出施策</li>
+                                    <li>新規収益源（体験商品、イベント連携等）の開発</li>
+                                    <li>競合他社分析と差別化戦略の策定</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>営業支援・クライアント関係管理</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>営業チームとの戦略会議による案件創出支援</li>
+                                    <li>クライアント課題解決型の企画提案書作成指導</li>
+                                    <li>重要クライアント（企業・自治体）との関係構築・維持</li>
+                                    <li>成果測定・分析による継続契約支援</li>
+                                    <li>業界トレンドセミナー・勉強会の企画・実施</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>組織管理・人材育成</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>全職員の「受動的制作者→能動的企画者」への意識改革</li>
+                                    <li>各メンバーの目標設定と月次・四半期評価の実施</li>
+                                    <li>取材スキル・企画力向上のための教育プログラム開発</li>
+                                    <li>国別担当者の専門性向上と相互学習の促進</li>
+                                    <li>「一人だけが働く」状況の解消と責任分散</li>
+                                    <li>採用戦略立案と優秀人材の確保</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-section">
+                        <h4>権限・予算管理</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-item">
+                                <div class="kpi-value">100万円</div>
+                                <div class="kpi-label">月間マーケティング予算<br>(広告費含む)</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">全権限</div>
+                                <div class="kpi-label">採用・人事評価<br>決定権</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">戦略決定</div>
+                                <div class="kpi-label">新規事業・提携<br>承認権</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">予算配分</div>
+                                <div class="kpi-label">各チーム予算<br>配分決定権</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sophia -->
+            <div class="card">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-title">
+                            <h3>Sophia（英語圏担当）</h3>
+                            <span class="current-level">現：主任</span>
+                            <span class="promotion-badge" style="background: #e74c3c;">業務内容変更</span>
+                        </div>
+                    </div>
+                    
+                    <h4>職務概要</h4>
+                    <p>英語圏市場（北米・欧州・オセアニア）向けコンテンツ戦略の立案・実行を担当。営業支援と新規企画開発を通じて事業拡大に貢献する。</p>
+                    
+                    <div class="detailed-duties">
+                        <div class="duty-category">
+                            <h5>コンテンツ戦略・制作</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>英語圏向けコンテンツ年間計画の策定と実行管理</li>
+                                    <li>トレンド分析に基づく記事企画・制作（月20本以上）</li>
+                                    <li>SEO最適化とユーザビリティ向上施策の実行</li>
+                                    <li>多言語展開用コンテンツの品質管理</li>
+                                    <li>インフルエンサーとのコラボレーション企画</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>営業支援・事業開発</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>英語圏市場向け営業企画の立案（月3件以上）</li>
+                                    <li>クライアント向け提案資料の作成と説明</li>
+                                    <li>市場調査とトレンド分析レポートの作成（月次）</li>
+                                    <li>新規クライアント開拓のための企画提案</li>
+                                    <li>既存クライアントとの関係強化と契約更新支援</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>チーム管理・人材育成</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>英語圏アシスタントの採用・面接・選考</li>
+                                    <li>部下の目標設定と日常業務指導</li>
+                                    <li>他国チームとの連携プロジェクト企画・推進</li>
+                                    <li>ベストプラクティスの文書化と共有</li>
+                                    <li>新人研修プログラムの開発・実施</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-section">
+                        <h4>主要KPI</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-item">
+                                <div class="kpi-value">60万PV</div>
+                                <div class="kpi-label">月間ページビュー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">10万人</div>
+                                <div class="kpi-label">SNSフォロワー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">3件</div>
+                                <div class="kpi-label">月間営業企画提案</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">1名</div>
+                                <div class="kpi-label">部下育成（6ヶ月）</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefits-section">
+                        <h4>業務変更に伴う支援</h4>
+                        <ul>
+                            <li>マーケティング・競合分析スキル習得のための研修受講支援</li>
+                            <li>営業同行・プレゼンテーションスキル向上支援</li>
+                            <li>英語圏アシスタント採用における面接参加権</li>
+                            <li>成果達成時の評価向上と将来的な昇進検討</li>
+                        </ul>
+                        <p><strong>※ 新業務への適応・成果次第で昇進・昇格を検討</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hee won -->
+            <div class="card">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-title">
+                            <h3>Hee won（韓国担当）</h3>
+                            <span class="current-level">現：係長</span>
+                            <span class="promotion-badge" style="background: #e74c3c;">業務内容変更</span>
+                        </div>
+                    </div>
+                    
+                    <h4>職務概要</h4>
+                    <p>韓国系訪日客向けに日本の魅力的な情報をコンテンツ化・発信を担当。韓国人の嗜好に合わせた日本体験コンテンツの直接取材・制作と、全社データ分析を行う。</p>
+                    
+                    <div class="detailed-duties">
+                        <div class="duty-category">
+                            <h5>韓国向け日本情報コンテンツ・取材</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>韓国人に人気の日本グルメ・スポット・文化体験の直接取材・制作</li>
+                                    <li>韓国人の嗜好に合わせた日本の隠れた名所・トレンドスポット発掘</li>
+                                    <li>日本の季節イベント・祭り・文化体験を韓国語で魅力的に紹介</li>
+                                    <li>韓国人観光客向けの実用的な日本旅行情報（交通・宿泊・マナー等）制作</li>
+                                    <li>韓国語SNS（Instagram, YouTube, ネイバーブログ）での戦略的情報発信</li>
+                                    <li>韓国人のライフスタイルに合わせた日本商品・サービス紹介コンテンツ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>デジタルマーケティング・データ分析</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>韓国語SNS広告の企画・運用・効果測定と改善提案</li>
+                                    <li>全チーム・全言語のコンテンツ効果分析（広告効果含む）</li>
+                                    <li>競合他社の広告戦略・SNS運用ベンチマーキング</li>
+                                    <li>ROI分析によるマーケティング投資効果の可視化</li>
+                                    <li>役員の広告運用業務の一部移管・習得</li>
+                                    <li>各チームのデジタルマーケティングスキル向上支援</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>クライアント重視のコンテンツ戦略</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>クライアント提供素材の魅力最大化コンテンツ制作</li>
+                                    <li>「制作したいもの」ではなく「クライアントが求めるもの」の企画</li>
+                                    <li>韓国向け日本PR効果の数値測定とクライアント報告</li>
+                                    <li>コンテンツ制作前のクライアント課題・目標ヒアリング</li>
+                                    <li>韓国系訪日客の実際のクライアント利用促進施策</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>業務効率化・チーム連携</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>韓国アシスタントの採用・日本取材スキル育成</li>
+                                    <li>取材・制作プロセスの標準化と効率化ツール導入</li>
+                                    <li>多言語チーム間の情報共有システム構築・運営</li>
+                                    <li>クロスカントリー企画のプロジェクト管理</li>
+                                    <li>日本取材ノウハウ・データ分析手法の社内共有・指導</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-section">
+                        <h4>主要KPI</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-item">
+                                <div class="kpi-value">50万PV</div>
+                                <div class="kpi-label">月間ページビュー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">8万人</div>
+                                <div class="kpi-label">SNSフォロワー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">1回</div>
+                                <div class="kpi-label">月次分析レポート</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">20%</div>
+                                <div class="kpi-label">業務効率向上目標</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefits-section">
+                        <h4>業務変更に伴う支援</h4>
+                        <ul>
+                            <li>データ分析・マーケティングツール習得のための研修支援</li>
+                            <li>韓国企業との提携交渉スキル向上支援</li>
+                            <li>業務効率化システム導入の提案権限</li>
+                            <li>全社データ分析ツールへのアクセス権限付与</li>
+                        </ul>
+                        <p><strong>※ 新業務への適応・成果次第で昇進・昇格を検討</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sarita -->
+            <div class="card">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-title">
+                            <h3>Sarita（タイ担当）</h3>
+                            <span class="current-level">現：一般</span>
+                            <span class="promotion-badge" style="background: #e74c3c;">業務内容変更</span>
+                        </div>
+                    </div>
+                    
+                    <h4>職務概要</h4>
+                    <p>東南アジア系訪日客向けに日本の魅力を発信するコンテンツ制作と受注プロジェクトの品質管理を担当。タイ語・英語での日本情報発信と、新規インバウンドビジネスの企画開発を行う。</p>
+                    
+                    <div class="detailed-duties">
+                        <div class="duty-category">
+                            <h5>東南アジア向け日本情報コンテンツ制作</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>東南アジア系訪日客向けの日本グルメ・観光スポット直接取材・制作</li>
+                                    <li>ハラル・ベジタリアン対応など宗教・文化配慮の日本体験情報発信</li>
+                                    <li>東南アジア人のライフスタイルに合わせた日本商品・サービス紹介</li>
+                                    <li>日本の季節イベント・文化体験をタイ語・英語で魅力的に紹介</li>
+                                    <li>東南アジア系コミュニティと連携した現地ニーズ調査・コンテンツ企画</li>
+                                    <li>タイ語・英語でのSNS運営と現地向け情報発信戦略</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>デジタルマーケティング習得・実践</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>タイ語・英語でのSNS広告運用基礎の習得・実践</li>
+                                    <li>Google広告の基礎操作とキーワード選定スキル習得</li>
+                                    <li>自分が制作したコンテンツの効果測定・改善実施</li>
+                                    <li>ページビュー向上のための具体的施策企画・実行</li>
+                                    <li>役員のマーケティング業務の基礎部分を段階的に移管</li>
+                                    <li>デジタルマーケティングツールの操作習得（6ヶ月以内）</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>クライアント重視の企画・制作</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>クライアント提供素材を最大限活用した魅力的コンテンツ制作</li>
+                                    <li>東南アジア系訪日客のクライアント利用促進を目的とした企画</li>
+                                    <li>「面白い」だけでなく「クライアントのためになる」コンテンツ制作</li>
+                                    <li>制作前のクライアント要望・目標の詳細ヒアリング実施</li>
+                                    <li>コンテンツ公開後のクライアント向け効果報告（月次）</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>プロジェクト管理・品質保証</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>受注案件の日本取材・制作スケジュール管理（納期100%遵守）</li>
+                                    <li>クライアント要望に基づく日本情報取材計画立案・実行管理</li>
+                                    <li>日本コンテンツの品質チェックと改善提案</li>
+                                    <li>タイアシスタントの採用・日本取材スキル指導</li>
+                                    <li>取材コスト管理と効率化施策の実行</li>
+                                    <li>クライアント満足度向上のための改善活動</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-section">
+                        <h4>昇格条件（6ヶ月以内達成必須）</h4>
+                        <ul>
+                            <li>タイ語ページ月間30万PV達成</li>
+                            <li>営業企画月2件以上提案・実行</li>
+                            <li>プロジェクト管理資格取得（PMP等）</li>
+                            <li>東南アジア市場調査レポート作成・提出</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="kpi-section">
+                        <h4>主要KPI</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-item">
+                                <div class="kpi-value">40万PV</div>
+                                <div class="kpi-label">月間ページビュー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">6万人</div>
+                                <div class="kpi-label">SNSフォロワー</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">2件</div>
+                                <div class="kpi-label">月間新規企画提案</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">100%</div>
+                                <div class="kpi-label">プロジェクト納期遵守</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefits-section">
+                        <h4>業務変更に伴う支援</h4>
+                        <ul>
+                            <li>マーケティング・語学研修優先受講権</li>
+                            <li>SophiaおよびHee wonによるメンタリング体制</li>
+                            <li>東南アジア市場専門家育成のための研修支援</li>
+                            <li>業務変更適応期間中の手厚いサポート体制</li>
+                        </ul>
+                        <p><strong>※ 新業務への適応・成果次第で昇進・昇格を検討</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- So -->
+            <div class="card">
+                <div class="role-card">
+                    <div class="role-header">
+                        <div class="role-title">
+                            <h3>So（台湾サポートスタッフ）</h3>
+                            <span class="current-level">現：アルバイト</span>
+                            <span class="promotion-badge">契約社員に昇格</span>
+                        </div>
+                    </div>
+                    
+                    <h4>職務概要</h4>
+                    <p>台湾系訪日客向けに日本の魅力的な情報を発信するための市場調査とデータ分析支援を担当。繁体字での日本情報コンテンツ制作と各マネージャーの日本取材・企画業務のサポートを行う。</p>
+                    
+                    <div class="detailed-duties">
+                        <div class="duty-category">
+                            <h5>台湾向け日本情報発信業務</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>台湾系訪日客が関心を持つ日本のトレンド・スポット調査と情報収集</li>
+                                    <li>台湾で話題になりそうな日本のグルメ・文化・イベント情報の先行調査</li>
+                                    <li>日本情報の繁体字コンテンツ翻訳・校正・文化的適正チェック</li>
+                                    <li>台湾SNS（Facebook, Instagram, LINE）での日本情報発信・成長施策</li>
+                                    <li>台湾現地メディア・ブロガーとの関係構築・日本情報交換</li>
+                                    <li>台湾向け日本取材・企画アイデアの提案・実行支援</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>データ分析・リサーチ支援</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>各マネージャーの日本市場分析・競合調査のデータ収集</li>
+                                    <li>SNS・WEB解析データの集計・グラフ化・資料作成</li>
+                                    <li>クライアント向け日本プロモーション成果報告書の作成補助</li>
+                                    <li>訪日外国人の日本での行動データ収集・整理</li>
+                                    <li>日本インバウンド業界トレンド・ニュース情報の収集・共有</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="duty-category">
+                            <h5>日本取材・制作サポート</h5>
+                            <div class="duty-details">
+                                <ul>
+                                    <li>各マネージャーの日本取材アポイント調整・スケジュール管理</li>
+                                    <li>日本取材時の通訳・文化的配慮のアドバイス</li>
+                                    <li>多言語での日本コンテンツ統一性チェック・品質管理</li>
+                                    <li>社内資料・マニュアルの翻訳・多言語化</li>
+                                    <li>新人向け日本取材研修・OJTのサポート業務</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-section">
+                        <h4>主要KPI</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-item">
+                                <div class="kpi-value">5%</div>
+                                <div class="kpi-label">台湾SNS月成長率</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">週1回</div>
+                                <div class="kpi-label">市場情報レポート</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">10件</div>
+                                <div class="kpi-label">月間翻訳・校正</div>
+                            </div>
+                            <div class="kpi-item">
+                                <div class="kpi-value">100%</div>
+                                <div class="kpi-label">サポート業務完了率</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefits-section">
+                        <h4>権限・待遇</h4>
+                        <ul>
+                            <li>契約社員として1年契約（更新可）</li>
+                            <li>半年ごとの成果評価による昇給制度</li>
+                            <li>正社員登用制度（2年後評価対象）</li>
+                            <li>台湾市場専門家としての専門性確立支援</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 面談要領タブ -->
+        <div id="interview" class="tab-content">
+            <div class="card">
+                <h2>面談実施要領</h2>
+                
+                <h3>面談の目的</h3>
+                <div class="solution-section">
+                    <ul>
+                        <li><strong>現状認識の共有：</strong>個人および組織の課題について共通理解を形成</li>
+                        <li><strong>期待値の明確化：</strong>新役職における責任・権限・成果目標の詳細説明</li>
+                        <li><strong>意欲・適性の確認：</strong>昇格・昇進に対する本人の意欲と適性を評価</li>
+                        <li><strong>支援体制の説明：</strong>成功に向けた具体的な教育・研修・サポート体制の提示</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>面談プロセス</h2>
+                <div class="interview-process">
+                    <div class="process-step" data-step="1">
+                        <h4>現状診断</h4>
+                        <p>15分</p>
+                        <small>課題認識の確認と自己評価</small>
+                    </div>
+                    <div class="process-step" data-step="2">
+                        <h4>新役職説明</h4>
+                        <p>25分</p>
+                        <small>職務内容・責任・権限の詳細</small>
+                    </div>
+                    <div class="process-step" data-step="3">
+                        <h4>目標設定</h4>
+                        <p>15分</p>
+                        <small>具体的KPIと評価基準</small>
+                    </div>
+                    <div class="process-step" data-step="4">
+                        <h4>意思確認</h4>
+                        <p>5分</p>
+                        <small>受諾意思と次回面談予定</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>面談内容詳細</h2>
+                
+                <h3>Phase 1: 現状診断（15分）</h3>
+                <div class="duty-card">
+                    <h5>確認事項</h5>
+                    <ul>
+                        <li>現在の業務に対する満足度と課題認識</li>
+                        <li>チーム全体の問題点に対する認識度</li>
+                        <li>営業案件増加に対する考え方と姿勢</li>
+                        <li>自己成長・キャリア発展への意欲</li>
+                        <li>他部署・他国チームとの協業に対する考え</li>
+                    </ul>
+                    
+                    <h5>質問例</h5>
+                    <ul>
+                        <li>「現在の業務で最も困難に感じている点は何ですか？」</li>
+                        <li>「営業部から多くの案件が来ることについて、どのように考えていますか？」</li>
+                        <li>「自分の専門領域以外の業務にも関心がありますか？」</li>
+                        <li>「チーム全体の成果向上のために、どのような貢献ができると思いますか？」</li>
+                        <li>「将来のキャリアについて、どのような希望をお持ちですか？」</li>
+                    </ul>
+                </div>
+                
+                <h3>Phase 2: 新役職説明（25分）</h3>
+                <div class="duty-card">
+                    <h5>説明内容</h5>
+                    <ul>
+                        <li>新組織図における本人のポジションと役割</li>
+                        <li>具体的な職務内容と責任範囲</li>
+                        <li>達成すべきKPIと評価基準</li>
+                        <li>付与される権限と予算</li>
+                        <li>教育・研修支援制度</li>
+                        <li>昇進・昇格の可能性とキャリアパス</li>
+                    </ul>
+                    
+                    <h5>重点説明事項</h5>
+                    <ul>
+                        <li>現在のレベルから期待されるレベルへの変化</li>
+                        <li>プロフェッショナルとしての責任の重要性</li>
+                        <li>チーム全体の成功に対する個人の貢献</li>
+                        <li>失敗時のリスクと改善機会</li>
+                    </ul>
+                </div>
+                
+                <h3>Phase 3: 目標設定（15分）</h3>
+                <div class="duty-card">
+                    <h5>設定項目</h5>
+                    <ul>
+                        <li>6ヶ月後の達成目標（数値・定性両面）</li>
+                        <li>1年後の到達レベル</li>
+                        <li>必要なスキル習得計画</li>
+                        <li>メンタリング・サポート体制</li>
+                        <li>定期評価スケジュール</li>
+                    </ul>
+                </div>
+                
+                <h3>Phase 4: 意思確認（5分）</h3>
+                <div class="warning-section">
+                    <h4>確認事項</h4>
+                    <ul>
+                        <li>新役職の受諾意思</li>
+                        <li>責任・目標に対する理解と覚悟</li>
+                        <li>質問・懸念事項の確認</li>
+                        <li>回答期限の設定（1週間以内）</li>
+                        <li>次回フォローアップ面談の日程調整</li>
+                    </ul>
+                    <p><strong>重要：</strong>新しい責任を担う意欲がない場合、現状維持または他の選択肢も含めて検討する旨を伝える。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 実施計画タブ -->
+        <div id="schedule" class="tab-content">
+            <div class="card">
+                <h2>実施スケジュール</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Phase 1: 面談・意思確認（1ヶ月）</h3>
+                        <div class="duty-details">
+                            <ul>
+                                <li><strong>Week 1:</strong> 個別面談実施（各60分）</li>
+                                <li><strong>Week 2:</strong> 本人からの回答確認・詳細条件調整</li>
+                                <li><strong>Week 3:</strong> 新体制移行準備・必要手続き完了</li>
+                                <li><strong>Week 4:</strong> 新組織体制正式発足・キックオフ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Phase 2: 体制移行・習熟（2-3ヶ月）</h3>
+                        <div class="duty-details">
+                            <ul>
+                                <li>新業務の段階的移行と OJT実施</li>
+                                <li>週次進捗確認ミーティング開催</li>
+                                <li>必要な教育・研修プログラム受講</li>
+                                <li>アシスタント採用プロセス開始</li>
+                                <li>月次中間評価と軌道修正</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Phase 3: 成果創出・評価（4-6ヶ月）</h3>
+                        <div class="duty-details">
+                            <ul>
+                                <li>設定KPIの達成状況モニタリング</li>
+                                <li>四半期評価と フィードバック実施</li>
+                                <li>成功事例の横展開と改善施策実行</li>
+                                <li>年次評価による昇進・昇格判定</li>
+                                <li>次年度目標設定と体制見直し</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>成功指標</h2>
+                
+                <h3>組織全体目標（6ヶ月後）</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">200万</div>
+                        <div>月間ページビュー</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">25万</div>
+                        <div>総SNSフォロワー</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">1,000万円</div>
+                        <div>月間売上</div>
+                    </div>
+                </div>
+                
+                <h3>組織運営指標</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-item">
+                        <div class="kpi-value">80%</div>
+                        <div class="kpi-label">個人KPI達成率</div>
+                    </div>
+                    <div class="kpi-item">
+                        <div class="kpi-value">15件</div>
+                        <div class="kpi-label">月間営業企画提案</div>
+                    </div>
+                    <div class="kpi-item">
+                        <div class="kpi-value">4.5点</div>
+                        <div class="kpi-label">クライアント満足度</div>
+                    </div>
+                    <div class="kpi-item">
+                        <div class="kpi-value">0%</div>
+                        <div class="kpi-label">年間離職率</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>総括</h2>
+                <div class="warning-section">
+                    <h4>組織改革の成功条件</h4>
+                    <p>本計画の成功は、各メンバーが<strong>「受動的業務処理者」から「能動的事業創造者」</strong>への意識転換を図れるかにかかっています。</p>
+                    
+                    <p>明確な責任と権限、成長機会を提供する一方で、それに応えられない場合の対応も含めて、プロフェッショナル組織としての基準を維持していきます。</p>
+                    
+                    <div class="solution-section">
+                        <h5>重要メッセージ</h5>
+                        <ul>
+                            <li>現状の課題を隠すことなく、率直に伝える</li>
+                            <li>成長機会と支援体制を具体的に示す</li>
+                            <li>プロフェッショナルとしての責任と覚悟を求める</li>
+                            <li>組織の期待に応えられない場合の選択肢も提示する</li>
+                            <li>全員の成功を支援する姿勢を明確に示す</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
