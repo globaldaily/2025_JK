@@ -1042,7 +1042,10 @@
 /* 새로 추가할 모바일 전용 Sticky Nav 스타일 */
 /* ------------------------------------------- */
 
-/* 모바일 전용 Sticky Nav 컨테이너 */
+/* ------------------------------------------- */
+/* 모바일 전용 Sticky Nav 스타일 (아이콘 제거 버전) */
+/* ------------------------------------------- */
+
 .mobile-sticky-nav-top {
     /* 모바일에서만 표시 */
     display: none;
@@ -1050,14 +1053,14 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 900; /* CTA보다 낮게 설정 */
-    background: rgba(255, 255, 255, 0.95); /* 반투명 배경 */
+    z-index: 900; 
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     padding: 8px 0;
-    overflow-x: auto; /* 내용이 넘칠 경우 스크롤 가능하도록 */
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
-    white-space: nowrap; /* 항목이 한 줄에 표시되도록 */
+    white-space: nowrap;
 }
 
 .mobile-sticky-nav-top .container {
@@ -1067,20 +1070,20 @@
 
 .mobile-sticky-nav-top .nav-container {
     display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 15px;
+    justify-content: flex-start;
+    gap: 12px; /* 간격 살짝 줄임 */
 }
 
 .mobile-sticky-nav-top .nav-item {
     display: inline-block;
-    color: var(--color-primary-dark);
+    color: var(--color-text); /* 텍스트 색상을 기본 짙은 회색으로 변경 */
     text-decoration: none;
-    font-size: 13px; /* 모바일에서 조금 작게 */
+    font-size: 13px;
     font-weight: 600;
     padding: 6px 14px;
-    border-radius: 20px;
+    border-radius: 4px; /* 경쾌한 라운드 대신 각진 스타일로 변경 */
     transition: all .2s ease;
-    flex-shrink: 0; /* 항목 크기가 줄어들지 않도록 */
+    flex-shrink: 0;
     border: 1px solid var(--color-border);
 }
 
@@ -1098,8 +1101,8 @@
     /* 새로 만든 모바일용 Sticky Nav 표시 */
     .mobile-sticky-nav-top{display:block}
     
-    /* 모바일 CTA의 bottom 위치 조정 (새로운 상단바와 겹치지 않도록) */
-    .mobile-share-buttons { bottom: 85px; } /* 90px에서 85px로 살짝 조정 */
+    /* 모바일 CTA의 bottom 위치 조정 */
+    .mobile-share-buttons { bottom: 85px; } 
 }
 /* --- 모바일 최적화 (Additional Enhancements for max-width: 768px) --- */
 @media (max-width: 768px) {
@@ -1212,12 +1215,12 @@
 <nav class="mobile-sticky-nav-top">
     <div class="container">
         <div class="nav-container">
-            <a href="#problems" class="nav-item">✅ お悩み</a>
-            <a href="#roles" class="nav-item">💡 JAPANKURUの役割</a>
-            <a href="#ask-japan-section" class="nav-item">📲 Ask Japan</a>
-            <a href="#program" class="nav-item">📚 プログラム</a>
-            <a href="#speakers" class="nav-item">👤 スピーカー</a>
-            <a href="#apply" class="nav-item nav-cta" style="background:var(--color-accent);color:#fff !important;border-color:var(--color-accent)">⚡ 参加申込</a>
+            <a href="#problems" class="nav-item">着眼点</a>
+            <a href="#roles" class="nav-item">JAPANKURUの役割</a>
+            <a href="#ask-japan-section" class="nav-item">Ask Japan</a>
+            <a href="#program" class="nav-item">プログラム</a>
+            <a href="#speakers" class="nav-item">スピーカー</a>
+            <a href="#apply" class="nav-item nav-cta" style="background:var(--color-accent);color:#fff !important;border-color:var(--color-accent)">参加申込</a>
         </div>
     </div>
 </nav>
