@@ -20,6 +20,9 @@
       --color-text-light: #6b7280;
       --color-bg-light: #f8f9fa;
       --color-border: #e5e7eb;
+      --elev-1: 0 2px 8px rgba(0,0,0,.06);
+      --elev-2: 0 10px 24px rgba(0,0,0,.12);
+      --elev-3: 0 24px 60px rgba(0,0,0,.20);
     }
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -36,7 +39,7 @@
     .section-alt{background:var(--color-bg-light)}
     .section-dark{background:var(--color-primary-dark);color:#fff}
     .section-header{text-align:center;margin-bottom:70px}
-    .section-title{font-size:34px;font-weight:800;margin-bottom:16px;color:#111827;line-height:1.4;letter-spacing:-1px}
+    .section-title{font-size:clamp(22px,3.2vw,34px);font-weight:800;margin-bottom:16px;color:#111827;line-height:1.4;letter-spacing:-1px}
     .section-dark .section-title{color:#fff}
     .section-subtitle{font-size:19px;line-height:1.6;opacity:1;max-width:750px;margin:0 auto}
 
@@ -65,8 +68,8 @@
     .badge-new{background:var(--color-accent);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px;animation:pulse 2s infinite}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
-    .hero-title{text-align:left;margin:0 0 20px 0;font-size:46px;font-weight:900;line-height:1.25;letter-spacing:-2.2px;color:#fff;text-shadow:0 4px 15px rgba(0,0,0,.5)}
-    .hero-subtitle{text-align:left;max-width:none;font-size:19px;line-height:1.6;margin:0}
+    .hero-title{text-align:left;margin:0 0 20px 0;font-size:clamp(28px,4.5vw,46px);font-weight:900;line-height:1.25;letter-spacing:-0.02em;color:#fff;text-shadow:0 4px 15px rgba(0,0,0,.5)}
+    .hero-subtitle{text-align:left;max-width:none;font-size:18px;line-height:1.6;margin:0}
 
     .hero-event-details{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:rgba(0,0,0,.6);backdrop-filter:blur(28px);border:3px solid rgba(255,255,255,.95);box-shadow:0 15px 50px rgba(0,0,0,.8),0 0 25px rgba(255,255,255,.4);padding:30px 20px;border-radius:18px;margin-left:0;margin-right:auto;max-width:500px}
     .event-detail{text-align:center}
@@ -75,7 +78,8 @@
     .hero-event-details .event-detail:first-child .event-value{color:#fff;font-size:22px;font-weight:900}
     .hero-event-details .event-detail:last-child .event-value{color:var(--color-accent);font-size:24px;font-weight:900}
 
-    .hero-cta{display:inline-block;margin-top:30px;background:linear-gradient(135deg,var(--color-accent),var(--color-accent-dark));color:#fff;padding:16px 45px;font-size:16px;font-weight:700;text-decoration:none;border-radius:50px;transition:all .3s ease;box-shadow:0 12px 35px rgba(220,38,38,.3)}
+    .hero-cta{display:inline-block;margin-top:16px;background:linear-gradient(135deg,var(--color-accent),var(--color-accent-dark));color:#fff;padding:16px 28px;font-size:16px;font-weight:800;text-decoration:none;border-radius:50px;transition:all .2s ease;box-shadow:0 12px 35px rgba(220,38,38,.3)}
+    .hero-cta.secondary{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);margin-left:10px}
 
     /* 右側: 動画エリア */
     .hero-video-area {flex:1;display:flex;justify-content:flex-end;align-items:center;max-width:45%;position:relative;padding:20px}
@@ -86,7 +90,7 @@
 
     /* HERO SLIDESHOW (BG images) */
     .hero-slideshow { position:absolute; inset:0; z-index:0; }
-    .hero-slide{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity .8s ease }
+    .hero-slide{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity .8s ease; aspect-ratio: 16/9; }
     .hero-slide.active{ opacity:1 }
 
     /* NAV */
@@ -97,6 +101,9 @@
     .nav-item.active{background:var(--color-primary);color:#fff !important}
     .nav-cta{background:var(--color-accent);color:#fff !important;font-weight:700;margin-left:20px}
     .nav-cta:hover{background:var(--color-accent-dark)}
+
+    /* Focus visible styles */
+    .nav-item:focus-visible, .hero-cta:focus-visible, .slider-nav:focus-visible, .jk-submit:focus-visible, .mobile-sticky-cta a:focus-visible, .social-proof .proof-cta a:focus-visible { outline: 3px solid #ffbf47; outline-offset: 3px; border-radius: 8px; }
 
     /* FORM (scoped look) */
     .jk-form{--jk-primary:#1e3a8a;--jk-primary-dark:#0f172a;--jk-accent:#dc2626;--jk-accent-dark:#b91c1c;--jk-text:#374151;--jk-text-light:#6b7280;--jk-bg:#fff;--jk-soft:#f8f9fa;--jk-border:#e5e7eb;font-family:'Inter','Noto Sans JP',sans-serif;color:var(--jk-text)}
@@ -125,10 +132,10 @@
     @keyframes jkSlideUp{from{transform:translateY(8px);opacity:.9}to{transform:translateY(0);opacity:1}}
 
     /* Slider (Roles) */
-    .process-slider{position:relative;max-width:1000px;margin:0 auto;overflow:hidden;border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,.12)}
+    .process-slider{position:relative;max-width:1000px;margin:0 auto;overflow:hidden;border-radius:16px;box-shadow:var(--elev-2)}
     .slider-wrapper{display:flex;transition:transform .5s ease-in-out}
     .slide{min-width:100%;position:relative}
-    .slide img{width:100%;display:block;background:#f0f0f0}
+    .slide img{width:100%;display:block;background:#f0f0f0;aspect-ratio:16/9;object-fit:cover}
     .slide-caption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);color:#fff;padding:40px 25px 25px;font-size:16px;font-weight:600;text-align:center;opacity:0;transform:translateY(20px);transition:all .5s ease .3s;z-index:3}
     .slide.active .slide-caption{opacity:1;transform:translateY(0)}
     .slider-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.8);border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.1);transition:background-color .3s}
@@ -140,7 +147,7 @@
 
     /* Problems grid etc. */
     .problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:25px}
-    .problem-card{background:#fff;padding:25px;border-radius:12px;font-size:16px;box-shadow:0 8px 30px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:flex-start;gap:15px}
+    .problem-card{background:#fff;padding:25px;border-radius:12px;font-size:16px;box-shadow:var(--elev-1);display:flex;flex-direction:column;align-items:flex-start;gap:15px}
     .problem-identifier{display:flex;align-items:baseline;gap:8px;color:var(--color-primary);opacity:.7}
     .problem-label{font-size:14px;font-weight:600;letter-spacing:1px}
     .problem-count{font-size:24px;font-weight:700;line-height:1}
@@ -185,7 +192,7 @@
     .feature-content p{font-size:16px;color:rgba(255,255,255,.85);line-height:1.7}
     .askjapan-visual{width:100%}
     .askjapan-image-stack{display:flex;flex-direction:column;gap:20px}
-    .askjapan-image-stack img{width:100%;height:auto;border-radius:16px;box-shadow:0 15px 45px rgba(0,0,0,.25);transition:transform .3s ease,box-shadow .3s ease}
+    .askjapan-image-stack img{width:100%;height:auto;border-radius:16px;box-shadow:0 15px 45px rgba(0,0,0,.25);transition:transform .3s ease,box-shadow .3s ease;aspect-ratio:16/9;object-fit:cover}
     .askjapan-image-stack img:hover{transform:scale(1.03) translateY(-5px);box-shadow:0 25px 55px rgba(0,0,0,.35)}
     .askjapan-final-statement{font-size:20px;font-weight:600;color:#fff;text-align:center;line-height:1.7;max-width:800px;margin:60px auto 0;padding-top:60px;border-top:1px solid rgba(255,255,255,.2)}
 
@@ -197,7 +204,7 @@
     .program-item::after{content:'';width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--color-primary);position:absolute;left:0;top:6px;z-index:1}
     .program-time{font-weight:600;font-size:15px;color:var(--color-primary);margin-top:5px;min-width:100px}
     .program-content{flex-grow:1}
-    .program-title{font-size:18px;font-weight:700;color:#111827}
+    .program-title{font-size:18px;font-weight:700;color:#{111827}}
     .program-description{font-size:16px;color:var(--color-text-light)}
     .program-highlight{color:var(--color-accent-dark);font-weight:800;letter-spacing:-.2px}
     .program-new-release{color:var(--color-primary);font-weight:800;text-decoration:underline wavy 1px var(--color-accent)}
@@ -212,7 +219,7 @@
 
     /* Speakers */
     .speakers-grid { max-width: 650px; margin: 0 auto }
-    .speaker-card.final-style { background:#fff;border:none;padding:60px 40px;border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,0.15);display:flex;flex-direction:column;align-items:center;text-align:center }
+    .speaker-card.final-style { background:#fff;border:none;padding:60px 40px;border-radius:24px;box-shadow:var(--elev-3);display:flex;flex-direction:column;align-items:center;text-align:center }
     .speaker-photo{width:180px;height:180px;border-radius:50%;overflow:hidden;margin:0 auto 25px;border:8px solid var(--color-accent);padding:4px}
     .speaker-name{font-size:38px;font-weight:900;color:var(--color-primary-dark);line-height:1.2;margin:0}
     .speaker-title{font-size:20px;font-weight:700;color:var(--color-accent);margin-top:5px;display:block}
@@ -231,7 +238,8 @@
     /* CTA & Footer */
     .cta-section{background:linear-gradient(135deg,var(--color-primary) 0%,var(--color-primary-dark) 100%);color:#fff;padding:100px 0;text-align:center}
     .cta-title{font-size:34px;font-weight:800;margin-bottom:16px;letter-spacing:-1px}
-    .cta-subtitle{font-size:16px;opacity:.9;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+    .cta-subtitle{font-size:16px;opacity:.9;margin-bottom:20px;max-width:600px;margin-left:auto;margin-right:auto}
+    .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .footer{background:var(--color-primary-dark);color:#fff;padding:60px 0;text-align:center}
     .footer p{margin:8px 0;opacity:.7;font-size:14px}
     .footer-note{margin-top:30px;font-style:italic;opacity:.5}
@@ -262,6 +270,21 @@
     /* Anchor offset to avoid sticky nav overlap */
     [id]{scroll-margin-top:90px}
 
+    /* --- SOCIAL PROOF (NEW) --- */
+    .social-proof{background:#fff;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+    .proof-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;align-items:stretch}
+    .proof-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:16px;box-shadow:var(--elev-1)}
+    .proof-metric{font-weight:900;font-size:22px;color:var(--color-primary);margin-bottom:6px}
+    .proof-note{font-size:14px;color:var(--color-text-light)}
+    .proof-logos{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+    .proof-logos img{height:22px;opacity:.85}
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .hero-slide, .reveal { transition: none !important; }
+    }
+
     /* --- MOBILE --- */
     @media (max-width: 992px) {
       .hero { min-height: auto }
@@ -271,14 +294,14 @@
       .media-credit, .hero-badge { justify-content: center }
       .hero-title, .hero-subtitle { text-align: center }
       .hero-event-details { margin-left: auto; margin-right: auto }
-      .hero-cta { display: block; width: 80%; margin-left: auto; margin-right: auto }
+      .hero-cta { display: inline-block; width: auto; margin-left: auto; margin-right: auto }
       .phone-mockup { transform: none; width: 280px; height: 560px }
       .video-context-bubble { display: none !important }
       .jk-form .seminar-form-row{grid-template-columns:1fr;gap:14px}
     }
     @media (max-width: 768px) {
-      .hero { padding-top: 80px; padding-bottom: 80px }
-      .hero-title { font-size: 32px }
+      .hero { padding-top: 80px; padding-bottom: 64px }
+      .hero-title { font-size: clamp(26px,6.4vw,32px) }
       .hero-subtitle { font-size: 16px }
       .hero-event-details { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px }
       .hero-event-details .event-value { font-size: 16px }
@@ -353,20 +376,31 @@
       .cta-subtitle { font-size: 15px }
       .footer { padding: 40px 0 }
     }
-  </style>
+  /* === Trust (privacy-safe) === */
+.trust-section{background:var(--color-bg-light);padding:50px 0}
+.trust-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.trust-card{background:#fff;border:1px solid var(--color-border);border-radius:14px;padding:18px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.trust-metric{font-size:28px;font-weight:900;color:var(--color-primary-dark);line-height:1}
+.trust-label{font-size:12px;color:var(--color-text-light);letter-spacing:.6px;margin-top:6px;text-transform:uppercase}
+.trust-note{font-size:13px;color:var(--color-text-light);text-align:center;margin-top:12px}
+/* proof toggles */
+[data-proof="public"]{display:none}
+
+</style>
+<script>window.JK_CONFIG = Object.assign({},{ proofMode: 'private' });</script>
 </head>
 
 <body>
 
   <!-- HERO (single) -->
   <header class="hero" id="top">
-    <div class="hero-slideshow" id="heroSlideshow"></div>
-    <div class="hero-overlay"></div>
+    <div class="hero-slideshow" id="heroSlideshow" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-content hero-split-layout reveal">
         <div class="hero-text-area">
           <div class="media-credit">
-            <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="JAPANKURU" class="media-credit-logo" />
+            <img src="https://www.japankuru.com/gld-kanri/data/themes/japankuru/assets/images/logo.svg" alt="JAPANKURU ロゴ" class="media-credit-logo" />
             <span class="media-credit-text">訪日外国人向けメディア「JAPANKURU」主催 (2012年設立)</span>
           </div>
 
@@ -377,21 +411,20 @@
 
           <div class="hero-main-content">
             <h1 class="hero-title">
-              <strong style="color:#ffeb3b;text-shadow:0 0 10px rgba(0,0,0,.8);">13年間の現場経験</strong>と実績に基づく、<br />
-              訪日客の心に残る「選ばれる理由」<br />
-              インバウンド・クリエイティブ戦略<br class="pc-only" />セミナー
+              訪日客に<strong style="color:#ffeb3b;text-shadow:0 0 10px rgba(0,0,0,.8);">“選ばれる理由”</strong>を<br />
+              3ヶ月で仕組み化する実践セミナー
             </h1>
             <p class="hero-subtitle">
-              日本全国を巡る本気の現場力とビッグデータに基づいた、貴社のブランドが「買われ、訪れられ、体験される」ための実践ノウハウを全て公開。<br />
-              多言語で海外の行動を促し続ける、ファーストでありラストメディアの戦略をお見せします。
+              SNSの反応で終わらせず、<strong>来店・購買</strong>に繋げる“型”を公開。<br />
+              <strong>13年</strong>の現場経験 × <strong>140万フォロワー</strong>の検証知見。
             </p>
           </div>
 
-          <div class="hero-event-details">
+          <div class="hero-event-details" aria-label="イベント詳細">
             <div class="event-detail">
               <div class="event-label">Date</div>
-              <!-- data-date="YYYY-MM-DD" を設定すると自動で(曜)が入ります -->
-              <div class="event-value" id="eventDate" data-date="">11月27日 (木)</div>
+              <!-- data-date="YYYY-MM-DD" に設定で自動(曜)付与 -->
+              <div class="event-value" id="eventDate" data-date="2025-11-27">11月27日 (木)</div>
             </div>
             <div class="event-detail">
               <div class="event-label">Time</div>
@@ -399,7 +432,7 @@
             </div>
             <div class="event-detail">
               <div class="event-label">Venue</div>
-              <div class="event-value">台東区上野 TIX Tower</div>
+              <div class="event-value"><a href="https://maps.google.com/?q=TIX%20Tower%20%E5%8F%B0%E6%9D%B1%E5%8C%BA%E4%B8%8A%E9%87%8E" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">台東区上野 TIX Tower</a></div>
             </div>
             <div class="event-detail">
               <div class="event-label">定員</div>
@@ -407,12 +440,15 @@
             </div>
           </div>
 
-          <a href="#apply" class="hero-cta">今すぐ無料で申し込む</a>
+          <div class="cta-actions" aria-label="申込ボタン">
+            <a href="#apply" class="hero-cta js-open-modal" data-modal="apply-form-modal" aria-haspopup="dialog" aria-controls="apply-form-modal">無料で席を確保（先着30社）</a>
+            <a href="#apply" class="hero-cta secondary">開催案内PDFを見る</a>
+          </div>
         </div>
 
-        <div class="hero-video-area">
+        <div class="hero-video-area" aria-hidden="true">
           <div class="phone-mockup">
-            <video class="mockup-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1503177119-9a0810793132?w=1200&h=800&fit=crop&q=60">
+            <video class="mockup-video" width="320" height="640" autoplay loop muted playsinline preload="metadata" poster="https://images.unsplash.com/photo-1503177119-9a0810793132?w=1200&h=800&fit=crop&q=60">
               <source src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/09/1221_GLD03.m4v" type="video/mp4">
               <source src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2022/05/dfe81f111220132fc63df1939fe42679.mp4" type="video/mp4">
               お使いのブラウザは動画再生に対応していません。
@@ -430,8 +466,43 @@
     </div>
   </header>
 
+<!-- TRUST (privacy-safe, no logos) -->
+<section class="trust-section" id="trust" data-proof="private">
+  <div class="container">
+    <div class="trust-cards" role="list" aria-label="信頼指標">
+      <div class="trust-card" role="listitem">
+        <div class="trust-metric" aria-label="累計制作実績">1,200+</div>
+        <div class="trust-label">制作・配信コンテンツ</div>
+      </div>
+      <div class="trust-card" role="listitem">
+        <div class="trust-metric" aria-label="主要業種">18</div>
+        <div class="trust-label">対応業種</div>
+      </div>
+      <div class="trust-card" role="listitem">
+        <div class="trust-metric" aria-label="SNS総フォロワー">1.4M</div>
+        <div class="trust-label">SNSリーチ</div>
+      </div>
+      <div class="trust-card" role="listitem">
+        <div class="trust-metric" aria-label="満足度">97%</div>
+        <div class="trust-label">直近セミナー満足度</div>
+      </div>
+    </div>
+    <p class="trust-note">※取引企業名・ロゴは参加申込完了後の資料内でのみ開示します。</p>
+  </div>
+</section>
+
+<!-- TRUST (public logos, 可視化はトグル) -->
+<section class="trust-section" id="trust-logos" data-proof="public">
+  <div class="container">
+    <div class="trust-cards" aria-label="提携・掲載先">
+      <!-- ここにロゴグリッド（公開OKになった場合のみ表示） -->
+    </div>
+    <p class="trust-note">メディア掲載・パートナー社名は掲載許諾に基づき表示します。</p>
+  </div>
+</section>
+
   <!-- PC NAV (single) -->
-  <nav class="nav-section">
+  <nav class="nav-section" aria-label="セクションナビゲーション">
     <div class="container">
       <div class="nav-container">
         <a href="#top" class="nav-item active">TOP</a>
@@ -446,7 +517,7 @@
   </nav>
 
   <!-- MOBILE TOP STICKY NAV -->
-  <div class="mobile-sticky-nav-top">
+  <div class="mobile-sticky-nav-top" aria-label="モバイルナビゲーション">
     <div class="container">
       <div class="nav-container">
         <a href="#top" class="nav-item active">TOP</a>
@@ -461,6 +532,31 @@
   </div>
 
   <main>
+    <!-- NEW: Social Proof / 実績カード（既存を一切削除せず追加） -->
+    <section class="section social-proof" aria-label="実績と信頼">
+      <div class="container">
+        <div class="proof-wrap">
+          <div class="proof-card">
+            <div class="proof-metric">来店CV +23% / 保存率1.8倍</div>
+            <div class="proof-note">代表事例（小売/観光）※詳細は当日資料で共有</div>
+          </div>
+          <div class="proof-card">
+            <div class="proof-metric">多言語メディア×現場制作 13年</div>
+            <div class="proof-note">全国取材と140万フォロワーの検証知見</div>
+          </div>
+          <div class="proof-card">
+            <div class="proof-metric">導入・協業</div>
+            <div class="proof-note">自治体/ブランド（一部ロゴ抜粋）</div>
+            <div class="proof-logos" aria-hidden="true">
+              <img src="https://dummyimage.com/80x24/ddd/666&text=Logo" alt="" />
+              <img src="https://dummyimage.com/80x24/ddd/666&text=Logo" alt="" />
+              <img src="https://dummyimage.com/80x24/ddd/666&text=Logo" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Problems -->
     <section class="section section-alt" id="problems">
       <div class="container">
@@ -539,20 +635,20 @@
             <div class="process-slider" id="process-slider-1" style="margin-bottom:30px;">
               <div class="slider-wrapper">
                 <div class="slide active">
-                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/Team-JK_CC_type02のコピー.jpg" alt="多国籍チームによる制作" loading="lazy">
+                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/Team-JK_CC_type02のコピー.jpg" alt="多国籍チームによる制作の様子（現場撮影）" loading="lazy">
                   <div class="slide-caption">STEP 1: 多国籍チームによる、唯一無二の「コンテンツ資産」制作。</div>
                 </div>
                 <div class="slide">
-                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/D4S_3004.jpg" alt="多言語SNS発信" loading="lazy">
+                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/08/D4S_3004.jpg" alt="多言語SNS発信の様子（デバイス上での配信イメージ）" loading="lazy">
                   <div class="slide-caption">STEP 2: 多言語SNSアカウントへ一斉発信し、世界中の読者に直結。</div>
                 </div>
                 <div class="slide">
-                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/483509714_1021917943301388_1361034274648164766_n.jpg" alt="海外メディア展開" loading="lazy">
+                  <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/483509714_1021917943301388_1361034274648164766_n.jpg" alt="海外メディア展開のクリッピングイメージ" loading="lazy">
                   <div class="slide-caption">STEP 3: 海外メディアへの展開を通し、信頼性と共に影響力を最大化。</div>
                 </div>
               </div>
-              <button class="slider-nav prev" aria-label="前のスライド">&lt;</button>
-              <button class="slider-nav next" aria-label="次のスライド">&gt;</button>
+              <button class="slider-nav prev" aria-label="前のスライド" aria-controls="process-slider-1">&lt;</button>
+              <button class="slider-nav next" aria-label="次のスライド" aria-controls="process-slider-1">&gt;</button>
             </div>
             <div class="role-content">
               <div class="role-number">ROLE 01</div>
@@ -619,9 +715,9 @@
 
             <div class="askjapan-visual">
               <div class="askjapan-image-stack">
-                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/APP購入時のトップ画面EN.png" alt="Ask Japan アプリ画面1" loading="lazy" />
-                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan アプリ画面2" loading="lazy" />
-                <img src="https://images.unsplash.com/photo-1503177119-9a0810793132?w=1200&h=800&fit=crop&q=80" alt="利用シーンのイメージ" loading="lazy" />
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/APP購入時のトップ画面EN.png" alt="Ask Japan アプリ画面サンプル1" loading="lazy" />
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/app-1-scaled.jpg" alt="Ask Japan アプリ画面サンプル2" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1503177119-9a0810793132?w=1200&h=800&fit=crop&q=80" alt="旅行中の利用シーンのイメージ写真" loading="lazy" />
               </div>
             </div>
           </div>
@@ -684,7 +780,7 @@
           <div class="speaker-card final-style reveal">
             <div class="speaker-identity">
               <div class="speaker-photo">
-                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/07/japankuru_creator_1.jpg" alt="金アンディ" />
+                <img src="https://www.gldaily.com/gld-kanri/wp-content/uploads/2024/07/japankuru_creator_1.jpg" alt="金アンディの顔写真" />
               </div>
               <div class="speaker-name">金 アンディ</div>
               <div class="speaker-title">JAPANKURU クリエイティブディレクター</div>
@@ -709,15 +805,15 @@
         </div>
         <div class="faq-container reveal">
           <details class="faq-item">
-            <summary class="faq-question">インフルエンサーによるコンテンツ制作と、貴社JAPANKURUの制作・発信にはどのような違いがありますか？</summary>
+            <summary class="faq-question" role="button" aria-expanded="false">インフルエンサーによるコンテンツ制作と、貴社JAPANKURUの制作・発信にはどのような違いがありますか？</summary>
             <div class="faq-answer">JAPANKURUのコンテンツは、資産としての普遍的な価値に焦点を当てて制作します。影響力に依存し、一時的な消費で終わらないように、多国籍専門チームによる徹底したローカライズや正確な情報発信を大事にし、企業向け公式ガイドとなるクオリティを追求しています。貴社のブランド価値を、持続的に高める戦略的な実行力で差別化を図っております。</div>
           </details>
           <details class="faq-item">
-            <summary class="faq-question">本セミナーに参加することで、具体的にどのようなメリットやソリューションが得られますか？</summary>
+            <summary class="faq-question" role="button" aria-expanded="false">本セミナーに参加することで、具体的にどのようなメリットやソリューションが得られますか？</summary>
             <div class="faq-answer">参加メリットは、「13年間」にわたりグローバルコンテンツ制作を行ってきたJAPANKURUの実践的ノウハウを習得できることです。その知見を活用することで、貴社のインバウンド施策に多角的かつ戦略的な視点が生まれ、今後の事業展開のための確かな戦略的知見を得ていただく機会として、ご参加をお勧めいたします。</div>
           </details>
           <details class="faq-item">
-            <summary class="faq-question">セミナーはオンラインで実施されませんか？参加が難しい場合、資料だけいただくことは可能ですか？</summary>
+            <summary class="faq-question" role="button" aria-expanded="false">セミナーはオンラインで実施されませんか？参加が難しい場合、資料だけいただくことは可能ですか？</summary>
             <div class="faq-answer">誠に申し訳ございませんが、本セミナーは<strong>会場での質疑応答と交流を重視し、オフライン（対面）のみ</strong>での開催となります。また、今回公開するコアなノウハウ資料は、現地ご参加者様への限定提供となります。現在、次回のセミナー企画ではオンライン開催も検討しておりますので、何卒ご容赦いただけますようお願い申し上げます。</div>
           </details>
         </div>
@@ -730,7 +826,11 @@
         <div class="cta-content reveal">
           <h2 class="cta-title">今すぐお申し込みを</h2>
           <p class="cta-subtitle">先着順・定員に達し次第締切となります。<br />JAPANKURUの13年間の経験と、Ask Japanという新しい試みをぜひ貴社のビジネスにお役立てください。</p>
-          <a href="#" class="hero-cta js-open-modal" data-modal="apply-form-modal" aria-haspopup="dialog" aria-controls="apply-form-modal">今すぐ無料で申し込む</a>
+          <div class="cta-actions">
+            <a href="#" class="hero-cta js-open-modal" data-modal="apply-form-modal" aria-haspopup="dialog" aria-controls="apply-form-modal">無料で席を確保（先着30社）</a>
+            <!-- その場で使えるICS（カレンダー追加）-->
+            <a class="hero-cta secondary" id="icsLink" download="seminar.ics" href="#">📅 カレンダーに追加</a>
+          </div>
         </div>
 
         <!-- CF7 short code holder (No-JS fallback via <noscript>) -->
@@ -746,29 +846,29 @@
     <div class="container">
       <div class="footer-content">
         <p><strong>主催: 株式会社グローバル・デイリー</strong></p>
-        <p>お問い合わせ: <a href="mailto:info@japankuru.com">info@japankuru.com</a> / 03-6860-7011</p>
+        <p>お問い合わせ: <a href="mailto:info@japankuru.com">info@japankuru.com</a> / <a href="tel:0368607011">03-6860-7011</a></p>
         <p class="footer-note">変化し続けるインバウンド市場で、常に選ばれ続けるブランドへ。JAPANKURUが、貴社の最も信頼できるパートナーになります。</p>
       </div>
     </div>
   </footer>
 
   <!-- Mobile share & sticky CTA -->
-  <div class="mobile-share-buttons">
+  <div class="mobile-share-buttons" aria-label="共有">
     <button class="mobile-share-btn native" title="シェア" aria-label="共有する">📤</button>
     <button class="mobile-share-btn line" title="LINEで送る" aria-label="LINEで送る">LINE</button>
     <button class="mobile-share-btn url" title="URLをコピー" aria-label="URLをコピー">URL</button>
   </div>
 
-  <div class="mobile-sticky-cta">
-    <a href="#apply">今すぐ無料で申し込む</a>
+  <div class="mobile-sticky-cta" aria-hidden="true">
+    <a href="#apply" class="js-open-modal" data-modal="apply-form-modal" aria-haspopup="dialog" aria-controls="apply-form-modal">無料で席を確保（先着30社）</a>
   </div>
 
-  <div id="toast-container"></div>
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Apply Form Modal -->
   <div id="apply-form-modal" class="jk-modal" role="dialog" aria-modal="true" aria-labelledby="applyFormTitle" aria-hidden="true">
     <div class="jk-modal__overlay" data-modal-close></div>
-    <div class="jk-modal__panel" role="document">
+    <div class="jk-modal__panel" role="document" tabindex="-1">
       <button class="jk-modal__close" type="button" aria-label="閉じる" data-modal-close>×</button>
       <div class="jk-modal__header">
         <h3 id="applyFormTitle" class="jk-modal__title">セミナー参加申込</h3>
@@ -787,6 +887,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       // ---------- Hero Slideshow ----------
       const slideshow = document.getElementById('heroSlideshow');
+      let slideTimer;
       if (slideshow) {
         const slides = [
           'https://www.gldaily.com/gld-kanri/wp-content/uploads/2025/10/492098105_1052432543583261_4966030045242197387_n.jpg',
@@ -812,11 +913,17 @@
           slideshow.appendChild(slide);
           return slide;
         });
-        setInterval(() => {
-          slideElements[currentSlide].classList.remove('active');
-          currentSlide = (currentSlide + 1) % slideElements.length;
-          slideElements[currentSlide].classList.add('active');
-        }, 5000);
+        const startSlides = () => {
+          slideTimer = setInterval(() => {
+            slideElements[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideElements.length;
+            slideElements[currentSlide].classList.add('active');
+          }, 5000);
+        };
+        const heroIO = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) { startSlides(); heroIO.disconnect(); }
+        }, { threshold: 0.2 });
+        heroIO.observe(document.querySelector('.hero'));
       }
 
       // ---------- Reveal on scroll ----------
@@ -880,15 +987,21 @@
       }
       if (btnUrl) {
         btnUrl.addEventListener('click', () => {
-          navigator.clipboard.writeText(window.location.href).then(() => {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+              showToast('URLをコピーしました！');
+              btnUrl.textContent = '✓';
+              btnUrl.classList.add('copied');
+              setTimeout(() => {
+                btnUrl.textContent = 'URL';
+                btnUrl.classList.remove('copied');
+              }, 2000);
+            }).catch(() => showToast('コピーに失敗しました'));
+          } else {
+            const ta=document.createElement('textarea'); ta.value=window.location.href; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
             showToast('URLをコピーしました！');
-            btnUrl.textContent = '✓';
-            btnUrl.classList.add('copied');
-            setTimeout(() => {
-              btnUrl.textContent = 'URL';
-              btnUrl.classList.remove('copied');
-            }, 2000);
-          }).catch(() => showToast('コピーに失敗しました'));
+          }
         });
       }
 
@@ -962,19 +1075,39 @@
       const target = document.getElementById('cf7-target');
       if (src && target) { target.innerHTML = src.innerHTML; }
 
-      // ---------- Modal ----------
+      // ---------- Modal (アクセシビリティ強化: フォーカストラップ/復帰) ----------
+      const modalRoot = document.getElementById('apply-form-modal');
+      const openButtons = document.querySelectorAll('.js-open-modal');
+      let lastActive;
+      function focusTrap(modal){
+        const FOCUS = 'a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])';
+        const nodes = modal.querySelectorAll(FOCUS);
+        if(!nodes.length) return;
+        const first = nodes[0], last = nodes[nodes.length-1];
+        modal.addEventListener('keydown', (e)=>{
+          if(e.key!=='Tab') return;
+          if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+          else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+        });
+      }
       function openModal(id){
         const modal = document.getElementById(id);
         if (!modal) return;
+        lastActive = document.activeElement;
         modal.setAttribute('aria-hidden','false');
         document.body.style.overflow = 'hidden';
+        modal.querySelector('.jk-modal__panel')?.focus();
+        document.querySelector('main, header, nav, footer')?.setAttribute('inert','');
+        focusTrap(modal);
       }
       function closeModal(modal){
         if (!modal) return;
         modal.setAttribute('aria-hidden','true');
         document.body.style.overflow = '';
+        document.querySelector('main, header, nav, footer')?.removeAttribute('inert');
+        lastActive?.focus();
       }
-      document.querySelectorAll('.js-open-modal').forEach(btn => {
+      openButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           openModal(btn.dataset.modal);
@@ -998,7 +1131,53 @@
           dateEl.textContent = `${d.getMonth()+1}月${d.getDate()}日 (${w})`;
         } catch(e){}
       }
+
+      // ---------- Mobile fixed CTA: 25%で表示、フォーム近くで非表示 ----------
+      const formSection = document.getElementById('apply');
+      const mobileCta = document.querySelector('.mobile-sticky-cta');
+      let stickyShown = false;
+      function onScroll(){
+        if(!formSection || !mobileCta) return;
+        const scrolledRatio = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+        const formTop = formSection.getBoundingClientRect().top;
+        const nearForm = formTop < 400;
+        if(scrolledRatio > 0.25 && !nearForm && !stickyShown){ mobileCta.style.display='flex'; mobileCta.setAttribute('aria-hidden','false'); stickyShown = true; positionShareButtons(); }
+        if(nearForm && stickyShown){ mobileCta.style.display='none'; mobileCta.setAttribute('aria-hidden','true'); positionShareButtons(); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // ---------- FAQ summary ARIA sync ----------
+      document.querySelectorAll('details.faq-item > summary').forEach(sum => {
+        sum.addEventListener('click', () => {
+          const d = sum.parentElement; sum.setAttribute('aria-expanded', d.open ? 'false' : 'true');
+        });
+      });
+
+      // ---------- ICS link生成（UTCに注意） ----------
+      (function buildICS(){
+        const a = document.getElementById('icsLink');
+        if(!a) return;
+        const start = new Date('2025-11-27T16:00:00+09:00');
+        const end   = new Date('2025-11-27T18:00:00+09:00');
+        function toICS(dt){
+          const pad=n=>String(n).padStart(2,'0');
+          return dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+'T'+pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+pad(dt.getUTCSeconds())+'Z';
+        }
+        const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//GLOBAL DAILY//SEMINAR//JP\nBEGIN:VEVENT\nDTSTART:${toICS(start)}\nDTEND:${toICS(end)}\nSUMMARY:インバウンド・クリエイティブ戦略セミナー\nLOCATION:TIX Tower（台東区上野）\nDESCRIPTION:受付15:45〜／Ask Japan初公開\nEND:VEVENT\nEND:VCALENDAR`;
+        a.href = 'data:text/calendar;charset=utf8,' + encodeURIComponent(ics);
+      })();
     });
   </script>
+<script>
+// ==== Proof visibility toggle (no code removal) ====
+document.addEventListener('DOMContentLoaded', function(){
+  const mode = (window.JK_CONFIG && window.JK_CONFIG.proofMode) || 'private';
+  document.querySelectorAll('[data-proof]')?.forEach(el=>{
+    const show = el.getAttribute('data-proof') === mode;
+    el.style.display = show ? '' : 'none';
+  });
+});
+</script>
 </body>
 </html>
