@@ -1038,12 +1038,189 @@
         font-size: 18px;
     }
 }
+/* ------------------------------------------- */
+/* 새로 추가할 모바일 전용 Sticky Nav 스타일 */
+/* ------------------------------------------- */
 
+/* 모바일 전용 Sticky Nav 컨테이너 */
+.mobile-sticky-nav-top {
+    /* 모바일에서만 표시 */
+    display: none;
+    position: fixed; /* 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 900; /* CTA보다 낮게 설정 */
+    background: rgba(255, 255, 255, 0.95); /* 반투명 배경 */
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    overflow-x: auto; /* 내용이 넘칠 경우 스크롤 가능하도록 */
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap; /* 항목이 한 줄에 표시되도록 */
+}
+
+.mobile-sticky-nav-top .container {
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.mobile-sticky-nav-top .nav-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 15px;
+}
+
+.mobile-sticky-nav-top .nav-item {
+    display: inline-block;
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    font-size: 13px; /* 모바일에서 조금 작게 */
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all .2s ease;
+    flex-shrink: 0; /* 항목 크기가 줄어들지 않도록 */
+    border: 1px solid var(--color-border);
+}
+
+.mobile-sticky-nav-top .nav-item:active {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+}
+
+/* 모바일 미디어 쿼리 내에서 상단 Nav 표시 */
+@media (max-width: 768px) {
+    /* 기존 PC용 Nav 숨김 유지 */
+    .nav-section{display:none} 
+    
+    /* 새로 만든 모바일용 Sticky Nav 표시 */
+    .mobile-sticky-nav-top{display:block}
+    
+    /* 모바일 CTA의 bottom 위치 조정 (새로운 상단바와 겹치지 않도록) */
+    .mobile-share-buttons { bottom: 85px; } /* 90px에서 85px로 살짝 조정 */
+}
+/* --- 모바일 최적화 (Additional Enhancements for max-width: 768px) --- */
+@media (max-width: 768px) {
+    /* -------------------------------------- */
+    /* 1. 기본 레이아웃 및 폰트 크기 조정 */
+    /* -------------------------------------- */
+    .section { padding: 80px 0; } /* 섹션 간격 축소 */
+    .section-header { margin-bottom: 40px; }
+    .section-title { font-size: 26px; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .section-subtitle { font-size: 15px; }
+    .container { padding: 0 15px; }
+
+    /* -------------------------------------- */
+    /* 2. Problems & Targets (그리드 최적화) */
+    /* -------------------------------------- */
+    .problems-grid { grid-template-columns: 1fr; gap: 18px; } /* 1열로 변경 */
+    .problem-card { padding: 20px; }
+    .problem-count { font-size: 20px; }
+    .problem-text { font-size: 15px; }
+    .solution-box { margin-top: 30px; font-size: 16px; padding: 20px; }
+
+    .target-grid { grid-template-columns: 1fr; gap: 15px; } /* 1열로 변경 */
+    .target-item { padding: 15px; font-size: 15px; }
+
+    /* -------------------------------------- */
+    /* 3. Roles (JAPANKURUの役割) 섹션 조정 */
+    /* -------------------------------------- */
+    .roles-container-featured { 
+        grid-template-columns: 1fr; /* 1열로 변경 */
+        gap: 20px; 
+    }
+    .role-item-main { 
+        order: -1; /* Role 01을 맨 위로 이동 */
+        margin-top: 0;
+    }
+    .role-item-sub { padding: 25px 20px; }
+    .role-title { font-size: 20px; }
+    .role-description { font-size: 15px; }
+    
+    /* 슬라이더 높이 및 캡션 조정 */
+    .role-item-main .role-image { height: 300px; } /* 높이 줄이기 */
+    .slide-caption { padding: 20px 15px; font-size: 14px; }
+    .slider-nav { width: 30px; height: 30px; font-size: 16px; }
+
+    /* -------------------------------------- */
+    /* 4. Ask Japan (다크 섹션) 조정 */
+    /* -------------------------------------- */
+    .askjapan-intro-grid { 
+        grid-template-columns: 1fr; 
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+    .askjapan-logo { font-size: 42px; text-align: center !important; }
+    .askjapan-intro-text .askjapan-concept { text-align: center !important; font-size: 16px; }
+    .intro-eyebrow, .askjapan-tagline { text-align: center !important; }
+    .askjapan-release-info { padding: 20px; }
+    .askjapan-release-info h3 { font-size: 16px; }
+    
+    .askjapan-main-content { grid-template-columns: 1fr; gap: 40px; margin: 30px 0; }
+    .askjapan-feature-item { gap: 15px; }
+    .feature-icon { font-size: 40px; width: 45px; margin-top: 0; }
+    .feature-content h4 { font-size: 18px; }
+    .askjapan-image-stack { gap: 15px; }
+    .askjapan-final-statement { font-size: 18px; margin-top: 40px; padding-top: 40px; }
+
+    /* -------------------------------------- */
+    /* 5. Program (시간표) 섹션 조정 */
+    /* -------------------------------------- */
+    .program-item { padding: 0 0 30px 30px; }
+    .program-item::before { left: 4px; }
+    .program-item::after { width: 10px; height: 10px; border-width: 2px; left: 0; top: 8px; }
+    .program-time { font-size: 14px; min-width: 80px; }
+    .program-title { font-size: 16px; }
+    .program-description { font-size: 15px; }
+
+    /* -------------------------------------- */
+    /* 6. Benefits & FAQ 섹션 조정 */
+    /* -------------------------------------- */
+    .benefits-grid-revised { grid-template-columns: 1fr; gap: 20px; } /* 1열로 변경 */
+    .benefit-item { padding: 25px 20px; }
+    .benefit-header { gap: 12px; margin-bottom: 10px; }
+    .benefit-number { font-size: 18px; }
+    .benefit-title { font-size: 16px; }
+    .benefit-description-revised { font-size: 14px; padding-left: 30px; }
+
+    .faq-question { padding: 18px 20px; font-size: 15px; }
+    .faq-answer { padding: 0 20px 20px; font-size: 15px; }
+
+    /* -------------------------------------- */
+    /* 7. Speakers 섹션 조정 */
+    /* -------------------------------------- */
+    .speaker-card.final-style { padding: 40px 25px; }
+    .speaker-photo { width: 120px; height: 120px; border-width: 6px; margin-bottom: 20px; }
+    .speaker-name { font-size: 30px; }
+    .speaker-title { font-size: 18px; }
+    .speaker-bio p { font-size: 15px; }
+
+    /* -------------------------------------- */
+    /* 8. CTA & Footer 조정 */
+    /* -------------------------------------- */
+    .cta-section { padding: 80px 0; }
+    .cta-title { font-size: 26px; }
+    .cta-subtitle { font-size: 15px; }
+    .footer { padding: 40px 0; }
+}
  </style>
 </head>
 
 <body>
-
+<nav class="mobile-sticky-nav-top">
+    <div class="container">
+        <div class="nav-container">
+            <a href="#problems" class="nav-item">✅ お悩み</a>
+            <a href="#roles" class="nav-item">💡 JAPANKURUの役割</a>
+            <a href="#ask-japan-section" class="nav-item">📲 Ask Japan</a>
+            <a href="#program" class="nav-item">📚 プログラム</a>
+            <a href="#speakers" class="nav-item">👤 スピーカー</a>
+            <a href="#apply" class="nav-item nav-cta" style="background:var(--color-accent);color:#fff !important;border-color:var(--color-accent)">⚡ 参加申込</a>
+        </div>
+    </div>
+</nav>
   <header class="hero" id="top">
     <div class="hero-slideshow" id="heroSlideshow" style="display:none;"></div> 
     
@@ -1372,7 +1549,7 @@
                     <div class="speaker-name">金 アンディ</div>
                     <div class="speaker-title">JAPANKURU クリエイティブディレクター</div>
                     
-                    <span class="speaker-position">JAPANKURU 創立者</span>
+                    <span class="speaker-position">JAPANKURU 創立者（13年目）</span>
                 </div> <div class="speaker-details">
                     <div class="speaker-bio">
                         <p>
